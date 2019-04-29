@@ -97,9 +97,9 @@ def debug_marks(path, image, clean, marks, res):
         i, x, y, w, h = mark
         v = row[1]
         if v == 1:
-            c = (255, 0, 0, 127)
-        elif v == 0:
             c = (0, 255, 0, 127)
+        elif v == 0:
+            c = (255, 0, 0, 127)
         elif v == 2:
             c = (0, 0, 0, 64)
         else:
