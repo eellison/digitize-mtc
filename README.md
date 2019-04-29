@@ -15,6 +15,7 @@ Dependencies
 Getting Started
 ---------------
 To get a feel for how the script works, run the following line:
+
 `>> ./simpleomr -d debug.png example_files/marks.svg example_files/filled_2.png`
 
 It might take as many as 20 seconds to run given that there is currently
