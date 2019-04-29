@@ -15,16 +15,15 @@ Dependencies
 Getting Started
 ---------------
 To get a feel for how the script works, run the following line:
->> ./simpleomr -d debug.png example_files/marks.svg example_files/filled_2.png
+`>> ./simpleomr -d debug.png example_files/marks.svg example_files/filled_2.png`
 
-It should take about ~15 seconds to run given that there is currently
-no optimization in the OMR algorithm. The script's guess at the state
-of each checkbox will be printed to the console, along with the score
-associated with the box. Opening "debug.png" will show a visual
-representation of what the algorithm saw. The boxes it checks are determined
-by "rect" tags located in the XML representation of the marks.svg file.
+It might take as many as 20 seconds to run given that there is currently
+no optimization in the algorithm. Results will be printed to console.
+Opening *debug.png* will show a visual representation of what the algorithm saw.
+The OMR regions are determined by "rect" tags located in the XML
+representation of the *marks.svg* file.
 
 
-Note: Settings and tolerances are tuned for 300 dpi gray-scale documents
+**Note:** Settings and tolerances are tuned for 300 dpi gray-scale documents
 
 Started as a fork of RescueOMR (https://github.com/EuracBiomedicalResearch/RescueOMR) created by Yuri D'Elia at EURAC, distributed under GNU AGPLv3+.
