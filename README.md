@@ -45,9 +45,8 @@ the result as an SVG file.
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/checkbox_locations.svg)
 
 2. Next we feed the script a filled-out version of the record. This image
-should be a 300 dpi grayscale scan. It's worth tinkering with the script's
-internal thresholds and the input image's contrast to see what yields
-the best results. For example, image below was edited to increase its contrast.
+should be a 300 dpi grayscale scan. It's worth tinkering with the contrast of the input image and the thresholds used by the script to see what configuration yields
+the best results. For example, the document below had its contrast increased after scanning to improve the OMR accuracy.
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/input/filled_form_1.png)
 
 3. The script outputs a visual representation of its results.
