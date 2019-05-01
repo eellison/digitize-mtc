@@ -16,16 +16,21 @@ Getting Started
 ---------------
 To get a feel for how the script works, run the following line:
 
-`>> ./simpleomr -d output.png example/checkbox_locations.svg example/input/filled_form_1.png`
-
-*output.png*: location that the script will write its output to
+`>> ./simpleomr example/checkbox_locations.svg example/input/filled_form_1.png output.txt -d output.png `
 
 *checkbox_locations.svg*: an SVG file containing the regions of the
-input document to scan (determined by <rect> tags within its XML); this is a
+input document to scan (determined by <rect> tags within its XML); in this example is is a
 blank copy of the clinic's antenatal record
 
 *example/input/filled_form_1.png*: input file for processing, representing
 a filled antenatal record
+
+*output.txt*: path to which  the script will write TSV output
+
+*output.png*: path to which the script will write visual debug output
+
+
+
 
 It might take 15-25 seconds to run given that there is currently
 no optimization in the algorithm. Results will be printed to console.

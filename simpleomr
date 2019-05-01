@@ -104,13 +104,13 @@ def debug_marks(path, image, clean, marks, res):
         i, x, y, w, h = mark
         v = row[1]
         if v == Checkbox_State.Checked:
-            c = (0, 255, 0, 127)
+            c = (0, 255, 0, 127) # green
         elif v == Checkbox_State.Empty:
-            c = (255, 0, 0, 127)
+            c = (255, 0, 0, 127) # red
         elif v == Checkbox_State.Filled:
-            c = (0, 0, 0, 64)
+            c = (0, 0, 0, 64) # gray
         else:
-            c = (255, 127, 0, 127)
+            c = (255, 127, 0, 127) # orange
         draw.rectangle((x, y, x+w, y+h), c)
     bw = clean.copy()
     thr = bw < BLACK_LEVEL
@@ -121,18 +121,22 @@ def debug_marks(path, image, clean, marks, res):
               Image.fromarray(bw, 'L'))
     buf.save(path)
 
-def print_mark_output(res):
+def print_mark_output(res, path):
     headers = [("Checkbox ID", "OMR Outcome", "Score"), ("-----------", "-----------", "-----")]
     output = [(i, Checkbox_State(v).name, str(s)) for i, v, s in res]
     lines = headers + output
-    col_width = max(len(word) for line in lines for word in line) + 2  # padding
-    for line in lines:
-        print("".join(word.ljust(col_width) for word in line))
+    col_width = max(len(word) for line in lines for word in line)
+    with open(path,'w') as f:
+        for line in lines:
+            formatted_line = "\t".join(word.ljust(col_width) for word in line)
+            f.write(formatted_line + "\n")
+            print(formatted_line)
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('template', help='Data template (svg)')
     ap.add_argument('image', help='Image to analyze')
+    ap.add_argument('text', help='Text output to file')
     ap.add_argument('-d', dest='debug', help='Debug marks to file')
     ap.add_argument('-v', dest='verbose', action='count', default=0, help='Increase verbosity')
     args = ap.parse_args()
@@ -154,7 +158,7 @@ def main():
         debug_marks(args.debug, image, clean, marks, res)
 
     # output
-    print_mark_output(res)
+    print_mark_output(res, args.text)
 
 if __name__ == '__main__':
     sys.exit(main())
