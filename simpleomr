@@ -6,6 +6,7 @@ import sys
 import re
 
 from PIL import Image, ImageDraw, ImageOps
+from skimage.filters import threshold_local
 from enum import Enum
 import numpy as np
 import scipy as sp
@@ -14,10 +15,10 @@ import lxml.etree
 
 
 # tuned for 300 dpi grayscale text
-BLACK_LEVEL  = 0.80 * 255
-FILL_THR     = 0.040 # threshold for filled box
-CHECK_THR    = 0.350 # threshold for checked box
-EMPTY_THR    = 0.008 # threashold for empty box
+BLACK_LEVEL  = 0.5 * 255
+FILL_THR     = 0.01 # threshold for filled box
+CHECK_THR    = 0.5 # threshold for checked box
+EMPTY_THR    = 0.01 # threashold for empty box
 
 # H/V line rejection
 CLEAN_LEN = 47  # window length (must be odd)
@@ -68,22 +69,19 @@ def load_svg_rects(path, shape):
 
 
 def clean_image(image):
-    s = CLEAN_LEN
-    w = CLEAN_W
-    k = -np.ones(shape=(s, s))
-    k[:,s//2-w+1:s//2+w] = 1
-    k[s//2-w+1:s//2+w,:] = 1
-    tmp = sp.ndimage.convolve(image/255, k) / np.sum(k)
-    ret = image.copy()
-    ret[tmp > CLEAN_THR] = 255
-    return ret
+    T = threshold_local(image, 11, offset=10, method="gaussian")
+    clean = (image > T).astype("uint8")*255
+    return clean
 
 
 def scan_marks(image, marks):
     res = []
     for i, x, y, w, h in marks:
-        roi = image[y:y+h, x:x+w]
-        scr = (roi < BLACK_LEVEL).sum() / (w*h)
+        # roi = image[y:y+h, x:x+w]
+        # scr = (roi < BLACK_LEVEL).sum() / (w*h)
+        roi = image[y:y+h, x:x+w] < BLACK_LEVEL
+        masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
+        scr = (masked).sum() / (w*h)
         if scr > CHECK_THR:
             v = Checkbox_State.Filled
         elif scr > FILL_THR:
