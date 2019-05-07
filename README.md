@@ -11,6 +11,7 @@ Dependencies
 - SciPy (``python3-scipy``)
 - scikit-image (``python3-skimage``)
 - opencv (``opencv-python``)
+- pathlib (``pathlib``)
 
 
 The OMR Step
