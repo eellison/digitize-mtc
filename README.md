@@ -13,12 +13,14 @@ Dependencies
 - opencv (``opencv-python``)
 - pathlib (``pathlib``)
 
+All of these can be installed used `pip` or `conda`. If you're trying to install `opencv` using `conda`, you may need to run `conda install -c menpo opencv`.
+
 
 Getting Started
 ===============
 To get a feel for how the scripts works, run the following line:
 
-`./bin/digitize ./example/template.jpg ./example/checkbox_locations.svg ./example/bad_scans/input/shift_skew_cutoff.jpg`
+`./bin/digitize ./example/template.jpg ./example/checkbox_locations.svg ./example/bad_scans/input/sample_scan.jpg`
 
 
 | Parameter                           | Description   |
