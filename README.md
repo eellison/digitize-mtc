@@ -82,7 +82,7 @@ able to make a confident guess.
 
 
 Credits
--------
+=======
 The alignment method used was inspired by this post from Satya Mallik on LearnOpenCV (https://www.learnopencv.com/image-alignment-feature-based-using-opencv-c-python/)
 
 The OMR script started as a fork of RescueOMR (https://github.com/EuracBiomedicalResearch/RescueOMR) created by Yuri D'Elia at EURAC, distributed under GNU AGPLv3+.
