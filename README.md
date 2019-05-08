@@ -58,7 +58,7 @@ Step 1: Alignment
 1. We start with a clean scan of a blank, unfilled medical record (`example/template.jpg`).
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/template.jpg)
 
-2. Next we get a scan of filled medical record (`example/bad_scans/input/sample_scan.jpg`). This scan will likely be rotated/skewed/shifted due to imprecision during "real world" use (ex. in a clinical setting).
+2. Next we get a scan of a filled medical record (`example/bad_scans/input/sample_scan.jpg`). This scan will likely be rotated/skewed/shifted due to imprecision during "real world" use (ex. in a clinical setting).
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/bad_scans/input/sample_scan.jpg)
 
 3. Feed the `align` script the two images above. It will calculate a re-alignment of sample scan that orients it based on the template record. The script will output the re-aligned sample (`output/sample_scan_aligned.jpg`), as well as a debug image displaying the features it used to calculate the alignment (`output/sample_scan_matched.jpg`).

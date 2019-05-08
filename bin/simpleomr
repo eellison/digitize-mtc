@@ -15,9 +15,9 @@ import lxml.etree
 
 # tuned for 300 dpi grayscale text
 BLACK_LEVEL  = 0.5 * 255
-FILL_THR     = 0.01 # threshold for filled box
-CHECK_THR    = 0.5 # threshold for checked box
-EMPTY_THR    = 0.01 # threashold for empty box
+FILL_THR     = 0.11 # threshold for filled box
+CHECK_THR    = 0.04 # threshold for checked box
+EMPTY_THR    = 0.02 # threashold for empty box
 
 # H/V line rejection
 CLEAN_LEN = 47  # window length (must be odd)
@@ -81,9 +81,9 @@ def scan_marks(image, marks):
         roi = image[y:y+h, x:x+w] < BLACK_LEVEL
         masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
         scr = (masked).sum() / (w*h)
-        if scr > CHECK_THR:
+        if scr > FILL_THR:
             v = Checkbox_State.Filled
-        elif scr > FILL_THR:
+        elif scr > CHECK_THR:
             v = Checkbox_State.Checked
         elif scr < EMPTY_THR:
             v = Checkbox_State.Empty
