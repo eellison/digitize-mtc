@@ -20,7 +20,9 @@ Getting Started
 ===============
 To get a feel for how the scripts works, run the following line:
 
-`./bin/digitize ./example/template.jpg ./example/checkbox_locations.svg ./example/bad_scans/input/sample_scan.jpg`
+```
+./bin/digitize ./example/template.jpg ./example/checkbox_locations.svg ./example/bad_scans/input/sample_scan.jpg
+```
 
 
 | Parameter                           | Description   |
