@@ -14,8 +14,8 @@ def main():
     ap.add_argument('-d', dest='debug', help='Debug marks to file')
     args = ap.parse_args()
 
-    ### Step 0: Sort out some path names
-    ####################################
+    ### Step 0: Sort out some path names ###
+    ########################################
     local_path = os.path.dirname(os.path.abspath(__file__)) # path to this script
     input_image_name = Path(args.image).stem
     output_dir_name = "output"
@@ -26,19 +26,19 @@ def main():
         pass # directory already exists
     output_path = Path.cwd() / output_dir_name
 
-    # Step 1: Call the alignment script
+    ### Step 1: Call the alignment script ####
+    ##########################################
     aligned_output_path = output_path / (input_image_name + "_aligned.jpg")
     matched_output_path = output_path / (input_image_name + "_matched.jpg")
     print(aligned_output_path)
     print(matched_output_path)
     subprocess.run([local_path + "/align", args.template, args.image, aligned_output_path, matched_output_path])
 
-    # Step 2: Call the OMR script
+    ### Step 2: Call the OMR script ###
+    ###################################
     text_output_path = output_path / (input_image_name + "_omr_classification.txt")
     debug_output_path = output_path / (input_image_name + "_omr_debug.png")
     subprocess.run([local_path + "/simpleomr", args.checkbox_locations, aligned_output_path, text_output_path, "-d", debug_output_path])
-
-
 
 if __name__ == '__main__':
     sys.exit(main())
