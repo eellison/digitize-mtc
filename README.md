@@ -47,39 +47,33 @@ output of processing each corresponding image in  `example/bad_scans/output`, an
 
 
 
-General Idea
+Walkthrough
 ============
 
 Step 1: Alignment
 -----------------
 
-1. We start with a clean scan of a blank, unfilled medical record (`template.jpg`).
+1. We start with a clean scan of a blank, unfilled medical record (`example/template.jpg`).
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/template.jpg)
 
-2. Next we get a scan of filled medical record (`sample_scan.jpg`). This scan will likely be rotated/skewed/shifted due to imprecision when scanning during "real world" use (ex. in a clinical setting).
+2. Next we get a scan of filled medical record (`example/bad_scans/input/sample_scan.jpg`). This scan will likely be rotated/skewed/shifted due to imprecision during "real world" use (ex. in a clinical setting).
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/bad_scans/input/sample_scan.jpg)
 
-3. Feel the `align` script the two images above. It will calculate a re-alignment of sample scan that orients it based on the template record. The script will output the re-aligned sample, as well as a debug image displaying the features it used to calculate the alignment.
+3. Feed the `align` script the two images above. It will calculate a re-alignment of sample scan that orients it based on the template record. The script will output the re-aligned sample (`output/sample_scan_aligned.jpg`), as well as a debug image displaying the features it used to calculate the alignment (`output/sample_scan_matched.jpg`).
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/bad_scans/output/sample_scan_matched.jpg)
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/bad_scans/output/sample_scan_aligned.jpg)
 
 
+Step 12 Mark Recognition
+------------------------
 
-
-2. Using an image
-editor we draw rectangles around the checkboxes we are interested in, and save
-the result as an SVG file.
+1. Now that we have an aligned scan, we need to pick out the the areas we want to target for mark recognition. Using an image editor we draw rectangles around the checkboxes we are interested in, and save the result as an SVG file (`example/checkbox_locations.svg`).
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/checkbox_locations.svg)
 
-2. Next we feed the script a filled-out version of the record. This image
-should be a 300 dpi grayscale scan. It's worth tinkering with the contrast of the input image and the thresholds used by the script to see what configuration yields
-the best results. For example, the document below had its contrast increased after scanning to improve the OMR accuracy.
-![](https://github.com/sdrp/digitize-mtc/blob/master/example/input/filled_form_1.png)
-
-3. The script outputs a visual representation of its results. Green represents boxes that the script determined were checked. Red
+2. Finally we feed the `simpleomr` script the aligned scan, along with the SVG file containing the checkbox locations. The script outputs a text file with results (`output/sample_scan_omr_classification.txt`) as well as a visual representation of its results (`output/sample_scan_omr_debug.png`). Green represents boxes that the script determined were checked. Red
 represents empty (unchecked) boxes, and orange means that the script was not
 able to make a confident guess.
-![](https://github.com/sdrp/digitize-mtc/blob/master/example/output/form_1_processed.png)
+![](https://github.com/sdrp/digitize-mtc/blob/master/example/bad_scans/output/sample_scan_omr_debug.png)
 
 
 
