@@ -64,7 +64,7 @@ Step 1: Alignment
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/bad_scans/output/sample_scan_aligned.jpg)
 
 
-Step 12 Mark Recognition
+Step 2: Mark Recognition
 ------------------------
 
 1. Now that we have an aligned scan, we need to pick out the the areas we want to target for mark recognition. Using an image editor we draw rectangles around the checkboxes we are interested in, and save the result as an SVG file (`example/checkbox_locations.svg`).
