@@ -37,8 +37,8 @@ This command should take a few seconds to run. The `digitize` script will first 
 
 Algorithm progress and diagnostics will be printed to console. Output files will be written to an `output/` directory. In it you will find:
 
-| Parameter                           | Description   |
-| -------------                       |:--------------|
+| Output File                           | Description   |
+| -------------                         |:--------------|
 | `sample_pic_aligned.jpg`           | a transformation of `sample_pic.jpg`, aligned and cropped to match the orientation of `template.jpg` |
 | `sample_pic_matched.jpg`           | a diagnostic image showing the shared features used by the `align` script to calculate the re-alignment |
 | `sample_pic_omr_classification.txt`| text output of the `simpleomr` script, including scores for each checkbox classification |
