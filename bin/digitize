@@ -17,8 +17,12 @@ def main():
     ########################################
     ### Step 0: Sort out some path names ###
     ########################################
-    local_path = os.path.dirname(os.path.abspath(__file__)) # path to this script
-    input_image_name = Path(args.image).stem
+    '''
+    NOTE: The pathlib library is essential to ensure that that all
+    paths are operating-system agnostic.
+    '''
+    local_path = Path(os.path.dirname(os.path.abspath(__file__))) # path to this script
+    input_image_name = Path(args.image).stem # name of the input image file, minus the file extension
     output_dir_name = "output"
     # Make the output directory if it doesn't exist
     try:
@@ -33,7 +37,7 @@ def main():
     ##########################################
     aligned_output_path = output_path / (input_image_name + "_aligned.jpg")
     matched_output_path = output_path / (input_image_name + "_matched.jpg")
-    subprocess.run([local_path + "/align", args.template, args.image, aligned_output_path, matched_output_path])
+    subprocess.run([local_path / "align", args.template, args.image, aligned_output_path, matched_output_path])
 
 
     ###################################
@@ -41,7 +45,7 @@ def main():
     ###################################
     text_output_path = output_path / (input_image_name + "_omr_classification.txt")
     debug_output_path = output_path / (input_image_name + "_omr_debug.png")
-    subprocess.run([local_path + "/simpleomr", args.checkbox_locations, aligned_output_path, text_output_path, "-d", debug_output_path])
+    subprocess.run([local_path / "simpleomr", args.checkbox_locations, aligned_output_path, text_output_path, "-d", debug_output_path])
 
 if __name__ == '__main__':
     sys.exit(main())
