@@ -2,13 +2,16 @@
 from collections import namedtuple
 import json as JSON
 
+
+# TODO: improve how model is converted to/from JSON...lots of hardcoded boilerplate here
+
 class Form():
     def __init__(self, name, image, questions):
         self.name = name # name of data table
         self.image = image # path to image
         self.questions = questions # list of Question
 
-    def to_JSON(self):
+    def to_JSON():
         dict_repr = self.__dict__
         dict_repr["__type__"] = Form.__name__
         dict_repr["questions"] = [q.to_JSON() for q in self.questions]
@@ -51,6 +54,37 @@ class Location():
         return dict_repr
 
 
+# Returns an object of type Form
+def decode(json):
+    if '__type__' in json and json['__type__'] == Form.__name__:
+        questions = [decode(question) for question in json["questions"]]
+        return Form(json['name'], json['image'], questions)
+    elif '__type__' in json and json['__type__'] == Question.__name__:
+        responses = [decode(response) for response in json["responses"]]
+        return Question(json['name'], json['type'], responses)
+    elif '__type__' in json and json['__type__'] == Response.__name__:
+        location = decode(json['location'])
+        return Response(json['name'], location, json['background'])
+    elif '__type__' in json and json['__type__'] == Location.__name__:
+        return Location(json['x'], json['y'], json['width'], json['height'])
+    else:
+        raise Exception("Unable to convert JSON to internal Form model; No recognized __type__ field; %s" % json)
+
+
+loc1 = Location(1, 2, 3, 4)
+loc2 = Location(2, 4, 6, 8)
+r1 = Response("R1", loc1, [])
+r2 = Response("R2", loc2, [])
+q1 = Question("Q1", "Radio Button", [r1])
+q2 = Question("Q2", "Checkbox", [r2])
+f = Form("anc template", "example/phone_pics/images", [q1, q2])
+
+print(decode(f.to_JSON()).to_JSON())
+
+
+
+
+
 ### JSON encoder / decoder ###
 # Returns a dict that can be serialized to JSON
 # def encode(py_class):
@@ -78,32 +112,16 @@ class Location():
 #     else:
 #         raise Exception("Invalid input class for JSON encoding.")
 
-# Returns an object of type Form
-def decode(json):
-    if '__type__' in json and json['__type__'] == Form.__name__:
-        questions = [decode(question) for question in json["questions"]]
-        return Form(json['name'], json['image'], questions)
-    elif '__type__' in json and json['__type__'] == Question.__name__:
-        responses = [decode(response) for response in json["responses"]]
-        return Question(json['name'], json['type'], responses)
-    elif '__type__' in json and json['__type__'] == Response.__name__:
-        location = decode(json['location'])
-        return Response(json['name'], location, json['background'])
-    elif '__type__' in json and json['__type__'] == Location.__name__:
-        return Location(json['x'], json['y'], json['width'], json['height'])
-    else:
-        raise Exception("Unable to convert JSON to internal Form model; No recognized __type__ field; %s" % json)
-
-
-def from_dict(d):
-    return namedtuple("Form", d.keys())(*d.values())
-
-loc1 = Location(1, 2, 3, 4)
-loc2 = Location(2, 4, 6, 8)
-r1 = Response("R1", loc1, [])
-r2 = Response("R2", loc2, [])
-q1 = Question("Q1", "Radio Button", [r1])
-q2 = Question("Q2", "Checkbox", [r2])
-f = Form("anc template", "example/phone_pics/images", [q1, q2])
-
-print(decode(f.to_JSON()).to_JSON())
+# class JSONable():
+#     def __init__(self, json_tag):
+#         self.json_tag = json_tag
+#
+#     def to_JSON(self):
+#         dict_repr = self.__dict__
+#         dict_repr["__type__"] = self.json_tag
+#         for k, v in dict_repr.items():
+#             if isinstance(v, JSONable):
+#                 dict_repr[k] = v.to_JSON()
+#             elif isinstance(v, list) and all(isinstance(n, JSONable) for n in v):
+#                 dict_repr[k] = [n.to_JSON() for n in v]
+#         return dict_repr
