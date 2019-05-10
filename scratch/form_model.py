@@ -1,9 +1,7 @@
 # Model for annotating forms
-from collections import namedtuple
 import json as JSON
+from copy import deepcopy
 
-
-# TODO: improve how model is converted to/from JSON...lots of hardcoded boilerplate here
 
 class Form():
     def __init__(self, name, image, questions):
@@ -11,35 +9,17 @@ class Form():
         self.image = image # path to image
         self.questions = questions # list of Question
 
-    def to_JSON():
-        dict_repr = self.__dict__
-        dict_repr["__type__"] = Form.__name__
-        dict_repr["questions"] = [q.to_JSON() for q in self.questions]
-        return dict_repr
-
 class Question():
     def __init__(self, name, type, responses):
         self.name = name # name of column in data table
         self.type = type # type of question, ex. checkbox, radio button
         self.responses = responses
 
-    def to_JSON(self):
-        dict_repr = self.__dict__
-        dict_repr["__type__"] = Question.__name__
-        dict_repr['responses'] = [r.to_JSON() for r in self.responses]
-        return dict_repr
-
 class Response():
     def __init__(self, name, location, background):
         self.name = name # meaning of the cell
         self.location =  location # Location; location within the template image
         self.background = background # array of background pixels within the template
-
-    def to_JSON(self):
-        dict_repr = self.__dict__
-        dict_repr["__type__"] = Response.__name__
-        dict_repr['location'] = self.location.to_JSON()
-        return dict_repr
 
 class Location():
     def __init__(self, x, y, width, height):
@@ -48,28 +28,48 @@ class Location():
         self.width = width # width of bounding rectangle
         self.height = height # height of bounding rectangle
 
-    def to_JSON(self):
-        dict_repr = self.__dict__
-        dict_repr["__type__"] = Location.__name__
+
+# JSON encoder for Form objects
+class FormEncoder(JSON.JSONEncoder):
+    def get_basic_dict(self, obj):
+        dict_repr = deepcopy(obj.__dict__)
+        dict_repr["__type__"] = obj.__class__.__name__
         return dict_repr
 
+    def default(self, obj):
+        if isinstance(obj, Form):
+            dict_repr = self.get_basic_dict(obj)
+            dict_repr["questions"] = [self.default(q) for q in obj.questions]
+            return dict_repr
+        elif isinstance(obj, Question):
+            dict_repr = self.get_basic_dict(obj)
+            dict_repr["responses"] = [self.default(r) for r in obj.responses]
+            return dict_repr
+        elif isinstance(obj, Response):
+            dict_repr = self.get_basic_dict(obj)
+            dict_repr["location"] = self.default(obj.location)
+            return dict_repr
+        elif isinstance(obj, Location):
+            return self.get_basic_dict(obj)
+        else:
+            # Let the base class default method raise the TypeError
+            json.JSONEncoder.default(self, obj)
 
-# Returns an object of type Form
-def decode(json):
-    if '__type__' in json and json['__type__'] == Form.__name__:
-        questions = [decode(question) for question in json["questions"]]
-        return Form(json['name'], json['image'], questions)
-    elif '__type__' in json and json['__type__'] == Question.__name__:
-        responses = [decode(response) for response in json["responses"]]
-        return Question(json['name'], json['type'], responses)
-    elif '__type__' in json and json['__type__'] == Response.__name__:
-        location = decode(json['location'])
-        return Response(json['name'], location, json['background'])
-    elif '__type__' in json and json['__type__'] == Location.__name__:
-        return Location(json['x'], json['y'], json['width'], json['height'])
+# Decoder that converts JSON back to Form object (should be inverse of above)
+def decode_form(form_json):
+    if '__type__' in form_json and form_json['__type__'] == Form.__name__:
+        questions = [decode_form(question) for question in form_json["questions"]]
+        return Form(form_json['name'], form_json['image'], questions)
+    elif '__type__' in form_json and form_json['__type__'] == Question.__name__:
+        responses = [decode_form(response) for response in form_json["responses"]]
+        return Question(form_json['name'], form_json['type'], responses)
+    elif '__type__' in form_json and form_json['__type__'] == Response.__name__:
+        location = decode_form(form_json['location'])
+        return Response(form_json['name'], location, form_json['background'])
+    elif '__type__' in form_json and form_json['__type__'] == Location.__name__:
+        return Location(form_json['x'], form_json['y'], form_json['width'], form_json['height'])
     else:
         raise Exception("Unable to convert JSON to internal Form model; No recognized __type__ field; %s" % json)
-
 
 loc1 = Location(1, 2, 3, 4)
 loc2 = Location(2, 4, 6, 8)
@@ -79,9 +79,14 @@ q1 = Question("Q1", "Radio Button", [r1])
 q2 = Question("Q2", "Checkbox", [r2])
 f = Form("anc template", "example/phone_pics/images", [q1, q2])
 
-print(decode(f.to_JSON()).to_JSON())
+#print(decode(f.to_JSON()).to_JSON())
+with open('form.json', 'w') as json_file:
+    JSON.dump(f, json_file, cls=FormEncoder, )
 
-
+with open('form.json', 'r') as json_file:
+    reconstructed_form = JSON.load(json_file)
+    print(reconstructed_form)
+    print(decode_form(reconstructed_form))
 
 
 
