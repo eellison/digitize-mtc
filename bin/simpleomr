@@ -37,7 +37,6 @@ def load_image(path):
     image = ImageOps.autocontrast(image)
     return np.array(image)
 
-
 def _svg_translate(tag, tx=0, ty=0):
     if tag is None:
         return tx, ty
