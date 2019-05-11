@@ -1,0 +1,43 @@
+{
+    "name": "ANC_Template",
+    "form_image": "example/template.jpg",
+    "questions": [
+        {
+            "name": "less_than_20",
+            "question_type": "Checkbox",
+            "responses": [
+                {
+                    "name": "Checkbox[less_than_20]",
+                    "location": {
+                        "width": 0.918688,
+                        "height": 11.758587,
+                        "x": 289.55521,
+                        "y": 359.28162,
+                        "__type__": "Location"
+                    },
+                    "__type__": "Response"
+                }
+            ],
+            "__type__": "Question"
+        },
+        {
+            "name": "prior_delivers",
+            "question_type": "Checkbox",
+            "responses": [
+                {
+                    "name": "Checkbox[prior_deliveries]",
+                    "location": {
+                        "width": 11.548612,
+                        "height": 12.388511,
+                        "x": 337.8494,
+                        "y": 390.77783,
+                        "__type__": "Location"
+                    },
+                    "__type__": "Response"
+                }
+            ],
+            "__type__": "Question"
+        }
+    ],
+    "__type__": "FormTemplate"
+}
