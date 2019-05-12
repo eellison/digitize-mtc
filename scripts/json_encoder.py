@@ -57,7 +57,7 @@ def decode_form(form_json):
         location = decode_form(form_json['location'])
         return Response(form_json['name'], location)
     elif '__type__' in form_json and form_json['__type__'] == Location.__name__:
-        return Location(form_json['x'], form_json['y'], form_json['width'], form_json['height'])
+        return Location(form_json['x'], form_json['y'], form_json['w'], form_json['h'])
     else:
         raise Exception("Unable to convert JSON to internal FormTemplate model; No recognized __type__ field; %s" % json)
 

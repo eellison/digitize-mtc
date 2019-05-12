@@ -1,6 +1,6 @@
 {
     "name": "ANC_Template",
-    "form_image": "example/template.jpg",
+    "form_image": "/Users/sudheesha/Documents/Projects/Mae_Tao_Clinic/digitize-mtc/example/template.jpg",
     "questions": [
         {
             "name": "less_than_20",
@@ -9,8 +9,8 @@
                 {
                     "name": "Checkbox[less_than_20]",
                     "location": {
-                        "width": 10.918688,
-                        "height": 11.758587,
+                        "w": 10.918688,
+                        "h": 11.758587,
                         "x": 289.55521,
                         "y": 359.28162,
                         "__type__": "Location"
@@ -21,16 +21,34 @@
             "__type__": "Question"
         },
         {
-            "name": "prior_delivers",
+            "name": "prior_deliveries",
             "question_type": "Checkbox",
             "responses": [
                 {
                     "name": "Checkbox[prior_deliveries]",
                     "location": {
-                        "width": 11.548612,
-                        "height": 12.388511,
+                        "w": 11.548612,
+                        "h": 12.388511,
                         "x": 337.8494,
                         "y": 390.77783,
+                        "__type__": "Location"
+                    },
+                    "__type__": "Response"
+                }
+            ],
+            "__type__": "Question"
+        },
+        {
+            "name": "c_section",
+            "question_type": "Checkbox",
+            "responses": [
+                {
+                    "name": "Checkbox[c_section]",
+                    "location": {
+                        "w": 12.388511,
+                        "h": 12.80846,
+                        "x": 308.24295,
+                        "y": 469.72833,
                         "__type__": "Location"
                     },
                     "__type__": "Response"

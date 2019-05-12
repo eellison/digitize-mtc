@@ -79,8 +79,6 @@ def get_checkbox_answer(question, input_image, template_image):
 
 def get_answer(question, input_image, template_image):
     # Based on question type
-    print(question.question_type)
-    print(QuestionType.Checkbox)
     if question.question_type == QuestionType.Checkbox.name:
         return get_checkbox_answer(question, input_image, template_image)
     else:
@@ -183,7 +181,6 @@ def process(input_image_path, template_json_path, output_dir_path):
     ### Step 2: Run Mark Recognition ###
     ####################################
     input_image, clean_input, answers = process_image(aligned_output_path, template)
-    print([answer.value for answer in answers])
     create_omr_debug(input_image, clean_input, answers, debug_output_path)
 
     ############################################################
@@ -199,4 +196,4 @@ def process(input_image_path, template_json_path, output_dir_path):
 
 input_pic = "example/phone_pics/input/sample_pic.jpg"
 json_template = "scripts/anc.json"
-print(process(input_pic, json_template, "big_boi_output"))
+process(input_pic, json_template, "big_boi_output")

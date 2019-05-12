@@ -7,8 +7,9 @@ to generate this template by uploading a form image and annotating it
 themselves using a GUI.
 '''
 from form_model import *
-from form_model_encoder import FormTemplateEncoder
+from json_encoder import FormTemplateEncoder
 import json
+from pathlib import Path
 
 
 # Question 1: Is the patient less than 20 years of age?
@@ -19,9 +20,16 @@ less_than_20 = Question("less_than_20", QuestionType.Checkbox, [resp_less_than_2
 # Question 2: Has the patient had more than 4 prior deliveries?
 loc_prior_deliveries = Location(width=11.548612, height=12.388511, x=337.8494, y=390.77783)
 resp_prior_deliveries = Response("Checkbox[prior_deliveries]", loc_prior_deliveries)
-prior_deliveries = Question("prior_delivers", QuestionType.Checkbox, [resp_prior_deliveries])
+prior_deliveries = Question("prior_deliveries", QuestionType.Checkbox, [resp_prior_deliveries])
 
-f = FormTemplate("ANC_Template", "example/template.jpg", [less_than_20, prior_deliveries])
+# Question 3: Has the patient had a caesarean section in the past?
+loc_c_section = Location(width=12.388511, height=12.80846, x=308.24295, y=469.72833)
+resp_c_section = Response("Checkbox[c_section]", loc_c_section)
+c_section = Question("c_section", QuestionType.Checkbox, [resp_c_section])
+
+
+abs_path_to_template_image = str((Path.cwd() / "example" / "template.jpg").resolve())
+f = FormTemplate("ANC_Template", abs_path_to_template_image, [less_than_20, prior_deliveries, c_section])
 
 # Convert template to JSON and write to file
 with open('anc.json', 'w') as json_file:
