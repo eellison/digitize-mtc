@@ -16,6 +16,7 @@ from PIL import Image, ImageDraw
 # - clean up directory structure
 # - sort out align and simpleomr as scripts or python packages or binaries
 # - consolidate input loading / processing (only cv2 or only Image)
+# - un-hardcode the size of the SVG
 
 # CONSTANTS
 BLACK_LEVEL  = 0.5 * 255
