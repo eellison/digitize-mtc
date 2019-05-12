@@ -1,6 +1,9 @@
 import json
 from copy import deepcopy
 from form_model import *
+from simpleomr import Checkbox_State # remove this dependency by moving Checkbox_State into the FormModel
+
+
 
 # JSON encoder for FormTemplate objects
 class FormTemplateEncoder(JSON.JSONEncoder):
@@ -24,7 +27,19 @@ class FormTemplateEncoder(JSON.JSONEncoder):
             return dict_repr
         elif isinstance(obj, Location):
             return self.get_basic_dict(obj)
-        elif isinstance(obj, QuestionType) or isinstance(obj, AnswerStatus):
+        elif isinstance(obj, ProcessedForm):
+            dict_repr = self.get_basic_dict(obj)
+            dict_repr["answers"] = [self.default(a) for a in obj.answers]
+            return dict_repr
+        elif isinstance(obj, Answer):
+            dict_repr = self.get_basic_dict(obj)
+            dict_repr["processed_responses"] = [self.default(pr) for pr in obj.processed_responses]
+            return dict_repr
+        elif isinstance(obj, ProcessedResponse):
+            dict_repr = self.get_basic_dict(obj)
+            dict_repr["response"] = self.default(obj.response)
+            return dict_repr
+        elif isinstance(obj, QuestionType) or isinstance(obj, AnswerStatus) or isinstance(obj, Checkbox_State):
             return obj.name
         else:
             # Let the base class default method raise the TypeError
@@ -48,6 +63,9 @@ def decode_form(form_json):
 
 
 
+
+
+
 # Some simple tests for JSON Serialization / Deserialization
 loc1 = Location(1, 2, 3, 4)
 loc2 = Location(2, 4, 6, 8)
@@ -64,46 +82,3 @@ f = FormTemplate("anc template", "example/phone_pics/images", [q1, q2])
 # with open('form.json', 'r') as json_file:
 #     reconstructed_form = JSON.load(json_file)
     #print(reconstructed_form)
-
-
-
-### JSON encoder / decoder ###
-# Returns a dict that can be serialized to JSON
-# def encode(py_class):
-#     # Validate input
-#     valid_encode_type = (FormTemplate, Question, Response, Location)
-#     if type(py_class) not in valid_encode_type:
-#         raise Exception("Unable to encode input %s: Expected a FormTemplate, Question, Response, or Location" % str(py_class))
-#
-#     dict = py_class.__dict__
-#     dict["__type__"] = type(py_class).__name__
-#     if isinstance(py_class, FormTemplate):
-#         encoded_questions = [encode(question) for question in py_class.questions]
-#         dict["questions"] = encoded_questions
-#         return dict
-#     elif isinstance(py_class, Question):
-#         encoded_responses = [encode(response) for response in py_class.responses]
-#         dict["responses"] = encoded_responses
-#         return dict
-#     elif isinstance(py_class, Response):
-#         encoded_location = encode(py_class.location)
-#         dict["location"] = encoded_location
-#         return dict
-#     elif isinstance(py_class, Location):
-#         return dict
-#     else:
-#         raise Exception("Invalid input class for JSON encoding.")
-
-# class JSONable():
-#     def __init__(self, json_tag):
-#         self.json_tag = json_tag
-#
-#     def to_JSON(self):
-#         dict_repr = self.__dict__
-#         dict_repr["__type__"] = self.json_tag
-#         for k, v in dict_repr.items():
-#             if isinstance(v, JSONable):
-#                 dict_repr[k] = v.to_JSON()
-#             elif isinstance(v, list) and all(isinstance(n, JSONable) for n in v):
-#                 dict_repr[k] = [n.to_JSON() for n in v]
-#         return dict_repr

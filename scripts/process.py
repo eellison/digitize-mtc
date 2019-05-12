@@ -1,7 +1,5 @@
 # Contains pipeline for processing incoming form
 import json
-from form_model import *
-import json_encoder
 import cv2
 import sys
 import align
@@ -9,14 +7,20 @@ import simpleomr as omr
 from pathlib import Path
 import os
 from copy import deepcopy
+from numpy import ndarray
 from PIL import Image, ImageDraw
-
+from form_model import *
+import json_encoder
 
 ## # TODO:
+# - Answers actually contain cutouts of the final debug image
+# - Create script that deserializes a processed_form and writes results to a CSV
+# - question types other than checkbox
 # - clean up directory structure
 # - sort out align and simpleomr as scripts or python packages or binaries
 # - consolidate input loading / processing (only cv2 or only Image)
 # - un-hardcode the size of the SVG
+# - start using type_checker
 
 # CONSTANTS
 BLACK_LEVEL  = 0.5 * 255
@@ -44,6 +48,7 @@ def json_to_form_template(path_to_json_file):
         loaded_json = json.load(json_template)
         template = json_encoder.decode_form(loaded_json)
     return template # of type FormTemplate
+
 
 def get_checkbox_score(image, loc):
     roi = image[loc.y : loc.y + loc.h, loc.x : loc.x + loc.w] < BLACK_LEVEL
@@ -152,10 +157,12 @@ def process(input_image_path, template_json_path, output_dir_path):
     #########################################################
     # Generate paths / file names for later use
     input_image_name, output_path = generate_paths(input_image_path, output_dir_path)
+    input_image_path = str(Path(input_image_path).resolve())  # absolute path
     matched_output_path = str(output_path / (input_image_name + "_matched.jpg"))
     aligned_output_path = str(output_path / (input_image_name + "_aligned.jpg"))
     text_output_path = str(output_path / (input_image_name + "_omr_classification.txt"))
     debug_output_path = str(output_path / (input_image_name + "_omr_debug.png"))
+    processed_form_json_path = str(output_path / (input_image_name + "_processed.json"))
     # Load input image
     input_image = align.read_image(input_image_path)
     # Load FormTemplate and the embedded template_image
@@ -175,27 +182,19 @@ def process(input_image_path, template_json_path, output_dir_path):
     ####################################
     ### Step 2: Run Mark Recognition ###
     ####################################
-    # load data
-    # aligned_image = omr.load_image(aligned_output_path)
-    # marks = omr.load_svg_rects(str(Path.cwd() / "example" / "checkbox_locations.svg"), aligned_image.shape)
-    # if len(marks) == 0:
-    #     logging.warn('template contains no marks')
-    #     return 1
-    #
-    # # process
-    # clean = omr.clean_image(aligned_image)
-    # res = omr.scan_marks(clean, marks)
-    # omr.debug_marks(debug_output_path, aligned_image, clean, marks, res)
-    #
-    # # output
-    # omr.print_mark_output(res, text_output_path)
     input_image, clean_input, answers = process_image(aligned_output_path, template)
     print([answer.value for answer in answers])
     create_omr_debug(input_image, clean_input, answers, debug_output_path)
 
-    return 1738
+    ############################################################
+    ### Step 3: Contruct ProcessedForm and Serialize to JSON ###
+    ############################################################
+    processed_form = ProcessedForm(template, input_image_path, matched_output_path, aligned_output_path, debug_output_path, answers)
+    # Convert template to JSON and write to file
+    with open(processed_form_json_path, 'w') as json_file:
+        json.dump(processed_form, json_file, cls=json_encoder.FormTemplateEncoder, indent=4)
 
-
+    return True # Side-effecting function
 
 
 input_pic = "example/phone_pics/input/sample_pic.jpg"
