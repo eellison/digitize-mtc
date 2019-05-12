@@ -19,11 +19,6 @@ FILL_THR     = 0.11 # threshold for filled box
 CHECK_THR    = 0.04 # threshold for checked box
 EMPTY_THR    = 0.02 # threashold for empty box
 
-# H/V line rejection
-CLEAN_LEN = 47  # window length (must be odd)
-CLEAN_W   = 3   # line width-1 (even)
-CLEAN_THR = 0.9 # rejection threshold
-
 # Enum for checkbox state
 class Checkbox_State(Enum):
     Unknown = -1

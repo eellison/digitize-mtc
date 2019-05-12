@@ -52,6 +52,8 @@ def alignImages(im1, im2):
 
   return im1Reg, im_matches, h
 
+def read_image(image_path):
+    return cv2.imread(image_path, cv2.IMREAD_COLOR)
 
 def main():
   ap = argparse.ArgumentParser()
