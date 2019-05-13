@@ -12,6 +12,7 @@ Dependencies
 - scikit-image (``python3-skimage``)
 - opencv (``opencv-python``)
 - pathlib (``pathlib``)
+- flask (``flask``)
 
 All of these can be installed used `pip` or `conda`. If you're trying to install `opencv` using `conda`, you may need to run `conda install -c menpo opencv`.
 
