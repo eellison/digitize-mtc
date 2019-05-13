@@ -12,7 +12,8 @@ import json
 from pathlib import Path
 import lxml.etree
 
-# TODO: use function like this to programmatically create FormTemplate from SVG
+# Function to generate Questions from SVG
+# For now, all questions are of type "Checkbox"
 def questions_from_svg(svg_path):
     data = lxml.etree.parse(svg_path).getroot()
     dw = 2475 / float(data.get('width')) #hardcoded based on ANC image (example/template.jpg)
@@ -30,6 +31,24 @@ def questions_from_svg(svg_path):
         questions.append(q)
     return questions
 
+# Create Paths
+abs_path_to_svg = str((Path.cwd() / "example" / "checkbox_locations.svg").resolve())
+abs_path_to_template_image = str((Path.cwd() / "example" / "template.jpg").resolve())
+
+# Generate questions from SVG
+all_questions = questions_from_svg(abs_path_to_svg)
+
+# Create FormTemplate object
+f = FormTemplate("ANC_Template", abs_path_to_template_image, all_questions)
+
+# Convert FormTemplate to JSON and write to file
+with open('anc.json', 'w') as json_file:
+    json.dump(f, json_file, cls=FormTemplateEncoder, indent=4)
+
+
+
+### Below ###
+### Hardcoded examples below to get a sense of how the forms are modeled ###
 
 # Question 1: Is the patient less than 20 years of age?
 loc_less_than_20 = Location(width=10.918688, height=11.758587, x=289.55521, y=359.28162)
@@ -45,60 +64,3 @@ prior_deliveries = Question("prior_deliveries", QuestionType.Checkbox, [resp_pri
 loc_c_section = Location(width=12.388511, height=12.80846, x=308.24295, y=469.72833)
 resp_c_section = Response("Checkbox[c_section]", loc_c_section)
 c_section = Question("c_section", QuestionType.Checkbox, [resp_c_section])
-
-
-path_to_svg = str((Path.cwd() / "example" / "checkbox_locations.svg").resolve())
-all_questions = questions_from_svg(path_to_svg)
-
-
-abs_path_to_template_image = str((Path.cwd() / "example" / "template.jpg").resolve())
-f = FormTemplate("ANC_Template", abs_path_to_template_image, all_questions)
-
-# Convert template to JSON and write to file
-with open('anc.json', 'w') as json_file:
-    json.dump(f, json_file, cls=FormTemplateEncoder, indent=4)
-
-
-
-
-
-
-  # <rect
-  #    style="opacity:0.7;fill:#ff6600"
-  #    id="more_than_4_prior_deliveries"
-  #    width="11.548612"
-  #    height="12.388511"
-  #    x="337.8494"
-  #    y="390.77783" />
-
-# <rect
-#  style="opacity:0.7;fill:#ff6600"
-#  id="edema_yes"
-#  width="13.018435"
-#  height="11.968561"
-#  x="308.45294"
-#  y="422.48401" />
-
-# <rect
-#  style="opacity:0.7;fill:#ff6600"
-#  id="edema_no"
-#  width="13.018435"
-#  height="14.068309"
-#  x="221.52338"
-#  y="418.91443" />
-
-#
-# <rect
-#    style="opacity:0.7;fill:#ff6600"
-#    id="retained_placenta_yes"
-#    width="12.388511"
-#    height="13.648359"
-#    x="308.03299"
-#    y="516.55273" />
-# <rect
-#    style="opacity:0.7;fill:#ff6600"
-#    id="retained_placenta_no"
-#    width="14.278284"
-#    height="13.22841"
-#    x="221.3134"
-#    y="515.08289" />
