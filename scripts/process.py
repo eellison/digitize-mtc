@@ -92,7 +92,7 @@ def process_image(image_path, template):
     template_image = omr.load_image(str(Path.cwd() / template.form_image))
     clean_input = omr.clean_image(input_image)
     clean_template = omr.clean_image(template_image)
-    template = transform_locations(template, input_image.shape)
+    #template = transform_locations(template, input_image.shape)
     # Get answers
     answers = [get_answer(question, clean_input, clean_template) for question in template.questions]
     # Return output
@@ -125,19 +125,19 @@ def create_omr_debug(image, clean_image, answers, output_path):
               Image.fromarray(bw, 'L'))
     buf.save(output_path)
 
-def transform_locations(template, shape):
-    # Shitty hardcoded fn while we figure out how to replace SVG entirely
-    dw = shape[1] / float(792)
-    dh = shape[0] / float(1121.28)
-    template_copy = deepcopy(template)
-    for question in template_copy.questions:
-        for response in question.responses:
-            loc = response.location
-            loc.x = int(float(loc.x) * dw)
-            loc.y = int(float(loc.y) * dh)
-            loc.w = int(float(loc.w) * dw)
-            loc.h = int(float(loc.h) * dh)
-    return template_copy
+# def transform_locations(template, shape):
+#     # Shitty hardcoded fn while we figure out how to replace SVG entirely
+#     dw = shape[1] / float(792)
+#     dh = shape[0] / float(1121.28)
+#     template_copy = deepcopy(template)
+#     for question in template_copy.questions:
+#         for response in question.responses:
+#             loc = response.location
+#             loc.x = int(float(loc.x) * dw)
+#             loc.y = int(float(loc.y) * dh)
+#             loc.w = int(float(loc.w) * dw)
+#             loc.h = int(float(loc.h) * dh)
+#     return template_copy
 
 '''
 Process Function

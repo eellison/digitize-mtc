@@ -10,6 +10,25 @@ from form_model import *
 from json_encoder import FormTemplateEncoder
 import json
 from pathlib import Path
+import lxml.etree
+
+# TODO: use function like this to programmatically create FormTemplate from SVG
+def questions_from_svg(svg_path):
+    data = lxml.etree.parse(svg_path).getroot()
+    dw = 2475 / float(data.get('width')) #hardcoded based on ANC image (example/template.jpg)
+    dh = 3504 / float(data.get('height')) #hardcoded based on ANC image (example/template.jpg)
+    questions = []
+    for tag in data.iterfind('.//{*}rect'):
+        question_name = tag.get('id')
+        x = int(float(tag.get('x')) * dw)
+        y = int(float(tag.get('y')) * dh)
+        w = int(float(tag.get('width')) * dw)
+        h = int(float(tag.get('height')) * dh)
+        loc = Location(width=w, height=h, x=x, y=y)
+        resp = Response("Checkbox[%s]" % question_name, loc)
+        q = Question(question_name, QuestionType.Checkbox, [resp])
+        questions.append(q)
+    return questions
 
 
 # Question 1: Is the patient less than 20 years of age?
@@ -28,8 +47,12 @@ resp_c_section = Response("Checkbox[c_section]", loc_c_section)
 c_section = Question("c_section", QuestionType.Checkbox, [resp_c_section])
 
 
+path_to_svg = str((Path.cwd() / "example" / "checkbox_locations.svg").resolve())
+all_questions = questions_from_svg(path_to_svg)
+
+
 abs_path_to_template_image = str((Path.cwd() / "example" / "template.jpg").resolve())
-f = FormTemplate("ANC_Template", abs_path_to_template_image, [less_than_20, prior_deliveries, c_section])
+f = FormTemplate("ANC_Template", abs_path_to_template_image, all_questions)
 
 # Convert template to JSON and write to file
 with open('anc.json', 'w') as json_file:
