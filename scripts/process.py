@@ -11,6 +11,7 @@ from numpy import ndarray
 from PIL import Image, ImageDraw
 from form_model import *
 import json_encoder
+import csv
 
 ## # TODO:
 # - Answers actually contain cutouts of the final debug image
@@ -31,16 +32,17 @@ EMPTY_THR    = 0.02 # threashold for empty box
 ##################
 ### Helper Fns ###
 ##################
-def generate_paths(path_to_input_image, output_dir_name):
+def generate_paths(path_to_input_image, path_to_template_image, output_dir_name):
     ''' NOTE: The pathlib library is essential to ensure that that all
     paths are operating-system agnostic. '''
     input_image_name = Path(path_to_input_image).stem # name of the input image file, minus the file extension
+    template_name = Path(path_to_template_image).stem
     try:
         os.makedirs(output_dir_name) # Make the directory if it doesn't exist
     except FileExistsError:
         pass # Skip Directory already exists
     output_path = Path.cwd() / output_dir_name # pathlib Path
-    return input_image_name, output_path
+    return input_image_name, template_name, output_path
 
 def json_to_form_template(path_to_json_file):
     # Decode JSON template into
@@ -139,6 +141,27 @@ def create_omr_debug(image, clean_image, answers, output_path):
 #             loc.h = int(float(loc.h) * dh)
 #     return template_copy
 
+
+'''
+@processed_form: ProcessedForm
+@path_to_csv: str   Location of CSV file to write to
+'''
+def write_form_to_csv(processed_form, path_to_csv):
+    # Get list of answer values, which will form a new row of the CSV
+    answer_values = [[answer.value for answer in processed_form.answers]]
+    # Check if the file already exists
+    file_existed_already = os.path.isfile(path_to_csv)
+    # Open file in "append" mode
+    with open(path_to_csv,"a+") as csv_file:
+        writer = csv.writer(csv_file)
+        # Write header if file did not already exist
+        if not file_existed_already:
+            header_line = [[answer.question_name for answer in processed_form.answers]]
+            writer.writerows(header_line)
+        # Now append answers from the ProcessedForm
+        writer.writerows(answer_values)
+    return True
+
 '''
 Process Function
 
@@ -154,13 +177,14 @@ def process(input_image_path, template_json_path, output_dir_path):
     ### Step 0: Load input image + template, assign paths ###
     #########################################################
     # Generate paths / file names for later use
-    input_image_name, output_path = generate_paths(input_image_path, output_dir_path)
+    input_image_name, template_name, output_path = generate_paths(input_image_path, template_json_path, output_dir_path)
     input_image_path = str(Path(input_image_path).resolve())  # absolute path
     matched_output_path = str(output_path / (input_image_name + "_matched.jpg"))
     aligned_output_path = str(output_path / (input_image_name + "_aligned.jpg"))
     text_output_path = str(output_path / (input_image_name + "_omr_classification.txt"))
     debug_output_path = str(output_path / (input_image_name + "_omr_debug.png"))
     processed_form_json_path = str(output_path / (input_image_name + "_processed.json"))
+    processed_form_csv_path = str(output_path / (template_name + ".csv"))
     # Load input image
     input_image = align.read_image(input_image_path)
     # Load FormTemplate and the embedded template_image
@@ -187,13 +211,16 @@ def process(input_image_path, template_json_path, output_dir_path):
     ### Step 3: Contruct ProcessedForm and Serialize to JSON ###
     ############################################################
     processed_form = ProcessedForm(template, input_image_path, matched_output_path, aligned_output_path, debug_output_path, answers)
-    # Convert template to JSON and write to file
+    # Convert template to JSON and write to JSON file (in production, would send to front end)
     with open(processed_form_json_path, 'w') as json_file:
         json.dump(processed_form, json_file, cls=json_encoder.FormTemplateEncoder, indent=4)
+
+    # Write template to CSV file
+    write_form_to_csv(processed_form, processed_form_csv_path)
 
     return True # Side-effecting function
 
 
 input_pic = "example/phone_pics/input/sample_pic.jpg"
 json_template = "scripts/anc.json"
-process(input_pic, json_template, "big_boi_output")
+process(input_pic, json_template, "output")
