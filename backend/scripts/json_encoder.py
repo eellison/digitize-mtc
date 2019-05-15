@@ -1,7 +1,7 @@
 import json
 from copy import deepcopy
-from form_model import *
-from simpleomr import Checkbox_State # remove this dependency by moving Checkbox_State into the FormModel
+from .form_model import *
+from .omr import Checkbox_State # remove this dependency by moving Checkbox_State into the FormModel
 
 
 

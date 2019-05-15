@@ -2,16 +2,14 @@
 import json
 import cv2
 import sys
-import align
-import simpleomr as omr
-from pathlib import Path
 import os
 from copy import deepcopy
 from numpy import ndarray
+from pathlib import Path
 from PIL import Image, ImageDraw
-from form_model import *
-import json_encoder
 import csv
+from scripts import *
+
 
 ## # TODO:
 # - Answers actually contain cutouts of the final debug image
@@ -221,6 +219,6 @@ def process(input_image_path, template_json_path, output_dir_path):
     return True # Side-effecting function
 
 
-input_pic = "example/phone_pics/input/sample_pic.jpg"
-json_template = "scripts/anc.json"
-process(input_pic, json_template, "output")
+# input_pic = "example/phone_pics/input/sample_pic.jpg"
+# json_template = "scripts/anc.json"
+# process(input_pic, json_template, "output")

@@ -46,8 +46,12 @@ class ProcessedForm():
         self.form_template = form_template
         self.input_image = input_image # path to uploaded image
         self.matched_image = matched_image # path to diagnostic match image
-        self.aligned_image = aligned_image # path to input_image after alignment
+
+
+        self.aligned_image = aligned_image # remove path to input_image after alignment
         self.annotated_image = annotated_image # path to aligned_image after OMR annotation
+
+
         self.answers = answers # list of Answer objects
 
 class Answer():
