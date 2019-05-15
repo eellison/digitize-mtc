@@ -7,6 +7,7 @@ import re
 from PIL import Image, ImageDraw, ImageOps
 from skimage.filters import threshold_local
 from enum import Enum
+from form_model import CheckboxState
 import numpy as np
 import scipy as sp
 import scipy.ndimage
@@ -18,13 +19,6 @@ BLACK_LEVEL  = 0.5 * 255
 FILL_THR     = 0.11 # threshold for filled box
 CHECK_THR    = 0.04 # threshold for checked box
 EMPTY_THR    = 0.02 # threashold for empty box
-
-# Enum for checkbox state
-class Checkbox_State(Enum):
-    Unknown = -1
-    Empty = 0
-    Checked = 1
-    Filled = 2
 
 def load_image(path):
     image = Image.open(path)
@@ -76,13 +70,13 @@ def scan_marks(image, marks):
         masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
         scr = (masked).sum() / (w*h)
         if scr > FILL_THR:
-            v = Checkbox_State.Filled
+            v = CheckboxState.Filled
         elif scr > CHECK_THR:
-            v = Checkbox_State.Checked
+            v = CheckboxState.Checked
         elif scr < EMPTY_THR:
-            v = Checkbox_State.Empty
+            v = CheckboxState.Empty
         else:
-            v = Checkbox_State.Unknown
+            v = CheckboxState.Unknown
         res.append((i, v, scr))
     return res
 
@@ -94,11 +88,11 @@ def debug_marks(path, image, clean, marks, res):
     for mark, row in zip(marks, res):
         i, x, y, w, h = mark
         v = row[1]
-        if v == Checkbox_State.Checked:
+        if v == CheckboxState.Checked:
             c = (0, 255, 0, 127) # green
-        elif v == Checkbox_State.Empty:
+        elif v == CheckboxState.Empty:
             c = (255, 0, 0, 127) # red
-        elif v == Checkbox_State.Filled:
+        elif v == CheckboxState.Filled:
             c = (0, 0, 0, 64) # gray
         else:
             c = (255, 127, 0, 127) # orange
@@ -114,7 +108,7 @@ def debug_marks(path, image, clean, marks, res):
 
 def print_mark_output(res, path):
     headers = [("Checkbox ID", "OMR Outcome", "Score"), ("-----------", "-----------", "-----")]
-    output = [(i, Checkbox_State(v).name, str(s)) for i, v, s in res]
+    output = [(i, CheckboxState(v).name, str(s)) for i, v, s in res]
     lines = headers + output
     col_width = max(len(word) for line in lines for word in line)
     with open(path,'w') as f:

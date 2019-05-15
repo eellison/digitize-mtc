@@ -9,6 +9,10 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 import csv
 from scripts import *
+import align
+import omr
+import json_encoder
+from form_model import *
 
 
 ## # TODO:
@@ -47,7 +51,7 @@ def json_to_form_template(path_to_json_file):
     with open(path_to_json_file, 'r') as json_template:
         loaded_json = json.load(json_template)
         template = json_encoder.decode_form(loaded_json)
-    return template # of type FormTemplate
+    return template # of type Form
 
 
 def get_checkbox_score(image, loc):
@@ -219,6 +223,6 @@ def process(input_image_path, template_json_path, output_dir_path):
     return True # Side-effecting function
 
 
-# input_pic = "example/phone_pics/input/sample_pic.jpg"
-# json_template = "scripts/anc.json"
-# process(input_pic, json_template, "output")
+input_pic = "example/phone_pics/input/sample_pic.jpg"
+json_template = "backend/scripts/anc.json"
+process(input_pic, json_template, "output")
