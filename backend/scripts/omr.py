@@ -1,145 +1,111 @@
-#!/usr/bin/env python3
-
-import argparse
-import sys
-import re
-
 from PIL import Image, ImageDraw, ImageOps
 from skimage.filters import threshold_local
 from enum import Enum
 from .form_model import CheckboxState
-import numpy as np
-import scipy as sp
 import scipy.ndimage
-import lxml.etree
-
+from pathlib import Path
+from .form_model import *
+import cv2
 
 # tuned for 300 dpi grayscale text
 BLACK_LEVEL  = 0.5 * 255
 FILL_THR     = 0.11 # threshold for filled box
-CHECK_THR    = 0.04 # threshold for checked box
-EMPTY_THR    = 0.02 # threashold for empty box
-
-def load_image(path):
-    image = Image.open(path)
-    image = image.convert('L')
-    image = ImageOps.autocontrast(image)
-    return np.array(image)
-
-def _svg_translate(tag, tx=0, ty=0):
-    if tag is None:
-        return tx, ty
-    trn = tag.get('transform')
-    if trn is not None:
-        grp = re.match(r'^translate\(([-\d.]+),([-\d.]+)\)$', trn)
-        if grp is None:
-            logging.error('SVG node contains unsupported transformations!')
-            sys.exit(1)
-        tx += float(grp.group(1))
-        ty += float(grp.group(2))
-    return _svg_translate(tag.getparent(), tx, ty)
-
-def load_svg_rects(path, shape):
-    data = lxml.etree.parse(path).getroot()
-    dw = shape[1] / float(data.get('width'))
-    dh = shape[0] / float(data.get('height'))
-    rects = []
-    for tag in data.iterfind('.//{*}rect'):
-        tx, ty = _svg_translate(tag)
-        i = tag.get('id')
-        x = int((float(tag.get('x')) + tx) * dw)
-        y = int((float(tag.get('y')) + ty) * dh)
-        w = int(float(tag.get('width')) * dw)
-        h = int(float(tag.get('height')) * dh)
-        rects.append((i, x, y, w, h))
-    return rects
-
+CHECK_THR    = 0.02 # threshold for checked box
+EMPTY_THR    = 0.01 # threashold for empty box
 
 def clean_image(image):
+    """
+    Args:
+        image (numpy.ndarray): image to clean
+    Returns:
+        clean (numpy.ndarray): cleaned image
+    """
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     T = threshold_local(image, 11, offset=10, method="gaussian")
     clean = (image > T).astype("uint8")*255
     return clean
 
+def calc_checkbox_score(image, response_region):
+    """
+    Args:
+        image (numpy.ndarray): image of whole form
+        loc (ResponseRegion): describes location of checkbox
+    Returns:
+        scr (float): score for checkbox
+    """
+    w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
+    roi = image[y : y+h, x : x+w] < BLACK_LEVEL
+    masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
+    scr = (masked).sum() / (w * h)
+    return scr
 
-def scan_marks(image, marks):
-    res = []
-    for i, x, y, w, h in marks:
-        # roi = image[y:y+h, x:x+w]
-        # scr = (roi < BLACK_LEVEL).sum() / (w*h)
-        roi = image[y:y+h, x:x+w] < BLACK_LEVEL
-        masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
-        scr = (masked).sum() / (w*h)
-        if scr > FILL_THR:
-            v = CheckboxState.Filled
-        elif scr > CHECK_THR:
-            v = CheckboxState.Checked
-        elif scr < EMPTY_THR:
-            v = CheckboxState.Empty
-        else:
-            v = CheckboxState.Unknown
-        res.append((i, v, scr))
-    return res
+def checkbox_state(input_image, template_image, response_region):
+    """
+    Args:
+        input_image (numpy.ndarray): target image
+        template_image (numpy.ndarray): template image
+        response_region (ResponseRegion): describes location of checkbox
+    Returns:
+        checkbox_state (CheckboxState): inferred state of this checkbox
+    """
+    input_score = calc_checkbox_score(input_image, response_region)
+    template_score = calc_checkbox_score(template_image, response_region)
+    # Subtact the two scores, ie. how much more filled is the input than the template?
+    scr = input_score - template_score
+    if scr > FILL_THR:
+        checkbox_state = CheckboxState.Filled
+    elif scr > CHECK_THR:
+        checkbox_state =  CheckboxState.Checked
+    elif scr < EMPTY_THR:
+        checkbox_state =  CheckboxState.Empty
+    else:
+        checkbox_state =  CheckboxState.Unknown
+    response_region.value = checkbox_state
+    return checkbox_state
 
+def checkbox_answer(question, input_image, template_image):
+    """
+    Args:
+        question (Question): question with type QuestionType.Checkbox
+        input_image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form template
+    Returns:
+        question (Question): same input question, with "answer" filled in
+    """
+    state = checkbox_state(input_image, template_image, question.response_regions[0])
+    answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
+    answer_value = True if state == CheckboxState.Checked else False
+    question.answer_status = answer_status
+    question.answer = answer_value
+    return question
 
-def debug_marks(path, image, clean, marks, res):
-    buf = Image.new('RGB', image.shape[::-1])
-    buf.paste(Image.fromarray(image, 'L'))
-    draw = ImageDraw.Draw(buf, 'RGBA')
-    for mark, row in zip(marks, res):
-        i, x, y, w, h = mark
-        v = row[1]
-        if v == CheckboxState.Checked:
-            c = (0, 255, 0, 127) # green
-        elif v == CheckboxState.Empty:
-            c = (255, 0, 0, 127) # red
-        elif v == CheckboxState.Filled:
-            c = (0, 0, 0, 64) # gray
-        else:
-            c = (255, 127, 0, 127) # orange
-        draw.rectangle((x, y, x+w, y+h), c)
-    bw = clean.copy()
-    thr = bw < BLACK_LEVEL
-    bw[thr] = 255
-    bw[~thr] = 0
-    buf.paste((0, 127, 255),
-              (0, 0, image.shape[1], image.shape[0]),
-              Image.fromarray(bw, 'L'))
-    buf.save(path)
+def answer(question, input_image, template_image):
+    """
+    Args:
+        question (Question): input question, to be processed based on QuestionType
+        input_image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form template
+    Returns:
+        question (Question): same input question, with "answer" filled in
+    """
+    if question.question_type == QuestionType.Checkbox.name:
+        return checkbox_answer(question, input_image, template_image)
+    else:
+        # No logic for other question types, yet...
+        print("Warning: could not process question type %s, skipping for now, " % str(question.question_type))
+        return question
 
-def print_mark_output(res, path):
-    headers = [("Checkbox ID", "OMR Outcome", "Score"), ("-----------", "-----------", "-----")]
-    output = [(i, CheckboxState(v).name, str(s)) for i, v, s in res]
-    lines = headers + output
-    col_width = max(len(word) for line in lines for word in line)
-    with open(path,'w') as f:
-        for line in lines:
-            formatted_line = "\t".join(word.ljust(col_width) for word in line)
-            f.write(formatted_line + "\n")
-            print(formatted_line)
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('template', help='Data template (svg)')
-    ap.add_argument('image', help='Image to analyze')
-    ap.add_argument('text', help='Text output to file')
-    ap.add_argument('-d', dest='debug', help='Debug marks to file')
-    args = ap.parse_args()
-
-    # load data
-    image = load_image(args.image)
-    marks = load_svg_rects(args.template, image.shape)
-    if len(marks) == 0:
-        logging.warn('template contains no marks')
-        return 1
-
-    # process
-    clean = clean_image(image)
-    res = scan_marks(clean, marks)
-    if args.debug:
-        debug_marks(args.debug, image, clean, marks, res)
-
-    # output
-    print_mark_output(res, args.text)
-
-if __name__ == '__main__':
-    sys.exit(main())
+def recognize_answers(input_image, template_image, form):
+    """
+    Args:
+        image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form
+        form (Form): Form template, with questions unanswered
+    Returns:
+        answered_questions (List[Question]): questions with answers filled in
+        cleaned_input (numpy.ndarray): cleaned input, useful for diagnostics
+    """
+    clean_input = clean_image(input_image)
+    clean_template = clean_image(template_image)
+    answered_questions = [answer(question, clean_input, clean_template) for question in form.questions]
+    return answered_questions, clean_input
