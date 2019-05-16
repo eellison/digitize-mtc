@@ -1,10 +1,6 @@
-from PIL import Image, ImageDraw, ImageOps
 from skimage.filters import threshold_local
-from enum import Enum
-from .form_model import CheckboxState
 import scipy.ndimage
-from pathlib import Path
-from .form_model import *
+from .form import *
 import cv2
 
 # tuned for 300 dpi grayscale text

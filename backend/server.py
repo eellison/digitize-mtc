@@ -21,7 +21,7 @@ def uploaded_file(filename):
 
 @app.route('/processed/<filename>')
 def processed_file(filename):
-    return send_from_directory(app.config['PROCESSED_FOLDER'],
+    return send_from_directory(app.config['OUTPUT_FOLDER'],
                                filename)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -41,10 +41,10 @@ def upload_file():
             filename = secure_filename(file.filename)
             upload_location = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(upload_location) # save uploaded file
-            json_template_location = str(Path.cwd() / "backend" / "scripts" / "anc.json")
+            json_template_location = str(Path.cwd() / "backend" / "forms" / "anc.json")
             output_location = str(Path.cwd() / "backend" / "output")
             # Run the OMR processing pipeline
-            process(upload_location, json_template_location, app.config['PROCESSED_FOLDER'])
+            process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
             processed_filename = str(Path(filename).stem) + "_omr_debug.png"
             return redirect(url_for('processed_file', filename=processed_filename))
     return render_template('upload_form.html')

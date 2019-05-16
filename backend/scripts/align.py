@@ -1,8 +1,5 @@
-import sys
-import argparse
 import cv2
 import numpy as np
-import os.path
 
 MAX_FEATURES = 500
 GOOD_MATCH_PERCENT = 0.15

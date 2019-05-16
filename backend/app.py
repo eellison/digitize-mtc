@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = "secret key"
 
 UPLOAD_FOLDER = str(Path.cwd() / 'backend' / 'uploads')
-PROCESSED_FOLDER = str(Path.cwd() / 'backend' / 'processed')
+OUTPUT_FOLDER = str(Path.cwd() / 'backend' / 'output')
 
 # Make these directories if they do not exist
 def safe_makedirs(dir_name):
@@ -17,7 +17,7 @@ def safe_makedirs(dir_name):
         pass # Skip Directory already exists
 
 safe_makedirs(UPLOAD_FOLDER)
-safe_makedirs(PROCESSED_FOLDER)
+safe_makedirs(OUTPUT_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
+app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER

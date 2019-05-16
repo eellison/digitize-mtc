@@ -1,10 +1,10 @@
 import json
 from copy import deepcopy
-from .form_model import *
+from .form import *
 
 
-# JSON encoder for FormTemplate objects
-class FormTemplateEncoder(JSON.JSONEncoder):
+# JSON encoder for Form objects
+class FormTemplateEncoder(json.JSONEncoder):
     def get_basic_dict(self, obj):
         dict_repr = deepcopy(obj.__dict__) # deepcopy to avoid Python's mutation by reference
         dict_repr["__type__"] = obj.__class__.__name__
@@ -41,4 +41,4 @@ def decode_form(form_json):
     elif '__type__' in form_json and form_json['__type__'] == ResponseRegion.__name__:
         return ResponseRegion(form_json['name'], form_json['w'], form_json['h'], form_json['x'], form_json['y'], form_json['value'])
     else:
-        raise Exception("Unable to convert JSON to internal FormTemplate model; No recognized __type__ field; %s" % json)
+        raise Exception("Unable to convert JSON to internal FormTemplate model; No recognized __type__ field; %s" % form_json)

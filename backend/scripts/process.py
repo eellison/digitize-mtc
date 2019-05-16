@@ -1,17 +1,8 @@
-# Contains pipeline for processing incoming form
-import json
 import cv2
-import sys
 import os
 from pathlib import Path
 from PIL import Image, ImageDraw
-import csv
 from scripts import *
-from .align import *
-from .omr import *
-from .json_encoder import *
-from .form_model import *
-from .util import *
 
 
 def process(input_image_path, template_json_path, output_dir_path):
@@ -50,4 +41,4 @@ def process(input_image_path, template_json_path, output_dir_path):
     util.write_form_to_json(processed_form, json_output_path)
     util.write_form_to_csv(processed_form, csv_output_path)
 
-    return True # Side-effecting function
+    return True

@@ -1,8 +1,8 @@
 ## Utility Functions for Form Processing
 
 from pathlib import Path
-from .json_encoder import *
-from .form_model import *
+from .encoder import *
+from .form import *
 import os
 from PIL import Image, ImageDraw, ImageOps
 import csv
@@ -22,7 +22,17 @@ def read_image(image_path):
     return loaded_image
 
 def generate_paths(path_to_input_image, template, output_dir_name):
-    ''' NOTE: The pathlib library is essential to ensure that that all
+    '''
+    Args:
+        path_to_input_image (str)
+        template (Form)
+        output_dir_name (str)
+    Returns:
+        input_image_name (str): name of input image, without file extension
+        output_abs_path (str): absolute path to output directory
+        json_path (str): path to write JSON output
+        csv_path (str): path to CSV file to append results to
+    NOTE: The pathlib library is essential to ensure that that all
     paths are operating-system agnostic. '''
     input_image_name = Path(path_to_input_image).stem # name of the input image file, minus the file extension
     try:
@@ -47,11 +57,24 @@ def read_json_to_form(path_to_json_file):
     return template
 
 def write_form_to_json(processed_form, json_output_path):
+    """
+    Args:
+        processed_form (Form): form with answers filled in
+        json_output_path (str): path to dump JSON file
+    """
     with open(json_output_path, 'w') as json_file:
         json.dump(processed_form, json_file, cls=FormTemplateEncoder, indent=4)
 
 def omr_visual_output(image, clean_image, answered_questions, output_path):
-    # Currently only handles checkbox / radio button cases
+    """
+    Args:
+        image (numpy.ndarray): input image, aligned to form template
+        clean_image (numpy.ndarray): input image after cleaning step
+        answered_questions (List[Question]): questions with answers filled in
+        output_path (str): path to write omr visual output
+
+    NOTE: Currently only handles checkbox / radio button cases
+    """
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     buf = Image.new('RGB', image.shape[::-1])
     buf.paste(Image.fromarray(image, 'L'))
@@ -78,6 +101,11 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
     buf.save(output_path)
 
 def write_form_to_csv(processed_form, path_to_csv):
+    """
+    Args:
+        processed_form (Form): with answers filled in
+        path_to_csv: location of CSV to append results to
+    """
     # Get list of answer values, which will form a new row of the CSV
     answer_values = [[question.answer for question in processed_form.questions]]
     # Check if the file already exists
@@ -94,6 +122,15 @@ def write_form_to_csv(processed_form, path_to_csv):
     return True
 
 def write_diag_images(input_image_name, output_path, aligned_image, aligned_diag_image, clean_input, answered_questions):
+    """
+    Args:
+        input_image_name (str): name of input image
+        output_path (str): absolute path to the output directory
+        aligned_image (numpy.ndarray): input image after alignment to template form
+        aligned_diag_image (numpy.ndarray): visual diagnostic of alignment algo
+        clean_input (numpy.ndarray): input image after cleaning step
+        answered_questions (List[Question]): questions with answers filled in
+    """
     # Create paths
     aligned_diag_output_path = str(output_path / (input_image_name + "_aligned_diag.jpg"))
     aligned_output_path = str(output_path / (input_image_name + "_aligned.jpg"))
@@ -102,17 +139,3 @@ def write_diag_images(input_image_name, output_path, aligned_image, aligned_diag
     cv2.imwrite(aligned_diag_output_path, aligned_diag_image)
     cv2.imwrite(aligned_output_path, aligned_image)
     omr_visual_output(aligned_image, clean_input, answered_questions, debug_output_path)
-
-# Shitty hardcoded fn to transform SVG coordinates to form (x, y) based on image size
-# def transform_locations(template, shape):
-#     dw = shape[1] / float(792)
-#     dh = shape[0] / float(1121.28)
-#     template_copy = deepcopy(template)
-#     for question in template_copy.questions:
-#         for response in question.responses:
-#             loc = response.location
-#             loc.x = int(float(loc.x) * dw)
-#             loc.y = int(float(loc.y) * dh)
-#             loc.w = int(float(loc.w) * dw)
-#             loc.h = int(float(loc.h) * dh)
-#     return template_copy
