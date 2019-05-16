@@ -7,7 +7,7 @@ import re
 from PIL import Image, ImageDraw, ImageOps
 from skimage.filters import threshold_local
 from enum import Enum
-from form_model import CheckboxState
+from .form_model import CheckboxState
 import numpy as np
 import scipy as sp
 import scipy.ndimage

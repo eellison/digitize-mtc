@@ -1,6 +1,6 @@
 import json
 from copy import deepcopy
-from form_model import *
+from .form_model import *
 
 
 # JSON encoder for FormTemplate objects

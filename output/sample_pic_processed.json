@@ -1,0 +1,745 @@
+{
+    "name": "ANC",
+    "form_image": "/Users/sudheesha/Documents/Projects/Mae_Tao_Clinic/digitize-mtc/example/template.jpg",
+    "questions": [
+        {
+            "name": "less_than_20",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[less_than_20]",
+                    "w": 904,
+                    "h": 1122,
+                    "x": 34,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "greater_than_35",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[greater_than_35]",
+                    "w": 1036,
+                    "h": 1122,
+                    "x": 36,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "shorter_than_145",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[shorter_than_145]",
+                    "w": 925,
+                    "h": 1173,
+                    "x": 34,
+                    "y": 35,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "no_prior_deliveries",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[no_prior_deliveries]",
+                    "w": 904,
+                    "h": 1221,
+                    "x": 36,
+                    "y": 37,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "more_than_4_prior_deliveries",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[more_than_4_prior_deliveries]",
+                    "w": 1055,
+                    "h": 1221,
+                    "x": 36,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "abortion_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[abortion_yes]",
+                    "w": 961,
+                    "h": 1270,
+                    "x": 42,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "edema_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[edema_yes]",
+                    "w": 963,
+                    "h": 1320,
+                    "x": 40,
+                    "y": 37,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "seizure_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[seizure_yes]",
+                    "w": 962,
+                    "h": 1369,
+                    "x": 41,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "vaginal_delivery_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[vaginal_delivery_yes]",
+                    "w": 963,
+                    "h": 1420,
+                    "x": 38,
+                    "y": 34,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "caesarian_section_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[caesarian_section_yes]",
+                    "w": 963,
+                    "h": 1467,
+                    "x": 38,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "prolonged_labor_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[prolonged_labor_yes]",
+                    "w": 963,
+                    "h": 1518,
+                    "x": 38,
+                    "y": 37,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "placenta_previa_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[placenta_previa_yes]",
+                    "w": 963,
+                    "h": 1568,
+                    "x": 36,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "retained_placenta_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[retained_placenta_yes]",
+                    "w": 962,
+                    "h": 1614,
+                    "x": 38,
+                    "y": 42,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "retained_placenta_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[retained_placenta_no]",
+                    "w": 691,
+                    "h": 1609,
+                    "x": 44,
+                    "y": 41,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "placenta_previa_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[placenta_previa_no]",
+                    "w": 692,
+                    "h": 1559,
+                    "x": 43,
+                    "y": 42,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "prolonged_labor_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[prolonged_labor_no]",
+                    "w": 692,
+                    "h": 1510,
+                    "x": 43,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "caesarian_section_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[caesarian_section_no]",
+                    "w": 691,
+                    "h": 1460,
+                    "x": 46,
+                    "y": 39,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "vaginal_delivery_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[vaginal_delivery_no]",
+                    "w": 694,
+                    "h": 1410,
+                    "x": 41,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "seizure_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[seizure_no]",
+                    "w": 688,
+                    "h": 1364,
+                    "x": 47,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "edema_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[edema_no]",
+                    "w": 692,
+                    "h": 1309,
+                    "x": 40,
+                    "y": 43,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "abortion_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[abortion_no]",
+                    "w": 694,
+                    "h": 1263,
+                    "x": 40,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "vaginal_bleed_during_preg_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[vaginal_bleed_during_preg_yes]",
+                    "w": 2116,
+                    "h": 1118,
+                    "x": 38,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "vaginal_bleed_during_preg_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[vaginal_bleed_during_preg_no]",
+                    "w": 1967,
+                    "h": 1115,
+                    "x": 41,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "vaginal_bleed_after_preg_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[vaginal_bleed_after_preg_no]",
+                    "w": 1970,
+                    "h": 1165,
+                    "x": 38,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "puerperal_sepsis_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[puerperal_sepsis_no]",
+                    "w": 1969,
+                    "h": 1213,
+                    "x": 40,
+                    "y": 39,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "vaginal_bleed_after_preg_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[vaginal_bleed_after_preg_yes]",
+                    "w": 2114,
+                    "h": 1168,
+                    "x": 38,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "puerperal_sepsis_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[puerperal_sepsis_yes]",
+                    "w": 2116,
+                    "h": 1219,
+                    "x": 38,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "preterm_labor_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[preterm_labor_yes]",
+                    "w": 2117,
+                    "h": 1269,
+                    "x": 36,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "stillbirths_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[stillbirths_yes]",
+                    "w": 2116,
+                    "h": 1320,
+                    "x": 38,
+                    "y": 37,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "low_birth_weight_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[low_birth_weight_yes]",
+                    "w": 2115,
+                    "h": 1368,
+                    "x": 39,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "neonatal_death_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[neonatal_death_yes]",
+                    "w": 2115,
+                    "h": 1420,
+                    "x": 40,
+                    "y": 38,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "history_std_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[history_std_yes]",
+                    "w": 2118,
+                    "h": 1468,
+                    "x": 36,
+                    "y": 40,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "history_surgical_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[history_surgical_yes]",
+                    "w": 2113,
+                    "h": 1516,
+                    "x": 43,
+                    "y": 43,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "explain_surg_hist_yes",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[explain_surg_hist_yes]",
+                    "w": 2116,
+                    "h": 1568,
+                    "x": 36,
+                    "y": 33,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "explain_surg_hist_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[explain_surg_hist_no]",
+                    "w": 1971,
+                    "h": 1562,
+                    "x": 35,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "history_surgical_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[history_surgical_no]",
+                    "w": 1969,
+                    "h": 1513,
+                    "x": 38,
+                    "y": 35,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "history_std_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[history_std_no]",
+                    "w": 1966,
+                    "h": 1463,
+                    "x": 41,
+                    "y": 35,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "neonatal_death_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[neonatal_death_no]",
+                    "w": 1966,
+                    "h": 1412,
+                    "x": 40,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "low_birth_weight_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[low_birth_weight_no]",
+                    "w": 1967,
+                    "h": 1363,
+                    "x": 40,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "stillbirths_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[stillbirths_no]",
+                    "w": 1963,
+                    "h": 1315,
+                    "x": 45,
+                    "y": 36,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        },
+        {
+            "name": "preterm_labor_no",
+            "question_type": "Checkbox",
+            "response_regions": [
+                {
+                    "name": "Checkbox[preterm_labor_no]",
+                    "w": 1971,
+                    "h": 1263,
+                    "x": 36,
+                    "y": 37,
+                    "value": null,
+                    "__type__": "ResponseRegion"
+                }
+            ],
+            "answer": false,
+            "answer_status": "Resolved",
+            "__type__": "Question"
+        }
+    ],
+    "__type__": "Form"
+}

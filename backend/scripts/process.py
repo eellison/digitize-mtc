@@ -9,10 +9,10 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 import csv
 from scripts import *
-import align
-import omr
-import json_encoder
-from form_model import *
+from .align import *
+from .omr import *
+from .json_encoder import *
+from .form_model import *
 
 
 ## # TODO:
@@ -60,26 +60,28 @@ def get_checkbox_score(image, loc):
     scr = (masked).sum() / (loc.w * loc.h)
     return scr
 
-def get_checkbox_state(input_image, template_image, checkbox_location):
-    input_score = get_checkbox_score(input_image, checkbox_location)
-    template_score = get_checkbox_score(template_image, checkbox_location)
+def get_checkbox_state(input_image, template_image, response_region):
+    input_score = get_checkbox_score(input_image, response_region)
+    template_score = get_checkbox_score(template_image, response_region)
     # Subtact the two scores, ie. how much more filled is the input than the template?
     scr = input_score - template_score
+    print(scr)
     if scr > FILL_THR:
-        return omr.Checkbox_State.Filled
+        return CheckboxState.Filled
     elif scr > CHECK_THR:
-        return omr.Checkbox_State.Checked
+        return CheckboxState.Checked
     elif scr < EMPTY_THR:
-        return omr.Checkbox_State.Empty
+        return CheckboxState.Empty
     else:
-        return omr.Checkbox_State.Unknown
+        return CheckboxState.Unknown
 
 def get_checkbox_answer(question, input_image, template_image):
-    state = get_checkbox_state(input_image, template_image, question.responses[0].location)
-    answer_status = AnswerStatus.NeedsRevision if state == omr.Checkbox_State.Unknown else AnswerStatus.Resolved
-    answer_value = True if state == omr.Checkbox_State.Checked else False
-    processed_response = ProcessedResponse(question.responses[0], state)
-    return Answer(question.name, answer_status, answer_value, [processed_response], None)
+    state = get_checkbox_state(input_image, template_image, question.response_regions[0])
+    answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
+    answer_value = True if state == CheckboxState.Checked else False
+    question.answer_status = answer_status
+    question.answer = answer_value
+    return question
 
 def get_answer(question, input_image, template_image):
     # Based on question type
@@ -88,7 +90,7 @@ def get_answer(question, input_image, template_image):
     else:
         # No logic for other question types, yet...
         print("Warning: could not process question type %s, skipping for now, " % str(question.question_type))
-        return Answer(question.name, AnswerStatus.NeedsRevision, None, [], None)
+        return question
 
 def process_image(image_path, template):
     # Load and clean images
@@ -98,28 +100,27 @@ def process_image(image_path, template):
     clean_template = omr.clean_image(template_image)
     #template = transform_locations(template, input_image.shape)
     # Get answers
-    answers = [get_answer(question, clean_input, clean_template) for question in template.questions]
+    answered_questions = [get_answer(question, clean_input, clean_template) for question in template.questions]
     # Return output
-    return input_image, clean_input, answers
+    return input_image, clean_input, answered_questions
 
-def create_omr_debug(image, clean_image, answers, output_path):
+def create_omr_debug(image, clean_image, answered_questions, output_path):
     # Currently only handles checkbox / radio button cases
     buf = Image.new('RGB', image.shape[::-1])
     buf.paste(Image.fromarray(image, 'L'))
     draw = ImageDraw.Draw(buf, 'RGBA')
-    for answer in answers:
-        for processed_response in answer.processed_responses:
-            loc = processed_response.response.location
-            val = processed_response.value
-            if val == omr.Checkbox_State.Checked:
+    for q in answered_questions:
+        for rr in q.response_regions:
+            val = rr.value
+            if val == CheckboxState.Checked:
                 c = (0, 255, 0, 127) # green
-            elif val == omr.Checkbox_State.Empty:
+            elif val == CheckboxState.Empty:
                 c = (255, 0, 0, 127) # red
-            elif val == omr.Checkbox_State.Filled:
+            elif val == CheckboxState.Filled:
                 c = (0, 0, 0, 64) # gray
             else:
                 c = (255, 127, 0, 127) # orange
-            draw.rectangle((loc.x, loc.y, loc.x+loc.w, loc.y+loc.h), c)
+            draw.rectangle((rr.x, rr.y, rr.x+rr.w, rr.y+rr.h), c)
     bw = clean_image.copy()
     thr = bw < BLACK_LEVEL
     bw[thr] = 255
@@ -150,7 +151,7 @@ def create_omr_debug(image, clean_image, answers, output_path):
 '''
 def write_form_to_csv(processed_form, path_to_csv):
     # Get list of answer values, which will form a new row of the CSV
-    answer_values = [[answer.value for answer in processed_form.answers]]
+    answer_values = [[question.answer for question in processed_form.questions]]
     # Check if the file already exists
     file_existed_already = os.path.isfile(path_to_csv)
     # Open file in "append" mode
@@ -158,7 +159,7 @@ def write_form_to_csv(processed_form, path_to_csv):
         writer = csv.writer(csv_file)
         # Write header if file did not already exist
         if not file_existed_already:
-            header_line = [[answer.question_name for answer in processed_form.answers]]
+            header_line = [[question.name for question in processed_form.questions]]
             writer.writerows(header_line)
         # Now append answers from the ProcessedForm
         writer.writerows(answer_values)
@@ -206,13 +207,13 @@ def process(input_image_path, template_json_path, output_dir_path):
     ####################################
     ### Step 2: Run Mark Recognition ###
     ####################################
-    input_image, clean_input, answers = process_image(aligned_output_path, template)
-    create_omr_debug(input_image, clean_input, answers, debug_output_path)
+    input_image, clean_input, answered_questions = process_image(aligned_output_path, template)
+    create_omr_debug(input_image, clean_input, answered_questions, debug_output_path)
 
     ############################################################
     ### Step 3: Contruct ProcessedForm and Serialize to JSON ###
     ############################################################
-    processed_form = ProcessedForm(template, input_image_path, matched_output_path, aligned_output_path, debug_output_path, answers)
+    processed_form = Form(template.name, template.form_image, answered_questions)
     # Convert template to JSON and write to JSON file (in production, would send to front end)
     with open(processed_form_json_path, 'w') as json_file:
         json.dump(processed_form, json_file, cls=json_encoder.FormTemplateEncoder, indent=4)
@@ -223,6 +224,6 @@ def process(input_image_path, template_json_path, output_dir_path):
     return True # Side-effecting function
 
 
-input_pic = "example/phone_pics/input/sample_pic.jpg"
-json_template = "backend/scripts/anc.json"
-process(input_pic, json_template, "output")
+# input_pic = "example/phone_pics/input/sample_pic.jpg"
+# json_template = "backend/scripts/anc.json"
+# process(input_pic, json_template, "output")

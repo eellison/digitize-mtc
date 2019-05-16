@@ -25,7 +25,7 @@ def questions_from_svg(svg_path):
         y = int(float(tag.get('y')) * dh)
         w = int(float(tag.get('width')) * dw)
         h = int(float(tag.get('height')) * dh)
-        resp = ResponseRegion("Checkbox[%s]" % question_name, x, y, w, h, None)
+        resp = ResponseRegion("Checkbox[%s]" % question_name, w, h, x, y, None)
         q = Question(question_name, QuestionType.Checkbox, [resp], None, AnswerStatus.NotAnswered)
         questions.append(q)
     return questions
