@@ -64,16 +64,18 @@ def get_checkbox_state(input_image, template_image, response_region):
     input_score = get_checkbox_score(input_image, response_region)
     template_score = get_checkbox_score(template_image, response_region)
     # Subtact the two scores, ie. how much more filled is the input than the template?
-    scr = input_score - template_score
-    print(scr)
+    scr = input_score #- template_score
+    checkbox_state = None
     if scr > FILL_THR:
-        return CheckboxState.Filled
+        checkbox_state = CheckboxState.Filled
     elif scr > CHECK_THR:
-        return CheckboxState.Checked
+        checkbox_state =  CheckboxState.Checked
     elif scr < EMPTY_THR:
-        return CheckboxState.Empty
+        checkbox_state =  CheckboxState.Empty
     else:
-        return CheckboxState.Unknown
+        checkbox_state =  CheckboxState.Unknown
+    response_region.value = checkbox_state
+    return checkbox_state
 
 def get_checkbox_answer(question, input_image, template_image):
     state = get_checkbox_state(input_image, template_image, question.response_regions[0])

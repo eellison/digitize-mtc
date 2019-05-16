@@ -24,7 +24,7 @@ class FormTemplateEncoder(JSON.JSONEncoder):
             return dict_repr
         elif isinstance(obj, QuestionType) or \
              isinstance(obj, AnswerStatus) or \
-             isinstance(obj, Checkbox_State):
+             isinstance(obj, CheckboxState):
             return obj.name
         else:
             # Let the base class default method raise the TypeError
