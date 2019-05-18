@@ -59,8 +59,8 @@ def questions_from_svg(svg_path):
     return questions
 
 # Create Paths
-abs_path_to_svg = str((Path.cwd() / "backend" / "forms" / "template_images" / "delivery_template_pg_1.svg").resolve())
-abs_path_to_template_image = str((Path.cwd() / "backend" / "forms" / "template_images_v2" / "delivery_template_pg_1.jpg").resolve())
+abs_path_to_svg = str((Path.cwd() / "backend" / "forms" / "template_images" / "delivery_pg_2_template.svg").resolve())
+abs_path_to_template_image = str((Path.cwd() / "backend" / "forms" / "template_images" / "delivery_pg_2_template.jpg").resolve())
 
 # Generate questions from SVG
 all_questions = questions_from_svg(abs_path_to_svg)

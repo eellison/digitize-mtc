@@ -1,8 +1,11 @@
 <!doctype html>
-<title>Upload a filled Delivery record (page 1)</title>
-	<h1>Upload a filled Delivery Record (page 1)</h1>
+{% extends "home.html" %}
+{% block content %}
+<title>Upload a filled Delivery record (page 2)</title>
+	<h1>Upload a filled Delivery Record (page 2)</h1>
 	<h2>The processed form will be displayed on the next page.</h2>
 	<form method=post enctype=multipart/form-data>
 		<input type=file name=file>
 		<input type=submit value=Upload>
 	</form>
+{% endblock %}
