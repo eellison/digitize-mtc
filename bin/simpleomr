@@ -78,8 +78,8 @@ def scan_marks(image, marks):
         # roi = image[y:y+h, x:x+w]
         # scr = (roi < BLACK_LEVEL).sum() / (w*h)
         roi = image[y:y+h, x:x+w] < BLACK_LEVEL
-        masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
-        scr = (masked).sum() / (w*h)
+        #masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
+        scr = (roi).sum() / (w*h)
         if scr > FILL_THR:
             v = Checkbox_State.Filled
         elif scr > CHECK_THR:

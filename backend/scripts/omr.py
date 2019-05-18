@@ -1,13 +1,15 @@
 from skimage.filters import threshold_local
 import scipy.ndimage
 from .form import *
+from .util import remove_checkbox_outline
 import cv2
 
+
 # tuned for 300 dpi grayscale text
-BLACK_LEVEL  = 0.5 * 255
-FILL_THR     = 0.11 # threshold for filled box
-CHECK_THR    = 0.02 # threshold for checked box
-EMPTY_THR    = 0.01 # threashold for empty box
+BLACK_LEVEL  = 0.8 * 255 # 255 is pure white
+FILL_THR     = 0.22 # threshold for filled box
+CHECK_THR    = 0.05 # threshold for checked box
+EMPTY_THR    = 0.03 # threashold for empty box
 
 def clean_image(image):
     """
@@ -30,9 +32,11 @@ def calc_checkbox_score(image, response_region):
         scr (float): score for checkbox
     """
     w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
-    roi = image[y : y+h, x : x+w] < BLACK_LEVEL
-    masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
-    scr = (masked).sum() / (w * h)
+    # For now, turn off basic image masking in favor of remove_checkbox_outline
+    # masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
+    image = remove_checkbox_outline(image[y : y+h, x : x+w], response_region.name)
+    roi = image < BLACK_LEVEL
+    scr = (roi).sum() / (w * h)
     return scr
 
 def checkbox_state(input_image, template_image, response_region):
@@ -44,10 +48,10 @@ def checkbox_state(input_image, template_image, response_region):
     Returns:
         checkbox_state (CheckboxState): inferred state of this checkbox
     """
-    input_score = calc_checkbox_score(input_image, response_region)
+
     template_score = calc_checkbox_score(template_image, response_region)
-    # Subtact the two scores, ie. how much more filled is the input than the template?
-    scr = input_score - template_score
+    input_score = calc_checkbox_score(input_image, response_region)
+    scr = input_score # just take input score, for now
     if scr > FILL_THR:
         checkbox_state = CheckboxState.Filled
     elif scr > CHECK_THR:
@@ -56,6 +60,7 @@ def checkbox_state(input_image, template_image, response_region):
         checkbox_state =  CheckboxState.Empty
     else:
         checkbox_state =  CheckboxState.Unknown
+        print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, input_score))
     response_region.value = checkbox_state
     return checkbox_state
 
@@ -69,10 +74,8 @@ def checkbox_answer(question, input_image, template_image):
         question (Question): same input question, with "answer" filled in
     """
     state = checkbox_state(input_image, template_image, question.response_regions[0])
-    answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
-    answer_value = True if state == CheckboxState.Checked else False
-    question.answer_status = answer_status
-    question.answer = answer_value
+    question.answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
+    question.answer = True if state == CheckboxState.Checked else False
     return question
 
 def answer(question, input_image, template_image):

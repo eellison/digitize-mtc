@@ -1,10 +1,9 @@
 import cv2
 import numpy as np
-from skimage.filters import threshold_local
 
 MAX_FEATURES = 500
 GOOD_MATCH_PERCENT = 0.10
-AVG_MATCH_DIST_CUTOFF = 45
+AVG_MATCH_DIST_CUTOFF = 40
 
 def align_images(im1, im2):
     """
@@ -40,6 +39,7 @@ def align_images(im1, im2):
     # Validate the matches for quality
     match_distances = [m.distance for m in matches]
     if np.mean(match_distances) > AVG_MATCH_DIST_CUTOFF:
+        print(np.mean(match_distances))
         raise Exception("Poor image alignment! Please confirm you are using\n \
         the right form, and upload a new image.")
 

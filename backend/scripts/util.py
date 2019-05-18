@@ -1,5 +1,4 @@
 ## Utility Functions for Form Processing
-
 from pathlib import Path
 from .encoder import *
 from .form import *
@@ -7,6 +6,9 @@ import os
 from PIL import Image, ImageDraw, ImageOps
 import csv
 import cv2
+from copy import deepcopy
+import numpy as np
+import math
 
 # CONSTANTS
 BLACK_LEVEL  = 0.5 * 255
@@ -139,3 +141,59 @@ def write_diag_images(input_image_name, output_path, aligned_image, aligned_diag
     cv2.imwrite(aligned_diag_output_path, aligned_diag_image)
     cv2.imwrite(aligned_output_path, aligned_image)
     omr_visual_output(aligned_image, clean_input, answered_questions, debug_output_path)
+
+
+def remove_checkbox_outline(input_arr, region_name, debug=False):
+    '''
+    Args:
+        arr (numpy.ndarray): a grayscale array containing a checkbox outline
+    Returns:
+        fin (numpy.ndarray): arr, with any vertical or horizontal lines removed
+    '''
+    arr = deepcopy(input_arr)
+    thresh = cv2.adaptiveThreshold(
+                        arr, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+                        cv2.THRESH_BINARY_INV, 25, 15)
+    # Create the images that will use to extract the horizontal and vertical lines
+    horizontal = np.copy(thresh)
+    vertical = np.copy(thresh)
+
+    # Specify size on horizontal axis
+    cols = horizontal.shape[1]
+    horizontal_size = math.ceil(cols / 4) # specify a "line" as 1/4 length of image
+
+    # Create structure element for extracting horizontal lines through morphology operations
+    horizontalStructure = cv2.getStructuringElement(cv2.MORPH_RECT, (horizontal_size, 1))
+
+    # Apply morphology operations
+    horizontal = cv2.erode(horizontal, horizontalStructure)
+    horizontal = cv2.dilate(horizontal, horizontalStructure)
+
+    # Specify size on vertical axis
+    rows = vertical.shape[0]
+    verticalsize = math.ceil(rows / 4) # specify a "line" as 1/4 length of image
+
+    # Create structure element for extracting vertical lines through morphology operations
+    verticalStructure = cv2.getStructuringElement(cv2.MORPH_RECT, (1, verticalsize))
+
+    # Apply morphology operations
+    vertical = cv2.erode(vertical, verticalStructure)
+    vertical = cv2.dilate(vertical, verticalStructure)
+
+    # Add horizontal and vertical
+    horizontal_plus_vertical = horizontal + vertical
+
+    # Create final image after removal of boundary box
+    boundary_box_idx = horizontal_plus_vertical!=0
+    fin = deepcopy(input_arr)
+    fin[boundary_box_idx] = horizontal_plus_vertical[boundary_box_idx]
+
+    # Show extracted lines
+    if debug:
+        cv2.imwrite(region_name + "_original.jpg", input_arr)
+        cv2.imwrite(region_name + "_horizontal.jpg", horizontal)
+        cv2.imwrite(region_name + "_vertical.jpg", vertical)
+        cv2.imwrite(region_name + "_horizontal_plus_vertical.jpg", horizontal_plus_vertical)
+        cv2.imwrite(region_name + "checkbox_removed.jpg", fin)
+
+    return fin
