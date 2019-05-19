@@ -1,6 +1,6 @@
 {
     "name": "ANC",
-    "form_image": "/Users/sudheesha/Documents/Projects/Mae_Tao_Clinic/digitize-mtc/backend/forms/template_images/anc_pg_1_template.jpg",
+    "form_image": "backend/forms/template_images/anc_pg_1_template.jpg",
     "questions": [
         {
             "name": "md_regNo_1",

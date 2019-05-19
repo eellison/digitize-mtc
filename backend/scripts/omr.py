@@ -75,7 +75,7 @@ def checkbox_answer(question, input_image, template_image):
     """
     state = checkbox_state(input_image, template_image, question.response_regions[0])
     question.answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
-    question.answer = True if state == CheckboxState.Checked else False
+    question.answer = state
     return question
 
 def answer(question, input_image, template_image):

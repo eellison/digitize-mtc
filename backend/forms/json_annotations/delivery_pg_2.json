@@ -1,6 +1,6 @@
 {
     "name": "Delivery_Pg_2",
-    "form_image": "/Users/sudheesha/Documents/Projects/Mae_Tao_Clinic/digitize-mtc/backend/forms/template_images/delivery_pg_2_template.jpg",
+    "form_image": "backend/forms/template_images/delivery_pg_2_template.jpg",
     "questions": [
         {
             "name": "cb_normalWoEpistiotomy",
