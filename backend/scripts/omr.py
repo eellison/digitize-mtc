@@ -1,7 +1,5 @@
-from skimage.filters import threshold_local
-import scipy.ndimage
 from .form import *
-from .util import remove_checkbox_outline
+from .util import remove_checkbox_outline, clean_image, project_mark_locations
 import cv2
 
 
@@ -11,17 +9,6 @@ FILL_THR     = 0.22 # threshold for filled box
 CHECK_THR    = 0.05 # threshold for checked box
 EMPTY_THR    = 0.03 # threashold for empty box
 
-def clean_image(image):
-    """
-    Args:
-        image (numpy.ndarray): image to clean
-    Returns:
-        clean (numpy.ndarray): cleaned image
-    """
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    T = threshold_local(image, 11, offset=10, method="gaussian")
-    clean = (image > T).astype("uint8")*255
-    return clean
 
 def calc_checkbox_score(image, response_region):
     """
@@ -48,8 +35,6 @@ def checkbox_state(input_image, template_image, response_region):
     Returns:
         checkbox_state (CheckboxState): inferred state of this checkbox
     """
-
-    template_score = calc_checkbox_score(template_image, response_region)
     input_score = calc_checkbox_score(input_image, response_region)
     scr = input_score # just take input score, for now
     if scr > FILL_THR:
@@ -67,7 +52,7 @@ def checkbox_state(input_image, template_image, response_region):
 def checkbox_answer(question, input_image, template_image):
     """
     Args:
-        question (Question): question with type QuestionType.Checkbox
+        question (Question): question with type QuestionType.checkbox
         input_image (numpy.ndarray): image of filled form
         template_image (numpy.ndarray): image of unfilled form template
     Returns:
@@ -75,7 +60,35 @@ def checkbox_answer(question, input_image, template_image):
     """
     state = checkbox_state(input_image, template_image, question.response_regions[0])
     question.answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
-    question.answer = state
+    return question
+
+def radio_answer(question, input_image, template_image):
+    """
+    Args:
+        question (Question): question with type QuestionType.radio
+        input_image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form template
+    Returns:
+        question (Question): same input question, with "answers" filled in
+    """
+    for region in question.response_regions:
+        checkbox_state(input_image, template_image, region)
+    # TODO: add logic to determine the AnswerStatus based on responses
+    return question
+
+def text_answer(question, input_image, template_image):
+    """
+    Args:
+        question (Question): question with type QuestionType.text
+        input_image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form template
+    Returns:
+        question (Question): same input question, with "answers" filled in
+    """
+    # TODO: have this run pytesseract on the input region (see "/scratch/ocr_test.py")
+    for region in question.response_regions:
+        region.value = "Some OCR guess at what this text should be..."
+    question.answer_status = AnswerStatus.NeedsRevision
     return question
 
 def answer(question, input_image, template_image):
@@ -85,14 +98,30 @@ def answer(question, input_image, template_image):
         input_image (numpy.ndarray): image of filled form
         template_image (numpy.ndarray): image of unfilled form template
     Returns:
-        question (Question): same input question, with "answer" filled in
+        question (Question): same input question, with responses
     """
-    if question.question_type == QuestionType.Checkbox.name:
+    if question.question_type == QuestionType.checkbox.name:
         return checkbox_answer(question, input_image, template_image)
+    elif question.question_type == QuestionType.radio.name:
+        return radio_answer(question, input_image, template_image)
+    elif question.question_type == QuestionType.text.name:
+        return text_answer(question, input_image, template_image)
     else:
         # No logic for other question types, yet...
         print("Warning: could not process question type %s, skipping for now, " % str(question.question_type))
         return question
+
+def answer_group(question_group, input_image, template_image):
+    """
+    Args:
+        question_group (QuestionGroup): a group of question on the input Form
+        input_image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form template
+    Returns:
+        question_group (Question): same input group, with responses filled in
+    """
+    question_group.questions = [answer(question, input_image, template_image) for question in question_group.questions]
+    return question_group
 
 def recognize_answers(input_image, template_image, form):
     """
@@ -106,5 +135,6 @@ def recognize_answers(input_image, template_image, form):
     """
     clean_input = clean_image(input_image)
     clean_template = clean_image(template_image)
-    answered_questions = [answer(question, clean_input, clean_template) for question in form.questions]
+    form = project_mark_locations(clean_input, form)
+    answered_questions = [answer_group(group, clean_input, clean_template) for group in form.question_groups]
     return answered_questions, clean_input

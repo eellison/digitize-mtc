@@ -13,6 +13,10 @@ class FormTemplateEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Form):
             dict_repr = self.get_basic_dict(obj)
+            dict_repr["question_groups"] = [self.default(q) for q in obj.question_groups]
+            return dict_repr
+        elif isinstance(obj, QuestionGroup):
+            dict_repr = self.get_basic_dict(obj)
             dict_repr["questions"] = [self.default(q) for q in obj.questions]
             return dict_repr
         elif isinstance(obj, Question):
@@ -33,11 +37,14 @@ class FormTemplateEncoder(json.JSONEncoder):
 # Decoder that converts JSON back to FormTemplate object (should be inverse of above)
 def decode_form(form_json):
     if '__type__' in form_json and form_json['__type__'] == Form.__name__:
+        question_groups = [decode_form(question) for question in form_json["question_groups"]]
+        return Form(form_json['name'], form_json['image'], form_json['w'], form_json['h'], question_groups)
+    if '__type__' in form_json and form_json['__type__'] == QuestionGroup.__name__:
         questions = [decode_form(question) for question in form_json["questions"]]
-        return Form(form_json['name'], form_json['form_image'], questions)
+        return QuestionGroup(form_json['name'], form_json["w"],  form_json["h"],  form_json["x"],  form_json["y"], questions)
     elif '__type__' in form_json and form_json['__type__'] == Question.__name__:
-        responses = [decode_form(region) for region in form_json["response_regions"]]
-        return Question(form_json['name'], form_json['question_type'], responses, form_json["answer"], form_json["answer_status"])
+        response_regions = [decode_form(region) for region in form_json["response_regions"]]
+        return Question(form_json['name'], form_json['question_type'], response_regions, form_json["answer_status"])
     elif '__type__' in form_json and form_json['__type__'] == ResponseRegion.__name__:
         return ResponseRegion(form_json['name'], form_json['w'], form_json['h'], form_json['x'], form_json['y'], form_json['value'])
     else:

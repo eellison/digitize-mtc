@@ -9,6 +9,7 @@ import cv2
 from copy import deepcopy
 import numpy as np
 import math
+from skimage.filters import threshold_local
 
 # CONSTANTS
 BLACK_LEVEL  = 0.5 * 255
@@ -81,18 +82,19 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
     buf = Image.new('RGB', image.shape[::-1])
     buf.paste(Image.fromarray(image, 'L'))
     draw = ImageDraw.Draw(buf, 'RGBA')
-    for q in answered_questions:
-        for rr in q.response_regions:
-            val = rr.value
-            if val == CheckboxState.Checked:
-                c = (0, 255, 0, 127) # green
-            elif val == CheckboxState.Empty:
-                c = (255, 0, 0, 127) # red
-            elif val == CheckboxState.Filled:
-                c = (0, 0, 0, 64) # gray
-            else:
-                c = (255, 127, 0, 127) # orange
-            draw.rectangle((rr.x, rr.y, rr.x+rr.w, rr.y+rr.h), c)
+    for group in answered_questions:
+        for q in group.questions:
+            for rr in q.response_regions:
+                val = rr.value
+                if val == CheckboxState.Checked:
+                    c = (0, 255, 0, 127) # green
+                elif val == CheckboxState.Empty:
+                    c = (255, 0, 0, 127) # red
+                elif val == CheckboxState.Filled:
+                    c = (0, 0, 0, 64) # gray
+                else:
+                    c = (255, 127, 0, 127) # orange
+                draw.rectangle((rr.x, rr.y, rr.x+rr.w, rr.y+rr.h), c)
     bw = clean_image.copy()
     thr = bw < BLACK_LEVEL
     bw[thr] = 255
@@ -197,3 +199,44 @@ def remove_checkbox_outline(input_arr, region_name, debug=False):
         cv2.imwrite(region_name + "checkbox_removed.jpg", fin)
 
     return fin
+
+def project_mark_locations(image, form):
+    """
+    Args:
+        image (numpy.ndarray): input image for mark recognition
+        form (Form): template for a form, with coordinates in absolute terms
+    Returns:
+        form (Form): same input form, but with coordinates translated relative to input image size
+    """
+    # TODO: Clean this up; Sud: I think the form model needs a nested "Location"
+    image_height, image_width = image.shape
+    dw = image_width / form.w
+    dh = image_height / form.h
+    # re-assign dimensions to input image dimensions
+    form.w = image_width
+    form.h = image_height
+    # project all marks onto new coordinate system
+    for group in form.question_groups:
+        group.w = int(float(group.w) * dw)
+        group.h = int(float(group.h) * dh)
+        group.x = int(float(group.x) * dw)
+        group.y = int(float(group.y) * dh)
+        for question in group.questions:
+            for region in question.response_regions:
+                region.w = int(float(region.w) * dw)
+                region.h = int(float(region.h) * dh)
+                region.x = int(float(region.x) * dw)
+                region.y = int(float(region.y) * dh)
+    return form
+
+def clean_image(image):
+    """
+    Args:
+        image (numpy.ndarray): image to clean
+    Returns:
+        clean (numpy.ndarray): cleaned image
+    """
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    T = threshold_local(image, 11, offset=10, method="gaussian")
+    clean = (image > T).astype("uint8")*255
+    return clean

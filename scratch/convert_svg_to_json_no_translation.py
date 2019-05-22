@@ -33,10 +33,10 @@ qg_[question group name]_[question type]_[response name]
 ### Helper Functions ###
 ########################
 def get_pixel_dimensions(tag, dw, dh):
-    w = int(float(tag.get('width')) * dw)
-    h = int(float(tag.get('height')) * dh)
-    x = int(float(tag.get('x')) * dw)
-    y = int(float(tag.get('y')) * dh)
+    w = float(tag.get('width'))
+    h = float(tag.get('height'))
+    x = float(tag.get('x'))
+    y = float(tag.get('y'))
     return w, h, x ,y
 
 def get_tag_parts(tag):

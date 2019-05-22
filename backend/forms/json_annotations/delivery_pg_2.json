@@ -1,924 +1,978 @@
 {
-    "name": "Delivery_Pg_2",
-    "form_image": "backend/forms/template_images/delivery_pg_2_template.jpg",
-    "questions": [
+    "name": "Delivery Page 2",
+    "image": "backend/forms/template_images/delivery_pg_2_template.jpg",
+    "w": 793.28003,
+    "h": 1121.28,
+    "question_groups": [
         {
-            "name": "cb_normalWoEpistiotomy",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_normalWoEpistiotomy]",
-                    "w": 259,
-                    "h": 187,
-                    "x": 41,
-                    "y": 50,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_ocr_apgar1min",
+            "w": 593.42145,
+            "h": 374.01813,
+            "x": 67.885971,
+            "y": 18.068508,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_normalWEpisiotomy",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_normalWEpisiotomy]",
-                    "w": 260,
-                    "h": 246,
-                    "x": 37,
-                    "y": 37,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_ocr_apgar5min",
+            "w": 592.90521,
+            "h": 397.5072,
+            "x": 68.402214,
+            "y": 17.810387,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "rb_presentation_vertex",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_presentation_vertex]",
-                    "w": 260,
-                    "h": 425,
-                    "x": 38,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_neonatalResus_none",
+            "w": 445.77591,
+            "h": 436.48355,
+            "x": 13.680443,
+            "y": 13.164199,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "rb_presentation_breechFootling",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_presentation_breechFootling]",
-                    "w": 259,
-                    "h": 503,
-                    "x": 41,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_neonatalResus_stimulation",
+            "w": 507.46698,
+            "h": 435.70917,
+            "x": 13.938564,
+            "y": 13.938564,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "rb_presentation_breechFrank",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_presentation_breechFrank]",
-                    "w": 260,
-                    "h": 558,
-                    "x": 40,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_neonatalResus_ambubag",
+            "w": 610.45746,
+            "h": 435.70917,
+            "x": 15.229172,
+            "y": 14.196686,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "rb_presentation_occiputPosterior",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_presentation_occiputPosterior]",
-                    "w": 262,
-                    "h": 617,
-                    "x": 32,
-                    "y": 37,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_neonatalResus_adrenalin",
+            "w": 585.41968,
+            "h": 452.22897,
+            "x": 13.680443,
+            "y": 14.454807,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_antepartumHemorrhage",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_antepartumHemorrhage]",
-                    "w": 257,
-                    "h": 870,
-                    "x": 44,
-                    "y": 47,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_neonatalResus_chestCompression",
+            "w": 445.00156,
+            "h": 453.26144,
+            "x": 14.196686,
+            "y": 13.42232,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_postpartumHemorrhage",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_postpartumHemorrhage]",
-                    "w": 258,
-                    "h": 927,
-                    "x": 42,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_dryAndWrapBaby_yes",
+            "w": 575.61108,
+            "h": 470.5556,
+            "x": 13.680443,
+            "y": 14.97105,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_postpartumSepsis",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_postpartumSepsis]",
-                    "w": 256,
-                    "h": 979,
-                    "x": 45,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_dryAndWrapBaby_no",
+            "w": 621.04047,
+            "h": 471.07184,
+            "x": 11.873591,
+            "y": 14.454807,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_referredCaesarianSection",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_referredCaesarianSection]",
-                    "w": 260,
-                    "h": 1032,
-                    "x": 39,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_babyToBreast_within1hr",
+            "w": 447.84088,
+            "h": 511.85504,
+            "x": 13.938564,
+            "y": 14.454807,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_prolongedLabor",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_prolongedLabor]",
-                    "w": 1365,
-                    "h": 980,
-                    "x": 45,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_babyToBreast_greaterThan1Hour",
+            "w": 545.66895,
+            "h": 512.88751,
+            "x": 12.906077,
+            "y": 12.906077,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_rupturedUterus",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_rupturedUterus]",
-                    "w": 1365,
-                    "h": 931,
-                    "x": 45,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_rb_babyToBreast_none",
+            "w": 617.68488,
+            "h": 512.88751,
+            "x": 13.164199,
+            "y": 13.680443,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_severePreEclampsia",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_severePreEclampsia]",
-                    "w": 1365,
-                    "h": 871,
-                    "x": 44,
-                    "y": 53,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_imperferatedAnus",
+            "w": 286.25681,
+            "h": 549.02454,
+            "x": 12.131713,
+            "y": 12.647956,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_bloodTransfusion",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_bloodTransfusion]",
-                    "w": 1102,
-                    "h": 187,
-                    "x": 48,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_cleftPalate",
+            "w": 411.96201,
+            "h": 549.79895,
+            "x": 13.42232,
+            "y": 12.389834,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_placentaManualRemoval",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_placentaManualRemoval]",
-                    "w": 1104,
-                    "h": 241,
-                    "x": 47,
-                    "y": 40,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_cleftLip",
+            "w": 496.36777,
+            "h": 549.28265,
+            "x": 11.61547,
+            "y": 13.42232,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_sutureCervialTear",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_sutureCervialTear]",
-                    "w": 1108,
-                    "h": 295,
-                    "x": 40,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_extraDigits",
+            "w": 559.86566,
+            "h": 547.99207,
+            "x": 14.712929,
+            "y": 14.97105,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_suture3rd4thDegreeTear",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_suture3rd4thDegreeTear]",
-                    "w": 1108,
-                    "h": 346,
-                    "x": 43,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_otherCongenitalDefect",
+            "w": 534.05347,
+            "h": 565.28619,
+            "x": 15.745415,
+            "y": 14.196686,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_manualVacuumAspiration",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_manualVacuumAspiration]",
-                    "w": 1104,
-                    "h": 423,
-                    "x": 45,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_undescendedTestes",
+            "w": 285.2243,
+            "h": 565.54431,
+            "x": 15.745415,
+            "y": 13.42232,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_dilatationAndCurettage",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_dilatationAndCurettage]",
-                    "w": 1103,
-                    "h": 503,
-                    "x": 45,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "name": "gq_BabyOutcomes_cb_umbilicalHernia",
+            "w": 411.96201,
+            "h": 565.54431,
+            "x": 14.454807,
+            "y": 14.454807,
+            "questions": [],
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_vacuumDelivery",
-            "question_type": "Checkbox",
-            "response_regions": [
+            "name": "DeliveryDetails",
+            "w": 65.046631,
+            "h": 32.00708,
+            "x": 687.6358,
+            "y": 323.16818,
+            "questions": [
                 {
-                    "name": "Checkbox[cb_vacuumDelivery]",
-                    "w": 1105,
-                    "h": 560,
-                    "x": 45,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
+                    "name": "normalWoEpistiotomy",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 83.115143,
+                            "h": 59.884201,
+                            "x": 13.42232,
+                            "y": 16.003536,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "normalWEpisiotomy",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 83.37326,
+                            "h": 78.985191,
+                            "x": 11.873591,
+                            "y": 11.873591,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "antepartumHemorrhage",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 82.5989,
+                            "h": 278.51315,
+                            "x": 14.196686,
+                            "y": 15.229172,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "postpartumHemorrhage",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 82.857018,
+                            "h": 296.83978,
+                            "x": 13.680443,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "postpartumSepsis",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 82.340775,
+                            "h": 313.35956,
+                            "x": 14.454807,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "referredCaesarianSection",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 83.631386,
+                            "h": 330.3956,
+                            "x": 12.647956,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "prolongedLabor",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 437.51602,
+                            "h": 313.87579,
+                            "x": 14.712929,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "rupturedUterus",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 437.77417,
+                            "h": 298.06543,
+                            "x": 14.454807,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "severePreEclampsia",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 437.77417,
+                            "h": 279.02939,
+                            "x": 14.19667,
+                            "y": 17.036032,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "bloodTransfusion",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 353.36841,
+                            "h": 60.142319,
+                            "x": 15.487293,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "placentaManualRemoval",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 354.14276,
+                            "h": 77.436462,
+                            "x": 15.229172,
+                            "y": 12.906077,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "sutureCervialTear",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 355.17526,
+                            "h": 94.472488,
+                            "x": 12.906077,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "suture3rd4thDegreeTear",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 355.17526,
+                            "h": 110.99226,
+                            "x": 13.938564,
+                            "y": 14.712929,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "manualVacuumAspiration",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 354.14276,
+                            "h": 135.51381,
+                            "x": 14.454807,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "dilatationAndCurettage",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 353.62653,
+                            "h": 161.06784,
+                            "x": 14.454807,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "vacuumDelivery",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 354.40088,
+                            "h": 179.39449,
+                            "x": 14.454807,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "neonatalResuscitation",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 354.65903,
+                            "h": 197.20486,
+                            "x": 14.712929,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "IVantibiotic",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 580.51538,
+                            "h": 59.626076,
+                            "x": 15.229172,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "IVantiConvulsant",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 582.3222,
+                            "h": 77.694588,
+                            "x": 13.164199,
+                            "y": 12.389834,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "IVoxytocin",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 582.3222,
+                            "h": 94.730606,
+                            "x": 13.938564,
+                            "y": 12.906077,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "IMoxytocin",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 582.06409,
+                            "h": 111.50851,
+                            "x": 12.906077,
+                            "y": 11.873591,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "misoprotol",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 581.54785,
+                            "h": 127.77016,
+                            "x": 14.454807,
+                            "y": 12.906077,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "methergin",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 582.06409,
+                            "h": 144.80618,
+                            "x": 13.164199,
+                            "y": 13.164199,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "IUFD",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 581.54785,
+                            "h": 215.27338,
+                            "x": 14.196686,
+                            "y": 12.906077,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "premature",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 582.06409,
+                            "h": 231.53503,
+                            "x": 13.680443,
+                            "y": 12.906077,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "twin",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 581.28973,
+                            "h": 248.05481,
+                            "x": 15.487293,
+                            "y": 13.938564,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "birthType",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "live",
+                            "w": 581.54785,
+                            "h": 178.62012,
+                            "x": 13.42232,
+                            "y": 14.454807,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "still",
+                            "w": 581.03162,
+                            "h": 196.68863,
+                            "x": 14.454807,
+                            "y": 14.712929,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "presentation",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "vertex",
+                            "w": 83.631386,
+                            "h": 136.03006,
+                            "x": 12.389834,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "breechFootling",
+                            "w": 83.115143,
+                            "h": 161.06784,
+                            "x": 13.164199,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "breechFrank",
+                            "w": 83.37326,
+                            "h": 178.62012,
+                            "x": 12.906077,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "occiputPosterior",
+                            "w": 84.147629,
+                            "h": 197.46298,
+                            "x": 10.324862,
+                            "y": 11.873591,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
                 }
             ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "__type__": "QuestionGroup"
         },
         {
-            "name": "cb_neonatalResuscitation",
-            "question_type": "Checkbox",
-            "response_regions": [
+            "name": "BabyOutcomes",
+            "w": 65.046631,
+            "h": 355.17526,
+            "x": 687.6358,
+            "y": 226.11447,
+            "questions": [
                 {
-                    "name": "Checkbox[cb_neonatalResuscitation]",
-                    "w": 1106,
-                    "h": 616,
-                    "x": 45,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
+                    "name": "apgar1min",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 593.42145,
+                            "h": 374.01813,
+                            "x": 67.885971,
+                            "y": 18.068508,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "apgar5min",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 592.90521,
+                            "h": 397.5072,
+                            "x": 68.402214,
+                            "y": 17.810387,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "imperferatedAnus",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 286.25681,
+                            "h": 549.02454,
+                            "x": 12.131713,
+                            "y": 12.647956,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "cleftPalate",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 411.96201,
+                            "h": 549.79895,
+                            "x": 13.42232,
+                            "y": 12.389834,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "cleftLip",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 496.36777,
+                            "h": 549.28265,
+                            "x": 11.61547,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "extraDigits",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 559.86566,
+                            "h": 547.99207,
+                            "x": 14.712929,
+                            "y": 14.97105,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "otherCongenitalDefect",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 534.05347,
+                            "h": 565.28619,
+                            "x": 15.745415,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "undescendedTestes",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 285.2243,
+                            "h": 565.54431,
+                            "x": 15.745415,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "umbilicalHernia",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 411.96201,
+                            "h": 565.54431,
+                            "x": 14.454807,
+                            "y": 14.454807,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "dryAndWrapBaby",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "yes",
+                            "w": 575.61108,
+                            "h": 470.5556,
+                            "x": 13.680443,
+                            "y": 14.97105,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "no",
+                            "w": 621.04047,
+                            "h": 471.07184,
+                            "x": 11.873591,
+                            "y": 14.454807,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "neonatalResus",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "none",
+                            "w": 445.77591,
+                            "h": 436.48355,
+                            "x": 13.680443,
+                            "y": 13.164199,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "stimulation",
+                            "w": 507.46698,
+                            "h": 435.70917,
+                            "x": 13.938564,
+                            "y": 13.938564,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "ambubag",
+                            "w": 610.45746,
+                            "h": 435.70917,
+                            "x": 15.229172,
+                            "y": 14.196686,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "adrenalin",
+                            "w": 585.41968,
+                            "h": 452.22897,
+                            "x": 13.680443,
+                            "y": 14.454807,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "chestCompression",
+                            "w": 445.00156,
+                            "h": 453.26144,
+                            "x": 14.196686,
+                            "y": 13.42232,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
+                },
+                {
+                    "name": "babyToBreast",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "within1hr",
+                            "w": 447.84088,
+                            "h": 511.85504,
+                            "x": 13.938564,
+                            "y": 14.454807,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "greaterThan1Hour",
+                            "w": 545.66895,
+                            "h": 512.88751,
+                            "x": 12.906077,
+                            "y": 12.906077,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "none",
+                            "w": 617.68488,
+                            "h": 512.88751,
+                            "x": 13.164199,
+                            "y": 13.680443,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "NotAnswered",
+                    "__type__": "Question"
                 }
             ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_IVantibiotic",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_IVantibiotic]",
-                    "w": 1811,
-                    "h": 186,
-                    "x": 47,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_IVantiConvulsant",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_IVantiConvulsant]",
-                    "w": 1816,
-                    "h": 242,
-                    "x": 41,
-                    "y": 38,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_IVoxytocin",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_IVoxytocin]",
-                    "w": 1816,
-                    "h": 296,
-                    "x": 43,
-                    "y": 40,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_IMoxytocin",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_IMoxytocin]",
-                    "w": 1816,
-                    "h": 348,
-                    "x": 40,
-                    "y": 37,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_misoprotol",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_misoprotol]",
-                    "w": 1814,
-                    "h": 399,
-                    "x": 45,
-                    "y": 40,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_methergin",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_methergin]",
-                    "w": 1816,
-                    "h": 452,
-                    "x": 41,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_birthType_live",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_birthType_live]",
-                    "w": 1814,
-                    "h": 558,
-                    "x": 41,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_birthType_still",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_birthType_still]",
-                    "w": 1812,
-                    "h": 614,
-                    "x": 45,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_IUFD",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_IUFD]",
-                    "w": 1814,
-                    "h": 672,
-                    "x": 44,
-                    "y": 40,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_premature",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_premature]",
-                    "w": 1816,
-                    "h": 723,
-                    "x": 42,
-                    "y": 40,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_twin",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_twin]",
-                    "w": 1813,
-                    "h": 775,
-                    "x": 48,
-                    "y": 43,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "ocr_apgar1min",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[ocr_apgar1min]",
-                    "w": 1851,
-                    "h": 1168,
-                    "x": 211,
-                    "y": 56,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "ocr_apgar5min",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[ocr_apgar5min]",
-                    "w": 1849,
-                    "h": 1242,
-                    "x": 213,
-                    "y": 55,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_neonatalResus_none",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_neonatalResus_none]",
-                    "w": 1390,
-                    "h": 1364,
-                    "x": 42,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_neonatalResus_stimulation",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_neonatalResus_stimulation]",
-                    "w": 1583,
-                    "h": 1361,
-                    "x": 43,
-                    "y": 43,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_neonatalResus_ambubag",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_neonatalResus_ambubag]",
-                    "w": 1904,
-                    "h": 1361,
-                    "x": 47,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_neonatalResus_adrenalin",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_neonatalResus_adrenalin]",
-                    "w": 1826,
-                    "h": 1413,
-                    "x": 42,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_neonatalResus_chestCompression",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_neonatalResus_chestCompression]",
-                    "w": 1388,
-                    "h": 1416,
-                    "x": 44,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_dryAndWrapBaby_yes",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_dryAndWrapBaby_yes]",
-                    "w": 1795,
-                    "h": 1470,
-                    "x": 42,
-                    "y": 46,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_dryAndWrapBaby_no",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_dryAndWrapBaby_no]",
-                    "w": 1937,
-                    "h": 1472,
-                    "x": 37,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_babyToBreast_within1hr",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_babyToBreast_within1hr]",
-                    "w": 1397,
-                    "h": 1599,
-                    "x": 43,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_babyToBreast_greaterThan1Hour",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_babyToBreast_greaterThan1Hour]",
-                    "w": 1702,
-                    "h": 1602,
-                    "x": 40,
-                    "y": 40,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "rb_babyToBreast_none",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[rb_babyToBreast_none]",
-                    "w": 1927,
-                    "h": 1602,
-                    "x": 41,
-                    "y": 42,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_imperferatedAnus",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_imperferatedAnus]",
-                    "w": 893,
-                    "h": 1715,
-                    "x": 37,
-                    "y": 39,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_cleftPalate",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_cleftPalate]",
-                    "w": 1285,
-                    "h": 1718,
-                    "x": 41,
-                    "y": 38,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_cleftLip",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_cleftLip]",
-                    "w": 1548,
-                    "h": 1716,
-                    "x": 36,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_extraDigits",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_extraDigits]",
-                    "w": 1746,
-                    "h": 1712,
-                    "x": 45,
-                    "y": 46,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_otherCongenitalDefect",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_otherCongenitalDefect]",
-                    "w": 1666,
-                    "h": 1766,
-                    "x": 49,
-                    "y": 44,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_undescendedTestes",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_undescendedTestes]",
-                    "w": 889,
-                    "h": 1767,
-                    "x": 49,
-                    "y": 41,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
-        },
-        {
-            "name": "cb_umbilicalHernia",
-            "question_type": "Checkbox",
-            "response_regions": [
-                {
-                    "name": "Checkbox[cb_umbilicalHernia]",
-                    "w": 1285,
-                    "h": 1767,
-                    "x": 45,
-                    "y": 45,
-                    "value": null,
-                    "__type__": "ResponseRegion"
-                }
-            ],
-            "answer": null,
-            "answer_status": "NotAnswered",
-            "__type__": "Question"
+            "__type__": "QuestionGroup"
         }
     ],
     "__type__": "Form"

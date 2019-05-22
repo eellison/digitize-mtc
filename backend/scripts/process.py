@@ -19,7 +19,7 @@ def process(input_image_path, template_json_path, output_dir_path):
     # Load input image, template, and template_image
     input_image = util.read_image(input_image_path) # numpy.ndarray
     template = util.read_json_to_form(template_json_path) # Form object
-    template_image = util.read_image(template.form_image) # numpy.ndarray
+    template_image = util.read_image(template.image) # numpy.ndarray
 
     ###################################
     ### Step 1: Run Image Alignment ###
@@ -34,11 +34,10 @@ def process(input_image_path, template_json_path, output_dir_path):
     ############################
     ### Step 3: Write Output ###
     ############################
-    processed_form = Form(template.name, template.form_image, answered_questions)
+    processed_form = Form(template.name, input_image_path, template.w, template.h, answered_questions)
     input_image_name, output_abs_path, json_output_path, csv_output_path = util.generate_paths(input_image_path, template, output_dir_path)
-    # Write (1) diagnostic images, (2) JSON form representation, (3) CSV output
+    # Write (1) diagnostic images, (2) JSON form representation
     util.write_diag_images(input_image_name, output_abs_path, aligned_image, aligned_diag_image, clean_input, answered_questions)
     util.write_form_to_json(processed_form, json_output_path)
-    util.write_form_to_csv(processed_form, csv_output_path)
 
     return True
