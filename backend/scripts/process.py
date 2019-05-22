@@ -2,7 +2,7 @@ import cv2
 import os
 from pathlib import Path
 from PIL import Image, ImageDraw
-from scripts import *
+from backend.scripts import *
 
 
 def process(input_image_path, template_json_path, output_dir_path):
