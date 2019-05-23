@@ -91,12 +91,13 @@ def main():
     args = parser.parse_args()
 
     test_forms = get_test_form_info()
-    summary_fields = ['form_name', 'num_questions',
-        'num_incorrect', 'process_method_time', 'run_id']
     process_results = [process_test_form(test_form) for test_form in test_forms]
 
+    summary_fields = ['form_name', 'num_questions',
+        'num_incorrect', 'process_method_time', 'run_id']
     summary_dicts = [evaluate_results(process_result, summary_fields)
         for process_result in process_results]
+
     error_dicts = []
     for summary_dict in summary_dicts:
         errors = summary_dict['error_info']
@@ -106,8 +107,9 @@ def main():
             error_dicts.append(error)
 
     summary_df = pd.DataFrame(summary_dicts, columns=summary_fields)
-    errors_df = pd.DataFrame(error_dicts)
     summary_df.to_csv('tests/summary.csv', index=False)
+
+    errors_df = pd.DataFrame(error_dicts)
     errors_df.to_csv('tests/errors.csv', index=False)
 
 if __name__ == '__main__':
