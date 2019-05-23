@@ -6,8 +6,8 @@ import cv2
 # tuned for 300 dpi grayscale text
 BLACK_LEVEL  = 0.8 * 255 # 255 is pure white
 FILL_THR     = 0.22 # threshold for filled box
-CHECK_THR    = 0.05 # threshold for checked box
-EMPTY_THR    = 0.03 # threashold for empty box
+CHECK_THR    = 0.01 # threshold for checked box
+EMPTY_THR    = 0.009 # threashold for empty box
 
 
 def calc_checkbox_score(image, response_region):
@@ -19,11 +19,11 @@ def calc_checkbox_score(image, response_region):
         scr (float): score for checkbox
     """
     w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
-    # For now, turn off basic image masking in favor of remove_checkbox_outline
-    # masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
-    image = remove_checkbox_outline(image[y : y+h, x : x+w], response_region.name)
-    roi = image < BLACK_LEVEL
-    scr = (roi).sum() / (w * h)
+    roi = image[y : y+h, x : x+w] < BLACK_LEVEL
+    # For now, stick with simple image masking. Later refine "remove_checkbox_outline"
+    # image = remove_checkbox_outline(image[y : y+h, x : x+w], response_region.name)
+    masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
+    scr = (masked).sum() / (w * h)
     return scr
 
 def checkbox_state(input_image, template_image, response_region):
@@ -36,7 +36,8 @@ def checkbox_state(input_image, template_image, response_region):
         checkbox_state (CheckboxState): inferred state of this checkbox
     """
     input_score = calc_checkbox_score(input_image, response_region)
-    scr = input_score # just take input score, for now
+    template_score = calc_checkbox_score(template_image, response_region)
+    scr = input_score - template_score
     if scr > FILL_THR:
         checkbox_state = CheckboxState.Filled
     elif scr > CHECK_THR:
@@ -45,7 +46,7 @@ def checkbox_state(input_image, template_image, response_region):
         checkbox_state =  CheckboxState.Empty
     else:
         checkbox_state =  CheckboxState.Unknown
-        print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, input_score))
+        print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
     response_region.value = checkbox_state
     return checkbox_state
 

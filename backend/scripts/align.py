@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 MAX_FEATURES = 500
-GOOD_MATCH_PERCENT = 0.10
+GOOD_MATCH_PERCENT = 0.15
 AVG_MATCH_DIST_CUTOFF = 40
 
 def align_images(im1, im2):
