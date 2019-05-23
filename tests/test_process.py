@@ -1,8 +1,8 @@
 import argparse
 from backend.scripts import process, util, form, omr, encoder
-import glob
 import pandas as pd
 from pathlib import Path
+import time
 import timeit
 
 def process_test_form(test_form_info):
@@ -16,7 +16,7 @@ def process_test_form(test_form_info):
     form_file_stem = str(Path(form_path).stem)
     processed_form_path = output_dir + '/' + form_file_stem + "_processed.json"
     processed_form = util.read_json_to_form(processed_form_path)
-    return processed_form
+    return (processed_form, process_time)
 
 def get_ground_truth_for_form(form_name):
     ground_truth_file_name = form_name + "_ground_truth.json"
@@ -24,26 +24,40 @@ def get_ground_truth_for_form(form_name):
     ground_truth_form = util.read_json_to_form(ground_truth_json_path)
     return ground_truth_form
 
-def evaluate_results(processed_form, eval_fields):
+def find_errors(processed_form):
     form_name = str(Path(processed_form.image).stem)
     ground_truth_form = get_ground_truth_for_form(form_name)
     ground_truth_answers = get_answers_from_form(ground_truth_form)
     processed_answers = get_answers_from_form(processed_form)
     assert(len(ground_truth_answers) == len(processed_answers))
 
-    eval_dict = dict.fromkeys(eval_fields, None)
-    eval_dict['test_form_name'] = form_name
-    eval_dict['num_questions'] = len(ground_truth_answers)
+    errors = []
+    for question_region_name, answer_info in processed_answers.items():
+        question, value = answer_info
+        ground_truth_answer = ground_truth_answers[question_region_name][1]
+        if value != ground_truth_answer:
+            error_info = {}
+            error_info['question_name'] = question_region_name
+            error_info['question_type'] = question.question_type
+            error_info['ground_truth_answer'] = ground_truth_answer
+            error_info['reported_answer'] = value
+            error_info['reported_answer_status'] = question.answer_status
+            errors.append(error_info)
+    return (errors, len(ground_truth_answers))
 
-    num_incorrect = 0
-    incorrect = []
-    for question, answer in processed_answers.items():
-        if answer != ground_truth_answers[question]:
-            incorrect.append(question)
-            num_incorrect += 1
-    eval_dict['num_incorrect'] = num_incorrect
-    eval_dict['incorrect_names'] = tuple(incorrect)
-    return(eval_dict)
+def evaluate_results(process_results, summary_fields):
+    processed_form = process_results[0]
+    process_time = process_results[1]
+
+    errors, total_num_questions = find_errors(processed_form)
+    summary_dict = dict.fromkeys(summary_fields, None)
+    summary_dict['form_name'] = str(Path(processed_form.image).stem)
+    summary_dict['num_questions'] = total_num_questions
+    summary_dict['num_incorrect'] = len(errors)
+    summary_dict['process_method_time'] = process_time
+    summary_dict['run_id'] = str(time.time())
+    summary_dict['error_info'] = errors
+    return(summary_dict)
 
 def get_answers_from_form(form_object):
     answers = {}
@@ -53,8 +67,8 @@ def get_answers_from_form(form_object):
                 question_region_name = question_group.name + '_' + question.name
                 if response_region.name:
                     question_region_name += '_' + response_region.name
-                question_value = response_region.value
-                answers[question_region_name] = question_value
+                value = response_region.value
+                answers[question_region_name] = (question, value)
     return answers
 
 def timeit_wrapper(func, *args, **kwargs):
@@ -77,16 +91,24 @@ def main():
     args = parser.parse_args()
 
     test_forms = get_test_form_info()
-    eval_fields = ['test_form_name', 'run_id', 'num_questions',
-                     'num_incorrect', 'incorrect_names','num_radio_incorrect'
-                     'num_checkbox_incorrect', 'num_text_incorrect',
-                     'process_method_time']
-    processed_forms = [process_test_form(test_form) for test_form in test_forms]
-    evaluation_dicts = [evaluate_results(processed_form, eval_fields)
-        for processed_form in processed_forms]
-    evaluation_df = pd.DataFrame(evaluation_dicts, columns=eval_fields)
+    summary_fields = ['form_name', 'num_questions',
+        'num_incorrect', 'process_method_time', 'run_id']
+    process_results = [process_test_form(test_form) for test_form in test_forms]
 
-    print(evaluation_df.to_string(index=False))
+    summary_dicts = [evaluate_results(process_result, summary_fields)
+        for process_result in process_results]
+    error_dicts = []
+    for summary_dict in summary_dicts:
+        errors = summary_dict['error_info']
+        for error in errors:
+            error['form_name'] = summary_dict['form_name']
+            error['run_id' ]= summary_dict['run_id']
+            error_dicts.append(error)
+
+    summary_df = pd.DataFrame(summary_dicts, columns=summary_fields)
+    errors_df = pd.DataFrame(error_dicts)
+    summary_df.to_csv('tests/summary.csv', index=False)
+    errors_df.to_csv('tests/errors.csv', index=False)
 
 if __name__ == '__main__':
     main()
