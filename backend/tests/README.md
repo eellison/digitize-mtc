@@ -7,6 +7,7 @@ Example usage:
 To test *n* parameter values in the range *[min,max]*, use `--PARAM_NAME:min,max,n`.
 
 Put all input form image files that you want to test in `/tests/test_input_forms/`.
+
 Corresponding "ground truth" form annotations will live in `/tests/ground_truth/`.
 
 Example output on just two test forms using default parameters:
