@@ -39,7 +39,7 @@ def align_images(im1, im2):
     # Validate the matches for quality
     match_distances = [m.distance for m in matches]
     if np.mean(match_distances) > AVG_MATCH_DIST_CUTOFF:
-        print(np.mean(match_distances))
+        #print(np.mean(match_distances))
         raise Exception("Poor image alignment! Please confirm you are using\n \
         the right form, and upload a new image.")
 

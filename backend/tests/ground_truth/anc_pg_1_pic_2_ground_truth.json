@@ -1,0 +1,835 @@
+{
+    "h": 3504,
+    "image": "/Users/erikaearley/Desktop/mtc/digitize-mtc/backend/uploads/anc_pg_1_pic_2.JPG",
+    "question_groups": [
+        {
+            "h": 278,
+            "x": 109,
+            "__type__": "QuestionGroup",
+            "questions": [
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 54,
+                            "x": 1334,
+                            "__type__": "ResponseRegion",
+                            "value": "32",
+                            "w": 107,
+                            "name": "",
+                            "y": 477
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "age"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 70,
+                            "x": 716,
+                            "__type__": "ResponseRegion",
+                            "value": "3563411",
+                            "w": 449,
+                            "name": "",
+                            "y": 401
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "RegNo"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 77,
+                            "x": 1647,
+                            "__type__": "ResponseRegion",
+                            "value": "15/05/18",
+                            "w": 431,
+                            "name": "",
+                            "y": 392
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "date"
+                }
+            ],
+            "w": 2213,
+            "name": "RegistrationInfo",
+            "y": 364
+        },
+        {
+            "h": 342,
+            "x": 109,
+            "__type__": "QuestionGroup",
+            "questions": [
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 57,
+                            "x": 607,
+                            "__type__": "ResponseRegion",
+                            "value": "2",
+                            "w": 94,
+                            "name": "",
+                            "y": 755
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "para"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 55,
+                            "x": 359,
+                            "__type__": "ResponseRegion",
+                            "value": "2",
+                            "w": 90,
+                            "name": "",
+                            "y": 758
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "gravida"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 57,
+                            "x": 488,
+                            "__type__": "ResponseRegion",
+                            "value": "2",
+                            "w": 92,
+                            "name": "",
+                            "y": 829
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "numLiveChildren"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 55,
+                            "x": 1022,
+                            "__type__": "ResponseRegion",
+                            "value": "14",
+                            "w": 92,
+                            "name": "",
+                            "y": 826
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "ageFirstMenses"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 55,
+                            "x": 1547,
+                            "__type__": "ResponseRegion",
+                            "value": "25",
+                            "w": 92,
+                            "name": "",
+                            "y": 821
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "ageFirstPreg"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 55,
+                            "x": 2150,
+                            "__type__": "ResponseRegion",
+                            "value": "5",
+                            "w": 94,
+                            "name": "",
+                            "y": 818
+                        }
+                    ],
+                    "question_type": "text",
+                    "name": "ageYoungestChild"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 47,
+                            "x": 1851,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 43,
+                            "name": "yes",
+                            "y": 749
+                        },
+                        {
+                            "h": 51,
+                            "x": 1733,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 46,
+                            "name": "no",
+                            "y": 746
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "inducedAb"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 47,
+                            "x": 1212,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 42,
+                            "name": "yes",
+                            "y": 750
+                        },
+                        {
+                            "h": 46,
+                            "x": 1097,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 43,
+                            "name": "no",
+                            "y": 753
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "spontaneousAb"
+                }
+            ],
+            "w": 2213,
+            "name": "ObstetricHistory",
+            "y": 643
+        },
+        {
+            "h": 734,
+            "x": 109,
+            "__type__": "QuestionGroup",
+            "questions": [
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 43,
+                            "x": 960,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 41,
+                            "name": "yes",
+                            "y": 1488
+                        },
+                        {
+                            "h": 42,
+                            "x": 693,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 47,
+                            "name": "no",
+                            "y": 1483
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "caesarian"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 47,
+                            "x": 2117,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 47,
+                            "name": "yes",
+                            "y": 1386
+                        },
+                        {
+                            "h": 42,
+                            "x": 1966,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 47,
+                            "name": "no",
+                            "y": 1381
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "lowBirthWeight"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 41,
+                            "x": 694,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 47,
+                            "name": "no",
+                            "y": 1432
+                        },
+                        {
+                            "h": 43,
+                            "x": 953,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 50,
+                            "name": "yes",
+                            "y": 1434
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "avd"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 47,
+                            "x": 690,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 53,
+                            "name": "no",
+                            "y": 1324
+                        },
+                        {
+                            "h": 45,
+                            "x": 952,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 49,
+                            "name": "yes",
+                            "y": 1326
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "edema"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 49,
+                            "x": 691,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 52,
+                            "name": "no",
+                            "y": 1639
+                        },
+                        {
+                            "h": 37,
+                            "x": 952,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 48,
+                            "name": "yes",
+                            "y": 1648
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "retainedPlacenta"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 37,
+                            "x": 635,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 37,
+                            "name": "1",
+                            "y": 1225
+                        },
+                        {
+                            "h": 34,
+                            "x": 693,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 31,
+                            "name": "2",
+                            "y": 1225
+                        },
+                        {
+                            "h": 35,
+                            "x": 748,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 29,
+                            "name": "3",
+                            "y": 1225
+                        },
+                        {
+                            "h": 34,
+                            "x": 803,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 30,
+                            "name": "4",
+                            "y": 1225
+                        },
+                        {
+                            "h": 39,
+                            "x": 914,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 37,
+                            "name": "0",
+                            "y": 1225
+                        },
+                        {
+                            "h": 39,
+                            "x": 1030,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 35,
+                            "name": "moreThan4",
+                            "y": 1223
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "numPriorDeliveries"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 39,
+                            "x": 2119,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 41,
+                            "name": "yes",
+                            "y": 1126
+                        },
+                        {
+                            "h": 38,
+                            "x": 1967,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 39,
+                            "name": "no",
+                            "y": 1119
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "evbDuringPreg"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 42,
+                            "x": 1970,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 41,
+                            "name": "no",
+                            "y": 1540
+                        },
+                        {
+                            "h": 41,
+                            "x": 2121,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 45,
+                            "name": "yes",
+                            "y": 1547
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "surgicalHistory"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 39,
+                            "x": 676,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 39,
+                            "name": "20to35",
+                            "y": 1120
+                        },
+                        {
+                            "h": 43,
+                            "x": 930,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 38,
+                            "name": "lessThan20",
+                            "y": 1118
+                        },
+                        {
+                            "h": 41,
+                            "x": 1038,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 40,
+                            "name": "greaterThan35",
+                            "y": 1117
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "ageRange"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 44,
+                            "x": 689,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 50,
+                            "name": "no",
+                            "y": 1537
+                        },
+                        {
+                            "h": 44,
+                            "x": 954,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 48,
+                            "name": "yes",
+                            "y": 1539
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "prolongedLabor"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 40,
+                            "x": 955,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 44,
+                            "name": "yes",
+                            "y": 1277
+                        },
+                        {
+                            "h": 43,
+                            "x": 691,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 49,
+                            "name": "no",
+                            "y": 1273
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "priorAbortions"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 47,
+                            "x": 1966,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 46,
+                            "name": "no",
+                            "y": 1326
+                        },
+                        {
+                            "h": 38,
+                            "x": 2122,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 44,
+                            "name": "yes",
+                            "y": 1339
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "stillbirths"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 41,
+                            "x": 2120,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 46,
+                            "name": "yes",
+                            "y": 1495
+                        },
+                        {
+                            "h": 45,
+                            "x": 1967,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 46,
+                            "name": "no",
+                            "y": 1487
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "historySTD"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 42,
+                            "x": 2119,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 43,
+                            "name": "yes",
+                            "y": 1176
+                        },
+                        {
+                            "h": 40,
+                            "x": 1967,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 42,
+                            "name": "no",
+                            "y": 1172
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "evbAfterDelivery"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 36,
+                            "x": 2124,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 37,
+                            "name": "yes",
+                            "y": 1603
+                        },
+                        {
+                            "h": 39,
+                            "x": 1970,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 43,
+                            "name": "no",
+                            "y": 1595
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "surgicalHistoryExpl"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 42,
+                            "x": 915,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 40,
+                            "name": "lessThan145cm",
+                            "y": 1170
+                        },
+                        {
+                            "h": 43,
+                            "x": 671,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 43,
+                            "name": "greaterThan145cm",
+                            "y": 1172
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "height"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 45,
+                            "x": 952,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 50,
+                            "name": "yes",
+                            "y": 1380
+                        },
+                        {
+                            "h": 41,
+                            "x": 693,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 46,
+                            "name": "no",
+                            "y": 1381
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "seizures"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 45,
+                            "x": 690,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 51,
+                            "name": "no",
+                            "y": 1588
+                        },
+                        {
+                            "h": 43,
+                            "x": 952,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 51,
+                            "name": "yes",
+                            "y": 1592
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "placentaPrevia"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 45,
+                            "x": 2119,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 45,
+                            "name": "yes",
+                            "y": 1280
+                        },
+                        {
+                            "h": 39,
+                            "x": 1967,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 42,
+                            "name": "no",
+                            "y": 1278
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "pretermLabor"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 42,
+                            "x": 1966,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 43,
+                            "name": "no",
+                            "y": 1225
+                        },
+                        {
+                            "h": 41,
+                            "x": 2115,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 49,
+                            "name": "yes",
+                            "y": 1231
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "puerperalSepsis"
+                },
+                {
+                    "answer_status": "Resolved",
+                    "__type__": "Question",
+                    "response_regions": [
+                        {
+                            "h": 43,
+                            "x": 1967,
+                            "__type__": "ResponseRegion",
+                            "value": "Checked",
+                            "w": 44,
+                            "name": "no",
+                            "y": 1432
+                        },
+                        {
+                            "h": 43,
+                            "x": 2121,
+                            "__type__": "ResponseRegion",
+                            "value": "Empty",
+                            "w": 46,
+                            "name": "yes",
+                            "y": 1442
+                        }
+                    ],
+                    "question_type": "radio",
+                    "name": "neonatalDeath"
+                }
+            ],
+            "w": 2217,
+            "name": "ObstetricRisk",
+            "y": 985
+        }
+    ],
+    "__type__": "Form",
+    "w": 2479,
+    "name": "ANC Page 1"
+}

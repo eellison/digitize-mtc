@@ -46,7 +46,7 @@ def checkbox_state(input_image, template_image, response_region):
         checkbox_state =  CheckboxState.Empty
     else:
         checkbox_state =  CheckboxState.Unknown
-        print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
+        #print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
     response_region.value = checkbox_state
     return checkbox_state
 
