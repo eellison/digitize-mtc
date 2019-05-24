@@ -234,7 +234,7 @@ def print_summary_results(summary_df, radio_confusion, checkbox_confusion):
 def main():
     """
     Example usage:
-        python -m tests.test_process --BLACK_LEVEL=0,255,10 --EMPTY_THR=0,1,5
+        python -m backend.tests.test_omr_and_align --BLACK_LEVEL=0,255,4 --EMPTY_THR=0,1,2
 
     To test n parameter values in the range [min,max], use '--PARAM_NAME:min,max,n'.
 
