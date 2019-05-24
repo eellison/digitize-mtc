@@ -1,6 +1,5 @@
 import argparse
 from backend.scripts import align, form, encoder, omr, util
-from backend.scripts.form import Form
 from collections import OrderedDict
 import itertools
 import numpy as np
@@ -31,7 +30,7 @@ def process_test_form(test_form_info, param_combo):
         aligned_image, template_image, template)
     end = time.time()
 
-    processed_form = Form(template.name, form_path, template.w,
+    processed_form = form.Form(template.name, form_path, template.w,
         template.h, answered_questions)
     process_time = end - start
     return (processed_form, process_time, param_values)
@@ -40,7 +39,8 @@ def process_test_form(test_form_info, param_combo):
 def get_ground_truth_for_form(form_name):
     """Reads JSON file containing human-labeled answers for a given form. """
     ground_truth_file_name = form_name + "_ground_truth.json"
-    ground_truth_json_path = str(Path.cwd() / "tests" / "ground_truth" /
+    #ground_truth_json_path = str(Path.cwd() / "tests" / "ground_truth" /
+    ground_truth_json_path = str(Path.cwd() / "backend" / "tests" / "ground_truth" /
         ground_truth_file_name)
     ground_truth_form = util.read_json_to_form(ground_truth_json_path)
     return ground_truth_form
@@ -102,7 +102,7 @@ def get_answers_from_form(form_object):
 def get_test_form_info():
     """Searches in /tests/test_input_forms for all test input forms paths
     and associates each with the corresponding JSON annotation. """
-    test_form_dir = Path.cwd() / "tests" / "test_input_forms"
+    test_form_dir = Path.cwd() / "backend" / "tests" / "test_input_forms"
     test_form_info = []
     for subdir in test_form_dir.iterdir():
         json_annotation_stem = str(subdir.stem) + '.json'
