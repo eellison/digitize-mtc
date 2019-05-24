@@ -8,25 +8,26 @@ import pandas as pd
 from pathlib import Path
 from tabulate import tabulate
 import time
-import timeit
 
-param_names = ['BLACK_LEVEL', 'FILL_THR', 'CHECK_THR', 'EMPTY_THR',
+PARAM_NAMES = ['BLACK_LEVEL', 'FILL_THR', 'CHECK_THR', 'EMPTY_THR',
     'MAX_FEATURES', 'GOOD_MATCH_PERCENT', 'AVG_MATCH_DIST_CUTOFF']
 
 def process_test_form(test_form_info, param_combo):
     param_values = set_omr_and_align_params(param_combo)
     form_path = test_form_info[0]
     json_annotation_path = test_form_info[1]
-    # Load input image, template, and template_image
-    input_image = util.read_image(form_path) # numpy.ndarray
-    template = util.read_json_to_form(json_annotation_path) # Form object
-    template_image = util.read_image(template.image) # numpy.ndarray
-    # Run image alignment.
+
+    # Run and time mark recognition and alignment scripts.
+    start = time.time()
+    input_image = util.read_image(form_path)
+    template = util.read_json_to_form(json_annotation_path)
+    template_image = util.read_image(template.image)
     aligned_image, aligned_diag_image, h = align.align_images(input_image, template_image)
-    # Run mark recognition.
     answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
+    end = time.time()
+
     processed_form = Form(template.name, form_path, template.w, template.h, answered_questions)
-    process_time = 0
+    process_time = end - start
     return (processed_form, process_time, param_values)
 
 def set_omr_and_align_params(param_combo):
@@ -38,7 +39,7 @@ def set_omr_and_align_params(param_combo):
     if 'MAX_FEATURES' in params: align.MAX_FEATURES = param_combo['MAX_FEATURES']
     if 'GOOD_MATCH_PERCENT' in params: align.GOOD_MATCH_PERCENT = param_combo['GOOD_MATCH_PERCENT']
     if 'AVG_MATCH_DIST_CUTOFF' in params: align.AVG_MATCH_DIST_CUTOFF = param_combo['AVG_MATCH_DIST_CUTOFF']
-    return OrderedDict(zip(param_names, [omr.BLACK_LEVEL, omr.FILL_THR, omr.CHECK_THR, omr.EMPTY_THR,
+    return OrderedDict(zip(PARAM_NAMES, [omr.BLACK_LEVEL, omr.FILL_THR, omr.CHECK_THR, omr.EMPTY_THR,
         align.MAX_FEATURES, align.GOOD_MATCH_PERCENT, align.AVG_MATCH_DIST_CUTOFF]))
 
 def get_ground_truth_for_form(form_name):
@@ -47,41 +48,53 @@ def get_ground_truth_for_form(form_name):
     ground_truth_form = util.read_json_to_form(ground_truth_json_path)
     return ground_truth_form
 
-def find_errors(processed_form):
+def get_questions(processed_form):
     form_name = str(Path(processed_form.image).stem)
     ground_truth_form = get_ground_truth_for_form(form_name)
     ground_truth_answers = get_answers_from_form(ground_truth_form)
     processed_answers = get_answers_from_form(processed_form)
     assert(len(ground_truth_answers) == len(processed_answers))
 
-    errors = []
+    questions = []
     for question_region_name, answer_info in processed_answers.items():
         question, value = answer_info
         ground_truth_answer = ground_truth_answers[question_region_name][1]
-        if value != ground_truth_answer:
-            error_info = OrderedDict()
-            error_info['question_name'] = question_region_name
-            error_info['question_type'] = question.question_type
-            error_info['ground_truth_answer'] = ground_truth_answer
-            error_info['reported_answer'] = value
-            error_info['reported_answer_status'] = question.answer_status
-            errors.append(error_info)
-    return (errors, len(ground_truth_answers))
+        #if value != ground_truth_answer:
+        question_dict = OrderedDict()
+        question_dict['question_name'] = question_region_name
+        question_dict['question_type'] = question.question_type
+        question_dict['ground_truth_answer'] = ground_truth_answer
+        question_dict['reported_answer'] = value
+        question_dict['reported_answer_status'] = question.answer_status
+        questions.append(question_dict)
+    questions_df = pd.DataFrame(questions)
+    return questions_df
+
+def get_confusion_matrices(questions_df):
+    radio = questions_df[questions_df['question_type']=='radio']
+    checkbox = questions_df[questions_df['question_type']=='checkbox']
+    radio_confusion = pd.crosstab(radio['ground_truth_answer'], radio['reported_answer'])
+    checkbox_confusion = pd.crosstab(checkbox['ground_truth_answer'], checkbox['reported_answer'])
+    return(radio_confusion, checkbox_confusion)
 
 def evaluate_results(process_results, summary_fields):
-    processed_form = process_results[0]
-    process_time = process_results[1]
-    param_values = process_results[2]
+    run_id = process_results[0]
+    processed_form = process_results[1][0]
+    process_time = process_results[1][1]
+    param_values = process_results[1][2]
 
-    errors, total_num_questions = find_errors(processed_form)
+    questions_df = get_questions(processed_form)
+    radio_cf, checkbox_cf = get_confusion_matrices(questions_df)
+
     summary_dict = dict.fromkeys(summary_fields, None)
     summary_dict['form_name'] = str(Path(processed_form.image).stem)
-    summary_dict['num_questions'] = total_num_questions
-    summary_dict['num_incorrect'] = len(errors)
+    summary_dict['num_questions'] = len(questions_df)
+    summary_dict['num_incorrect'] = len(questions_df)-(sum(list(questions_df['ground_truth_answer']==questions_df['reported_answer'])))
     summary_dict['param_values'] = tuple(param_values.values())
-    summary_dict['process_method_time'] = process_time
-    summary_dict['run_id'] = str(time.time())
-    summary_dict['error_info'] = errors
+    summary_dict['omr_and_align_elapsed_time'] = process_time
+    summary_dict['radio_conf_matrix'] = radio_cf
+    summary_dict['checkbox_conf_matrix'] = checkbox_cf
+    summary_dict['run_id'] = run_id
     return(summary_dict)
 
 def get_answers_from_form(form_object):
@@ -92,15 +105,10 @@ def get_answers_from_form(form_object):
                 question_region_name = question_group.name + '_' + question.name
                 if response_region.name:
                     question_region_name += '_' + response_region.name
-                # TODO: Clean this up.
-                value = response_region.value if type(response_region.value) is str else response_region.value.name
+                value = response_region.value if type(response_region.value) \
+                    is str else response_region.value.name
                 answers[question_region_name] = (question, value)
     return answers
-
-def timeit_wrapper(func, *args, **kwargs):
-    def wrapped():
-        return func(*args, **kwargs)
-    return wrapped
 
 def get_test_form_info():
     test_form_dir = Path.cwd() / "tests" / "test_input_forms"
@@ -120,23 +128,45 @@ def param_range(arg):
         raise argparse.ArgumentTypeError("Parameter ranges must specified as: --PARAM_NAME:min,max,n")
 
 def process_threshold_parameters(args):
-    # TODO(ete444): Validate param ranges.
-    param_ranges = dict((param, vars(args)[param]) for param in param_names
+    # TODO(ete444): Validate parameter ranges.
+    param_ranges = dict((param, vars(args)[param]) for param in PARAM_NAMES
         if vars(args)[param] is not None)
     param_combos = itertools.product(*[range for range in param_ranges.values()])
     param_combo_dicts = [dict(zip(param_ranges.keys(), combo)) for combo in param_combos]
     return param_combo_dicts
 
+def confusion_matrix(summary_dicts, question_type_str):
+    vals = ['Unknown', 'Empty', 'Checked', 'Filled']
+    pairs = list(itertools.product(vals, vals))
+
+    confusion_df = pd.DataFrame('', index=np.arange(4), columns=vals)
+    confusion_df['ground_truth_answer'] = vals
+    confusion_df = confusion_df.set_index('ground_truth_answer')
+
+    confusion_dict = {pair: '' for pair in pairs}
+    for summary_dict in summary_dicts:
+        run_id = summary_dict['run_id']
+        conf_matrix = summary_dict[question_type_str]
+        for index, row in conf_matrix.iterrows():
+            for col, val in dict(row).items():
+                confusion_dict[(index, col)] += ('(run_id={}) {}\n'.format(run_id, val))
+
+    for key, val in confusion_dict.items():
+        index = str(key[0])
+        col = str(key[1])
+        confusion_df.loc[index][col] = val
+    return confusion_df
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-v", "--verbose", help="verbose terminal output")
-    parser.add_argument("--BLACK_LEVEL", help="omr black level threshold", type=param_range)
-    parser.add_argument("--FILL_THR", help="omr fill threshold", type=param_range)
-    parser.add_argument("--CHECK_THR", help="omr check threshold", type=param_range)
-    parser.add_argument("--EMPTY_THR", help="omr empty threshold", type=param_range)
-    parser.add_argument("--MAX_FEATURES", help="omr empty threshold", type=param_range)
-    parser.add_argument("--GOOD_MATCH_PERCENT", help="omr empty threshold", type=param_range)
-    parser.add_argument("--AVG_MATCH_DIST_CUTOFF", help="omr empty threshold", type=param_range)
+    parser.add_argument("-v", "--verbose", help="to do")
+    parser.add_argument("--BLACK_LEVEL", help="to do", type=param_range)
+    parser.add_argument("--FILL_THR", help="to do", type=param_range)
+    parser.add_argument("--CHECK_THR", help="to do", type=param_range)
+    parser.add_argument("--EMPTY_THR", help="to do", type=param_range)
+    parser.add_argument("--MAX_FEATURES", help="to do", type=param_range)
+    parser.add_argument("--GOOD_MATCH_PERCENT", help="to do", type=param_range)
+    parser.add_argument("--AVG_MATCH_DIST_CUTOFF", help="to do", type=param_range)
     args = parser.parse_args()
 
     param_combos = process_threshold_parameters(args)
@@ -147,41 +177,44 @@ def main():
         for param_combo in param_combos:
             process_results.append(process_test_form(test_form, param_combo))
 
-    summary_fields = ['form_name', 'num_questions',
-        'num_incorrect', 'param_values', 'process_method_time', 'run_id']
-    summary_dicts = [evaluate_results(process_result, summary_fields)
-        for process_result in process_results]
+    display_fields = ['run_id', 'form_name', 'param_values', 'num_questions',
+        'num_incorrect', 'omr_and_align_elapsed_time']
+    summary_dicts = [evaluate_results(process_result, display_fields)
+        for process_result in enumerate(process_results)]
 
-    error_dicts = []
-    for summary_dict in summary_dicts:
-        errors = summary_dict['error_info']
-        for error in errors:
-            error['form_name'] = summary_dict['form_name']
-            error['run_id' ]= summary_dict['run_id']
-            error_dicts.append(error)
-
-    summary_df = pd.DataFrame(summary_dicts, columns=summary_fields)
-    errors_df = pd.DataFrame(error_dicts)
-
-    # 'BLACK_LEVEL', 'FILL_THR', 'CHECK_THR', 'EMPTY_THR', 'MAX_FEATURES', 'GOOD_MATCH_PERCENT', 'AVG_MATCH_DIST_CUTOFF'
-    # TODO: Code Cleanup.
-    print('\n')
-    print('SUMMARY')
+    summary_df = pd.DataFrame(summary_dicts, columns=display_fields)
+    print('\n SUMMARY')
     print(tabulate(summary_df, list(summary_df.columns), tablefmt="fancy_grid"))
 
-    if args.verbose:
-        print('\n')
-        print('ERRORS DETAIL:')
-        print(tabulate(errors_df, list(errors_df.columns), tablefmt="fancy_grid"))
+    radio_confusion_matrix = confusion_matrix(summary_dicts, 'radio_conf_matrix')
+    print('\n RADIO CONFUSION MATRIX')
+    print(tabulate(radio_confusion_matrix, list(radio_confusion_matrix.columns), tablefmt='fancy_grid'))
 
-    radio = errors_df[errors_df['question_type'] == 'radio']
-    print('\n')
-    print("RADIO QUESTION CONFUSION TABLES")
-    for form in set(radio['form_name']):
-        temp = radio[radio['form_name']==form]
-        radio_confusion = pd.crosstab(radio['ground_truth_answer'], radio['reported_answer'])
-        print("TEST FORM: ", form)
-        print(tabulate(radio_confusion, list(radio_confusion.columns), tablefmt='fancy_grid'))
+    #radio_confusion = pd.DataFrame({},)
+    #for summary_dict in summary_dicts:
+    #    radio_cf = summary_dict['radio_cf']
+    #    checkbox_cf = summary_dict['checkbox_cf']
+    #    print("\n Form: {}, Params: {}".format(summary_dict['form_name'], summary_dict['param_values']))
+    #    print(tabulate(radio_cf, list(radio_cf.columns), tablefmt='fancy_grid'), '\t\t',tabulate(checkbox_cf, list(checkbox_cf.columns), tablefmt='fancy_grid'))
+
+
+    #if args.verbose:
+    #    print('\n')
+    #    print('ERRORS DETAIL:')
+    #    print(tabulate(errors_df, list(errors_df.columns), tablefmt="fancy_grid"))
+
+    #radio = errors_df[errors_df['question_type'] == 'radio']
+    #print('\n')
+    #print("RADIO QUESTION CONFUSION TABLES")
+    #for form in set(radio['form_name']):
+    #    temp = radio[radio['form_name']==form]
+    #    by_param = temp.groupby('param_values')
+    #    print('groups: ', len(by_param.groups))
+    #    dfs_by_param = [by_param.get_group(x) for x in by_param.groups]
+    #    for df in dfs_by_param:
+    #        radio_confusion = pd.crosstab(df['ground_truth_answer'], df['reported_answer'])
+    #        print("TEST FORM, PARAM_VALUES: ", form, set(df['param_values']))
+    #        print(tabulate(radio_confusion, list(radio_confusion.columns), tablefmt='fancy_grid'))
 
 if __name__ == '__main__':
     main()
