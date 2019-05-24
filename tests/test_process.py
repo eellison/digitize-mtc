@@ -9,8 +9,10 @@ from pathlib import Path
 from tabulate import tabulate
 import time
 
+
 PARAMETER_NAMES = ['BLACK_LEVEL', 'FILL_THR', 'CHECK_THR', 'EMPTY_THR',
     'MAX_FEATURES', 'GOOD_MATCH_PERCENT', 'AVG_MATCH_DIST_CUTOFF']
+
 
 def process_test_form(test_form_info, param_combo):
     """Runs and times mark recognition and alignment scripts for a given
@@ -33,6 +35,93 @@ def process_test_form(test_form_info, param_combo):
         template.h, answered_questions)
     process_time = end - start
     return (processed_form, process_time, param_values)
+
+
+def get_ground_truth_for_form(form_name):
+    """Reads JSON file containing human-labeled answers for a given form. """
+    ground_truth_file_name = form_name + "_ground_truth.json"
+    ground_truth_json_path = str(Path.cwd() / "tests" / "ground_truth" /
+        ground_truth_file_name)
+    ground_truth_form = util.read_json_to_form(ground_truth_json_path)
+    return ground_truth_form
+
+
+def get_questions(processed_form):
+    """Given a processed form object, returns a dataframe where each row
+    contains a question with its script-reported and human-reported answers. """
+    form_name = str(Path(processed_form.image).stem)
+    ground_truth_form = get_ground_truth_for_form(form_name)
+    ground_truth_answers = get_answers_from_form(ground_truth_form)
+    processed_answers = get_answers_from_form(processed_form)
+    assert(len(ground_truth_answers) == len(processed_answers))
+
+    questions = []
+    for question_region_name, answer_info in processed_answers.items():
+        question, value = answer_info
+        ground_truth_answer = ground_truth_answers[question_region_name][1]
+        question_dict = OrderedDict()
+        question_dict['question_name'] = question_region_name
+        question_dict['question_type'] = question.question_type
+        question_dict['ground_truth_answer'] = ground_truth_answer
+        question_dict['reported_answer'] = value
+        question_dict['reported_answer_status'] = question.answer_status
+        questions.append(question_dict)
+    questions_df = pd.DataFrame(questions)
+    return questions_df
+
+
+def get_confusion_matrices(questions_df):
+    """Generates the confusion matrix comparing script-reported vs.
+    human-reported answers to a set of radio or checkbox questions. """
+    radio = questions_df[questions_df['question_type']=='radio']
+    checkbox = questions_df[questions_df['question_type']=='checkbox']
+    radio_confusion = pd.crosstab(
+        radio['ground_truth_answer'], radio['reported_answer'])
+    checkbox_confusion = pd.crosstab(
+        checkbox['ground_truth_answer'], checkbox['reported_answer'])
+    return(radio_confusion, checkbox_confusion)
+
+
+def get_answers_from_form(form_object):
+    """Given a Form object, populates a dictionary of the form
+    {<question_group.name>_<question.name>_<response_region.name> :
+    response_region.value. } """
+    answers = OrderedDict()
+    for question_group in form_object.question_groups:
+        for question in question_group.questions:
+            for response_region in question.response_regions:
+                question_region_name = question_group.name + '_' + question.name
+                if response_region.name:
+                    question_region_name += '_' + response_region.name
+                value = response_region.value if type(response_region.value) \
+                    is str else response_region.value.name
+                answers[question_region_name] = (question, value)
+    return answers
+
+
+def get_test_form_info():
+    """Searches in /tests/test_input_forms for all test input forms paths
+    and associates each with the corresponding JSON annotation. """
+    test_form_dir = Path.cwd() / "tests" / "test_input_forms"
+    test_form_info = []
+    for subdir in test_form_dir.iterdir():
+        json_annotation_stem = str(subdir.stem) + '.json'
+        json_annotation = str(Path.cwd() / "backend" / "forms" /
+            "json_annotations" / json_annotation_stem)
+        for path in subdir.iterdir():
+            test_form_info.append((str(path), json_annotation))
+    return test_form_info
+
+
+def param_range(arg):
+    """Custom type for command line arg parameter range. """
+    try:
+        min, max, n = map(int, arg.split(','))
+        return np.linspace(min, max, n)
+    except:
+        raise argparse.ArgumentTypeError(
+            "Parameter ranges must specified as: --PARAM_NAME:min,max,n")
+
 
 def set_omr_and_align_params(param_combo):
     """Sets threshold parameters in OMR and alignment scripts.
@@ -60,47 +149,20 @@ def set_omr_and_align_params(param_combo):
         align.AVG_MATCH_DIST_CUTOFF]
     return OrderedDict(zip(PARAMETER_NAMES, param_variables))
 
-def get_ground_truth_for_form(form_name):
-    """Reads JSON file containing human-labeled answers for a given form. """
-    ground_truth_file_name = form_name + "_ground_truth.json"
-    ground_truth_json_path = str(Path.cwd() / "tests" / "ground_truth" /
-        ground_truth_file_name)
-    ground_truth_form = util.read_json_to_form(ground_truth_json_path)
-    return ground_truth_form
 
-def get_questions(processed_form):
-    """Given a processed form object, returns a dataframe where each row
-    contains a question with its script-reported and human-reported answers. """
-    form_name = str(Path(processed_form.image).stem)
-    ground_truth_form = get_ground_truth_for_form(form_name)
-    ground_truth_answers = get_answers_from_form(ground_truth_form)
-    processed_answers = get_answers_from_form(processed_form)
-    assert(len(ground_truth_answers) == len(processed_answers))
+def get_all_parameter_combos(args):
+    """Parses command line args for a set of desired parameter ranges. Generates
+    a list of all possible parameters combinations.
 
-    questions = []
-    for question_region_name, answer_info in processed_answers.items():
-        question, value = answer_info
-        ground_truth_answer = ground_truth_answers[question_region_name][1]
-        question_dict = OrderedDict()
-        question_dict['question_name'] = question_region_name
-        question_dict['question_type'] = question.question_type
-        question_dict['ground_truth_answer'] = ground_truth_answer
-        question_dict['reported_answer'] = value
-        question_dict['reported_answer_status'] = question.answer_status
-        questions.append(question_dict)
-    questions_df = pd.DataFrame(questions)
-    return questions_df
+    TODO(ete444): Validate parameter ranges!!! For example, need to ensure that
+    FILL_THR > CHECK_THR > EMPTY_THR. """
+    param_ranges = dict((param, vars(args)[param]) for param in PARAMETER_NAMES
+        if vars(args)[param] is not None)
+    param_combos = itertools.product(*[range for range in param_ranges.values()])
+    param_combo_dicts = [dict(zip(param_ranges.keys(), combo))
+        for combo in param_combos]
+    return param_combo_dicts
 
-def get_confusion_matrices(questions_df):
-    """Generates the confusion matrix comparing script-reported vs.
-    human-reported answers to a set of radio or checkbox questions. """
-    radio = questions_df[questions_df['question_type']=='radio']
-    checkbox = questions_df[questions_df['question_type']=='checkbox']
-    radio_confusion = pd.crosstab(
-        radio['ground_truth_answer'], radio['reported_answer'])
-    checkbox_confusion = pd.crosstab(
-        checkbox['ground_truth_answer'], checkbox['reported_answer'])
-    return(radio_confusion, checkbox_confusion)
 
 def summarize_results(process_results):
     """Given the results of a test run (a form and set of parameters),
@@ -126,56 +188,6 @@ def summarize_results(process_results):
     summary_dict['run_id'] = run_id
     return summary_dict
 
-def get_answers_from_form(form_object):
-    """Given a Form object, populates a dictionary of the form
-    {<question_group.name>_<question.name>_<response_region.name> :
-    response_region.value. } """
-    answers = OrderedDict()
-    for question_group in form_object.question_groups:
-        for question in question_group.questions:
-            for response_region in question.response_regions:
-                question_region_name = question_group.name + '_' + question.name
-                if response_region.name:
-                    question_region_name += '_' + response_region.name
-                value = response_region.value if type(response_region.value) \
-                    is str else response_region.value.name
-                answers[question_region_name] = (question, value)
-    return answers
-
-def get_test_form_info():
-    """Searches in /tests/test_input_forms for all test input forms paths
-    and associates each with the corresponding JSON annotation. """
-    test_form_dir = Path.cwd() / "tests" / "test_input_forms"
-    test_form_info = []
-    for subdir in test_form_dir.iterdir():
-        json_annotation_stem = str(subdir.stem) + '.json'
-        json_annotation = str(Path.cwd() / "backend" / "forms" /
-            "json_annotations" / json_annotation_stem)
-        for path in subdir.iterdir():
-            test_form_info.append((str(path), json_annotation))
-    return test_form_info
-
-def param_range(arg):
-    """Custom type for command line arg parameter range. """
-    try:
-        min, max, n = map(int, arg.split(','))
-        return np.linspace(min, max, n)
-    except:
-        raise argparse.ArgumentTypeError(
-            "Parameter ranges must specified as: --PARAM_NAME:min,max,n")
-
-def get_all_parameter_combos(args):
-    """Parses command line args for a set of desired parameter ranges. Generates
-    a list of all possible parameters combinations.
-
-    TODO(ete444): Validate parameter ranges!!! For example, need to ensure that
-    FILL_THR > CHECK_THR > EMPTY_THR. """
-    param_ranges = dict((param, vars(args)[param]) for param in PARAMETER_NAMES
-        if vars(args)[param] is not None)
-    param_combos = itertools.product(*[range for range in param_ranges.values()])
-    param_combo_dicts = [dict(zip(param_ranges.keys(), combo))
-        for combo in param_combos]
-    return param_combo_dicts
 
 def get_summary_confusion_matrix(summaries, question_type_str):
     """Generates a confusion matrix comparing script-reported vs.
@@ -204,6 +216,7 @@ def get_summary_confusion_matrix(summaries, question_type_str):
         confusion_df.loc[index][col] = val
     return confusion_df
 
+
 def print_summary_results(summary_df, radio_confusion, checkbox_confusion):
     """Formats and prints tables from three pandas dataframes:
     (I) summary results, (II) radio question confusion matrix, and (II) checkbox
@@ -216,6 +229,7 @@ def print_summary_results(summary_df, radio_confusion, checkbox_confusion):
     print('\n CHECKBOX CONFUSION MATRIX')
     print(tabulate(checkbox_confusion, list(checkbox_confusion.columns),
         tablefmt='fancy_grid'))
+
 
 def main():
     """
