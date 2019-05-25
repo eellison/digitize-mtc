@@ -98,7 +98,8 @@ def get_processed_file_json(html_page, template_json):
             processed_form = process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
             encoder = FormTemplateEncoder()
             encoded_form = encoder.default(processed_form)
-            return jsonify(encoded_form, status="success")
+            encoded_form['status'] = "success"
+            return jsonify(encoded_form)
     return render_template(html_page)
 
 
@@ -109,7 +110,7 @@ def template_request():
     # save template and processed image. return request status
     template = parse_request_template(request)
     return jsonify(success=True, align_image_location="temp_location")
-
+   
 @app.route('/upload_form')
 def upload_form_page():
     return render_template('upload_form.html')
