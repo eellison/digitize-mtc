@@ -68,7 +68,13 @@ def upload_and_process_file(html_page, template_json):
 # AJAX request with uploaded file
 @app.route('/upload_and_process_file', methods=['POST'])
 def get_anc_response():
-    return get_processed_file_json('upload_ANC_form.html', "anc_pg_1.json")
+    try:
+        return get_processed_file_json('upload_ANC_form.html', "anc_pg_1.json")
+    except AlignmentError as err:
+        return jsonify(
+            error_msg = err.msg,
+            status = 'error'
+        )
 
 def get_processed_file_json(html_page, template_json):
     if request.method == 'POST':
@@ -92,7 +98,7 @@ def get_processed_file_json(html_page, template_json):
             processed_form = process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
             encoder = FormTemplateEncoder()
             encoded_form = encoder.default(processed_form)
-            return jsonify(encoded_form)
+            return jsonify(encoded_form, status="success")
     return render_template(html_page)
 
 
