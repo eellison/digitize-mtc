@@ -10,7 +10,7 @@ $(function() {
            processData: false,
            success: function(data) {
 			   // success just means a response was received, check for error in response
-			   if (data.status == 'success') {c
+			   if (data.status == 'success') {
 				$('#error_header').empty()
 				console.log('Success!');
 				form = data;
