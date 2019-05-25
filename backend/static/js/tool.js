@@ -9,13 +9,20 @@ $(function() {
            cache: false,
            processData: false,
            success: function(data) {
-               console.log('Success!');
-               form = data;
-                 display(form);
-                 visualize(form);
+			   // success just means a response was received, check for error in response
+			   if (data.status == 'success') {c
+				$('#error_header').empty()
+				console.log('Success!');
+				form = data;
+				  display(form);
+				  visualize(form);
+			   } else if (data.status == 'error') {
+				 $('#error_header').append("<h1>" + data.error_msg + "</h1>")
+			   }
            },
            error: function(error) {
-               console.log(error);
+			   console.log(error);
+			   $('#error_header').append("<h1>" + "Error: did not receive response from server" + "</h1>")
            }
        });
    });

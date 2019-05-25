@@ -5,6 +5,13 @@ MAX_FEATURES = 500
 GOOD_MATCH_PERCENT = 0.15
 AVG_MATCH_DIST_CUTOFF = 40
 
+
+class AlignmentError(Exception):
+    """Raised when alignment error is too high"""
+    def __init__(self, msg):
+        self.msg = msg
+
+
 def align_images(im1, im2):
     """
     Args:
@@ -40,7 +47,7 @@ def align_images(im1, im2):
     match_distances = [m.distance for m in matches]
     if np.mean(match_distances) > AVG_MATCH_DIST_CUTOFF:
         #print(np.mean(match_distances))
-        raise Exception("Poor image alignment! Please confirm you are using\n \
+        raise AlignmentError("Poor image alignment! Please confirm you are using\n \
         the right form, and upload a new image.")
 
     # Draw top matches
