@@ -31,13 +31,13 @@ def process(input_image_path, template_json_path, output_dir_path):
     ####################################
     answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
 
-    ############################
+    ###########################
     ### Step 3: Write Output ###
     ############################
     input_image_name, output_abs_path, json_output_path, csv_output_path = util.generate_paths(input_image_path, template, output_dir_path)
     # Write (1) diagnostic images, (2) JSON form representation
     aligned_filename = util.write_diag_images(input_image_name, output_abs_path, aligned_image, aligned_diag_image, clean_input, answered_questions)
-    util.write_form_to_json(processed_form, json_output_path)
     # Create and return processed form
     processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
+    util.write_form_to_json(processed_form, json_output_path)
     return processed_form

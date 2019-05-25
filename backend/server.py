@@ -68,7 +68,7 @@ def upload_and_process_file(html_page, template_json):
 # AJAX request with uploaded file
 @app.route('/upload_and_process_file', methods=['POST'])
 def get_anc_response():
-    return get_processed_file_json('upload_anc_form.html', "anc_pg_1.json")
+    return get_processed_file_json('upload_ANC_form.html', "anc_pg_1.json")
 
 def get_processed_file_json(html_page, template_json):
     if request.method == 'POST':
@@ -90,7 +90,8 @@ def get_processed_file_json(html_page, template_json):
             output_location = str(Path.cwd() / "backend" / "output")
             # Below: process, encode, and return the uploaded file
             processed_form = process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
-            encoded_form = FormTemplateEncoder.default(processed_form)
+            encoder = FormTemplateEncoder()
+            encoded_form = encoder.default(processed_form)
             return jsonify(encoded_form)
     return render_template(html_page)
 

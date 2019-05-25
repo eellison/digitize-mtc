@@ -1,25 +1,24 @@
-$("#upload").submit(function(e) {
-
-    e.preventDefault();
-
-    var form = $(this);
-    var url = form.attr('action');
-
-    $.ajax({
-        url: '/anc_upload_pg_1',
-        data: {} ,
-        type: 'POST',
-        success: function(response) {
-            form = response;
-  			display(form);
-  			visualize(form);
-        },
-        error: function(error) {
-            $( "body").append( "<p>Failure</p>" );
-            console.log(error);
-        }
-    });
-
+$(function() {
+   $('#upload-file-btn').click(function() {
+       var form_data = new FormData($('#upload-file')[0]);
+       $.ajax({
+           type: 'POST',
+           url: '/upload_and_process_file',
+           data: form_data,
+           contentType: false,
+           cache: false,
+           processData: false,
+           success: function(data) {
+               console.log('Success!');
+               form = data;
+                 display(form);
+                 visualize(form);
+           },
+           error: function(error) {
+               console.log(error);
+           }
+       });
+   });
 });
 
 
@@ -36,7 +35,7 @@ var svg = d3.select("#update").append("svg")
     .attr('class', 'update')
     .attr("width", width)
     .attr("height", height)
-    .append("g")    
+    .append("g")
     .call(zoom);
 
 var form_image = svg.append("g")
@@ -53,15 +52,15 @@ function edit(q) {
 
 	$(this).parent().removeClass("NotAnswered")
 	q.answer_status = "Resolved";
-	
+
 	$(":input", this).each(function (i, d) {
-		
+
 		if (d.type == "text") {
 			q.response_regions[i].value = d.value;
 		}
 
 		if (d.type == "radio" || d.type == "checkbox"){
-			q.response_regions[i].value = d.checked;
+			q.response_regions[i].value = d.checked ? "Checked" : "Empty";;
 		}
 	});
 	visualize(form);
@@ -73,7 +72,7 @@ function visualize(form) {
 	// Image
 	form_image.selectAll("image").data([form.image]).enter()
 		.append('image')
-    	.attr('xlink:href', function(d) { return d; })
+    	.attr('xlink:href', function(d) { return ("static/" + d); })
     	.attr('width', "100%")
 
 	// Question Groups
@@ -122,7 +121,7 @@ function display(form) {
 				.each(function(q) {
 					// question label
 	            	d3.select(this).append("label").text(q.name);
-	            	
+
 	            	// responses div
 	            	var responses = d3.select(this).append("div")
 	            		.attr("class", "responses")
@@ -147,7 +146,7 @@ function display(form) {
 	        		if (q.question_type == "radio") {
 	        			responses.selectAll("input").data(q.response_regions).enter()
 	        				.each(function(d) {
-	  
+
 	        					d3.select(this).append("input")
 	                        		.attr("type", "radio")
 	                        		.attr("name", q.name)
@@ -159,7 +158,7 @@ function display(form) {
 	        		// if (q.question_type == "select") {
 	        		// 	responses.selectAll("input").data(q.response_regions).enter()
 	        		// 		.each(function(d) {
-	  
+
 	        		// 			d3.select(this).append("select")
 	          //               		.attr("name", "see")
 	          //               		.attr("name", q.name)

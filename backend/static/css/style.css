@@ -9,8 +9,8 @@
 		cursor: move;
 		vertical-align: top;
 	}
-	rect { 
-		fill-opacity: 0.5; 
+	rect {
+		fill-opacity: 0.5;
 		fill: transparent;
 		stroke: transparent;
 		stroke-width: 1px;
@@ -18,6 +18,9 @@
 	}
 	rect.true { fill: green; }
 	rect.false { fill: red; }
+	rect.Checked { fill: green; }
+  rect.Empty { fill: red; }
+  rect.Filled { fill: orange; }
 	div.responses {
 		display: inline-block;
 	}
@@ -80,11 +83,11 @@ form.update{
 }
 
 
-fieldset.question_group { 
+fieldset.question_group {
   display: block;
   margin-left: 2px;
   margin-right: 2px;
-  padding: 0 1em; 
+  padding: 0 1em;
   border: 1px solid rgba(0,0,0,0.4);
 }
 
@@ -95,12 +98,12 @@ fieldset.question_group {
 }
 
 .question{
-	padding: 0 0.8em; 
+	padding: 0 0.8em;
 	border-top: 1px solid rgba(0,0,0,0.1);
 	display: block;
 }
 .question label {
-	padding: 0.8em 0; 
+	padding: 0.8em 0;
 	/*vertical-align: middle;*/
 	display: inline-block;
 }
