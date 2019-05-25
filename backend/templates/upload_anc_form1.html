@@ -1,0 +1,11 @@
+<!doctype html>
+{% extends "home.html" %}
+{% block content %}
+<title>Upload a filled Antenatal record</title>
+	<h1>Upload a filled Antenatal Record</h1>
+	<h2>The processed form will be displayed on the next page.</h2>
+	<form method=post enctype=multipart/form-data>
+		<input type=file name=file>
+		<input type=submit value=Upload>
+	</form>
+{% endblock %}

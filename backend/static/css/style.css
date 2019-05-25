@@ -1,0 +1,126 @@
+	form.update {
+		display: inline-block;
+		height: 500px;
+		overflow: auto;
+	}
+	svg.update {
+		display: inline-block;
+		border: 2px solid black;
+		cursor: move;
+		vertical-align: top;
+	}
+	rect { 
+		fill-opacity: 0.5; 
+		fill: transparent;
+		stroke: transparent;
+		stroke-width: 1px;
+		fill: black;
+	}
+	rect.true { fill: green; }
+	rect.false { fill: red; }
+	div.responses {
+		display: inline-block;
+	}
+	div.NotAnswered {
+		color: red;
+	}
+
+
+
+
+
+
+
+/*JINGRU*/
+
+.select-form-button{
+	width: 10vw;
+	height: 10vw;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 3px;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 2em;
+	margin-right: 1em;
+	cursor: pointer;
+}
+
+.select-form-button:hover{
+	box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+
+.nav{
+	margin: 1em 0 4em 0;
+}
+
+.nav h1{
+	margin-top:3em;
+}
+#restart{
+	cursor: pointer;
+	color: gray;
+	opacity: 100;
+}
+
+
+html{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.main{
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+form.update{
+	margin: 0 1em;
+	width: 45%;
+}
+
+
+fieldset.question_group { 
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 0 1em; 
+  border: 1px solid rgba(0,0,0,0.4);
+}
+
+.question_group_title{
+	padding: 1em 0;
+	border-bottom: 1px solid rgba(0,0,0,0.4);
+	font-weight: 600;
+}
+
+.question{
+	padding: 0 0.8em; 
+	border-top: 1px solid rgba(0,0,0,0.1);
+	display: block;
+}
+.question label {
+	padding: 0.8em 0; 
+	/*vertical-align: middle;*/
+	display: inline-block;
+}
+
+#save-bar{
+	display: none;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	border-top:1px solid rgba(0,0,0,0.4);
+	background-color:white;
+	width: 100%;
+	padding: 1em 0;
+
+}
+
+
+
+#save-bar-wrapper{
+	width: 80%;
+	margin: 0 auto;
+
+}

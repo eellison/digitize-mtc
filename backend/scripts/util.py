@@ -136,13 +136,17 @@ def write_diag_images(input_image_name, output_path, aligned_image, aligned_diag
         answered_questions (List[Question]): questions with answers filled in
     """
     # Create paths
+    aligned_filename = input_image_name + "_aligned.jpg"
     aligned_diag_output_path = str(output_path / (input_image_name + "_aligned_diag.jpg"))
-    aligned_output_path = str(output_path / (input_image_name + "_aligned.jpg"))
+    aligned_output_path = str(output_path / aligned_filename)
+    static_path = str(Path.cwd() / "backend" / "static" / aligned_filename)
     debug_output_path = str(output_path / (input_image_name + "_omr_debug.png"))
     # Write images
     cv2.imwrite(aligned_diag_output_path, aligned_diag_image)
     cv2.imwrite(aligned_output_path, aligned_image)
+    cv2.imwrite(static_path, aligned_image) # also write to static/ for frontend access
     omr_visual_output(aligned_image, clean_input, answered_questions, debug_output_path)
+    return aligned_filename # name of the file that can be found in static/ for frontend access
 
 
 def remove_checkbox_outline(input_arr, region_name, debug=False):

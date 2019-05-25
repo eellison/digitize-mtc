@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">~Digitize MTC~</h1>
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('upload_anc_file_pg_1') }}">Upload an ANC Form</a></li>
+            <li><a href="{{ url_for('upload_delivery_file_pg_1') }}">Upload a Delivery Form (Page 1)</a></li>
+            <li><a href="{{ url_for('upload_delivery_file_pg_2') }}">Upload a Delivery Form (Page 2)</a></li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

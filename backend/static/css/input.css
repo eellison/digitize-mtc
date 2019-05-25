@@ -1,0 +1,43 @@
+
+
+.responses{
+	float: right;
+}
+
+.responses label{
+	padding-right: 1em;
+}
+
+
+/*Text box*/
+
+input[type=text] {
+  width: 100%;
+  margin:0.6em 0;
+  padding: 0.8em 0.8em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+}
+
+input[type=text]::placeholder {
+
+  color: gray;
+}
+
+/*Radio button*/
+
+input[type=radio] {
+  margin-right: 1em;
+}
+
+/*Download Button*/
+button#file-download{
+	padding: 1em 2em;
+	background-color: white;
+	border-radius: 3px;
+	float: right;
+	font-size: 16px;
+}

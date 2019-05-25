@@ -1,11 +1,36 @@
 <!doctype html>
-{% extends "home.html" %}
-{% block content %}
-<title>Upload a filled Antenatal record</title>
-	<h1>Upload a filled Antenatal Record</h1>
-	<h2>The processed form will be displayed on the next page.</h2>
-	<form method=post enctype=multipart/form-data>
-		<input type=file name=file>
-		<input type=submit value=Upload>
-	</form>
-{% endblock %}
+<head>
+	<link rel="stylesheet" type="text/css" href="static/css/style.css"> 
+	<link rel="stylesheet" type="text/css" href="static/css/input.css"> 
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="main" id="main-content">
+		<div class="nav">
+			<span id="restart" onClick="window.location.reload();">← restart</span>
+			
+			<h1 id="nav-title">Antenatal Record / Review the result</h1>
+		</div>
+		<div id="upload">
+			<h1>(1) Upload Record</h1>
+			<form id="upload" method=post enctype=multipart/form-data>
+				<input type=file name=file>
+				<input type=submit value=Upload>
+			</form>
+		</div>
+		<div id="update">
+			<h1>(2) Update Annotated Record</h1>
+		</div>
+		<div id="save">
+			<h1>(3) Save Record</h1>
+			<form method=post enctype=multipart/form-data>
+				<input type=submit value=Save>
+			</form>
+		</div>
+	</div>
+
+
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/tool.js"></script>

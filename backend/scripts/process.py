@@ -34,10 +34,10 @@ def process(input_image_path, template_json_path, output_dir_path):
     ############################
     ### Step 3: Write Output ###
     ############################
-    processed_form = Form(template.name, input_image_path, template.w, template.h, answered_questions)
     input_image_name, output_abs_path, json_output_path, csv_output_path = util.generate_paths(input_image_path, template, output_dir_path)
     # Write (1) diagnostic images, (2) JSON form representation
-    util.write_diag_images(input_image_name, output_abs_path, aligned_image, aligned_diag_image, clean_input, answered_questions)
+    aligned_filename = util.write_diag_images(input_image_name, output_abs_path, aligned_image, aligned_diag_image, clean_input, answered_questions)
     util.write_form_to_json(processed_form, json_output_path)
-
-    return True
+    # Create and return processed form
+    processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
+    return processed_form

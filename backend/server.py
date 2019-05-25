@@ -60,9 +60,38 @@ def upload_and_process_file(html_page, template_json):
             json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / template_json)
             output_location = str(Path.cwd() / "backend" / "output")
             # Run the OMR processing pipeline
-            process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
+            processed_form = process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
             processed_filename = str(Path(filename).stem) + "_omr_debug.png"
             return redirect(url_for('processed_file', filename=processed_filename))
+    return render_template(html_page)
+
+# AJAX request with uploaded file
+@app.route('/upload_and_process_file', methods=['POST'])
+def get_anc_response():
+    return get_processed_file_json('upload_anc_form.html', "anc_pg_1.json")
+
+def get_processed_file_json(html_page, template_json):
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            upload_location = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(upload_location) # save uploaded file
+            json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / template_json)
+            output_location = str(Path.cwd() / "backend" / "output")
+            # Below: process, encode, and return the uploaded file
+            processed_form = process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
+            encoded_form = FormTemplateEncoder.default(processed_form)
+            return jsonify(encoded_form)
     return render_template(html_page)
 
 
