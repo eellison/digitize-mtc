@@ -30,7 +30,14 @@ def home():
 
 @app.route('/anc_upload_pg_1', methods=['GET', 'POST'])
 def upload_anc_file_pg_1():
-    return upload_and_process_file('upload_anc_form.html', "anc_pg_1.json")
+    return render_template('upload_anc_form.html', form_name="Antenatal Record", json_path = "anc_pg_1.json")
+    # return upload_and_process_file('upload_anc_form.html', "anc_pg_1.json")
+
+# @app.route('/upload_anc_form/<template_json>', methods=['GET', 'POST'])
+# def upload_anc_file_pg_1(template_json):
+#     print(template_json)
+#     return render_template('upload_anc_form.html', value="HELLO ELIAS")
+#     # return upload_and_process_file('upload_anc_form.html', template_json + ".json")
 
 @app.route('/delivery_upload_pg_1', methods=['GET', 'POST'])
 def upload_delivery_file_pg_1():
@@ -66,10 +73,10 @@ def upload_and_process_file(html_page, template_json):
     return render_template(html_page)
 
 # AJAX request with uploaded file
-@app.route('/upload_and_process_file', methods=['POST'])
-def get_anc_response():
+@app.route('/upload_and_process_file/<template_json>', methods=['POST'])
+def get_anc_response(template_json):
     try:
-        return get_processed_file_json('upload_ANC_form.html', "anc_pg_1.json")
+        return get_processed_file_json('upload_ANC_form.html', template_json)
     except AlignmentError as err:
         return jsonify(
             error_msg = err.msg,
@@ -111,9 +118,9 @@ def template_request():
     template = parse_request_template(request)
     return jsonify(success=True, align_image_location="temp_location")
    
-@app.route('/upload_form')
-def upload_form_page():
-    return render_template('upload_form.html')
+# @app.route('/upload_form')
+# def upload_form_page():
+#     return render_template('upload_form.html')
 
 # AJAX request with Form data
 @app.route('/form_request', methods=['POST'])
@@ -126,5 +133,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
     args = parser.parse_args()
-    webbrowser.open('http://localhost:' + str(args.port))
+    # webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)
