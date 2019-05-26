@@ -30,7 +30,9 @@ def home():
 
 @app.route('/anc_upload_pg_1', methods=['GET', 'POST'])
 def upload_anc_file_pg_1():
-    return upload_and_process_file('upload_anc_form.html', "anc_pg_1.json")
+    # TODO add parameters for form name and json path
+    return render_template('upload_ANC_form.html', form_name="Antenatal Record", json_path = "anc_pg_1.json")
+
 
 @app.route('/delivery_upload_pg_1', methods=['GET', 'POST'])
 def upload_delivery_file_pg_1():
@@ -66,10 +68,10 @@ def upload_and_process_file(html_page, template_json):
     return render_template(html_page)
 
 # AJAX request with uploaded file
-@app.route('/upload_and_process_file', methods=['POST'])
-def get_anc_response():
+@app.route('/upload_and_process_file/<template_json>', methods=['POST'])
+def get_anc_response(template_json):
     try:
-        return get_processed_file_json('upload_ANC_form.html', "anc_pg_1.json")
+        return get_processed_file_json('upload_ANC_form.html', template_json)
     except AlignmentError as err:
         return jsonify(
             error_msg = err.msg,
