@@ -105,6 +105,15 @@ def get_processed_file_json(html_page, template_json):
     return render_template(html_page)
 
 
+@app.route('/save', methods=['POST'])
+def save_response():
+    try:
+        print(json.loads(request.data))
+        return jsonify(status='success')
+    except AlignmentError as err:
+        return jsonify(error_msg=err.msg, status='error')
+
+
 # AJAX request with Template data
 @app.route('/template_request', methods=['POST'])
 def template_request():

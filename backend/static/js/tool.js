@@ -1,32 +1,29 @@
 $(function() {
-   $('#upload-file-btn').click(function() {
-	   var form_data = new FormData($('#upload-file')[0]);
-	   // json_path is passed in by the template
-       $.ajax({
-           type: 'POST',
-           url: '/upload_and_process_file/' + json_path,
-           data: form_data,
-           contentType: false,
-           cache: false,
-           processData: false,
-           success: function(data) {
-			   // success just means a response was received, check for error in response
-			   if (data.status == 'success') {
-				$('#error_header').empty()
-				console.log('Success!');
-				form = data;
-				  display(form);
-				  visualize(form);
-			   } else if (data.status == 'error') {
-				 $('#error_header').append("<h1>" + data.error_msg + "</h1>")
-			   }
-           },
-           error: function(error) {
-			   console.log(error);
-			   $('#error_header').append("<h1>" + "Error: did not receive response from server" + "</h1>")
-           }
-       });
-   });
+	$('#upload-file-btn').click(function() {
+		var form_data = new FormData($('#upload-file')[0]);
+  	// json_path is passed in by the template
+		$.ajax({
+			type: 'POST',
+			url: '/upload_and_process_file/' + json_path,
+			data: form_data,
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(data) {
+				if (data.status == 'success') {
+					$('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
+					form = data;
+					display(form);
+					visualize(form);
+				} else if (data.status == 'error') {
+					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
+				}
+			},
+			error: function(error) {
+				$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
+			}
+		});
+	});
 });
 
 
@@ -181,18 +178,36 @@ function display(form) {
 
 }
 
+function validate(form) {
+	var unanswered = [];
+	for (var i = 0; i < form.question_groups.length; i++) {
+		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "NotAnswered"; })
+		unanswered = unanswered.concat(a)
+	}
+	return unanswered.length
+}
 
-// document.getElementById('file-download')
-// .addEventListener('click', function() {
-// 	var unanswered = [];
-// 	for (var i = 0; i < form.question_groups.length; i++) {
-// 		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "NotAnswered"; })
-// 		unanswered = unanswered.concat(a)
-// 	}
-// 	if (unanswered.length) {
-// 		alert(unanswered.length + " questions not filled (in bold)!")
-// 	} else {
-// 		alert("Success!")
-// 	}
-// 	console.log(form);
-// });
+
+$(function() {
+   $('#save-file-btn').click(function() {
+		$('#save-response').append("<h3>" + validate(form) + "unanswered questions." + "</h3>")
+		$.ajax({
+			type: 'POST',
+			url: '/save',
+			data: JSON.stringify(form),
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: function(data) {
+			   if (data.status == 'success') {
+					$('#save-response').append("<h3>" + "Save success!" + "</h3>")
+			   } else if (data.status == 'error') {
+				 	$('#save-response').append("<h3>" + data.error_msg + "</h3>")
+			   }
+			},
+			error: function(error) {
+			   $('#save-response').append("<h3>" + "No response from server" + "</h3>")
+			}
+		});
+   });
+});
