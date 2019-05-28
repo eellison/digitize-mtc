@@ -53,13 +53,7 @@
 }
 
 
-.nav{
-	margin: 1em 0 4em 0;
-}
 
-.nav h1{
-	margin-top:3em;
-}
 #restart{
 	cursor: pointer;
 	color: gray;
@@ -69,11 +63,13 @@
 
 html{
 	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+	margin: 0;
 }
 
 .main{
-	width: 80%;
-	margin: 0 auto;
+	width: 70%;
+	margin: 3em auto 0 auto;
 }
 
 
@@ -126,4 +122,55 @@ fieldset.question_group {
 	width: 80%;
 	margin: 0 auto;
 
+}
+
+
+/*Header*/
+#logo{
+	font-weight: 600;
+}
+
+.header-nav{
+	margin-top:2em;
+}
+
+.header-nav-wrapper{
+	width: 90%;
+	margin: 0 auto;
+}
+
+.nav{
+	margin: 1em 0 4em 0;
+}
+
+.nav h1{
+	margin-top:0;
+}
+
+.nav .caption{
+	margin-bottom:0;
+}
+
+
+/*font*/
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.upload-group{
+	display: inline-block;
+	width: 100%;
+	margin:1em auto;
+}
+
+.upload-group h3{
+	display: inline-block;
+	margin:0 auto;
+}
+
+.upload-group button{
+	display: inline-block;
+	float: right;
 }

@@ -4,14 +4,27 @@
   <link rel="stylesheet" type="text/css" href="static/css/input.css"> 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
 </head>
+
+
 <body>
+  <div class="header-nav">
+    <div class="header-nav-wrapper">
+       <span id="logo">Digitiz</span>
+    </div>
+  </div>
   <div class="main" id="main-content">
-    <div class="nav">      
+    <div class="nav">     
+      <p class="caption">New data entry</p> 
       <h1 id="nav-title">Select a form to get started</h1>
     </div>
 
     <div id="select-form">
-      <a href="{{ url_for('upload_anc_file_pg_1') }}"><div class="select-form-button">Antenatal Record</div></a>
+      <a href="{{ url_for('upload_anc_file_pg_1') }}">
+        <div class="select-form-button">
+          Antenatal Record
+
+        </div>
+      </a>
       <a href="{{ url_for('upload_delivery_file_pg_1') }}"><div class="select-form-button">Delivery Record</div></a>
     </div>
   

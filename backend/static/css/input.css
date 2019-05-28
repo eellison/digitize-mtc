@@ -41,3 +41,60 @@ button#file-download{
 	float: right;
 	font-size: 16px;
 }
+
+button.highlighted{
+  padding: 0.8em 3em;
+  border: transparent;
+  color: white;
+  background-color: #389BFF;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+
+.select-form-button{
+
+}
+
+
+/*Image upload*/
+#upload-response{
+display: inline-block;
+
+}
+
+
+#upload-response h3{
+  
+    font-size: 16px;
+    color: red;
+    font-weight: 400;
+
+}
+
+.upload-box{
+
+
+  border: 1px dashed #979797;
+  background-color: #F9F9F9;
+}
+
+form{
+   text-align: center;
+   vertical-align: middle;
+   padding: 8% 5% ;
+
+}
+
+label#upload-file-instruction{
+      vertical-align: middle;
+      font-size:0.8em;
+
+}
+
+    label #click-upload{
+     
+      cursor: pointer;
+      color: #389BFF;
+
+    }
