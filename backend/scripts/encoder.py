@@ -21,15 +21,14 @@ class FormTemplateEncoder(json.JSONEncoder):
             return dict_repr
         elif isinstance(obj, Question):
             dict_repr = self.get_basic_dict(obj)
+            obj.response_regions = sorted(obj.response_regions, key=lambda rr: rr.name)
             dict_repr["response_regions"] = [self.default(r) for r in obj.response_regions]
             if isinstance(dict_repr["answer_status"], AnswerStatus):
                 dict_repr["answer_status"] = self.default(obj.answer_status)
             return dict_repr
         elif isinstance(obj, ResponseRegion):
             dict_repr = self.get_basic_dict(obj)
-            if isinstance(dict_repr["value"], QuestionType) or \
-                isinstance(dict_repr["value"], AnswerStatus) or \
-                isinstance(dict_repr["value"], CheckboxState):
+            if isinstance(dict_repr["value"], CheckboxState):
                 dict_repr["value"] = self.default(obj.value)
             return dict_repr
         elif isinstance(obj, QuestionType) or \

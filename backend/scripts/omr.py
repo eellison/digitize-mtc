@@ -20,8 +20,7 @@ def calc_checkbox_score(image, response_region):
     """
     w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
     roi = image[y : y+h, x : x+w] < BLACK_LEVEL
-    # For now, stick with simple image masking. Later refine "remove_checkbox_outline"
-    # image = remove_checkbox_outline(image[y : y+h, x : x+w], response_region.name)
+    # For now, stick with simple image masking. Later refine "remove_checkbox_outline" in util.py
     masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
     scr = (masked).sum() / (w * h)
     return scr
@@ -44,7 +43,7 @@ def checkbox_state(input_image, template_image, response_region):
         checkbox_state =  CheckboxState.empty
     else:
         checkbox_state =  CheckboxState.unknown
-        #print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
+        print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
     response_region.value = checkbox_state
     return checkbox_state
 
@@ -86,7 +85,7 @@ def text_answer(question, input_image, template_image):
     """
     # TODO: have this run pytesseract on the input region (see "/scratch/ocr_test.py")
     for region in question.response_regions:
-        region.value = "Some OCR guess at what this text should be..."
+        region.value = "Enter Text Here"
     question.answer_status = AnswerStatus.unresolved
     return question
 
