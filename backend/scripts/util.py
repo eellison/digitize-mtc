@@ -86,12 +86,10 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
         for q in group.questions:
             for rr in q.response_regions:
                 val = rr.value
-                if val == CheckboxState.Checked:
+                if val == CheckboxState.checked:
                     c = (0, 255, 0, 127) # green
-                elif val == CheckboxState.Empty:
+                elif val == CheckboxState.empty:
                     c = (255, 0, 0, 127) # red
-                elif val == CheckboxState.Filled:
-                    c = (0, 0, 0, 64) # gray
                 else:
                     c = (255, 127, 0, 127) # orange
                 draw.rectangle((rr.x, rr.y, rr.x+rr.w, rr.y+rr.h), c)

@@ -47,14 +47,12 @@ class QuestionType(Enum):
     text = 3
 
 class AnswerStatus(Enum):
-    NotAnswered = -1
-    NeedsRevision = 0
-    Resolved = 1
-    Editted = 2
+    unresolved = -1
+    resolved = 1
+    editted = 2
 
 # Enum for checkbox state
 class CheckboxState(Enum):
-    Unknown = -1
-    Empty = 0
-    Checked = 1
-    Filled = 2
+    unknown = -1
+    empty = 0
+    checked = 1

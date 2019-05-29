@@ -38,14 +38,12 @@ def checkbox_state(input_image, template_image, response_region):
     input_score = calc_checkbox_score(input_image, response_region)
     template_score = calc_checkbox_score(template_image, response_region)
     scr = input_score - template_score
-    if scr > FILL_THR:
-        checkbox_state = CheckboxState.Filled
-    elif scr > CHECK_THR:
-        checkbox_state =  CheckboxState.Checked
+    if scr > CHECK_THR:
+        checkbox_state =  CheckboxState.checked
     elif scr < EMPTY_THR:
-        checkbox_state =  CheckboxState.Empty
+        checkbox_state =  CheckboxState.empty
     else:
-        checkbox_state =  CheckboxState.Unknown
+        checkbox_state =  CheckboxState.unknown
         #print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
     response_region.value = checkbox_state
     return checkbox_state
@@ -60,7 +58,7 @@ def checkbox_answer(question, input_image, template_image):
         question (Question): same input question, with "answer" filled in
     """
     state = checkbox_state(input_image, template_image, question.response_regions[0])
-    question.answer_status = AnswerStatus.NeedsRevision if state == CheckboxState.Unknown else AnswerStatus.Resolved
+    question.answer_status = AnswerStatus.unresolved if state == CheckboxState.unknown else AnswerStatus.resolved
     return question
 
 def radio_answer(question, input_image, template_image):
@@ -89,7 +87,7 @@ def text_answer(question, input_image, template_image):
     # TODO: have this run pytesseract on the input region (see "/scratch/ocr_test.py")
     for region in question.response_regions:
         region.value = "Some OCR guess at what this text should be..."
-    question.answer_status = AnswerStatus.NeedsRevision
+    question.answer_status = AnswerStatus.unresolved
     return question
 
 def answer(question, input_image, template_image):
