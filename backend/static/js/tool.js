@@ -1,7 +1,7 @@
 $(function() {
 	$('#upload-file-btn').click(function() {
 		var form_data = new FormData($('#upload-file')[0]);
-  	// json_path is passed in by the template
+  		// json_path is passed in by the template
 		$.ajax({
 			type: 'POST',
 			url: '/upload_and_process_file/' + json_path,

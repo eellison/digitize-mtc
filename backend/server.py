@@ -29,8 +29,8 @@ def processed_file(filename):
 def home():
     return render_template('home.html')
 
-@app.route('/anc_upload_pg_1', methods=['GET', 'POST'])
-def upload_anc_file_pg_1():
+@app.route('/anc_upload_pg_1/<json_path>', methods=['GET', 'POST'])
+def upload_anc_file_pg_1(json_path):
     # TODO add parameters for form name and json path
     return render_template('upload_ANC_form.html', form_name="Antenatal Record", json_path = "anc_pg_1.json")
 
@@ -71,7 +71,9 @@ def upload_and_process_file(html_page, template_json):
 # AJAX request with uploaded file
 @app.route('/upload_and_process_file/<template_json>', methods=['POST'])
 def get_anc_response(template_json):
+    # import pdb; pdb.set_trace()
     try:
+        # import pdb; pdb.set_trace()
         return get_processed_file_json('upload_ANC_form.html', template_json)
     except AlignmentError as err:
         return jsonify(
@@ -141,5 +143,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
     args = parser.parse_args()
-    webbrowser.open('http://localhost:' + str(args.port))
+    # webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)
