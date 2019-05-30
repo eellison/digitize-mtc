@@ -140,5 +140,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
     args = parser.parse_args()
-    # webbrowser.open('http://localhost:' + str(args.port))
+    webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)

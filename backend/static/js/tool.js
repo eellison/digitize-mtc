@@ -73,7 +73,6 @@ function edit(q) {
 
 
 function visualize(form) {
-	console.log(form)
 	// Image
 	form_image.selectAll("image").data([form.image]).enter()
 		.append('image')
