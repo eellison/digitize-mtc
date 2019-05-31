@@ -1,10 +1,10 @@
 	form.update {
-		display: inline-block;
-		height: 500px;
+		display: none;
+		height: 80vh;
 		overflow: auto;
 	}
 	svg.update {
-		display: inline-block;
+		display: none;
 		border: 2px solid black;
 		cursor: move;
 		vertical-align: top;
@@ -58,6 +58,8 @@
 	cursor: pointer;
 	color: gray;
 	opacity: 100;
+	position: absolute;
+	left: 15%;
 }
 
 
@@ -69,12 +71,12 @@ html{
 
 .main{
 	width: 70%;
-	margin: 3em auto 0 auto;
+	margin: 8em auto 0 auto;
 }
 
 
 form.update{
-	margin: 0 1em;
+	margin: 0 1em 0 0;
 	width: 45%;
 }
 

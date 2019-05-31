@@ -15,6 +15,7 @@ $(function() {
 					form = data;
 					display(form);
 					visualize(form);
+					displaySvgFrame();
 				} else if (data.status == 'error') {
 					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
 				}
@@ -29,12 +30,15 @@ $(function() {
 
 var form;
 
-var width = (document.getElementById("main-content").offsetWidth)*0.5,
-    height = (document.getElementById("main-content").offsetWidth)*0.5;
+var width = (document.getElementById("main-content").offsetWidth)*0.4,
+    height = (document.getElementById("main-content").offsetWidth)*0.4;
 
 var zoom = d3.zoom()
     .scaleExtent([1, 10])
     .on("zoom", zoomed);
+
+
+var form_table = d3.select("#update").append("form").attr('class', 'update');
 
 var svg = d3.select("#update").append("svg")
     .attr('class', 'update')
@@ -43,8 +47,8 @@ var svg = d3.select("#update").append("svg")
     .append("g")
     .call(zoom);
 
-var form_image = svg.append("g")
-var form_table = d3.select("#update").append("form").attr('class', 'update');
+var form_image = svg.append("g");
+
 
 
 
@@ -184,6 +188,12 @@ function validate(form) {
 		unanswered = unanswered.concat(a)
 	}
 	return unanswered.length
+}
+
+function displaySvgFrame(){
+	$("form.update").css("display","inline-block");
+	$("svg.update").css("display","inline-block");
+	console.log("!!!");
 }
 
 
