@@ -1,6 +1,7 @@
 $(function() {
 	$('#upload-file-btn').click(function() {
 		var form_data = new FormData($('#upload-file')[0]);
+		
   		// json_path is passed in by the template
 		$.ajax({
 			type: 'POST',
@@ -193,7 +194,11 @@ function validate(form) {
 function displaySvgFrame(){
 	$("form.update").css("display","inline-block");
 	$("svg.update").css("display","inline-block");
-	console.log("!!!");
+	$("#upload-file-btn").removeClass("highlighted");
+	$("#upload-file-btn").addClass("disabled");
+	$("#save-file-btn").removeClass("disabled");
+	$("#save-file-btn").addClass("highlighted");
+
 }
 
 
