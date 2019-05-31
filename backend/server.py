@@ -29,20 +29,21 @@ def processed_file(filename):
 def home():
     return render_template('home.html')
 
-@app.route('/anc_upload_pg_1', methods=['GET', 'POST'])
-def upload_anc_file_pg_1():
+# TODO: template upload based on form id, and use that to retreive
+# name and json
+def getFormName(json_path):
+    if json_path == 'anc_pg_1.json':
+        return "Antenatal Record"
+    elif json_path == 'delivery_pg_1.json':
+        return "Delivery Page 1"
+    elif json_path == 'delivery_pg_2.json':
+        return "Delivery Page 2"
+    assert False, "need to add another condition"
+
+@app.route('/upload_page/<json_path>', methods=['GET', 'POST'])
+def upload_form(json_path):
     # TODO add parameters for form name and json path
-    return render_template('upload_ANC_form.html', form_name="Antenatal Record", json_path = "anc_pg_1.json")
-
-
-@app.route('/delivery_upload_pg_1', methods=['GET', 'POST'])
-def upload_delivery_file_pg_1():
-    return upload_and_process_file('upload_delivery_form_pg_1.html', "delivery_pg_1.json")
-
-@app.route('/delivery_upload_pg_2', methods=['GET', 'POST'])
-def upload_delivery_file_pg_2():
-    return upload_and_process_file('upload_delivery_form_pg_2.html', "delivery_pg_2.json")
-
+    return render_template('upload_ANC_form.html', form_name=getFormName(json_path), json_path = json_path)
 
 def upload_and_process_file(html_page, template_json):
     if request.method == 'POST':
@@ -71,7 +72,9 @@ def upload_and_process_file(html_page, template_json):
 # AJAX request with uploaded file
 @app.route('/upload_and_process_file/<template_json>', methods=['POST'])
 def get_anc_response(template_json):
+    # import pdb; pdb.set_trace()
     try:
+        # import pdb; pdb.set_trace()
         return get_processed_file_json('upload_ANC_form.html', template_json)
     except AlignmentError as err:
         return jsonify(
@@ -125,10 +128,6 @@ def template_request():
     # save template and processed image. return request status
     template = parse_request_template(request)
     return jsonify(success=True, align_image_location="temp_location")
-
-@app.route('/upload_form')
-def upload_form_page():
-    return render_template('upload_form.html')
 
 # AJAX request with Form data
 @app.route('/form_request', methods=['POST'])

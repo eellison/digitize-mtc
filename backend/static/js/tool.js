@@ -1,7 +1,7 @@
 $(function() {
 	$('#upload-file-btn').click(function() {
 		var form_data = new FormData($('#upload-file')[0]);
-  	// json_path is passed in by the template
+  		// json_path is passed in by the template
 		$.ajax({
 			type: 'POST',
 			url: '/upload_and_process_file/' + json_path,
@@ -73,11 +73,10 @@ function edit(q) {
 
 
 function visualize(form) {
-
 	// Image
 	form_image.selectAll("image").data([form.image]).enter()
 		.append('image')
-    	.attr('xlink:href', function(d) { return ("static/" + d); })
+    	.attr('xlink:href', function(d) { return ("../static/" + d); })
     	.attr('width', "100%")
 
 	// Question Groups
