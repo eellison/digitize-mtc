@@ -79,11 +79,3 @@ Step 2: Mark Recognition
 represents empty (unchecked) boxes, and orange means that the script was not
 able to make a confident guess.
 ![](https://github.com/sdrp/digitize-mtc/blob/master/example/phone_pics/output/sample_pic_omr_debug.png)
-
-
-
-Credits
-=======
-The alignment method used was inspired by this post from Satya Mallik on LearnOpenCV (https://www.learnopencv.com/image-alignment-feature-based-using-opencv-c-python/)
-
-The OMR script started as a fork of RescueOMR (https://github.com/EuracBiomedicalResearch/RescueOMR) created by Yuri D'Elia at EURAC, distributed under GNU AGPLv3+.
