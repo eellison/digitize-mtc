@@ -4,10 +4,11 @@ import cv2
 
 
 # tuned for 300 dpi grayscale text
-BLACK_LEVEL  = 0.8 * 255 # 255 is pure white
-FILL_THR     = 0.22 # threshold for filled box
+BLACK_LEVEL  = 0.5 * 255 # 255 is pure white
 CHECK_THR    = 0.01 # threshold for checked box
-EMPTY_THR    = 0.009 # threashold for empty box
+EMPTY_THR    = 0.009 # threshold for empty box
+
+RADIO_THR    = 0.01 # threhold for picking radio button
 
 
 def calc_checkbox_score(image, response_region):
@@ -69,9 +70,23 @@ def radio_answer(question, input_image, template_image):
     Returns:
         question (Question): same input question, with "answers" filled in
     """
-    for region in question.response_regions:
-        checkbox_state(input_image, template_image, region)
-    # TODO: add logic to determine the AnswerStatus based on responses
+    for rr in question.response_regions:
+        rr.value = calc_checkbox_score(input_image, rr)
+    sorted_regions = sorted(question.response_regions, reverse=True, key=lambda rr: rr.value) #sort by score
+    highest_score = sorted_regions[0].value
+    second_highest_score = sorted_regions[1].value
+    if (highest_score - second_highest_score) > RADIO_THR:
+        # One box is clearly the most filled - pick it as the checked box
+        for rr in sorted_regions:
+            rr.value = CheckboxState.empty # set all to empty
+        sorted_regions[0].value = CheckboxState.checked # update highest score to checked
+        question.answer_status = AnswerStatus.resolved
+    else:
+        # No one box is clearly more filled than the others - set all to unknown
+        print(highest_score - second_highest_score)
+        for rr in question.response_regions:
+            rr.value = CheckboxState.unknown
+        question.answer_status = AnswerStatus.unresolved
     return question
 
 def text_answer(question, input_image, template_image):
