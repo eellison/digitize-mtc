@@ -18,9 +18,11 @@
 	}
 	rect.true { fill: green; }
 	rect.false { fill: red; }
-	rect.Checked { fill: green; }
-  rect.Empty { fill: red; }
-  rect.Filled { fill: orange; }
+	rect.checked { fill: green; }
+  rect.empty { fill: red; }
+	rect.true { fill: green; }
+	rect.false { fill: red; }
+  rect.unknown { fill: orange; }
 	div.responses {
 		display: inline-block;
 	}

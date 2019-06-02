@@ -1,7 +1,7 @@
 $(function() {
 	$('#upload-file-btn').click(function() {
 		var form_data = new FormData($('#upload-file')[0]);
-		
+
   		// json_path is passed in by the template
 		$.ajax({
 			type: 'POST',
@@ -58,6 +58,12 @@ function zoomed() {
     form_image.attr("transform", currentTransform);
 }
 
+
+
+
+//Idea: create a listener here for editing form, listener changes zoom based on transform
+// and then re-visualizes
+
 function edit(q) {
 
 	$(this).parent().removeClass("NotAnswered")
@@ -70,7 +76,7 @@ function edit(q) {
 		}
 
 		if (d.type == "radio" || d.type == "checkbox"){
-			q.response_regions[i].value = d.checked ? "Checked" : "Empty";;
+			q.response_regions[i].value = d.checked ? "checked" : "empty";;
 		}
 	});
 	visualize(form);
