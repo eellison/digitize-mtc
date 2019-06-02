@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw
 from . import *
 
 
-def process(input_image_path, template_json_path, output_dir_path):
+def process(input_image_path, template_json_path, output_dir_path, debug_mode=False):
     '''
     Args:
         input_image_path (str): path to input image, ie. a filled form
@@ -31,13 +31,17 @@ def process(input_image_path, template_json_path, output_dir_path):
     ####################################
     answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
 
-    ###########################
+    ############################
     ### Step 3: Write Output ###
     ############################
-    input_image_name, output_abs_path, json_output_path, csv_output_path = util.generate_paths(input_image_path, template, output_dir_path)
-    # Write (1) diagnostic images, (2) JSON form representation
-    aligned_filename = util.write_diag_images(input_image_name, output_abs_path, aligned_image, aligned_diag_image, clean_input, answered_questions)
-    # Create and return processed form
+    aligned_filename = util.write_aligned_image(input_image_path, aligned_image)
     processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
-    util.write_form_to_json(processed_form, json_output_path)
+
+    if debug_mode:
+        input_image_name, output_abs_path, json_output_path, csv_output_path = \
+            util.generate_paths(input_image_path, template, output_dir_path)
+        util.write_diag_images(input_image_name, output_abs_path, aligned_image, \
+                               aligned_diag_image, clean_input, answered_questions)
+        util.write_form_to_json(processed_form, json_output_path)
+
     return processed_form

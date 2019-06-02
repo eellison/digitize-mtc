@@ -24,6 +24,15 @@ def read_image(image_path):
     loaded_image = cv2.imread(image_path, cv2.IMREAD_COLOR)
     return loaded_image
 
+def file_name_from_path(path_to_file):
+    '''
+    Args:
+        path (str): path to a file
+    Returns:
+        (str): the name of file, minus the file extension
+    '''
+    return Path(path_to_file).stem
+
 def generate_paths(path_to_input_image, template, output_dir_name):
     '''
     Args:
@@ -37,7 +46,7 @@ def generate_paths(path_to_input_image, template, output_dir_name):
         csv_path (str): path to CSV file to append results to
     NOTE: The pathlib library is essential to ensure that that all
     paths are operating-system agnostic. '''
-    input_image_name = Path(path_to_input_image).stem # name of the input image file, minus the file extension
+    input_image_name = file_name_from_path(path_to_input_image)
     try:
         os.makedirs(output_dir_name) # Make the directory if it doesn't exist
     except FileExistsError:
@@ -123,6 +132,21 @@ def write_form_to_csv(processed_form, path_to_csv):
         writer.writerows(answer_values)
     return True
 
+
+def write_aligned_image(input_image_path, aligned_image):
+    """
+    Args:
+        input_image_name (str): name of input image
+        aligned_image (numpy.ndarray): input image after alignment to template form
+    Returns:
+        aligned_filename (str): name of aligned file that has been written to static/
+    """
+    image_name = file_name_from_path(input_image_path)
+    aligned_filename = image_name + "_aligned.jpg"
+    static_path = str(Path.cwd() / "backend" / "static" / aligned_filename)
+    cv2.imwrite(static_path, aligned_image)
+    return aligned_filename # name of the file that can be found in static/
+
 def write_diag_images(input_image_name, output_path, aligned_image, aligned_diag_image, clean_input, answered_questions):
     """
     Args:
@@ -137,15 +161,12 @@ def write_diag_images(input_image_name, output_path, aligned_image, aligned_diag
     aligned_filename = input_image_name + "_aligned.jpg"
     aligned_diag_output_path = str(output_path / (input_image_name + "_aligned_diag.jpg"))
     aligned_output_path = str(output_path / aligned_filename)
-    static_path = str(Path.cwd() / "backend" / "static" / aligned_filename)
     debug_output_path = str(output_path / (input_image_name + "_omr_debug.png"))
     # Write images
     cv2.imwrite(aligned_diag_output_path, aligned_diag_image)
     cv2.imwrite(aligned_output_path, aligned_image)
-    cv2.imwrite(static_path, aligned_image) # also write to static/ for frontend access
     omr_visual_output(aligned_image, clean_input, answered_questions, debug_output_path)
-    return aligned_filename # name of the file that can be found in static/ for frontend access
-
+    return aligned_diag_output_path, aligned_output_path, debug_output_path
 
 def remove_checkbox_outline(input_arr, region_name, debug=False):
     '''
