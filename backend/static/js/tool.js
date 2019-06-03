@@ -31,13 +31,16 @@ $(function() {
 
 var form;
 
+
 var width = (document.getElementById("main-content").offsetWidth)*0.4,
-    height = (document.getElementById("main-content").offsetWidth)*0.4;
+    height = (document.getElementById("main-content").offsetWidth)*0.4
+		active = d3.select(null);
+
+var scale = 1;
 
 var zoom = d3.zoom()
     .scaleExtent([1, 10])
     .on("zoom", zoomed);
-
 
 var form_table = d3.select("#update").append("form").attr('class', 'update');
 
@@ -50,8 +53,7 @@ var svg = d3.select("#update").append("svg")
 
 var form_image = svg.append("g");
 
-
-
+form_image.call( zoom.transform, d3.zoomIdentity.scale(scale));
 
 function zoomed() {
     const currentTransform = d3.event.transform;
@@ -59,13 +61,56 @@ function zoomed() {
 }
 
 
+function getTransform(node, xScale) {
+  bbox = node.node().getBBox();
+  var bx = bbox.x;
+  var by = bbox.y;
+  var bw = bbox.width;
+  var bh = bbox.height;
+  var tx = -bx*xScale + vx + vw/2 - bw*xScale/2;
+  var ty = -by*xScale + vy + vh/2 - bh*xScale/2;
+  return {translate: [tx, ty], scale: xScale};
+}
 
 
 //Idea: create a listener here for editing form, listener changes zoom based on transform
 // and then re-visualizes
+function edit2(q){
+	console.log("got em, 2");
+}
 
+
+function clicked(d, i) {
+	// console.log("got em panAndCenter");
+	if (active.node() === this){
+		active.classed("active", false);
+		return reset();
+	}
+	active = d3.select(this).classed("active", true);
+	svg.transition()
+		.duration(750)
+		.call(zoom.transform,
+			d3.zoomIdentity
+			.translate(width / 2, height / 2)
+			.scale(8)
+			.translate(-(+active.attr('x')), -(+active.attr('y')))
+		);
+}
+
+function reset() {
+	svg.transition()
+		.duration(750)
+		.call(zoom.transform,
+			d3.zoomIdentity
+			.translate(0, 0)
+			.scale(1)
+		);
+}
+
+// IDEA: First get pan and zoom working for clicking checkboxes
+// Next get the on focus methods in display(form) to pan and zoom in the same way
 function edit(q) {
-
+	console.log("got em edit");
 	$(this).parent().removeClass("NotAnswered")
 	q.answer_status = "Resolved";
 
@@ -88,7 +133,7 @@ function visualize(form) {
 	form_image.selectAll("image").data([form.image]).enter()
 		.append('image')
     	.attr('xlink:href', function(d) { return ("../static/" + d); })
-    	.attr('width', "100%")
+    	.attr('width', "100%");
 
 	// Question Groups
 	var question_groups = form_image.selectAll("g.question_group");
@@ -113,7 +158,8 @@ function visualize(form) {
 		.attr("x", function(d) { return d.x * width / form.w; })
 		.attr("y", function(d) { return d.y * width / form.w; })
 		.attr("width", function(d) { return d.w * width / form.w; })
-		.attr("height", function(d) { return d.h * width / form.w; });
+		.attr("height", function(d) { return d.h * width / form.w; })
+		.on("click", clicked);
 
 }
 
@@ -147,7 +193,8 @@ function display(form) {
 	        				.append("input")
 	                        .attr("type", "text")
 	                        .attr("name", q.name)
-	                        .attr("value", function(d) { return d.value; });
+	                        .attr("value", function(d) { return d.value; })
+													.on("focus", edit2);
 	        		}
 
 	        		if (q.question_type == "checkbox") {
@@ -155,7 +202,8 @@ function display(form) {
 	        				.append("input")
 	                        .attr("type", "checkbox")
 	                        .attr("name", q.name)
-	                        .property("checked", function(d) { return d.value; });
+	                        .property("checked", function(d) { return d.value; })
+													.on("focus", edit2);
 	        		}
 
 	        		if (q.question_type == "radio") {
@@ -165,8 +213,9 @@ function display(form) {
 	        					d3.select(this).append("input")
 	                        		.attr("type", "radio")
 	                        		.attr("name", q.name)
-	                        		.property("checked", function(d) { return d.value; });
-	                        	d3.select(this).append("label").text(d.name);
+	                        		.property("checked", function(d) { return d.value; })
+															.on("focus", edit2);
+                  	d3.select(this).append("label").text(d.name);
 	        				});
 	        		}
 
