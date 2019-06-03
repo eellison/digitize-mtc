@@ -2,7 +2,7 @@ $(function() {
 	$('#upload-file-btn').click(function() {
 		var form_data = new FormData($('#upload-file')[0]);
 
-  		// json_path is passed in by the template
+		// json_path is passed in by the template
 		$.ajax({
 			type: 'POST',
 			url: '/upload_and_process_file/' + json_path,
@@ -33,84 +33,67 @@ var form;
 
 
 var width = (document.getElementById("main-content").offsetWidth)*0.4,
-    height = (document.getElementById("main-content").offsetWidth)*0.4
-		active = d3.select(null);
+height = (document.getElementById("main-content").offsetWidth)*0.4
+active = d3.select(null);
 
 var scale = 1;
 
 var zoom = d3.zoom()
-    .scaleExtent([1, 10])
-    .on("zoom", zoomed);
+.scaleExtent([1, 5])
+.on("zoom", zoomed);
 
 var form_table = d3.select("#update").append("form").attr('class', 'update');
 
 var svg = d3.select("#update").append("svg")
-    .attr('class', 'update')
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .call(zoom);
+.attr('class', 'update')
+.attr("width", width)
+.attr("height", height)
+.append("g")
+.call(zoom);
 
 var form_image = svg.append("g");
 
-form_image.call( zoom.transform, d3.zoomIdentity.scale(scale));
+// form_image.call(zoom.transform, d3.zoomIdentity.scale(scale));
 
 function zoomed() {
-    const currentTransform = d3.event.transform;
-    form_image.attr("transform", currentTransform);
+	const currentTransform = d3.event.transform;
+	form_image.attr("transform", currentTransform);
 }
 
-
-function getTransform(node, xScale) {
-  bbox = node.node().getBBox();
-  var bx = bbox.x;
-  var by = bbox.y;
-  var bw = bbox.width;
-  var bh = bbox.height;
-  var tx = -bx*xScale + vx + vw/2 - bw*xScale/2;
-  var ty = -by*xScale + vy + vh/2 - bh*xScale/2;
-  return {translate: [tx, ty], scale: xScale};
-}
-
-
-//Idea: create a listener here for editing form, listener changes zoom based on transform
-// and then re-visualizes
-function edit2(q){
-	console.log("got em, 2");
-}
-
-
-function clicked(d, i) {
-	// console.log("got em panAndCenter");
+function clicked(d) {
 	if (active.node() === this){
 		active.classed("active", false);
 		return reset();
 	}
+	// TODO (sud): fix translation to be to center of area, not (x, y)
+	// TODO (sud): fix weird jumpiness when you use this to zoom into check
+		// but then manually zoom away
 	active = d3.select(this).classed("active", true);
 	svg.transition()
-		.duration(750)
-		.call(zoom.transform,
-			d3.zoomIdentity
-			.translate(width / 2, height / 2)
-			.scale(8)
-			.translate(-(+active.attr('x')), -(+active.attr('y')))
-		);
+	.duration(750)
+	.call(zoom.transform,
+		d3.zoomIdentity
+		.translate(width / 2, height / 2)
+		.scale(8)
+		.translate(-(+active.attr('x')), -(+active.attr('y')))
+	);
 }
 
 function reset() {
 	svg.transition()
-		.duration(750)
-		.call(zoom.transform,
-			d3.zoomIdentity
-			.translate(0, 0)
-			.scale(1)
-		);
+	.duration(750)
+	.call(zoom.transform,
+		d3.zoomIdentity
+		.translate(0, 0)
+		.scale(1)
+	);
 }
 
-// IDEA: First get pan and zoom working for clicking checkboxes
-// Next get the on focus methods in display(form) to pan and zoom in the same way
+function panToQuestion(question_name) {
+	// TODO (sud): write this, and make it on focus of text fields / radio buttons / checkboxes
+}
+
 function edit(q) {
-	console.log("got em edit");
 	$(this).parent().removeClass("NotAnswered")
 	q.answer_status = "Resolved";
 
@@ -131,35 +114,35 @@ function edit(q) {
 function visualize(form) {
 	// Image
 	form_image.selectAll("image").data([form.image]).enter()
-		.append('image')
-    	.attr('xlink:href', function(d) { return ("../static/" + d); })
-    	.attr('width', "100%");
+	.append('image')
+	.attr('xlink:href', function(d) { return ("../static/" + d); })
+	.attr('width', "100%");
 
 	// Question Groups
 	var question_groups = form_image.selectAll("g.question_group");
 	question_groups = question_groups.data(form.question_groups).enter()
-		.append("g")
-		.merge(question_groups)
-		.attr("class", "question_group");
+	.append("g")
+	.merge(question_groups)
+	.attr("class", "question_group");
 
 	// Questions
 	var questions = question_groups.selectAll("g.question");
 	questions = questions.data(function(d) { return d.questions; }).enter()
-		.append("g")
-		.merge(questions)
-		.attr("class", function(d) { return "question " + d.question_type; });
+	.append("g")
+	.merge(questions)
+	.attr("class", function(d) { return "question " + d.question_type; });
 
 	// Responses
 	var responses = questions.selectAll("rect");
 	responses.data(function(d) { return d.response_regions; }).enter()
-		.append("rect")
-		.merge(responses)
-		.attr("class", function(d) { return "response " +  d.value; })
-		.attr("x", function(d) { return d.x * width / form.w; })
-		.attr("y", function(d) { return d.y * width / form.w; })
-		.attr("width", function(d) { return d.w * width / form.w; })
-		.attr("height", function(d) { return d.h * width / form.w; })
-		.on("click", clicked);
+	.append("rect")
+	.merge(responses)
+	.attr("class", function(d) { return "response " +  d.value; })
+	.attr("x", function(d) { return d.x * width / form.w; })
+	.attr("y", function(d) { return d.y * width / form.w; })
+	.attr("width", function(d) { return d.w * width / form.w; })
+	.attr("height", function(d) { return d.h * width / form.w; })
+	.on("click", clicked);
 
 }
 
@@ -167,73 +150,57 @@ function visualize(form) {
 function display(form) {
 
 	form_table.selectAll("fieldset").data(form.question_groups).enter()
-		.append("fieldset")
-		.attr("class", "question_group")
-		.each(function(qg) {
-			// question group legend
-        	d3.select(this).append("div")
-        				   .attr("class", "question_group_title")
-        				   .text(qg.name);
+	.append("fieldset")
+	.attr("class", "question_group")
+	.each(function(qg) {
+		// question group legend
+		d3.select(this).append("div")
+		.attr("class", "question_group_title")
+		.text(qg.name);
 
-        	// questions
-        	d3.select(this).selectAll("div").data(qg.questions).enter()
-				.append("div")
-				.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
-				.each(function(q) {
-					// question label
-	            	d3.select(this).append("label").text(q.name);
+		// questions
+		d3.select(this).selectAll("div").data(qg.questions).enter()
+		.append("div")
+		.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
+		.each(function(q) {
+			// question label
+			d3.select(this).append("label").text(q.name);
 
-	            	// responses div
-	            	var responses = d3.select(this).append("div")
-	            		.attr("class", "responses")
-	            		.on("change", edit);
+			// responses div
+			var responses = d3.select(this).append("div")
+			.attr("class", "responses")
+			.on("change", edit);
 
-	            	if (q.question_type == "text") {
-	        			responses.selectAll("input").data(q.response_regions).enter()
-	        				.append("input")
-	                        .attr("type", "text")
-	                        .attr("name", q.name)
-	                        .attr("value", function(d) { return d.value; })
-													.on("focus", edit2);
-	        		}
+			if (q.question_type == "text") {
+				responses.selectAll("input").data(q.response_regions).enter()
+				.append("input")
+				.attr("type", "text")
+				.attr("name", q.name)
+				.attr("value", function(d) { return d.value; });
+			}
 
-	        		if (q.question_type == "checkbox") {
-	        			responses.selectAll("input").data(q.response_regions).enter()
-	        				.append("input")
-	                        .attr("type", "checkbox")
-	                        .attr("name", q.name)
-	                        .property("checked", function(d) { return d.value; })
-													.on("focus", edit2);
-	        		}
+			if (q.question_type == "checkbox") {
+				responses.selectAll("input").data(q.response_regions).enter()
+				.append("input")
+				.attr("type", "checkbox")
+				.attr("name", q.name)
+				.property("checked", function(d) { return d.value; });
+			}
 
-	        		if (q.question_type == "radio") {
-	        			responses.selectAll("input").data(q.response_regions).enter()
-	        				.each(function(d) {
+			if (q.question_type == "radio") {
+				responses.selectAll("input").data(q.response_regions).enter()
+				.each(function(d) {
 
-	        					d3.select(this).append("input")
-	                        		.attr("type", "radio")
-	                        		.attr("name", q.name)
-	                        		.property("checked", function(d) { return d.value; })
-															.on("focus", edit2);
-                  	d3.select(this).append("label").text(d.name);
-	        				});
-	        		}
-
-	        		// if (q.question_type == "select") {
-	        		// 	responses.selectAll("input").data(q.response_regions).enter()
-	        		// 		.each(function(d) {
-
-	        		// 			d3.select(this).append("select")
-	          //               		.attr("name", "see")
-	          //               		.attr("name", q.name)
-	          //               		.property("checked", function(d) { return d.value; });
-	          //               	d3.select(this).append("label").text(d.name);
-	        		// 		});
-	        		// }
-
+					d3.select(this).append("input")
+					.attr("type", "radio")
+					.attr("name", q.name)
+					.property("checked", function(d) { return d.value; })
+					d3.select(this).append("label").text(d.name);
 				});
-
+			}
 		});
+
+	});
 
 }
 
@@ -258,7 +225,7 @@ function displaySvgFrame(){
 
 
 $(function() {
-   $('#save-file-btn').click(function() {
+	$('#save-file-btn').click(function() {
 		$('#save-response').append("<h3>" + validate(form) + "unanswered questions." + "</h3>")
 		$.ajax({
 			type: 'POST',
@@ -268,15 +235,15 @@ $(function() {
 			cache: false,
 			processData: false,
 			success: function(data) {
-			   if (data.status == 'success') {
+				if (data.status == 'success') {
 					$('#save-response').append("<h3>" + "Save success!" + "</h3>")
-			   } else if (data.status == 'error') {
-				 	$('#save-response').append("<h3>" + data.error_msg + "</h3>")
-			   }
+				} else if (data.status == 'error') {
+					$('#save-response').append("<h3>" + data.error_msg + "</h3>")
+				}
 			},
 			error: function(error) {
-			   $('#save-response').append("<h3>" + "No response from server" + "</h3>")
+				$('#save-response').append("<h3>" + "No response from server" + "</h3>")
 			}
 		});
-   });
+	});
 });
