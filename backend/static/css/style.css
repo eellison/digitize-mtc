@@ -1,3 +1,6 @@
+
+
+
 	form.update {
 		display: none;
 		height: 80vh;
@@ -48,6 +51,7 @@
 	padding: 2em;
 	margin-right: 1em;
 	cursor: pointer;
+	transition: 0.3s;
 }
 
 .select-form-button:hover{
@@ -88,19 +92,21 @@ fieldset.question_group {
   margin-left: 2px;
   margin-right: 2px;
   padding: 0 1em;
-  border: 1px solid rgba(0,0,0,0.4);
+  border: 1px solid #9B9B9B;
 }
 
 .question_group_title{
 	padding: 1em 0;
-	border-bottom: 1px solid rgba(0,0,0,0.4);
+	margin-bottom:0.5em;
+	border-bottom: 1px solid #9B9B9B;
 	font-weight: 600;
 }
 
 .question{
 	padding: 0 0.8em;
-	border-top: 1px solid rgba(0,0,0,0.1);
+	border-top: 1px solid #D8D8D8;
 	display: block;
+	overflow: auto;
 }
 .question label {
 	padding: 0.8em 0;
