@@ -36,10 +36,10 @@ var width = (document.getElementById("main-content").offsetWidth)*0.4,
 height = (document.getElementById("main-content").offsetWidth)*0.4
 active = d3.select(null);
 
-var scale = 1;
+var SCALE = 8;
 
 var zoom = d3.zoom()
-.scaleExtent([1, 5])
+.scaleExtent([1, SCALE])
 .on("zoom", zoomed);
 
 var form_table = d3.select("#update").append("form").attr('class', 'update');
@@ -48,12 +48,20 @@ var svg = d3.select("#update").append("svg")
 .attr('class', 'update')
 .attr("width", width)
 .attr("height", height)
-.append("g")
 .call(zoom);
+
+// Add background rect
+// Gray background behind the form, clicking it resets the view
+svg.append("rect")
+  	.attr("class", "background")
+    .attr("width", width)
+    .attr("height", height)
+    .on("click", reset)
+		.call(zoom);
+
 
 var form_image = svg.append("g");
 
-// form_image.call(zoom.transform, d3.zoomIdentity.scale(scale));
 
 function zoomed() {
 	const currentTransform = d3.event.transform;
@@ -62,19 +70,19 @@ function zoomed() {
 
 function clicked(d) {
 	if (active.node() === this){
-		active.classed("active", false);
-		return reset();
+		// (sud) For now, do nothing if the active checkbox is clicked
+		// Later we may want to fill this in with desired behavior. Example below.
+		// active.classed("active", false);
+		// return reset();
 	}
 	// TODO (sud): fix translation to be to center of area, not (x, y)
-	// TODO (sud): fix weird jumpiness when you use this to zoom into check
-		// but then manually zoom away
 	active = d3.select(this).classed("active", true);
 	svg.transition()
 	.duration(750)
 	.call(zoom.transform,
 		d3.zoomIdentity
 		.translate(width / 2, height / 2)
-		.scale(8)
+		.scale(SCALE)
 		.translate(-(+active.attr('x')), -(+active.attr('y')))
 	);
 }
@@ -116,7 +124,8 @@ function visualize(form) {
 	form_image.selectAll("image").data([form.image]).enter()
 	.append('image')
 	.attr('xlink:href', function(d) { return ("../static/" + d); })
-	.attr('width', "100%");
+	.attr('width', "100%")
+	.on("click", reset);
 
 	// Question Groups
 	var question_groups = form_image.selectAll("g.question_group");
