@@ -416,7 +416,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "moreThan4",
+                            "name": "4+",
                             "w": 329.63022,
                             "h": 391.56708,
                             "x": 11.498729,
@@ -485,7 +485,7 @@
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "20to35",
+                            "name": "20~35",
                             "w": 216.46812,
                             "h": 358.53104,
                             "x": 12.776365,
@@ -494,7 +494,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "lessThan20",
+                            "name": "<20",
                             "w": 297.6893,
                             "h": 357.80096,
                             "x": 12.411326,
@@ -503,7 +503,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "greaterThan35",
+                            "name": ">35",
                             "w": 332.36801,
                             "h": 357.61844,
                             "x": 12.958884,
@@ -676,7 +676,7 @@
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "lessThan145cm",
+                            "name": "<145cm",
                             "w": 292.94379,
                             "h": 374.59274,
                             "x": 12.958884,
@@ -685,7 +685,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "greaterThan145cm",
+                            "name": ">145cm",
                             "w": 214.82545,
                             "h": 375.32281,
                             "x": 14.054002,

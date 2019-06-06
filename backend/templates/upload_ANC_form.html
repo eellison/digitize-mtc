@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/static/css/style.css"> 
 	<link rel="stylesheet" type="text/css" href="/static/css/input.css"> 
@@ -16,19 +16,14 @@
 		<div class="nav">
 			
 			<span>{{ form_name }} / New Entry</span>
-			<h1 id="nav-title">Review the result</h1>
+			<h1 id="nav-title">Upload Scan</h1>
 		</div>
 
 
 
 		<h1> {{ value }} </h1>
 		<div id="upload">
-			<div class="upload-group">
-				<h3>1. Upload Record</h3>
-				<div id="upload-response"></div>
-				<button id="upload-file-btn" type="button" class="highlighted">Upload</button>
-
-			</div>
+			
 			
 
 			<form id="upload-file" method="post" enctype="multipart/form-data" class="upload-box" >
@@ -38,6 +33,12 @@
 				
 			</form>
 			<div id="upload-response"></div>
+			<div class="upload-group">
+			<!-- 	<p>Select record to upload</p> -->
+				<div id="upload-response"></div>
+				<button id="upload-file-btn" type="button" class="highlighted disabled">Process records</button>
+
+			</div>
 			
 			
 		</div>
@@ -49,10 +50,10 @@
 
 
 		<div id="update">
-			<h3>2. Update Annotated Record</h3>
+			<!-- <h3>Review Annotated Record</h3> -->
 		</div>
 		<div id="save">
-			<h3>3. Save Record</h3>
+			
 			<form method=post enctype=multipart/form-data>
 				<button id="save-file-btn" class="disabled" type="button" >Save</button>
 			</form>

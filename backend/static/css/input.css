@@ -42,22 +42,28 @@ button#file-download{
 	font-size: 16px;
 }
 
+button{
+  padding: 0.8em 3em;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
 button.highlighted{
   padding: 0.8em 3em;
   border: transparent;
   color: white;
   background-color: #389BFF;
-  border-radius: 3px;
-  font-size: 12px;
 }
 
 button.disabled{
-  padding: 0.8em 3em;
+/*  padding: 0.8em 3em;*/
   border: transparent;
   color: white;
   background-color: #CBCBCB;
-  border-radius: 3px;
-  font-size: 12px;
+  
+  cursor: not-allowed;
+   pointer-events: none;
+
 }
 
 
