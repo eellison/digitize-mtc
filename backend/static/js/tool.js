@@ -17,6 +17,7 @@ $(function() {
 					display(form);
 					visualize(form);
 					displaySvgFrame();
+					hideUpload();
 				} else if (data.status == 'error') {
 					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
 				}
@@ -223,8 +224,11 @@ function validate(form) {
 }
 
 function displaySvgFrame(){
-	$("form.update").css("display","inline-block");
-	$("svg.update").css("display","inline-block");
+	$("#update").css("display","inline-block");
+	$("#save").css("display","block");
+	$("#upload").css("display","none");
+	$("h1#nav-title").text("Review Annotated Record");
+
 	$("#upload-file-btn").removeClass("highlighted");
 	$("#upload-file-btn").addClass("disabled");
 	$("#save-file-btn").removeClass("disabled");
@@ -232,6 +236,9 @@ function displaySvgFrame(){
 
 }
 
+function hideUpload(){
+	$(".upload").css("display","none");
+}
 
 $(function() {
 	$('#save-file-btn').click(function() {
@@ -256,3 +263,31 @@ $(function() {
 		});
 	});
 });
+
+
+
+$('#file').change(function() {
+  var i = $(this).prev('label').clone();
+  var file = $('#file')[0].files[0].name;
+  $(this).prev('label').text(file);
+  $("button#upload-file-btn").removeClass("disabled");
+});
+
+
+$(function() {
+
+	$(document).on("click", ".question_group_title", function () {
+        var questions = $(this).parent().find(".question");
+        console.log(questions);
+        console.log(questions.css("display"));
+        if(questions.css("display") === "block"){
+        	questions.css("display","none");
+        }else{
+        	questions.css("display","block");
+        }
+     
+    });
+});
+
+
+

@@ -2,12 +2,12 @@
 
 
 	form.update {
-		display: none;
-		height: 80vh;
+		display: inline-block;
+		max-height: 80vh;
 		overflow: auto;
 	}
 	svg.update {
-		display: none;
+		display: inline-block;
 		border: 2px solid black;
 		cursor: move;
 		vertical-align: top;
@@ -83,24 +83,27 @@ html{
 
 form.update{
 	margin: 0 1em 0 0;
-	width: 45%;
+	width: 35vw;
+	border: 1px solid #9B9B9B;
 }
+
 
 
 fieldset.question_group {
   display: block;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin:0;
   padding: 0 1em;
-  border: 1px solid #9B9B9B;
+  border:none;
+  border-bottom: 1px solid #9B9B9B;
 }
 
 .question_group_title{
 	padding: 1em 0;
-	margin-bottom:0.5em;
-	border-bottom: 1px solid #9B9B9B;
 	font-weight: 600;
+	cursor: pointer;
 }
+
+
 
 .question{
 	padding: 0 0.8em;
@@ -108,10 +111,22 @@ fieldset.question_group {
 	display: block;
 	overflow: auto;
 }
+
+.question:first-child{
+	border-top: 1px solid #9B9B9B;
+}
+
+
+
 .question label {
 	padding: 0.8em 0;
 	/*vertical-align: middle;*/
 	display: inline-block;
+	font-size:14px;
+}
+
+#save-file-btn{
+	margin-top:2em;
 }
 
 #save-bar{
@@ -132,6 +147,11 @@ fieldset.question_group {
 	width: 80%;
 	margin: 0 auto;
 
+}
+
+#save{
+	display: none;
+	margin-top:2em;
 }
 
 
@@ -169,18 +189,24 @@ a {
 	color: black;
 }
 
+#update{
+	display: none;
+}
+
 .upload-group{
 	display: inline-block;
 	width: 100%;
-	margin:1em auto;
+
 }
 
-.upload-group h3{
+.upload-group p{
 	display: inline-block;
 	margin:0 auto;
+
 }
 
 .upload-group button{
 	display: inline-block;
 	float: right;
 }
+
