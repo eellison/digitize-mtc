@@ -5,7 +5,7 @@
     "h": 1121.28,
     "question_groups": [
         {
-            "name": "RegistrationInfo",
+            "name": "Registration Information",
             "w": 35.043743,
             "h": 116.6927,
             "x": 708.17566,
@@ -29,7 +29,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "RegNo",
+                    "name": "Registration Number",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -46,7 +46,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "date",
+                    "name": "Date",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -66,14 +66,14 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "ObstetricHistory",
+            "name": "Obstetric History",
             "w": 35.043743,
             "h": 205.76222,
             "x": 708.17566,
             "y": 109.51169,
             "questions": [
                 {
-                    "name": "para",
+                    "name": "Para",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -90,7 +90,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "gravida",
+                    "name": "Gravida",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -107,7 +107,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "numLiveChildren",
+                    "name": "Number of Living Children",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -124,7 +124,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "ageFirstMenses",
+                    "name": "Age of First Menses",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -141,7 +141,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "ageFirstPreg",
+                    "name": "Age of First Pregnancy",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -158,7 +158,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "ageYoungestChild",
+                    "name": "Age of Youngest Living Child",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -175,7 +175,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "inducedAb",
+                    "name": "Induced Abortion",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -201,7 +201,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "spontaneousAb",
+                    "name": "Spontaneous Abortion",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -230,14 +230,14 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "ObstetricRisk",
+            "name": "Obstetric Risks",
             "w": 35.043743,
             "h": 315.27393,
             "x": 709.6358,
             "y": 235.0851,
             "questions": [
                 {
-                    "name": "caesarian",
+                    "name": "Caesarian Section",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -263,7 +263,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "lowBirthWeight",
+                    "name": "Low Birth Weight",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -289,7 +289,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "avd",
+                    "name": "Assisted Vaginal Delivery",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -315,7 +315,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "edema",
+                    "name": "Edema",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -341,7 +341,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "retainedPlacenta",
+                    "name": "Retained Placenta",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -367,7 +367,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "numPriorDeliveries",
+                    "name": "Number of Prior Deliveries",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -429,7 +429,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "evbDuringPreg",
+                    "name": "Excessive Vaginal Bleeding During Pregancy",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -455,7 +455,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "surgicalHistory",
+                    "name": "Past Surgical History",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -481,7 +481,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "ageRange",
+                    "name": "Age",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -516,7 +516,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "prolongedLabor",
+                    "name": "Prolonged Labor",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -542,7 +542,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "priorAbortions",
+                    "name": "Abortion",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -568,7 +568,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "stillbirths",
+                    "name": "Still Birth",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -594,7 +594,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "historySTD",
+                    "name": "History of STD",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -620,7 +620,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "evbAfterDelivery",
+                    "name": "Excessiving Vaginal Bleeding after Pregnancy",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -646,7 +646,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "surgicalHistoryExpl",
+                    "name": "Explanation of Surgical History",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -672,7 +672,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "height",
+                    "name": "Height",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -698,7 +698,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "seizures",
+                    "name": "Seizures",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -724,7 +724,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "placentaPrevia",
+                    "name": "Placenta Previa",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -750,7 +750,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "pretermLabor",
+                    "name": "Preterm Labor",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -776,7 +776,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "puerperalSepsis",
+                    "name": "Puerperal Sepsis",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -802,7 +802,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "neonatalDeath",
+                    "name": "Neonatal Death",
                     "question_type": "radio",
                     "response_regions": [
                         {

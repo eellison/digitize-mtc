@@ -100,7 +100,7 @@ def text_answer(question, input_image, template_image):
     """
     # TODO: have this run pytesseract on the input region (see "/scratch/ocr_test.py")
     for region in question.response_regions:
-        region.value = "Enter Text Here"
+        region.value = ""
     question.answer_status = AnswerStatus.unresolved
     return question
 
