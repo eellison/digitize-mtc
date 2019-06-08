@@ -242,7 +242,7 @@ function hideUpload(){
 
 $(function() {
 	$('#save-file-btn').click(function() {
-		$('#save-response').append("<h3>" + validate(form) + "unanswered questions." + "</h3>")
+		$('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
 			url: '/save',
@@ -251,14 +251,17 @@ $(function() {
 			cache: false,
 			processData: false,
 			success: function(data) {
-				if (data.status == 'success') {
-					$('#save-response').append("<h3>" + "Save success!" + "</h3>")
+				$('#save-response').empty();
+
+				if (data.status == 'success') {				
+					$('#save-response').append("<p>" + "Save success!" + "</p>")
 				} else if (data.status == 'error') {
-					$('#save-response').append("<h3>" + data.error_msg + "</h3>")
+					$('#save-response').append("<p>" + data.error_msg + "</p>")
 				}
 			},
 			error: function(error) {
-				$('#save-response').append("<h3>" + "No response from server" + "</h3>")
+				$('#save-response').empty();
+				$('#save-response').append("<p>" + "No response from server" + "</p>")
 			}
 		});
 	});
