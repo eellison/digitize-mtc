@@ -75,6 +75,10 @@ html{
 	margin: 0;
 }
 
+body{
+	margin:0;
+}
+
 .main{
 	width: 70%;
 	margin: 8em auto 0 auto;
@@ -82,9 +86,9 @@ html{
 
 
 form.update{
-	margin: 0 1em 0 0;
+	margin: 0 1em 6em 0;
 	width: 35vw;
-	border: 1px solid #9B9B9B;
+	border: 1px solid #D9D9D9;
 }
 
 
@@ -94,7 +98,12 @@ fieldset.question_group {
   margin:0;
   padding: 0 1em;
   border:none;
-  border-bottom: 1px solid #9B9B9B;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+fieldset.question_group:last-child {
+
+  border-bottom: none;
 }
 
 .question_group_title{
@@ -144,7 +153,7 @@ fieldset.question_group {
 
 
 #save-bar-wrapper{
-	width: 80%;
+	width: 70%;
 	margin: 0 auto;
 
 }
@@ -152,7 +161,17 @@ fieldset.question_group {
 #save{
 	display: none;
 	margin-top:2em;
+	padding-bottom:1em;
+
+	width: 100%;
+	background-color: white;
+	border-top:1px solid #D9D9D9;
+
+	position: fixed;
+	bottom: 0;
 }
+
+
 
 
 /*Header*/
@@ -208,5 +227,10 @@ a {
 .upload-group button{
 	display: inline-block;
 	float: right;
+}
+
+#save-button-form, #save-response, #save-response p{
+	display: inline-block;
+	margin-right: 1em;
 }
 
