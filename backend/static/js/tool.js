@@ -72,7 +72,8 @@ function zoomed() {
 function clicked(d) {
 	if (active.node() === this){
 		// (sud) For now, do nothing if the active checkbox is clicked
-		// Later we may want to fill this in with desired behavior. Example below.
+		// Later we may want to fill this in with desired behavior.
+		// Ex. We may want the value of the node to change, or reset view like below:
 		// active.classed("active", false);
 		// return reset();
 	}
@@ -98,8 +99,18 @@ function reset() {
 	);
 }
 
-function panToQuestion(question_name) {
+function panToQuestion(rr, form_width) {
 	// TODO (sud): write this, and make it on focus of text fields / radio buttons / checkboxes
+	var rr_x = rr.x * width / form_width,
+		  rr_y = rr.y * width / form_width;
+	svg.transition()
+	.duration(1111) // (sud) auspicious transition duration length
+	.call(zoom.transform,
+		d3.zoomIdentity
+		.translate(width / 2, height / 2)
+		.scale(SCALE)
+		.translate(-(+rr_x), -(+rr_y))
+	);
 }
 
 function edit(q) {
@@ -186,7 +197,8 @@ function display(form) {
 				.append("input")
 				.attr("type", "text")
 				.attr("name", q.name)
-				.attr("value", function(d) { return d.value; });
+				.attr("value", function(d) { return d.value; })
+				.on("focus", function(d) { return panToQuestion(d, form.w); });
 			}
 
 			if (q.question_type == "checkbox") {
@@ -253,7 +265,7 @@ $(function() {
 			success: function(data) {
 				$('#save-response').empty();
 
-				if (data.status == 'success') {				
+				if (data.status == 'success') {
 					$('#save-response').append("<p>" + "Save success!" + "</p>")
 				} else if (data.status == 'error') {
 					$('#save-response').append("<p>" + data.error_msg + "</p>")
@@ -288,9 +300,6 @@ $(function() {
         }else{
         	questions.css("display","block");
         }
-     
+
     });
 });
-
-
-
