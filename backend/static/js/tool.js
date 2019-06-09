@@ -69,6 +69,8 @@ function zoomed() {
 	form_image.attr("transform", currentTransform);
 }
 
+
+
 function clicked(d) {
 	if (active.node() === this){
 		// (sud) For now, do nothing if the active checkbox is clicked
@@ -77,15 +79,22 @@ function clicked(d) {
 		// active.classed("active", false);
 		// return reset();
 	}
-	// TODO (sud): fix translation to be to center of area, not (x, y)
+	// TODO (sud): see if we can avoid the need for parseFloat
+		// ie. another way around Javascript defaulting to string concatenation
 	active = d3.select(this).classed("active", true);
+	var dx = parseFloat(active.attr('width'))
+			dy = parseFloat(active.attr('height')),
+			center_pt_x = parseFloat(active.attr('x')) + (parseFloat(active.attr('width')) / 2)
+		  center_pt_y = parseFloat(active.attr('y')) + (parseFloat(active.attr('height')) / 2)
+			scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+			translate = [width / 2 - scale * center_pt_x, height / 2 - scale * center_pt_y];
+
 	svg.transition()
 	.duration(750)
 	.call(zoom.transform,
 		d3.zoomIdentity
-		.translate(width / 2, height / 2)
-		.scale(SCALE)
-		.translate(-(+active.attr('x')), -(+active.attr('y')))
+		.translate(translate[0], translate[1])
+		.scale(scale)
 	);
 }
 
@@ -100,16 +109,21 @@ function reset() {
 }
 
 function panToQuestion(rr, form_width) {
-	// TODO (sud): write this, and make it on focus of text fields / radio buttons / checkboxes
+	// TODO (sud): abstract out the logic that is similar to clicked()
 	var rr_x = rr.x * width / form_width,
-		  rr_y = rr.y * width / form_width;
+		  rr_y = rr.y * width / form_width,
+			dx = rr.w * width / form_width,
+			dy = rr.h * width / form_width,
+			center_pt_x = parseFloat(rr_x) + (parseFloat(dx) / 2)
+		  center_pt_y = parseFloat(rr_y) + (parseFloat(dy) / 2)
+			scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+			translate = [width / 2 - scale * center_pt_x, height / 2 - scale * center_pt_y];
 	svg.transition()
 	.duration(1111) // (sud) auspicious transition duration length
 	.call(zoom.transform,
 		d3.zoomIdentity
-		.translate(width / 2, height / 2)
-		.scale(SCALE)
-		.translate(-(+rr_x), -(+rr_y))
+		.translate(translate[0], translate[1])
+		.scale(scale)
 	);
 }
 
