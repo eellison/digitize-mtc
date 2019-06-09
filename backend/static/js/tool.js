@@ -129,7 +129,7 @@ function edit(q) {
 		}
 
 		if (d.type == "radio" || d.type == "checkbox"){
-			q.response_regions[i].value = d.checked ? "checked" : "empty";;
+			q.response_regions[i].value = d.checked ? "checked" : "empty";
 		}
 	});
 	visualize(form);
@@ -211,7 +211,8 @@ function display(form) {
 				.append("input")
 				.attr("type", "checkbox")
 				.attr("name", q.name)
-				.property("checked", function(d) { return d.value; });
+				.property("checked", function(d) { return d.value == "checked"; })
+				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 			}
 
 			if (q.question_type == "radio") {
@@ -222,6 +223,7 @@ function display(form) {
 					.attr("type", "radio")
 					.attr("name", q.name)
 					.property("checked", function(d) { return d.value; })
+					.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 					d3.select(this).append("label").text(d.name);
 				});
 			}
