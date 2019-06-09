@@ -69,7 +69,29 @@ function zoomed() {
 	form_image.attr("transform", currentTransform);
 }
 
+function zoomToBoundingBox(duration, x, y, w, h) {
+	var scale = Math.max(1, Math.min(8, 0.9 / Math.max(w / width, h / height))),
+		  center_pt_x = x + (w / 2)
+			center_pt_y = y + (h / 2)
+			translate_x = width / 2 - scale * center_pt_x
+			translate_y = height / 2 - scale * center_pt_y;
 
+	zoomTo(duration, translate_x, translate_y, scale)
+}
+
+function zoomTo(duration, translate_x, translate_y, scale) {
+	svg.transition()
+	  .duration(duration)
+	  .call(zoom.transform,
+					d3.zoomIdentity
+						.translate(translate_x, translate_y)
+						.scale(scale)
+	);
+}
+
+function reset() {
+	zoomTo(750, 0, 0, 1);
+}
 
 function clicked(d) {
 	if (active.node() === this){
@@ -79,52 +101,21 @@ function clicked(d) {
 		// active.classed("active", false);
 		// return reset();
 	}
-	// TODO (sud): see if we can avoid the need for parseFloat
-		// ie. another way around Javascript defaulting to string concatenation
 	active = d3.select(this).classed("active", true);
-	var dx = parseFloat(active.attr('width'))
-			dy = parseFloat(active.attr('height')),
-			center_pt_x = parseFloat(active.attr('x')) + (parseFloat(active.attr('width')) / 2)
-		  center_pt_y = parseFloat(active.attr('y')) + (parseFloat(active.attr('height')) / 2)
-			scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
-			translate = [width / 2 - scale * center_pt_x, height / 2 - scale * center_pt_y];
-
-	svg.transition()
-	.duration(750)
-	.call(zoom.transform,
-		d3.zoomIdentity
-		.translate(translate[0], translate[1])
-		.scale(scale)
-	);
+	zoomToBoundingBox(750,
+									  parseFloat(active.attr('x')),
+										parseFloat(active.attr('y')),
+										parseFloat(active.attr('width')),
+										parseFloat(active.attr('height')))
 }
 
-function reset() {
-	svg.transition()
-	.duration(750)
-	.call(zoom.transform,
-		d3.zoomIdentity
-		.translate(0, 0)
-		.scale(1)
-	);
-}
-
-function panToQuestion(rr, form_width) {
-	// TODO (sud): abstract out the logic that is similar to clicked()
+function panToResponseRegion(rr, form_width) {
 	var rr_x = rr.x * width / form_width,
 		  rr_y = rr.y * width / form_width,
-			dx = rr.w * width / form_width,
-			dy = rr.h * width / form_width,
-			center_pt_x = parseFloat(rr_x) + (parseFloat(dx) / 2)
-		  center_pt_y = parseFloat(rr_y) + (parseFloat(dy) / 2)
-			scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
-			translate = [width / 2 - scale * center_pt_x, height / 2 - scale * center_pt_y];
-	svg.transition()
-	.duration(1111) // (sud) auspicious transition duration length
-	.call(zoom.transform,
-		d3.zoomIdentity
-		.translate(translate[0], translate[1])
-		.scale(scale)
-	);
+			rr_w = rr.w * width / form_width,
+			rr_h = rr.h * width / form_width;
+
+	zoomToBoundingBox(1111, rr_x, rr_y, rr_w, rr_h)
 }
 
 function edit(q) {
@@ -212,7 +203,7 @@ function display(form) {
 				.attr("type", "text")
 				.attr("name", q.name)
 				.attr("value", function(d) { return d.value; })
-				.on("focus", function(d) { return panToQuestion(d, form.w); });
+				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 			}
 
 			if (q.question_type == "checkbox") {
