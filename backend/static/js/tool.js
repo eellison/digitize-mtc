@@ -101,6 +101,7 @@ function clicked(d) {
 		// active.classed("active", false);
 		// return reset();
 	}
+	console.log(d);
 	active = d3.select(this).classed("active", true);
 	zoomToBoundingBox(750,
 									  parseFloat(active.attr('x')),
@@ -212,6 +213,7 @@ function display(form) {
 				.attr("type", "checkbox")
 				.attr("name", q.name)
 				.property("checked", function(d) { return d.value == "checked"; })
+				.on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
 				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 			}
 
@@ -223,6 +225,7 @@ function display(form) {
 					.attr("type", "radio")
 					.attr("name", q.name)
 					.property("checked", function(d) { return d.value; })
+					.on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
 					.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 					d3.select(this).append("label").text(d.name);
 				});
