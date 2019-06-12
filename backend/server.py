@@ -91,7 +91,8 @@ def get_processed_file_json(html_page, template_json):
 @app.route('/save', methods=['POST'])
 def save_response():
     try:
-        print(json.loads(request.data))
+        decoded_form = decode_form(json.loads(request.data))
+        write_form_to_csv(decoded_form)
         return jsonify(status='success')
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')

@@ -111,27 +111,57 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
               Image.fromarray(bw, 'L'))
     buf.save(output_path)
 
-def write_form_to_csv(processed_form, path_to_csv):
+def write_form_to_csv(form):
     """
     Args:
-        processed_form (Form): with answers filled in
-        path_to_csv: location of CSV to append results to
+        form (Form): modeled Form object
     """
     # Get list of answer values, which will form a new row of the CSV
-    answer_values = [[question.answer for question in processed_form.questions]]
-    # Check if the file already exists
+    all_questions = [q for group in form.question_groups for q in group.questions]
+    # Alphabetize questions by name
+    all_question.sort(key=lambda q: q.name)
+    answers = [extract_answer(q) for q in all_questions]
+    # Check if the output file already exists
+    file_name = form.name + ".txt"
+    path_to_csv = str(Path.cwd() / "backend" / "output" / file_name)
     file_existed_already = os.path.isfile(path_to_csv)
     # Open file in "append" mode
     with open(path_to_csv,"a+") as csv_file:
         writer = csv.writer(csv_file)
         # Write header if file did not already exist
         if not file_existed_already:
-            header_line = [[question.name for question in processed_form.questions]]
+            header_line = [[question.name for question in all_questions]]
             writer.writerows(header_line)
         # Now append answers from the ProcessedForm
-        writer.writerows(answer_values)
+        writer.writerows([answers])
     return True
 
+
+def extract_answer(q):
+    '''
+    Args:
+        q (Question): a question of any type
+    Retunrs:
+        answer (str): the answer embedded in questions response regions
+    '''
+    if q.question_type == QuestionType.checkbox.name:
+        return "True"
+    elif q.question_type == QuestionType.radio.name:
+        return "True"
+    elif q.question_type == QuestionType.text.name:
+        return extract_text_answer(q)
+    else:
+        return "NaN"
+
+def extract_text_answer(q):
+    '''
+    Args:
+        q (Question): a question of type text
+    Retunrs:
+        answer (str): the answer embedded in the response region value
+    '''
+    answer = q.response_regions[0].value
+    return answer
 
 def write_aligned_image(input_image_path, aligned_image):
     """
