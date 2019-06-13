@@ -119,10 +119,10 @@ def write_form_to_csv(form):
     # Get list of answer values, which will form a new row of the CSV
     all_questions = [q for group in form.question_groups for q in group.questions]
     # Alphabetize questions by name
-    all_question.sort(key=lambda q: q.name)
+    all_questions.sort(key=lambda q: q.name)
     answers = [extract_answer(q) for q in all_questions]
     # Check if the output file already exists
-    file_name = form.name + ".txt"
+    file_name = form.name + ".csv"
     path_to_csv = str(Path.cwd() / "backend" / "output" / file_name)
     file_existed_already = os.path.isfile(path_to_csv)
     # Open file in "append" mode
@@ -132,10 +132,9 @@ def write_form_to_csv(form):
         if not file_existed_already:
             header_line = [[question.name for question in all_questions]]
             writer.writerows(header_line)
-        # Now append answers from the ProcessedForm
+        # Now append answers from the Form
         writer.writerows([answers])
     return True
-
 
 def extract_answer(q):
     '''
@@ -145,9 +144,9 @@ def extract_answer(q):
         answer (str): the answer embedded in questions response regions
     '''
     if q.question_type == QuestionType.checkbox.name:
-        return "True"
+        return extract_checkbox_answer(q)
     elif q.question_type == QuestionType.radio.name:
-        return "True"
+        return extract_radio_answer(q)
     elif q.question_type == QuestionType.text.name:
         return extract_text_answer(q)
     else:
@@ -157,11 +156,35 @@ def extract_text_answer(q):
     '''
     Args:
         q (Question): a question of type text
-    Retunrs:
+    Returns:
         answer (str): the answer embedded in the response region value
     '''
     answer = q.response_regions[0].value
     return answer
+
+def extract_checkbox_answer(q):
+    '''
+    Args:
+        q (Question): a question of type checkbox
+    Returns:
+        answer (str): the answer embedded in the response region value
+    '''
+    if q.response_regions[0].value == CheckboxState.checked.name:
+        answer = True
+    else:
+        answer = False
+    return answer
+
+def extract_radio_answer(q):
+    '''
+    Args:
+        q (Question): a question of type radio
+    Returns:
+        answer (str): the answer embedded in the response region value
+    '''
+    chosen_response = next(rr for rr in q.response_regions if \
+                           rr.value == CheckboxState.checked.name)
+    return chosen_response.name
 
 def write_aligned_image(input_image_path, aligned_image):
     """
