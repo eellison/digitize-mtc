@@ -186,7 +186,7 @@ function display(form) {
 		.text(qg.name);
 
 		// questions
-		d3.select(this).selectAll("div").data(qg.questions).enter()
+		d3.select(this).selectAll("div.questions").data(qg.questions).enter()
 		.append("div")
 		.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
 		.each(function(q) {
