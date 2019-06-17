@@ -80,7 +80,7 @@ def questions_from_svg(svg_path):
                 continue
             else:
                 new_response_region = ResponseRegion("", w, h, x, y, None)
-                new_question = Question(question_name, None, [new_response_region], AnswerStatus.NotAnswered)
+                new_question = Question(question_name, None, [new_response_region], AnswerStatus.unresolved)
                 if question_type == "ocr":
                     new_question.question_type = QuestionType.text
                 elif question_type == "cb":
@@ -115,7 +115,7 @@ def create_radio_questions(tag_list, dw, dh):
     # Construct questions from grouped responses
     all_questions = []
     for question_name, response_regions in response_dict.items():
-        new_question = Question(question_name, QuestionType.radio, response_regions, AnswerStatus.NotAnswered)
+        new_question = Question(question_name, QuestionType.radio, response_regions, AnswerStatus.unresolved)
         all_questions.append(new_question)
 
     return all_questions, question_to_group_dict

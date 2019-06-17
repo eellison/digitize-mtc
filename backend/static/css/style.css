@@ -29,7 +29,7 @@
 	div.responses {
 		display: inline-block;
 	}
-	div.NotAnswered {
+	div.unresolved {
 		color: red;
 	}
 
@@ -233,4 +233,3 @@ a {
 	display: inline-block;
 	margin-right: 1em;
 }
-
