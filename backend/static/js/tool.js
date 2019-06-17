@@ -37,10 +37,10 @@ var width = (document.getElementById("main-content").offsetWidth)*0.4,
 height = (document.getElementById("main-content").offsetWidth)*0.4
 active = d3.select(null);
 
-var SCALE = 8;
+var ZOOM_BOX_TIGHTNESS = 16; // Higher is tigher
 
 var zoom = d3.zoom()
-.scaleExtent([1, SCALE])
+.scaleExtent([1, ZOOM_BOX_TIGHTNESS])
 .on("zoom", zoomed);
 
 var form_table = d3.select("#update").append("form").attr('class', 'update');
@@ -70,7 +70,7 @@ function zoomed() {
 }
 
 function zoomToBoundingBox(duration, x, y, w, h) {
-	var scale = Math.max(1, Math.min(8, 0.9 / Math.max(w / width, h / height))),
+	var scale = Math.max(1, Math.min(ZOOM_BOX_TIGHTNESS, 0.9 / Math.max(w / width, h / height))),
 		  center_pt_x = x + (w / 2)
 			center_pt_y = y + (h / 2)
 			translate_x = width / 2 - scale * center_pt_x
@@ -120,7 +120,7 @@ function panToResponseRegion(rr, form_width) {
 }
 
 function edit(q) {
-	$(this).parent().removeClass("NotAnswered")
+	$(this).parent().removeClass("unresolved")
 	q.answer_status = "Resolved";
 
 	$(":input", this).each(function (i, d) {
@@ -224,7 +224,7 @@ function display(form) {
 					d3.select(this).append("input")
 					.attr("type", "radio")
 					.attr("name", q.name)
-					.property("checked", function(d) { return d.value; })
+					.property("checked", function(d) { return d.value == "checked";})
 					.on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
 					.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 					d3.select(this).append("label").text(d.name);
@@ -239,7 +239,7 @@ function display(form) {
 function validate(form) {
 	var unanswered = [];
 	for (var i = 0; i < form.question_groups.length; i++) {
-		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "NotAnswered"; })
+		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "unresolved"; })
 		unanswered = unanswered.concat(a)
 	}
 	return unanswered.length
