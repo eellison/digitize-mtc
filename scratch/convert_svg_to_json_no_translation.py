@@ -63,7 +63,7 @@ def questions_from_svg(svg_path):
     question_groups = {}
     for tag in data.iterfind('.//{*}rect'):
         tag_name = tag.get('id')
-        if tag_name[:2] != 'qg': # only QuestionGroups don't start with qg
+        if tag_name[:2] != 'qg' and tag_name[:2] != 'gq': # only QuestionGroups don't start with qg
             w, h, x, y = get_pixel_dimensions(tag, dw, dh)
             new_group = QuestionGroup(tag_name, w, h, x, y, [])
             question_groups[tag_name] = new_group
@@ -126,10 +126,10 @@ def create_radio_questions(tag_list, dw, dh):
 ##########################
 
 # Create Paths / names
-form_name = "Delivery Page 2"
-template_file_name = "delivery_pg_2.json"
-abs_path_to_svg = str((Path.cwd() / "backend" / "forms" / "template_images" / "delivery_pg_2_template.svg").resolve())
-relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images" / "delivery_pg_2_template.jpg")
+form_name = "Delivery Page 1"
+template_file_name = "delivery_pg_1.json"
+abs_path_to_svg = str((Path.cwd() / "backend" / "forms" / "template_images_v2" / "delivery_pg_1.svg").resolve())
+relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "delivery_pg_1.jpeg")
 
 # Generate questions from SVG
 (all_question_groups, template_width, template_height) = questions_from_svg(abs_path_to_svg)
