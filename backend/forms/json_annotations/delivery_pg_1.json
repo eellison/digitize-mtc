@@ -838,7 +838,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "Baby Head Circumfrence",
+                    "name": "Baby Head Circumference",
                     "question_type": "text",
                     "response_regions": [
                         {

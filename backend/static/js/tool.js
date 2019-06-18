@@ -202,6 +202,7 @@ function display(form) {
 				responses.selectAll("input").data(q.response_regions).enter()
 				.append("input")
 				.attr("type", "text")
+				.attr("placeholder", "Type Text Here")
 				.attr("name", q.name)
 				.attr("value", function(d) { return d.value; })
 				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
