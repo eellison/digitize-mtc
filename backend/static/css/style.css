@@ -23,8 +23,6 @@
 	rect.false { fill: red; }
 	rect.checked { fill: green; }
   rect.empty { fill: red; }
-	rect.true { fill: green; }
-	rect.false { fill: red; }
   rect.unknown { fill: orange; }
 	div.responses {
 		display: inline-block;

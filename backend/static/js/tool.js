@@ -91,23 +91,65 @@ function zoomTo(duration, translate_x, translate_y, scale) {
 
 function reset() {
 	zoomTo(750, 0, 0, 1);
+	active = d3.select(null);
 }
 
 function clicked(d) {
-	if (active.node() === this){
-		// (sud) For now, do nothing if the active checkbox is clicked
-		// Later we may want to fill this in with desired behavior.
-		// Ex. We may want the value of the node to change, or reset view like below:
-		// active.classed("active", false);
-		// return reset();
+	if (active.node() === this) {
+		// If the active node is clicked, change the underlying response
+		var question_type_string = d3.select($(this).parent()[0]).attr('question_type');
+		if (question_type_string == "radio") {
+			var response_region_name = d3.select(this).attr("response_region_name");
+			var question_name = d3.select($(this).parent()[0]).attr('question_name');
+			var question_group_name = d3.select($($(this).parent()[0]).parent()[0]).attr('question_group_name');
+			var question_group = findByName(form.question_groups, question_group_name);
+			var question = findByName(question_group.questions, question_name);
+			var response_region = findByName(question.response_regions, response_region_name);
+
+			// Set all of the responses to "empty", then check the one that was clicked
+			for (var i = 0; i < question.response_regions.length; i++) {
+				question.response_regions[i].value = "empty";
+			}
+			response_region.value = "checked";
+
+			display(form);
+			visualize(form);
+
+		} else if (question_type_string == "checkbox") {
+			var response_region_name = d3.select(this).attr("response_region_name");
+			var question_name = d3.select($(this).parent()[0]).attr('question_name');
+			var question_group_name = d3.select($($(this).parent()[0]).parent()[0]).attr('question_group_name');
+			var question_group = findByName(form.question_groups, question_group_name);
+			var question = findByName(question_group.questions, question_name);
+			var response_region = question.response_regions[0];
+
+			// Flip the response region value on click
+			response_region.value = (response_region.value == "checked") ? "empty" : "checked";
+
+			display(form);
+			visualize(form);
+		}
+
+	} else {
+		// If the node is not active, set it as active and zoom into it
+		// TODO (sud): change this behavior, it's kind of annoying
+		// ex. improve it by zooming into whole question group
+		active = d3.select(this).classed("active", true);
+		zoomToBoundingBox(750,
+										  parseFloat(active.attr('x')),
+											parseFloat(active.attr('y')),
+											parseFloat(active.attr('width')),
+											parseFloat(active.attr('height')))
 	}
-	console.log(d);
-	active = d3.select(this).classed("active", true);
-	zoomToBoundingBox(750,
-									  parseFloat(active.attr('x')),
-										parseFloat(active.attr('y')),
-										parseFloat(active.attr('width')),
-										parseFloat(active.attr('height')))
+}
+
+function findByName(json_array, name) {
+	for (var i = 0; i < json_array.length; i++) {
+  	if (json_array[i].name == name) {
+			return json_array[i];
+  	}
+	}
+	return null;
 }
 
 function panToResponseRegion(rr, form_width) {
@@ -150,14 +192,17 @@ function visualize(form) {
 	question_groups = question_groups.data(form.question_groups).enter()
 	.append("g")
 	.merge(question_groups)
-	.attr("class", "question_group");
+	.attr("class", "question_group")
+	.attr("question_group_name", function(d) { return d.name; });
 
 	// Questions
 	var questions = question_groups.selectAll("g.question");
 	questions = questions.data(function(d) { return d.questions; }).enter()
 	.append("g")
 	.merge(questions)
-	.attr("class", function(d) { return "question " + d.question_type; });
+	.attr("class", function(d) { return "question " + d.question_type; })
+	.attr("question_type", function(d) { return d.question_type; })
+	.attr("question_name", function(d) { return d.name; });
 
 	// Responses
 	var responses = questions.selectAll("rect");
@@ -165,6 +210,7 @@ function visualize(form) {
 	.append("rect")
 	.merge(responses)
 	.attr("class", function(d) { return "response " +  d.value; })
+	.attr("response_region_name", function(d) { return d.name; })
 	.attr("x", function(d) { return d.x * width / form.w; })
 	.attr("y", function(d) { return d.y * width / form.w; })
 	.attr("width", function(d) { return d.w * width / form.w; })
@@ -173,8 +219,8 @@ function visualize(form) {
 
 }
 
-
 function display(form) {
+	d3.selectAll("form").html("");
 
 	form_table.selectAll("fieldset").data(form.question_groups).enter()
 	.append("fieldset")
