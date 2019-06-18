@@ -98,34 +98,26 @@ function clicked(d) {
 	if (active.node() === this) {
 		// If the active node is clicked, change the underlying response
 		var question_type_string = d3.select($(this).parent()[0]).attr('question_type');
-		if (question_type_string == "radio") {
-			var response_region_name = d3.select(this).attr("response_region_name");
-			var question_name = d3.select($(this).parent()[0]).attr('question_name');
-			var question_group_name = d3.select($($(this).parent()[0]).parent()[0]).attr('question_group_name');
-			var question_group = findByName(form.question_groups, question_group_name);
-			var question = findByName(question_group.questions, question_name);
-			var response_region = findByName(question.response_regions, response_region_name);
+		var response_region_name = d3.select(this).attr("response_region_name");
+		var question_name = d3.select($(this).parent()[0]).attr('question_name');
+		var question_group_name = d3.select($($(this).parent()[0]).parent()[0]).attr('question_group_name');
+		var question_group = findByName(form.question_groups, question_group_name);
+		var question = findByName(question_group.questions, question_name);
 
+		if (question_type_string == "radio") {
+			var response_region = findByName(question.response_regions, response_region_name);
 			// Set all of the responses to "empty", then check the one that was clicked
 			for (var i = 0; i < question.response_regions.length; i++) {
 				question.response_regions[i].value = "empty";
 			}
 			response_region.value = "checked";
-
 			display(form);
 			visualize(form);
 
 		} else if (question_type_string == "checkbox") {
-			var response_region_name = d3.select(this).attr("response_region_name");
-			var question_name = d3.select($(this).parent()[0]).attr('question_name');
-			var question_group_name = d3.select($($(this).parent()[0]).parent()[0]).attr('question_group_name');
-			var question_group = findByName(form.question_groups, question_group_name);
-			var question = findByName(question_group.questions, question_name);
 			var response_region = question.response_regions[0];
-
 			// Flip the response region value on click
 			response_region.value = (response_region.value == "checked") ? "empty" : "checked";
-
 			display(form);
 			visualize(form);
 		}
@@ -135,6 +127,7 @@ function clicked(d) {
 		// TODO (sud): change this behavior, it's kind of annoying
 		// ex. improve it by zooming into whole question group
 		active = d3.select(this).classed("active", true);
+		d3.select(this).node().focus();
 		zoomToBoundingBox(750,
 										  parseFloat(active.attr('x')),
 											parseFloat(active.attr('y')),
