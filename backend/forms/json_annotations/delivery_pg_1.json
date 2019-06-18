@@ -5,14 +5,14 @@
     "h": 1122.5601,
     "question_groups": [
         {
-            "name": "RegInfo",
+            "name": "Registration Info",
             "w": 26.875286,
             "h": 134.37643,
             "x": 734.93573,
             "y": 94.063507,
             "questions": [
                 {
-                    "name": "RegNo",
+                    "name": "Registration Number",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -63,7 +63,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "HealthInsurance",
+                    "name": "Health Insurance",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -92,7 +92,7 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "AdmissionToLaborWard",
+            "name": "Admission To Labor Ward",
             "w": 26.875286,
             "h": 228.43994,
             "x": 733.90204,
@@ -133,7 +133,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BloodPressure",
+                    "name": "Blood Pressure",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -150,7 +150,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "MembranesRuptured",
+                    "name": "Membranes Ruptured",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -179,14 +179,14 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "ObstetricRisks",
+            "name": "Obstetric Risks",
             "w": 26.875286,
             "h": 398.99463,
             "x": 733.90204,
             "y": 257.38257,
             "questions": [
                 {
-                    "name": "HighBloodPressure",
+                    "name": "High Blood Pressure",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -212,7 +212,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "PlacentaPrevia",
+                    "name": "Placenta Previa",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -238,7 +238,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "AgeRange",
+                    "name": "Age Range",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -251,7 +251,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "GreaterThan35",
+                            "name": "<35",
                             "w": 327.15494,
                             "h": 434.65607,
                             "x": 14.471309,
@@ -260,7 +260,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "LessThan20",
+                            "name": "<20",
                             "w": 285.80835,
                             "h": 434.65607,
                             "x": 15.504973,
@@ -273,7 +273,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "SurgicalHistory",
+                    "name": "Surgical History",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -299,7 +299,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "RetainedPlacenta",
+                    "name": "Retained Placenta",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -325,7 +325,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "PriorAbortions",
+                    "name": "Prior Abortions",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -351,7 +351,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "evbDuringPregnancy",
+                    "name": "Excessive Vaginal Bleeding DuringPregnancy",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -377,7 +377,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "LowBirthWeight",
+                    "name": "Low Birth Weight",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -403,7 +403,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "NeonatalDeath",
+                    "name": "Neonatal Death",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -429,7 +429,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "FitsSeizures",
+                    "name": "Fits/Seizures",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -455,7 +455,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "ProlongedLabor",
+                    "name": "Prolonged Labor",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -481,7 +481,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "evbAfterPregnancy",
+                    "name": "Excessive Vaginal Bleeding After Pregnancy",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -507,7 +507,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "HeightRange",
+                    "name": "Height Range",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -533,7 +533,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "AssistedVaginalDelivery",
+                    "name": "Assisted Vaginal Delivery",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -559,7 +559,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "PretermLabor",
+                    "name": "Preterm Labor",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -585,7 +585,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "HistorySTD",
+                    "name": "History of STD",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -637,7 +637,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "MedicalHistory",
+                    "name": "Medical History",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -663,7 +663,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "NumPriorDeliveries",
+                    "name": "Number of Prior Deliveries",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -725,7 +725,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "CaesareanSection",
+                    "name": "Caesarean Section",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -751,7 +751,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "PuerperalSepsis",
+                    "name": "Puerperal Sepsis",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -780,14 +780,14 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "BabyIdentification",
+            "name": "Baby Identification",
             "w": 353.5134,
             "h": 659.47821,
             "x": 401.06198,
             "y": 332.84009,
             "questions": [
                 {
-                    "name": "DateOfBirth",
+                    "name": "Date Of Birth",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -804,7 +804,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BabyWeight",
+                    "name": "Baby Weight",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -821,7 +821,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BabyHeight",
+                    "name": "Baby Height",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -838,7 +838,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BabyHeadCircumfrence",
+                    "name": "Baby Head Circumfrence",
                     "question_type": "text",
                     "response_regions": [
                         {
@@ -855,7 +855,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BabySex",
+                    "name": "Baby Sex",
                     "question_type": "radio",
                     "response_regions": [
                         {
