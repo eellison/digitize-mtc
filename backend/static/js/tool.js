@@ -218,8 +218,10 @@ function visualize(form) {
 }
 
 function display(form) {
-	d3.selectAll("form").html("");
+	// Clear the existing HTML form, if there is one
+	d3.selectAll("form.update").html("");
 
+	// Create a new HTML form based on the "form" json object
 	form_table.selectAll("fieldset").data(form.question_groups).enter()
 	.append("fieldset")
 	.attr("class", "question_group")
