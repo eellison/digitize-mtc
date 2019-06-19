@@ -32,7 +32,6 @@ $(function() {
 
 var form;
 
-
 var width = (document.getElementById("main-content").offsetWidth)*0.4,
 height = (document.getElementById("main-content").offsetWidth)*0.4
 active = d3.select(null);
@@ -104,6 +103,8 @@ function clicked(d) {
 		var question_group = findByName(form.question_groups, question_group_name);
 		var question = findByName(question_group.questions, question_name);
 
+		getQuestionBoundingCoordinates(question);
+
 		if (question_type_string == "radio") {
 			var response_region = findByName(question.response_regions, response_region_name);
 			// Set all of the responses to "empty", then check the one that was clicked
@@ -134,6 +135,10 @@ function clicked(d) {
 											parseFloat(active.attr('width')),
 											parseFloat(active.attr('height')))
 	}
+}
+
+function getQuestionBoundingCoordinates(question) {
+	console.log(question);
 }
 
 function findByName(json_array, name) {
