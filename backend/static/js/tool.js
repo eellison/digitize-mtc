@@ -343,6 +343,7 @@ $('#file').change(function() {
   var file = $('#file')[0].files[0].name;
   $(this).prev('label').text(file);
   $("button#upload-file-btn").removeClass("disabled");
+	readThumbnailAsURL(this);
 });
 
 
@@ -360,3 +361,20 @@ $(function() {
 
     });
 });
+
+
+function readThumbnailAsURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+			$('#file-thumbnail').css("display", "block");
+			$('#file-thumbnail').css("margin-left", "auto");
+			$('#file-thumbnail').css("margin-right", "auto");
+			$('#file-thumbnail').css("max-width", "500px");
+      $('#file-thumbnail').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
