@@ -66,6 +66,13 @@
 	left: 15%;
 }
 
+#home{
+	cursor: pointer;
+	color: gray;
+	opacity: 100;
+	position: absolute;
+	left: 22%;
+}
 
 html{
 	font-family: 'Open Sans', sans-serif;
