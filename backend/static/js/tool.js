@@ -371,7 +371,7 @@ function readThumbnailAsURL(input) {
 			$('#file-thumbnail').css("display", "block");
 			$('#file-thumbnail').css("margin-left", "auto");
 			$('#file-thumbnail').css("margin-right", "auto");
-			$('#file-thumbnail').css("max-width", "280px");
+			$('#file-thumbnail').css("max-width", "500px");
       $('#file-thumbnail').attr('src', e.target.result);
     }
 
