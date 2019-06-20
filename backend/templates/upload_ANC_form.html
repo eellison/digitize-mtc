@@ -30,6 +30,8 @@
 
 				<label id="upload-file-instruction" for="file"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
 				<input name="file" type="file" style="display: none" id="file">
+        <img id="file-thumbnail" style="display: none" src="#" />
+
 
 			</form>
 			<div id="upload-response"></div>
@@ -48,7 +50,7 @@
 		<!-- <h3>Review Annotated Record</h3> -->
 	</div>
 
-	
+
 	<div id="save">
 		<div id="save-bar-wrapper">
 			<form method=post enctype=multipart/form-data id="save-button-form">
