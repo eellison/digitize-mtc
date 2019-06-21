@@ -93,18 +93,23 @@ function reset() {
 	active = d3.select(null);
 }
 
+function getParentNode(childNode) {
+	return $(childNode).parent()[0];
+}
+
 function clicked(d) {
-	if (active.node() === this) {
+	// Get elements in global form based on SVG element that was clicked
+	// TODO (sud): clean this up? seems like sheer hackery
+	var parentNode = getParentNode(this);
+	var question_type_string = d3.select(parentNode).attr('question_type');
+	var response_region_name = d3.select(this).attr("response_region_name");
+	var question_name = d3.select(parentNode).attr('question_name');
+	var question_group_name = d3.select(getParentNode(parentNode)).attr('question_group_name');
+	var question_group = findByName(form.question_groups, question_group_name);
+	var question = findByName(question_group.questions, question_name);
+
+	if (active.node() === parentNode) {
 		// If the active node is clicked, change the underlying response
-		var question_type_string = d3.select($(this).parent()[0]).attr('question_type');
-		var response_region_name = d3.select(this).attr("response_region_name");
-		var question_name = d3.select($(this).parent()[0]).attr('question_name');
-		var question_group_name = d3.select($($(this).parent()[0]).parent()[0]).attr('question_group_name');
-		var question_group = findByName(form.question_groups, question_group_name);
-		var question = findByName(question_group.questions, question_name);
-
-		getQuestionBoundingCoordinates(question);
-
 		if (question_type_string == "radio") {
 			var response_region = findByName(question.response_regions, response_region_name);
 			// Set all of the responses to "empty", then check the one that was clicked
@@ -124,21 +129,46 @@ function clicked(d) {
 		}
 
 	} else {
-		// If the node is not active, set it as active and zoom into it
-		// TODO (sud): change this behavior, it's kind of annoying
-		// ex. improve it by zooming into whole question group
-		active = d3.select(this).classed("active", true);
-		d3.select(this).node().focus();
-		zoomToBoundingBox(750,
-										  parseFloat(active.attr('x')),
-											parseFloat(active.attr('y')),
-											parseFloat(active.attr('width')),
-											parseFloat(active.attr('height')))
+		const [x, y, w, h]  = getQuestionBoundingCoordinates(question, false);
+		const [proj_x, proj_y, proj_w, proj_h]  = getQuestionBoundingCoordinates(question, true);
+		active = d3.select(parentNode).classed("active", true);
+		d3.select(parentNode).node().focus();
+		// TODO (sud): draw rectangle around the newly active question 
+		// d3.select("#tempRect").remove();
+		// form_image.append("rect")
+		// 		.attr("id", "tempRect")
+		// 		.attr("x", x)
+		// 		.attr("y", y)
+		// 		.attr("width", w)
+		// 		.attr("height", h);
+		zoomToBoundingBox(1111, proj_x, proj_y, proj_w, proj_h);
 	}
 }
 
 function getQuestionBoundingCoordinates(question) {
-	console.log(question);
+	var x_values = question.response_regions.map(function(rr) {
+		return rr.x;
+ 	});
+	var y_values = question.response_regions.map(function(rr) {
+		return rr.y;
+	});
+	// dx and dy are the bottom left and top right coordinates of the rects
+	var dx_values = question.response_regions.map(function(rr) {
+		return rr.x + rr.w;
+	});
+	var dy_values = question.response_regions.map(function(rr) {
+		return rr.y + rr.h;
+	});
+
+ 	var min_x = Math.min.apply(Math, x_values)
+			min_y = Math.min.apply(Math, y_values)
+			max_dx = Math.max.apply(Math, dx_values)
+			max_dy = Math.max.apply(Math, dy_values)
+			boundary_box_width = (max_dx - min_x)
+			boundary_box_height = (max_dy - min_y);
+
+	return project_coordinates(min_x, min_y, boundary_box_width, boundary_box_height, form.w)
+
 }
 
 function findByName(json_array, name) {
@@ -150,12 +180,16 @@ function findByName(json_array, name) {
 	return null;
 }
 
-function panToResponseRegion(rr, form_width) {
-	var rr_x = rr.x * width / form_width,
-		  rr_y = rr.y * width / form_width,
-			rr_w = rr.w * width / form_width,
-			rr_h = rr.h * width / form_width;
+function project_coordinates(x, y, w, h, form_width) {
+	var x_proj = x * width / form_width,
+			y_proj = y * width / form_width,
+			w_proj = w * width / form_width,
+			h_proj = h * width / form_width;
+	return [x_proj, y_proj, w_proj, h_proj]
+}
 
+function panToResponseRegion(rr, form_width) {
+	const [rr_x, rr_y, rr_w, rr_h] = project_coordinates(rr.x, rr.y, rr.w, rr.h, form_width);
 	zoomToBoundingBox(1111, rr_x, rr_y, rr_w, rr_h)
 }
 
@@ -260,7 +294,7 @@ function display(form) {
 				.attr("type", "checkbox")
 				.attr("name", q.name)
 				.property("checked", function(d) { return d.value == "checked"; })
-				.on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
+				// .on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
 				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 			}
 
@@ -272,7 +306,7 @@ function display(form) {
 					.attr("type", "radio")
 					.attr("name", q.name)
 					.property("checked", function(d) { return d.value == "checked";})
-					.on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
+					// .on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
 					.on("focus", function(d) { return panToResponseRegion(d, form.w); });
 					d3.select(this).append("label").text(d.name);
 				});
