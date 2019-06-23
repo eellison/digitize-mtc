@@ -8,7 +8,6 @@
 	<div class="header-nav">
 	    <div class="header-nav-wrapper">
 	       <span id="logo">Digitiz</span>
-	       <span id="restart" onClick="window.location.reload();">← restart</span>
          <a id="home" href="{{ url_for('home') }}">← back to home </a>
 	    </div>
 	</div>
@@ -25,31 +24,34 @@
 		<h1> {{ value }} </h1>
 		<div id="upload">
 
-
-
-			<form id="upload-file" method="post" enctype="multipart/form-data" class="upload-box" >
-
-				<label id="upload-file-instruction" for="file"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
-				<input name="file" type="file" style="display: none" id="file">
-        <img id="file-thumbnail" style="display: none" src="#" />
-
-
-			</form>
-			<div id="upload-response"></div>
 			<div class="upload-group">
-			<!-- 	<p>Select record to upload</p> -->
+			
 				<div id="upload-response"></div>
 				<button id="upload-file-btn" type="button" class="highlighted disabled">Process records</button>
 
 			</div>
 
 
+			<form id="upload-file" method="post" enctype="multipart/form-data" class="upload-box" >
+
+				<label id="upload-file-instruction" for="file"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
+				<input name="file" type="file" style="display: none" id="file">
+        		<img id="file-thumbnail" style="display: none" src="#" />
+
+
+			</form>
+			<div id="upload-response"></div>
+			
+
+		</div>
+		<div id="update">
+		<!-- <h3>Review Annotated Record</h3> -->
 		</div>
 
-
-	<div id="update">
-		<!-- <h3>Review Annotated Record</h3> -->
 	</div>
+
+
+	
 
 
 	<div id="save">

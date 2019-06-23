@@ -60,8 +60,7 @@
 }
 
 
-
-#restart{
+#home{
 	cursor: pointer;
 	color: gray;
 	opacity: 100;
@@ -69,13 +68,7 @@
 	left: 15%;
 }
 
-#home{
-	cursor: pointer;
-	color: gray;
-	opacity: 100;
-	position: absolute;
-	left: 22%;
-}
+
 
 html{
 	font-family: 'Open Sans', sans-serif;
@@ -223,6 +216,7 @@ a {
 .upload-group{
 	display: inline-block;
 	width: 100%;
+	margin-bottom:0.5em;
 
 }
 
@@ -241,3 +235,4 @@ a {
 	display: inline-block;
 	margin-right: 1em;
 }
+
