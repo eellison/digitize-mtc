@@ -251,7 +251,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "<35",
+                            "name": "< 35",
                             "w": 327.15494,
                             "h": 434.65607,
                             "x": 14.471309,
@@ -260,7 +260,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "<20",
+                            "name": "< 20",
                             "w": 285.80835,
                             "h": 434.65607,
                             "x": 15.504973,
@@ -511,7 +511,7 @@
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "GreaterThan145cm",
+                            "name": "> 145cm",
                             "w": 211.05067,
                             "h": 456.88245,
                             "x": 11.329127,
@@ -520,7 +520,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "LessThan145cm",
+                            "name": "< 145cm",
                             "w": 290.72003,
                             "h": 453.77609,
                             "x": 13.339134,
@@ -712,7 +712,7 @@
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "MoreThan4",
+                            "name": "> 4",
                             "w": 328.72742,
                             "h": 471.86615,
                             "x": 12.060039,

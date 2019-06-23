@@ -19,6 +19,9 @@
 		stroke-width: 1px;
 		fill: black;
 	}
+	rect.boundingBox{fill-opacity: 0.0;
+									 stroke-width:0.5;
+									 stroke:black;}
 	rect.true { fill: green; }
 	rect.false { fill: red; }
 	rect.checked { fill: green; }

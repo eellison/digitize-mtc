@@ -59,9 +59,7 @@ svg.append("rect")
     .on("click", reset)
 		.call(zoom);
 
-
 var form_image = svg.append("g");
-
 
 function zoomed() {
 	const currentTransform = d3.event.transform;
@@ -90,11 +88,20 @@ function zoomTo(duration, translate_x, translate_y, scale) {
 
 function reset() {
 	zoomTo(750, 0, 0, 1);
+	updateTempRect(0,0,0,0);
 	active = d3.select(null);
 }
 
 function getParentNode(childNode) {
 	return $(childNode).parent()[0];
+}
+
+function updateTempRect(x, y, w, h) {
+	form_image.select("#tempRect")
+			.attr("x", x)
+			.attr("y", y)
+			.attr("width", w)
+			.attr("height", h);
 }
 
 function clicked(d) {
@@ -133,16 +140,15 @@ function clicked(d) {
 		const [proj_x, proj_y, proj_w, proj_h]  = getQuestionBoundingCoordinates(question, true);
 		active = d3.select(parentNode).classed("active", true);
 		d3.select(parentNode).node().focus();
-		// TODO (sud): draw rectangle around the newly active question 
-		// d3.select("#tempRect").remove();
-		// form_image.append("rect")
-		// 		.attr("id", "tempRect")
-		// 		.attr("x", x)
-		// 		.attr("y", y)
-		// 		.attr("width", w)
-		// 		.attr("height", h);
+		updateTempRect(x - 1, y - 1, w + 2, h + 2);
 		zoomToBoundingBox(1111, proj_x, proj_y, proj_w, proj_h);
 	}
+}
+
+function panToQuestion(q) {
+	const [x, y, w, h]  = getQuestionBoundingCoordinates(q);
+	updateTempRect(x - 1, y - 1, w + 2, h + 2);
+	zoomToBoundingBox(1111, x, y, w, h);
 }
 
 function getQuestionBoundingCoordinates(question) {
@@ -188,11 +194,6 @@ function project_coordinates(x, y, w, h, form_width) {
 	return [x_proj, y_proj, w_proj, h_proj]
 }
 
-function panToResponseRegion(rr, form_width) {
-	const [rr_x, rr_y, rr_w, rr_h] = project_coordinates(rr.x, rr.y, rr.w, rr.h, form_width);
-	zoomToBoundingBox(1111, rr_x, rr_y, rr_w, rr_h)
-}
-
 function edit(q) {
 	$(this).parent().removeClass("unresolved")
 	q.answer_status = "Resolved";
@@ -210,6 +211,9 @@ function edit(q) {
 	visualize(form);
 }
 
+function drawRectAroundQuestionRegion( ) {
+	return null;
+}
 
 function visualize(form) {
 	// Image
@@ -218,6 +222,15 @@ function visualize(form) {
 	.attr('xlink:href', function(d) { return ("../static/" + d); })
 	.attr('width', "100%")
 	.on("click", reset);
+
+	// Add the question bounding box
+	form_image.append("rect")
+			.attr("id", "tempRect")
+			.attr("class", "boundingBox")
+			.attr("x", 0)
+			.attr("y", 0)
+			.attr("width", 0)
+			.attr("height", 0);
 
 	// Question Groups
 	var question_groups = form_image.selectAll("g.question_group");
@@ -271,7 +284,10 @@ function display(form) {
 		.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
 		.each(function(q) {
 			// question label
-			d3.select(this).append("label").text(q.name);
+			d3.select(this)
+				.append("label")
+				.text(q.name)
+				.on("click", function(d){ return panToQuestion(q);});
 
 			// responses div
 			var responses = d3.select(this).append("div")
@@ -284,8 +300,7 @@ function display(form) {
 				.attr("type", "text")
 				.attr("placeholder", "Type Text Here")
 				.attr("name", q.name)
-				.attr("value", function(d) { return d.value; })
-				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
+				.attr("value", function(d) { return d.value; });
 			}
 
 			if (q.question_type == "checkbox") {
@@ -293,9 +308,7 @@ function display(form) {
 				.append("input")
 				.attr("type", "checkbox")
 				.attr("name", q.name)
-				.property("checked", function(d) { return d.value == "checked"; })
-				// .on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
-				.on("focus", function(d) { return panToResponseRegion(d, form.w); });
+				.property("checked", function(d) { return d.value == "checked"; });
 			}
 
 			if (q.question_type == "radio") {
@@ -305,9 +318,7 @@ function display(form) {
 					d3.select(this).append("input")
 					.attr("type", "radio")
 					.attr("name", q.name)
-					.property("checked", function(d) { return d.value == "checked";})
-					// .on("mouseover", function(d) { return panToResponseRegion(d, form.w); })
-					.on("focus", function(d) { return panToResponseRegion(d, form.w); });
+					.property("checked", function(d) { return d.value == "checked";});
 					d3.select(this).append("label").text(d.name);
 				});
 			}
