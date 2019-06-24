@@ -25,8 +25,13 @@
 	rect.true { fill: green; }
 	rect.false { fill: red; }
 	rect.checked { fill: green; }
-  rect.empty { fill: red; }
-  rect.unknown { fill: orange; }
+	rect.empty { fill: red; }
+	rect.unknown { fill: orange; }
+	rect.filled { 
+		fill-opacity: 0.25;
+		fill: transparent;
+		stroke: green;
+	}
 	div.responses {
 		display: inline-block;
 	}
@@ -88,7 +93,8 @@ body{
 
 form.update{
 	margin: 0 1em 6em 0;
-	width: 35vw;
+	/*width: 35vw;*/
+	width: 35%;
 	border: 1px solid #D9D9D9;
 }
 
@@ -211,6 +217,7 @@ a {
 
 #update{
 	display: none;
+	width: 100%;
 }
 
 .upload-group{
@@ -236,3 +243,7 @@ a {
 	margin-right: 1em;
 }
 
+i {
+	cursor: pointer;
+	padding: 0px 5px;
+}

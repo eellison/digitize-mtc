@@ -17,6 +17,7 @@ $(function() {
 					display(form);
 					visualize(form);
 					displaySvgFrame();
+					$(".question_group_title").click();
 					hideUpload();
 				} else if (data.status == 'error') {
 					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
@@ -32,9 +33,9 @@ $(function() {
 
 var form;
 
-var width = (document.getElementById("main-content").offsetWidth)*0.4,
-height = (document.getElementById("main-content").offsetWidth)*0.4
-active = d3.select(null);
+var width = (document.getElementById("main-content").offsetWidth)*0.6,
+	height = (document.getElementById("main-content").offsetWidth)*0.6,
+	active = d3.select(null);
 
 var ZOOM_BOX_TIGHTNESS = 16; // Higher is tigher
 
@@ -46,8 +47,12 @@ var form_table = d3.select("#update").append("form").attr('class', 'update');
 
 var svg = d3.select("#update").append("svg")
 .attr('class', 'update')
-.attr("width", width)
-.attr("height", height)
+// .attr("width", width)
+// .attr("height", height)
+.attr("width", "60%")
+.attr("height", "60%")
+.attr("viewBox", "0 0 " + width + " " + height)
+.attr("preserveAspectRatio", "xMidYMid meet")
 .call(zoom);
 
 // Add background rect
@@ -57,7 +62,7 @@ svg.append("rect")
     .attr("width", width)
     .attr("height", height)
     .on("click", reset)
-		.call(zoom);
+	.call(zoom);
 
 var form_image = svg.append("g");
 
@@ -254,8 +259,15 @@ function visualize(form) {
 	responses.data(function(d) { return d.response_regions; }).enter()
 	.append("rect")
 	.merge(responses)
-	.attr("class", function(d) { return "response " +  d.value; })
-	.attr("response_region_name", function(d) { return d.name; })
+	.attr("class", function(d) { 
+		if ((d.value == "checked") || (d.value == "empty") || (d.value == "unknown")) {
+			return "response " +  d.value; 
+		} else if (d.value != "") {
+			return "response filled";
+		} else {
+			return "response";
+		}
+	}).attr("response_region_name", function(d) { return d.name; })
 	.attr("x", function(d) { return d.x * width / form.w; })
 	.attr("y", function(d) { return d.y * width / form.w; })
 	.attr("width", function(d) { return d.w * width / form.w; })
@@ -273,21 +285,30 @@ function display(form) {
 	.append("fieldset")
 	.attr("class", "question_group")
 	.each(function(qg) {
+
 		// question group legend
-		d3.select(this).append("div")
-		.attr("class", "question_group_title")
-		.text(qg.name);
+		var div = d3.select(this).append("div")
+			.attr("class",  "question_group_title")
+			.text(qg.name);
+
+		// add icons
+		div.append("i").attr("class", "fas fa-angle-up");
+		div.append("i").attr("class", "fas fa-angle-down").style("display", "none");
 
 		// questions
 		d3.select(this).selectAll("div.questions").data(qg.questions).enter()
 		.append("div")
 		.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
 		.each(function(q) {
+
 			// question label
-			d3.select(this)
-				.append("label")
+			d3.select(this).append("label")
 				.text(q.name)
-				.on("click", function(d){ return panToQuestion(q);});
+
+			// add location finder
+			d3.select(this).append("i")
+				.attr("class", "fas fa-search-plus fa-xs")
+				.on("click", function(d) { return panToQuestion(q); });
 
 			// responses div
 			var responses = d3.select(this).append("div")
@@ -300,7 +321,7 @@ function display(form) {
 				.attr("type", "text")
 				.attr("placeholder", "Type Text Here")
 				.attr("name", q.name)
-				.attr("value", function(d) { return d.value; });
+				.attr("value", function(d) { return d.value; })
 			}
 
 			if (q.question_type == "checkbox") {
@@ -308,7 +329,7 @@ function display(form) {
 				.append("input")
 				.attr("type", "checkbox")
 				.attr("name", q.name)
-				.property("checked", function(d) { return d.value == "checked"; });
+				.property("checked", function(d) { return d.value == "checked"; })
 			}
 
 			if (q.question_type == "radio") {
@@ -318,7 +339,7 @@ function display(form) {
 					d3.select(this).append("input")
 					.attr("type", "radio")
 					.attr("name", q.name)
-					.property("checked", function(d) { return d.value == "checked";});
+					.property("checked", function(d) { return d.value == "checked";})
 					d3.select(this).append("label").text(d.name);
 				});
 			}
@@ -327,6 +348,7 @@ function display(form) {
 	});
 
 }
+
 
 function validate(form) {
 	var unanswered = [];
@@ -396,14 +418,10 @@ $(function() {
 
 	$(document).on("click", ".question_group_title", function () {
         var questions = $(this).parent().find(".question");
-        console.log(questions);
-        console.log(questions.css("display"));
-        if(questions.css("display") === "block"){
-        	questions.css("display","none");
-        }else{
-        	questions.css("display","block");
-        }
+        questions.toggle();
 
+        var icons = $(this).parent().find("i");
+        icons.toggle();
     });
 });
 
