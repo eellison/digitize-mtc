@@ -69,6 +69,7 @@
       removalDelay: 160,
       preloader: false,
       fixedContentPos: false,
+      autoplay: 1,
   });
 
   /* 
