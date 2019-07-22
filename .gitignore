@@ -2,10 +2,11 @@
 *.pyc
 *.json
 
+backend/output/*.csv
 backend/uploads/*
 backend/static/*.jpg
 scratch/*.png
 scratch/*jpg
 
-*.DS_Store
+.DS_Store
 *.icloud
