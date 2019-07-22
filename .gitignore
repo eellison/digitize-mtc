@@ -2,6 +2,7 @@
 *.pyc
 *.json
 
+*__pycache__*
 backend/output/*.csv
 backend/uploads/*
 backend/static/*.jpg
