@@ -19,7 +19,7 @@ while(True):
     # Display the resulting frame
     cv2.imshow('frame', gray)
     if iterval <= 111:
-        cv2.imwrite("test" + str(iterval) + ".jpg", gray, [cv2.IMWRITE_JPEG_QUALITY, 90])
+        cv2.imwrite("test" + str(iterval) + ".png", gray, [cv2.IMWRITE_JPEG_QUALITY, 90])
         iterval += 1
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
