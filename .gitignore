@@ -2,8 +2,10 @@
 *.pyc
 *.json
 
-*.png
+backend/uploads/*
+backend/static/*.jpg
+scratch/*.png
+scratch/*jpg
 
-*.jpg
-
+*.DS_Store
 *.icloud
