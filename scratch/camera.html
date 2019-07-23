@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+
+        <!-- <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas> -->
+        <div id="container">
+
+          <h1><a href="../../index.html" title="simpl.info home page">simpl.info</a> MediaStreamTrack.getSources</h1>
+
+          <div class="select">
+            <label for="audioSource">Audio source: </label><select id="audioSource"></select>
+          </div>
+
+          <div class="select">
+            <label for="videoSource">Video source: </label><select id="videoSource"></select>
+          </div>
+
+          <video muted autoplay></video>
+
+          <script src="js/main.js"></script>
+
+          <p>This demo requires Chrome 30 or later.</p>
+
+          <p>For more information, see <a href="https://www.html5rocks.com/en/tutorials/getusermedia/intro/" title="Media capture article by Eric Bidelman on HTML5 Rocks">Capturing Audio &amp; Video in HTML5</a> on HTML5 Rocks.</p>
+
+        <a href="https://github.com/samdutton/simpl/blob/gh-pages/getusermedia/sources/js/main.js" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
+
+        </div>
+
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="3840" height="2160"></canvas>
+
+
+    </body>
+
+
+    <script type="text/javascript">
+
+
+        var videoElement = document.querySelector('video');
+        var audioSelect = document.querySelector('select#audioSource');
+        var videoSelect = document.querySelector('select#videoSource');
+
+        audioSelect.onchange = getStream;
+        videoSelect.onchange = getStream;
+
+        // Grab elements, create settings, etc.
+        // var video = document.getElementById('video');
+
+        const hdConstraints = {
+          video: {width: {min: 3840}, height: {min: 2160}}
+        };
+        // Get access to the camera!
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // // Not adding `{ audio: true }` since we only want video now
+            // navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            //     //video.src = window.URL.createObjectURL(stream);
+            //     video.srcObject = stream;
+            //     video.play();
+            // });
+            navigator.mediaDevices.enumerateDevices()
+              .then(gotDevices).then(getStream).catch(handleError);
+
+        }
+        // Elements for taking the snapshot
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        // var video = document.getElementById('video');
+
+        // Trigger photo take
+        document.getElementById("snap").addEventListener("click", function() {
+            console.log(videoElement)
+            context.drawImage(videoElement, 0, 0, 3840, 2160);
+        });
+
+        function gotDevices(deviceInfos) {
+          for (var i = 0; i !== deviceInfos.length; ++i) {
+            var deviceInfo = deviceInfos[i];
+            var option = document.createElement('option');
+            option.value = deviceInfo.deviceId;
+            if (deviceInfo.kind === 'audioinput') {
+              option.text = deviceInfo.label ||
+              'microphone ' + (audioSelect.length + 1);
+              audioSelect.appendChild(option);
+            } else if (deviceInfo.kind === 'videoinput') {
+              option.text = deviceInfo.label || 'camera ' +
+              (videoSelect.length + 1);
+              videoSelect.appendChild(option);
+            } else {
+              console.log('Found one other kind of source/device: ', deviceInfo);
+            }
+          }
+        }
+
+        function getStream() {
+          if (window.stream) {
+            window.stream.getTracks().forEach(function(track) {
+              track.stop();
+            });
+          }
+
+          var constraints = {
+            audio: {
+              deviceId: {exact: audioSelect.value}
+            },
+            video: {
+              deviceId: {exact: videoSelect.value},
+              width: { ideal: 4096 },
+              height: { ideal: 2160 }
+              // width: {min: 1280},
+              // height: {min: 720}
+            }
+          };
+
+          navigator.mediaDevices.getUserMedia(constraints).
+          then(gotStream).catch(handleError);
+        }
+
+        function gotStream(stream) {
+          window.stream = stream; // make stream available to console
+          videoElement.srcObject = stream;
+        }
+
+        function handleError(error) {
+          console.log('Error: ', error);
+        }
+
+    </script>
+
+
+
+
+
+
+</html>
