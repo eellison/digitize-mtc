@@ -18,7 +18,7 @@ body {
   color: #a0a6ad;
   font-size: 14px;
   font-weight: 400;
-  background: #fff;
+  background:#f9f9f9;
   overflow-x: hidden; }
 
 html {
@@ -462,8 +462,8 @@ button:focus {
     height: 100%;
     top: 0px;
     left: 0px;
-    background: #5533ff;
-    background: linear-gradient(95deg, #5533ff 40%, #25ddf5 100%);
+    background: #005450;
+  /*  background: linear-gradient(95deg, #5533ff 40%, #25ddf5 100%);*/
     -webkit-transform: skewY(-12deg);
     transform: skewY(-12deg);
     -webkit-transform-origin: 0;
@@ -477,14 +477,14 @@ button:focus {
       left: calc(calc(100% / 3) / 2);
       right: auto;
       background: #5533ff;
-      background: linear-gradient(95deg, #5533ff 40%, #25ddf5 100%);
+      
       height: 200px; }
     .hero-area .overlay :nth-child(2) {
       width: 33.33333%;
       width: calc(100% /3);
       bottom: 0;
       background: #5533ff;
-      background: linear-gradient(95deg, #5533ff 40%, #25ddf5 100%);
+    
       position: absolute;
       height: 155px;
       left: 3%; }
@@ -586,6 +586,8 @@ button:focus {
     #business-plan .business-item-info p {
       font-size: 16px;
       margin-bottom: 20px; }
+
+
 
 /* ==========================================================================
    Features 
@@ -839,12 +841,8 @@ button:focus {
    Testimonial section
    ========================================================================== */
 #testimonial {
-  margin-bottom: 270px;
-  background: url(../img/bg/testimonial-bg.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; }
+ 
+  }
   #testimonial .right-position {
     position: relative; }
   #testimonial .testimonial-area {
@@ -920,7 +918,7 @@ button:focus {
       border-color: #3ecf8e; }
   #testimonial .video-promo-content {
     padding-top: 0;
-    padding-bottom: 300px; }
+ }
   #testimonial .video-play-button {
     position: absolute;
     z-index: 10;
@@ -1458,3 +1456,46 @@ button:focus {
       -webkit-transition: all 300ms;
       -o-transition: all 300ms;
       transition: all 300ms; }
+
+
+
+
+/*FOCUS*/
+.focus{
+  background-color: #005450;
+  padding-top:100px;
+  padding-bottom:100px;
+}
+
+.focus h3, .focus h2{
+  font-size: 35px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color:#fff;
+}
+
+.focus p{
+   font-size: 16px;
+   color: rgba(255,255,255,0.8);
+}
+
+
+
+.section-header-left {
+  color: #fff;
+  margin-bottom: 50px;
+  text-align: left;
+  position: relative; }
+
+.section-header-left .section-title {
+  font-size: 35px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  position: relative;
+  line-height: 30px; }
+
+.section-header-left .desc-text p {
+  font-size: 18px;
+  color: #5e629c;
+  line-height: 26px;
+  margin-bottom: 0; }
