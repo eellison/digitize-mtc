@@ -14,12 +14,14 @@ while(True):
     ret, frame = cap.read()
 
     # Our operations on the frame come here
+    smallForDisplay = cv2.resize(frame, (960, 540))
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    smallGrayForDisplay = cv2.resize(gray, (960, 540))
 
     # Display the resulting frame
-    cv2.imshow('frame', gray)
+    cv2.imshow('frame', smallGrayForDisplay)
     if iterval <= 111:
-        cv2.imwrite("test" + str(iterval) + ".png", gray, [cv2.IMWRITE_JPEG_QUALITY, 90])
+        cv2.imwrite("test" + str(iterval) + ".png", frame)
         iterval += 1
 
     if cv2.waitKey(1) & 0xFF == ord('q'):

@@ -259,9 +259,9 @@ function visualize(form) {
 	responses.data(function(d) { return d.response_regions; }).enter()
 	.append("rect")
 	.merge(responses)
-	.attr("class", function(d) { 
+	.attr("class", function(d) {
 		if ((d.value == "checked") || (d.value == "empty") || (d.value == "unknown")) {
-			return "response " +  d.value; 
+			return "response " +  d.value;
 		} else if (d.value != "") {
 			return "response filled";
 		} else {
@@ -277,122 +277,75 @@ function visualize(form) {
 }
 
 function display(form) {
+	// Clear the existing HTML form, if there is one
+	d3.selectAll("form.update").html("");
 
-	// Question Groups
-	var question_group = form_table.selectAll("fieldset")
-	question_group = question_group.data(form.question_groups).enter()
+	// Create a new HTML form based on the "form" json object
+	form_table.selectAll("fieldset").data(form.question_groups).enter()
 	.append("fieldset")
+	.attr("class", "question_group")
 	.each(function(qg) {
+
+		// question group legend
 		var div = d3.select(this).append("div")
 			.attr("class",  "question_group_title")
 			.text(qg.name);
+
+		// add icons
 		div.append("i").attr("class", "fas fa-angle-up");
 		div.append("i").attr("class", "fas fa-angle-down").style("display", "none");
-	}).merge(question_group)
-	.attr("class", "question_group");
 
-	// Questions
-	var questions = question_group.selectAll("div.question")
-	questions = questions.data(function(d) { return d.questions; }).enter()
-	.append("div")
-	.each(function(q) {
+		// questions
+		d3.select(this).selectAll("div.questions").data(qg.questions).enter()
+		.append("div")
+		.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
+		.each(function(q) {
+
+			// question label
 			d3.select(this).append("label")
-				.text(q.name);
+				.text(q.name)
+
+			// add location finder
 			d3.select(this).append("i")
 				.attr("class", "fas fa-search-plus fa-xs")
 				.on("click", function(d) { return panToQuestion(q); });
-	}).merge(questions)
-	.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; });
 
-	
-	// Responses
-	var responses = questions.selectAll("input")
-	responses = responses.data(function(d) { 
-		if (d.question_type == "text") {
-			return d.response_regions;
-		} else {
-			return [];
-		}
-	}).enter()
-	.append("input")
-	.merge(responses)
-	.attr("type", "text")
-	.attr("placeholder", "Type Text Here")
-	// .attr("name", q.name)
-	.attr("value", function(d) { return d.value; })
-	.on("change", edit);
+			// responses div
+			var responses = d3.select(this).append("div")
+			.attr("class", "responses")
+			.on("change", edit);
 
-	// I THINK RESPONSE REGION REQUIRES ACCESS TO QUESTION NAME
+			if (q.question_type == "text") {
+				responses.selectAll("input").data(q.response_regions).enter()
+				.append("input")
+				.attr("type", "text")
+				.attr("placeholder", "Type Text Here")
+				.attr("name", q.name)
+				.attr("value", function(d) { return d.value; })
+			}
 
-	// // Clear the existing HTML form, if there is one
-	// d3.selectAll("form.update").html("");
+			if (q.question_type == "checkbox") {
+				responses.selectAll("input").data(q.response_regions).enter()
+				.append("input")
+				.attr("type", "checkbox")
+				.attr("name", q.name)
+				.property("checked", function(d) { return d.value == "checked"; })
+			}
 
-	// // Create a new HTML form based on the "form" json object
-	// form_table.selectAll("fieldset").data(form.question_groups).enter()
-	// .append("fieldset")
-	// .attr("class", "question_group")
-	// .each(function(qg) {
+			if (q.question_type == "radio") {
+				responses.selectAll("input").data(q.response_regions).enter()
+				.each(function(d) {
 
-	// 	// question group legend
-	// 	var div = d3.select(this).append("div")
-	// 		.attr("class",  "question_group_title")
-	// 		.text(qg.name);
+					d3.select(this).append("input")
+					.attr("type", "radio")
+					.attr("name", q.name)
+					.property("checked", function(d) { return d.value == "checked";})
+					d3.select(this).append("label").text(d.name);
+				});
+			}
+		});
 
-	// 	// add icons
-	// 	div.append("i").attr("class", "fas fa-angle-up");
-	// 	div.append("i").attr("class", "fas fa-angle-down").style("display", "none");
-
-	// 	// questions
-	// 	d3.select(this).selectAll("div.questions").data(qg.questions).enter()
-	// 	.append("div")
-	// 	.attr("class", function(d) { return "question " + d.question_type + " " + d.answer_status; })
-	// 	.each(function(q) {
-
-	// 		// question label
-	// 		d3.select(this).append("label")
-	// 			.text(q.name)
-
-	// 		// add location finder
-	// 		d3.select(this).append("i")
-	// 			.attr("class", "fas fa-search-plus fa-xs")
-	// 			.on("click", function(d) { return panToQuestion(q); });
-
-	// 		// responses div
-	// 		var responses = d3.select(this).append("div")
-	// 		.attr("class", "responses")
-	// 		.on("change", edit);
-
-	// 		if (q.question_type == "text") {
-	// 			responses.selectAll("input").data(q.response_regions).enter()
-	// 			.append("input")
-	// 			.attr("type", "text")
-	// 			.attr("placeholder", "Type Text Here")
-	// 			.attr("name", q.name)
-	// 			.attr("value", function(d) { return d.value; })
-	// 		}
-
-	// 		if (q.question_type == "checkbox") {
-	// 			responses.selectAll("input").data(q.response_regions).enter()
-	// 			.append("input")
-	// 			.attr("type", "checkbox")
-	// 			.attr("name", q.name)
-	// 			.property("checked", function(d) { return d.value == "checked"; })
-	// 		}
-
-	// 		if (q.question_type == "radio") {
-	// 			responses.selectAll("input").data(q.response_regions).enter()
-	// 			.each(function(d) {
-
-	// 				d3.select(this).append("input")
-	// 				.attr("type", "radio")
-	// 				.attr("name", q.name)
-	// 				.property("checked", function(d) { return d.value == "checked";})
-	// 				d3.select(this).append("label").text(d.name);
-	// 			});
-	// 		}
-	// 	});
-
-	// });
+	});
 
 }
 

@@ -3,7 +3,7 @@ import numpy as np
 
 MAX_FEATURES = 500
 GOOD_MATCH_PERCENT = 0.15
-AVG_MATCH_DIST_CUTOFF = 40
+AVG_MATCH_DIST_CUTOFF = 50 # lower cutoff is more strict
 
 
 class AlignmentError(Exception):
@@ -45,7 +45,11 @@ def align_images(im1, im2):
 
     # Validate the matches for quality
     match_distances = [m.distance for m in matches]
-    if np.mean(match_distances) > AVG_MATCH_DIST_CUTOFF:
+    avg_match_dist = np.mean(match_distances)
+    if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
+        print(avg_match_dist)
+        print(AVG_MATCH_DIST_CUTOFF)
+        print(avg_match_dist > AVG_MATCH_DIST_CUTOFF)
         raise AlignmentError("Poor image alignment! Please confirm you are using\n \
         the right form, and upload a new image.")
 

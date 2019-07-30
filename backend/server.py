@@ -3,11 +3,12 @@ from flask import Flask, flash, request, redirect, render_template
 import argparse
 import webbrowser
 import json
-from flask import jsonify
+from flask import jsonify, Response
 import os
 import sys
 from scripts import *
 import time
+import cv2
 
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -96,6 +97,44 @@ def save_response():
         return jsonify(status='success')
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')
+
+
+# Capture video via cv2
+class Camera(object):
+    def __init__(self):
+        cap = cv2.VideoCapture(1)
+        self.stream = cap
+
+    def get_frame_for_frontend(self):
+        '''
+        Returns: an open JPEG file
+        '''
+        ret, frame = self.stream.read()
+        # Reduce size of frame to send to frontend
+        small_frame_for_frontend = cv2.resize(frame, (640, 360))
+        # rotate frame to vertical, 3 times counterclockwise
+        rotated_frame = np.rot90(small_frame_for_frontend, 3)
+        frame_file_name = "current_frame.jpg"
+        cv2.imwrite(frame_file_name, rotated_frame)
+        return open(frame_file_name, 'rb').read()
+
+    def get_raw_frame(self):
+        ret, frame = self.stream.read()
+        return frame
+
+# Continuously generate frames for frontend
+def gen(camera):
+    while True:
+        # Capture frame-by-frame
+        frame = camera.get_frame_for_frontend()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+# Stream from web cam
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
