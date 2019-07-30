@@ -70,6 +70,7 @@
       preloader: false,
       fixedContentPos: false,
       autoplay: 1,
+      rel: 0
   });
 
   /* 

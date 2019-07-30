@@ -916,13 +916,13 @@ button:focus {
       color: #fff;
       background: #3ecf8e;
       border-color: #3ecf8e; }
-  #testimonial .video-promo-content {
+  .video-promo-content {
     padding-top: 0;
  }
-  #testimonial .video-play-button {
+  .video-play-button {
     position: absolute;
     z-index: 10;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     box-sizing: content-box;
@@ -932,7 +932,7 @@ button:focus {
     /* background: #fa183d; */
     border-radius: 50%;
     padding: 18px 20px 18px 28px; }
-  #testimonial .video-play-button:before {
+  .video-play-button:before {
     content: "";
     position: absolute;
     z-index: 0;
@@ -945,7 +945,7 @@ button:focus {
     background: #fff;
     border-radius: 50%;
     animation: pulse-border 1500ms ease-out infinite; }
-  #testimonial .video-play-button:after {
+  .video-play-button:after {
     content: "";
     position: absolute;
     z-index: 1;
@@ -959,14 +959,14 @@ button:focus {
     border-radius: 50%;
     transition: all 200ms;
     opacity: 0.5; }
-  #testimonial .video-play-button:hover:after {
+  .video-play-button:hover:after {
     background-color: #28ca81; }
-  #testimonial .video-play-button:hover span {
+  .video-play-button:hover span {
     border-left: 22px solid #fff;
     border-top: 14px solid transparent;
     border-bottom: 14px solid transparent;
     border-radius: 2px; }
-  #testimonial .video-play-button span {
+  .video-play-button span {
     display: block;
     position: relative;
     z-index: 3;
