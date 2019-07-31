@@ -592,8 +592,6 @@ button:focus {
 /* ==========================================================================
    Features 
    ========================================================================== */
-#features {
-  background: #f9f9f9; }
   #features .featured-bg {
     background: #fff; }
   #features .featured-border1 {
@@ -639,7 +637,8 @@ button:focus {
       margin-bottom: 20px; }
     #features .feature-item p {
       font-size: 16px;
-      display: block; }
+      display: block;
+      color: #5e629c; }
     #features .feature-item:hover {
       box-shadow: 0px 0px 25px 0px rgba(95, 95, 95, 0.24);
       -moz-transition: all .8s ease;
@@ -846,10 +845,10 @@ button:focus {
   #testimonial .right-position {
     position: relative; }
   #testimonial .testimonial-area {
-    position: absolute;
+    /*position: absolute;
     width: 100%;
     z-index: 12;
-    top: 260px;
+    top: 260px;*/
     margin: 0px auto; }
   #testimonial #client-testimonial {
     background-color: #fff;
