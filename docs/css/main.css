@@ -1101,8 +1101,8 @@ button:focus {
 .blog-hero-area .contents {
   padding: 160px 0 140px; }
 
-#blog {
-  background: #f9f9f9; }
+/*#blog {
+  background: #f9f9f9; }*/
   #blog .blog-item-wrapper {
     border: 1px solid #ddd;
     background-color: #fff;
