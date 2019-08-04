@@ -27,7 +27,7 @@
 	rect.checked { fill: green; }
 	rect.empty { fill: red; }
 	rect.unknown { fill: orange; }
-	rect.filled { 
+	rect.filled {
 		fill-opacity: 0.25;
 		fill: transparent;
 		stroke: green;
@@ -221,17 +221,27 @@ a {
 }
 
 .upload-group{
+	float:left;
 	display: inline-block;
 	width: 100%;
 	margin-bottom:0.5em;
 
 }
 
+.upload-button{
+	float:left;
+}
+
 .upload-group p{
 	display: inline-block;
 	margin:0 auto;
-
 }
+
+/* .live-feed
+{
+	float:left;
+	padding:0px 20px;
+} */
 
 .upload-group button{
 	display: inline-block;

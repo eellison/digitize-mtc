@@ -111,11 +111,14 @@ class Camera(object):
         '''
         ret, frame = self.stream.read()
         # Reduce size of frame to send to frontend
-        small_frame_for_frontend = cv2.resize(frame, (640, 360))
+        small_frame_for_frontend = cv2.resize(frame, (832, 468))
         # rotate frame to vertical, 3 times counterclockwise
         rotated_frame = np.rot90(small_frame_for_frontend, 3)
+        # Crop top bit because it contains part of the webcam's frame
+        # TODO (sud): find a way to avoid having to do this!
+        final_frame = rotated_frame[100:, :]
         frame_file_name = "current_frame.jpg"
-        cv2.imwrite(frame_file_name, rotated_frame)
+        cv2.imwrite(frame_file_name, final_frame)
         return open(frame_file_name, 'rb').read()
 
     def get_raw_frame(self):

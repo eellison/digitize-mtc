@@ -60,7 +60,7 @@ button.disabled{
   border: transparent;
   color: white;
   background-color: #CBCBCB;
-  
+
   cursor: not-allowed;
    pointer-events: none;
 
@@ -80,7 +80,7 @@ display: inline-block;
 
 
 #upload-response h3{
-  
+
     font-size: 16px;
     color: red;
     font-weight: 400;
@@ -88,17 +88,23 @@ display: inline-block;
 }
 
 .upload-box{
-
+	float:left;
   text-align: center;
   border: 1px dashed #979797;
   background-color: #F9F9F9;
   padding: 8% 5%;
 }
 
+.live-feed
+{
+	float:left;
+	padding:0px 20px;
+}
+
 form{
    text-align: left;
    vertical-align: middle;
- 
+
 
 }
 
@@ -109,7 +115,7 @@ label#upload-file-instruction{
 }
 
     label #click-upload{
-     
+
       cursor: pointer;
       color: #389BFF;
 
