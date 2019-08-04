@@ -1129,6 +1129,7 @@ button:focus {
     #blog .blog-item-wrapper p {
       font-size: 15px;
       line-height: 23px;
+      color: #5e629c;
       margin-bottom: 20px; }
     #blog .blog-item-wrapper a.read-more {
       color: #3ecf8e;
