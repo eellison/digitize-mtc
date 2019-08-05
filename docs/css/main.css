@@ -464,8 +464,8 @@ button:focus {
     left: 0px;
     background: #005450;
   /*  background: linear-gradient(95deg, #5533ff 40%, #25ddf5 100%);*/
-    -webkit-transform: skewY(-12deg);
-    transform: skewY(-12deg);
+    -webkit-transform: skewY(-8deg);
+    transform: skewY(-8deg);
     -webkit-transform-origin: 0;
     transform-origin: 0;
     z-index: -12; }
@@ -1499,3 +1499,6 @@ button:focus {
   color: #5e629c;
   line-height: 26px;
   margin-bottom: 0; }
+
+
+
