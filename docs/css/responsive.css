@@ -61,7 +61,7 @@
   #business-plan {
     padding-bottom: 80px; }
   .feature-info {
-    width: 60%; }
+    width: 80%; }
   #features .feature-item {
     padding: 15px; }
   #features .feature-item h4 {
@@ -182,12 +182,10 @@
   }
 
 @media only screen and (max-width: 767px) {
-  .bg-inverse {
-    background: #191c1e; }
+ 
   .navbar-expand-md .navbar-brand, .navbar-expand-md .navbar-toggler {
     margin: 6px 15px; }
-  .bg-inverse {
-    background: #191c1e; }
+
   .navbar {
     padding: 0; }
   .navbar-brand img {

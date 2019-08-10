@@ -370,9 +370,7 @@ button:focus {
   color: #fff; }
 
 .menu-bg {
-  background: #5533ff;
-  background: linear-gradient(95deg, #5533ff 40%, #25ddf5 100%) !important;
-  box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.1);
+  background:transparent;
   z-index: 9999;
   padding: 5px;
   -webkit-transition: all 0.5s ease-in-out;
@@ -1501,4 +1499,7 @@ button:focus {
   margin-bottom: 0; }
 
 
+.border-green{
+  border:3px solid #005450;
 
+}
