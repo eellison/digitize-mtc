@@ -174,11 +174,11 @@
     width: 98%; } }
 
     .hero-area .contents{
-    padding:220px 0 220px 0 !important;
+    padding:15vh 0 220px 0 !important;
   }
 
   .hero-area .intro-img{
-    padding:180px 0 120px 0 !important;
+    padding:16vh 0 120px 0 !important;
   }
 
 @media only screen and (max-width: 767px) {
