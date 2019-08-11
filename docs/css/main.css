@@ -600,7 +600,9 @@ button:focus {
             font-size: 16px;
             margin-bottom: 20px; }
 
-
+#business-plan-2 .business-item-img img,#business-plan-2 .business-item-img video {
+  border-radius: 4px;
+}
 
 /* ==========================================================================
    Features
