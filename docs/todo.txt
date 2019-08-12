@@ -1,0 +1,8 @@
+TODO:
+1. Make sponsors and donor icons clickable links. Should Roux prize be on the list?
+2. Make the tile sections in "Our Solution" and "Our Vision" the same style.  Add custom icons?
+3. Make the home page icon animated?
+4. Add favicon icon.
+5. Come up with name for the project...not Digitiz.
+6. Change links to "Our tool" and "Our pilot" to be section names that make sense (i.e. #pilot)
+7. Tighten the paragraphs about Mae Tao Clinic.
