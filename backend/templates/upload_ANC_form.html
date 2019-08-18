@@ -39,8 +39,15 @@
         		<img id="file-thumbnail" style="display: none" src="#" />
 			</form>
 
-      <div  class="live-feed">
+      <!-- <div  class="live-feed">
         <img src="{{ url_for('video_feed') }}">
+      </div> -->
+
+      <div id="container">
+        <div class="select">
+          <label for="videoSource">Video source: </label><select id="videoSource"></select>
+        </div>
+        <video width="320" height="240" muted autoplay></video>
       </div>
 
 			<div id="upload-response"></div>

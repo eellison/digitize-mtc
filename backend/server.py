@@ -98,46 +98,47 @@ def save_response():
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')
 
-
+# Old code from the time when we rendered the live feed using CV2
+# instead of Javascript
 # Capture video via cv2
-class Camera(object):
-    def __init__(self):
-        cap = cv2.VideoCapture(1)
-        self.stream = cap
-
-    def get_frame_for_frontend(self):
-        '''
-        Returns: an open JPEG file
-        '''
-        ret, frame = self.stream.read()
-        # Reduce size of frame to send to frontend
-        small_frame_for_frontend = cv2.resize(frame, (832, 468))
-        # rotate frame to vertical, 3 times counterclockwise
-        rotated_frame = np.rot90(small_frame_for_frontend, 3)
-        # Crop top bit because it contains part of the webcam's frame
-        # TODO (sud): find a way to avoid having to do this!
-        final_frame = rotated_frame[100:, :]
-        frame_file_name = "current_frame.jpg"
-        cv2.imwrite(frame_file_name, final_frame)
-        return open(frame_file_name, 'rb').read()
-
-    def get_raw_frame(self):
-        ret, frame = self.stream.read()
-        return frame
+# class Camera(object):
+#     def __init__(self):
+#         cap = cv2.VideoCapture(1)
+#         self.stream = cap
+#
+#     def get_frame_for_frontend(self):
+#         '''
+#         Returns: an open JPEG file
+#         '''
+#         ret, frame = self.stream.read()
+#         # Reduce size of frame to send to frontend
+#         small_frame_for_frontend = cv2.resize(frame, (832, 468))
+#         # rotate frame to vertical, 3 times counterclockwise
+#         rotated_frame = np.rot90(small_frame_for_frontend, 3)
+#         # Crop top bit because it contains part of the webcam's frame
+#         # TODO (sud): find a way to avoid having to do this!
+#         final_frame = rotated_frame[100:, :]
+#         frame_file_name = "current_frame.jpg"
+#         cv2.imwrite(frame_file_name, final_frame)
+#         return open(frame_file_name, 'rb').read()
+#
+#     def get_raw_frame(self):
+#         ret, frame = self.stream.read()
+#         return frame
 
 # Continuously generate frames for frontend
-def gen(camera):
-    while True:
-        # Capture frame-by-frame
-        frame = camera.get_frame_for_frontend()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+# def gen(camera):
+#     while True:
+#         # Capture frame-by-frame
+#         frame = camera.get_frame_for_frontend()
+#         yield (b'--frame\r\n'
+#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 # Stream from web cam
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(Camera()),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+# @app.route('/video_feed')
+# def video_feed():
+#     return Response(gen(Camera()),
+#                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
