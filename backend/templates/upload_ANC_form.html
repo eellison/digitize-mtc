@@ -6,19 +6,41 @@
 	<script src="https://kit.fontawesome.com/45c5b12d62.js"></script>
 </head>
 <body>
-	<div class="header-nav">
+	 <nav class="side-bar-nav">
+          <div class="logo-nav-block"> <p>Mae Tao </br>Clinic</p> </div>
+          <a href="{{ url_for('home') }}"><div class="item-logo-block nav-block-highlighted">
+              <img src="/static/image/record-upload.png">
+              <p>Scan Record</p>
+          </div></a>
+          <div class="item-logo-block">
+              <img src="/static/image/search.png">
+              <p>Search</p>
+          </div>
+          <div class="profile-logo-block">
+              <img src="/static/image/login.png" />
+              <p>Profile</p>
+          </div>
+  	</nav>
+
+	<!-- <div class="header-nav">
 	    <div class="header-nav-wrapper">
 	       <span id="logo">Mae Tao Clinic</span>
          <a id="home" href="{{ url_for('home') }}">← back to home </a>
 	    </div>
-	</div>
+	</div> -->
 
-	<div class="main" id="main-content">
-		<div class="nav">
-
-			<span>{{ form_name }} / New Entry</span>
-			<h1 id="nav-title">Upload Scan</h1>
-		</div>
+	<div class="console">
+      <div class="progress-bar-box">
+          <div class="progress-bar-wrapper">
+            <a href=""><div class="back-button">←</div></a>
+            <div class="progress-bar"></div>
+          </div>
+      </div>
+      <div class="console-wrapper">
+      	<div class="nav">
+	      <p class="caption">{{ form_name }} / New Entry</p>
+	      <h1 id="nav-title">Enter basic record information</h1>
+	    </div>
 
 
 
@@ -39,9 +61,7 @@
         		<img id="file-thumbnail" style="display: none" src="#" />
 			</form>
 
-      <!-- <div  class="live-feed">
-        <img src="{{ url_for('video_feed') }}">
-      </div> -->
+    
 
       <div id="container">
         <div class="select">
@@ -57,8 +77,14 @@
 		<div id="update">
 		<!-- <h3>Review Annotated Record</h3> -->
 		</div>
+      	
+      </div>
 
-	</div>
+    </div>
+
+
+
+
 
 
 
