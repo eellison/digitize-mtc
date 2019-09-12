@@ -1,5 +1,5 @@
 import numpy as np
-import onnxruntime as rt
+# import onnxruntime as rt
 import math
 import cv2
 from scipy import ndimage

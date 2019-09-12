@@ -7,32 +7,48 @@
 
 
 <body>
-  <div class="header-nav">
-    <div class="header-nav-wrapper">
-      <a href="index.html"><span id="logo">Mae Tao Clinic</span></a>
-    </div>
-  </div>
-  <div class="main" id="main-content">
-    <div class="nav">
-      <p class="caption">New data entry</p>
-      <h1 id="nav-title">Select a form to get started</h1>
-    </div>
+  <nav class="side-bar-nav">
+          <div class="logo-nav-block"> <p>Mae Tao </br>Clinic</p> </div>
+          <div class="item-logo-block nav-block-highlighted">
+              <img src="/static/image/record-upload.png">
+              <p>Scan Record</p>
+          </div>
+          <div class="item-logo-block">
+              <img src="/static/image/search.png">
+              <p>Search</p>
+          </div>
+          <div class="profile-logo-block">
+              <img src="/static/image/login.png" />
+              <p>Profile</p>
+          </div>
+  </nav>
 
-    <div id="select-form">
-      <a href="{{ url_for('upload_form', json_path='anc_pg_1.json') }}">
-        <div class="select-form-button">
-          Antenatal Record
+
+  <div class="console">
+     
+      <div class="console-wrapper">
+
+        <div class="nav">
+          <p class="caption">Scan Record</p>
+          <h1 id="nav-title">Choose a record type to start</h1>
         </div>
-      </a>
-      <a href="{{ url_for('upload_form', json_path='delivery_pg_1.json') }}">
-        <div class="select-form-button">
-          Delivery Record Pg 1
-        </div></a>
-      <a href="{{ url_for('upload_form', json_path='delivery_pg_2.json') }}">
-        <div class="select-form-button">
-          Delivery Record Pg 2
-        </div></a>
-    </div>
+
+        <div id="select-form">
+          <a href="{{ url_for('upload_form', json_path='anc_pg_1.json') }}">
+            <div class="select-form-button">
+              Antenatal Record
+            </div>
+          </a>
+          <a href="{{ url_for('upload_form', json_path='delivery_pg_1.json') }}">
+            <div class="select-form-button">
+              Delivery Record Pg 1
+            </div></a>
+          <a href="{{ url_for('upload_form', json_path='delivery_pg_2.json') }}">
+            <div class="select-form-button">
+              Delivery Record Pg 2
+            </div></a>
+        </div>
+      </div>
 
 
   </div>
