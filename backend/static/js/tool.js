@@ -26,24 +26,6 @@ function requestLiveFeedResponse() {
     error: function(xhr) {
       //Do Something to handle error
     }
-    // cache: false,
-    // processData: false,
-    // success: function(data) {
-    //   if (data.status == 'success') {
-    //     $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
-    //     form = data;
-    //     display(form);
-    //     visualize(form);
-    //     displaySvgFrame();
-    //     $(".question_group_title").click();
-    //     hideUpload();
-    //   } else if (data.status == 'error') {
-    //     $('#upload-response').append("<h3>" + data.error_msg + "</h3>")
-    //   }
-    // },
-    // error: function(error) {
-    //   $('#upload-response').append("<h3>" + "No response from server" + "</h3>")
-    // }
   });
 }
 

@@ -47,9 +47,10 @@ def align_images(im1, im2):
     match_distances = [m.distance for m in matches]
     avg_match_dist = np.mean(match_distances)
     if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
-        print(avg_match_dist)
-        print(AVG_MATCH_DIST_CUTOFF)
-        print(avg_match_dist > AVG_MATCH_DIST_CUTOFF)
+        # Uncomment the lines below for console debug
+        # print(avg_match_dist)
+        # print(AVG_MATCH_DIST_CUTOFF)
+        # print(avg_match_dist > AVG_MATCH_DIST_CUTOFF)
         raise AlignmentError("Poor image alignment! Please confirm you are using\n \
         the right form, and upload a new image.")
 

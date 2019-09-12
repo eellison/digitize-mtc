@@ -126,10 +126,13 @@ def gen(camera):
             start = time.time()
             ret, live_frame = camera.stream.read()
             aligned_image, aligned_diag_image, h = align.align_images(live_frame, template_image)
-            print("Good Alignment!")
+            # Uncomment the line below for live alignment debug in console
+            # print("Good Alignment!")
             good_frames_captured = good_frames_captured + 1
         except AlignmentError as err:
-            print("Alignment Error!")
+            # Uncomment the line below for live alignment debug in console
+            # print("Alignment Error!")
+            continue
 
     # Run mark recognition on aligned image
     answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
