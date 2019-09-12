@@ -9,6 +9,7 @@ import cv2
 from copy import deepcopy
 import numpy as np
 import math
+import time
 from skimage.filters import threshold_local
 
 # CONSTANTS
@@ -195,7 +196,7 @@ def write_aligned_image(input_image_path, aligned_image):
         aligned_filename (str): name of aligned file that has been written to static/
     """
     image_name = file_name_from_path(input_image_path)
-    aligned_filename = image_name + "_aligned.jpg"
+    aligned_filename = image_name + "_aligned_" + str(time.time()) + ".jpg"
     static_path = str(Path.cwd() / "backend" / "static" / aligned_filename)
     cv2.imwrite(static_path, aligned_image)
     return aligned_filename # name of the file that can be found in static/

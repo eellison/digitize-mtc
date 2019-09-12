@@ -71,6 +71,20 @@ button.disabled{
 
 }
 
+/*Video*/
+video {
+  /* position: absolute; */
+  transform: rotate(90deg);
+
+  /* transform-origin: bottom left;
+  width: 10vh;
+  height: 10vw;
+  margin-top: -10vw;
+  object-fit: cover;
+
+  z-index: 4;
+  visibility: visible; */
+}
 
 /*Image upload*/
 #upload-response{

@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 
 MAX_FEATURES = 500
-GOOD_MATCH_PERCENT = 0.15
-AVG_MATCH_DIST_CUTOFF = 50 # lower cutoff is more strict
+GOOD_MATCH_PERCENT = 0.11
+AVG_MATCH_DIST_CUTOFF = 39 # lower cutoff is more strict
 
 
 class AlignmentError(Exception):
@@ -65,7 +65,11 @@ def align_images(im1, im2):
         points_2[i, :] = key_points_2[match.trainIdx].pt
 
     # Find homography
-    h, mask = cv2.findHomography(points_1, points_2, cv2.RANSAC)
+    try:
+        h, mask = cv2.findHomography(points_1, points_2, cv2.RANSAC)
+    except:
+        raise AlignmentError("Inproper Homography in Alignment! Please confirm you are using\n \
+        the right form, and upload a new image.")
 
     # Use homography
     height, width, channels = im2.shape

@@ -4,6 +4,8 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/input.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/45c5b12d62.js"></script>
+  <script src="/static/js/jquery-3.4.1.min.js"></script>
+  <!-- <script type="text/javascript" src="/static/js/auto-align-and-process.js"></script> -->
 </head>
 <body>
 	<div class="header-nav">
@@ -33,25 +35,21 @@
         </div>
       </div>
 
-			<form id="upload-file" method="post" enctype="multipart/form-data" class="upload-box" >
+			<form id="upload-file" method="post" float="left" enctype="multipart/form-data" class="upload-box" >
 				<label id="upload-file-instruction" for="file"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
 				<input name="file" type="file" style="display: none" id="file">
         		<img id="file-thumbnail" style="display: none" src="#" />
 			</form>
 
-      <!-- <div  class="live-feed">
-        <img src="{{ url_for('video_feed') }}">
-      </div> -->
 
-      <div id="container">
+      <div id="videoFeed" float="left" padding="10px">
         <div class="select">
-          <label for="videoSource">Video source: </label><select id="videoSource"></select>
+          <label for="videoSource" display="block" padding-left="10px"> Video source: </label><select id="videoSource"></select>
         </div>
-        <video width="320" height="240" muted autoplay></video>
+        <video width="480" height="640"  muted autoplay></video>
       </div>
 
 			<div id="upload-response"></div>
-
 
 		</div>
 		<div id="update">
@@ -59,10 +57,6 @@
 		</div>
 
 	</div>
-
-
-
-
 
 	<div id="save">
 		<div id="save-bar-wrapper">
@@ -82,5 +76,7 @@
 <!-- <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
 <script src="/static/js/d3.min.js"></script>
-<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/static/js/video-stream.js"></script>
 <script type="text/javascript" src="/static/js/tool.js"></script>
+<script> requestLiveFeedResponse(); </script>
+<!-- <script type="text/javascript" src="/static/js/upload-file-btn-functionality.js"></script> -->

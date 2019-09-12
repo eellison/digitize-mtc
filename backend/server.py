@@ -47,6 +47,9 @@ def upload_form(json_path):
     return render_template('upload_ANC_form.html', form_name=getFormName(json_path), json_path = json_path)
 
 # AJAX request with uploaded file
+## IDEA: create a version of this that is also checking the global variable
+# "success_from_live_stream", which indicates that the camera caught a
+# successfully aligned live stream frame
 @app.route('/upload_and_process_file/<template_json>', methods=['POST'])
 def get_anc_response(template_json):
     # import pdb; pdb.set_trace()
@@ -59,6 +62,8 @@ def get_anc_response(template_json):
             status = 'error'
         )
 
+## IDEA: create a version of this that works w/o file.filename
+# but jumps to the part where the file is already written (ie in live stream case)
 def get_processed_file_json(html_page, template_json):
     if request.method == 'POST':
         # check if the post request has the file part
@@ -98,47 +103,51 @@ def save_response():
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')
 
-# Old code from the time when we rendered the live feed using CV2
-# instead of Javascript
-# Capture video via cv2
-# class Camera(object):
-#     def __init__(self):
-#         cap = cv2.VideoCapture(1)
-#         self.stream = cap
-#
-#     def get_frame_for_frontend(self):
-#         '''
-#         Returns: an open JPEG file
-#         '''
-#         ret, frame = self.stream.read()
-#         # Reduce size of frame to send to frontend
-#         small_frame_for_frontend = cv2.resize(frame, (832, 468))
-#         # rotate frame to vertical, 3 times counterclockwise
-#         rotated_frame = np.rot90(small_frame_for_frontend, 3)
-#         # Crop top bit because it contains part of the webcam's frame
-#         # TODO (sud): find a way to avoid having to do this!
-#         final_frame = rotated_frame[100:, :]
-#         frame_file_name = "current_frame.jpg"
-#         cv2.imwrite(frame_file_name, final_frame)
-#         return open(frame_file_name, 'rb').read()
-#
-#     def get_raw_frame(self):
-#         ret, frame = self.stream.read()
-#         return frame
+# Capture live stream via OpenCV
+# TODO: (sud) select video feed based on selection on frontend
+class Camera(object):
+    def __init__(self):
+        cap = cv2.VideoCapture(0)
+        self.stream = cap
 
-# Continuously generate frames for frontend
-# def gen(camera):
-#     while True:
-#         # Capture frame-by-frame
-#         frame = camera.get_frame_for_frontend()
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+# Continuously pull frames from Camera, and attempt alignment
+# When a valid alignment is found, run the rest of the processing pipeline
+# and return a Form object in JSON that can be passed to frontend
+def gen(camera):
+    good_frames_captured = 0
+    good_frames_threshold = 5 # number of good frames before picking one
+    while good_frames_captured < good_frames_threshold:
+        # time.sleep(1) # wait one second before re-processing
+        # Capture frame-by-frame
+        json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / "delivery_pg_1.json")
+        template = util.read_json_to_form(json_template_location) # Form object
+        template_image = util.read_image(template.image) # numpy.ndarray
+        try:
+            start = time.time()
+            ret, live_frame = camera.stream.read()
+            aligned_image, aligned_diag_image, h = align.align_images(live_frame, template_image)
+            print("Good Alignment!")
+            good_frames_captured = good_frames_captured + 1
+        except AlignmentError as err:
+            print("Alignment Error!")
+
+    # Run mark recognition on aligned image
+    answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
+    # Write output
+    aligned_filename = util.write_aligned_image("original_frame.jpg", aligned_image)
+    # Create Form object with result, and JSONify to be sent to front end
+    processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
+    encoder = FormTemplateEncoder()
+    encoded_form = encoder.default(processed_form)
+    encoded_form['status'] = "success"
+    end = time.time()
+    print("\n\n\n It took %.2f to run the process script." % (end-start))
+    return jsonify(encoded_form)
 
 # Stream from web cam
-# @app.route('/video_feed')
-# def video_feed():
-#     return Response(gen(Camera()),
-#                     mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/video_feed')
+def video_feed():
+    return gen(Camera())
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

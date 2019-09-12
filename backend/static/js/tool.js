@@ -1,71 +1,51 @@
-///////////////////////////////////////////////////////////////
-// Support live video stream on file upload page
-//////////////////////////////////////////////////////////////
-var videoElement = document.querySelector('video');
-var videoSelect = document.querySelector('select#videoSource');
-
-videoSelect.onchange = getStream;
-
-// Grab elements, create settings, etc.
-var video = document.getElementById('video');
-
-const hdConstraints = {
-	video: {width: {min: 3840}, height: {min: 2160}}
-};
-// Get access to the camera!
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-	navigator.mediaDevices.enumerateDevices()
-	.then(gotDevices).then(getStream).catch(handleError);
+/////////////////////////////////////////////////////////////////////
+// Functionality for pulling image from live stream
+/////////////////////////////////////////////////////////////////////
+function requestLiveFeedResponse() {
+  $.ajax({
+    type: 'GET',
+    url: '/video_feed',
+    // data: form_data,
+    contentType: false,
+		cache: false,
+		processData:false,
+    success: function(data) {
+      if (data.status == 'success') {
+        $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
+				form = data;
+				console.log(form);
+				display(form);
+        visualize(form);
+        displaySvgFrame();
+        $(".question_group_title").click();
+        hideUpload();
+      } else if (data.status == 'error') {
+        $('#upload-response').append("<h3>" + data.error_msg + "</h3>")
+      }
+    },
+    error: function(xhr) {
+      //Do Something to handle error
+    }
+    // cache: false,
+    // processData: false,
+    // success: function(data) {
+    //   if (data.status == 'success') {
+    //     $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
+    //     form = data;
+    //     display(form);
+    //     visualize(form);
+    //     displaySvgFrame();
+    //     $(".question_group_title").click();
+    //     hideUpload();
+    //   } else if (data.status == 'error') {
+    //     $('#upload-response').append("<h3>" + data.error_msg + "</h3>")
+    //   }
+    // },
+    // error: function(error) {
+    //   $('#upload-response').append("<h3>" + "No response from server" + "</h3>")
+    // }
+  });
 }
-
-function gotDevices(deviceInfos) {
-	for (var i = 0; i !== deviceInfos.length; ++i) {
-		var deviceInfo = deviceInfos[i];
-		var option = document.createElement('option');
-		option.value = deviceInfo.deviceId;
-		if (deviceInfo.kind === 'audioinput') {
-			// Do nothing! We only care about streaming video
-		} else if (deviceInfo.kind === 'audiooutput'){
-			// Do nothing! We only care about streaming video
-		} else if (deviceInfo.kind === 'videoinput') {
-			option.text = deviceInfo.label || 'camera ' +
-			(videoSelect.length + 1);
-			videoSelect.appendChild(option);
-		} else {
-			console.log('Found one other kind of source/device: ', deviceInfo);
-		}
-	}
-}
-
-function getStream() {
-	if (window.stream) {
-		window.stream.getTracks().forEach(function(track) {
-			track.stop();
-		});
-	}
-
-	var constraints = {
-		video: {
-			deviceId: {exact: videoSelect.value},
-			width: { ideal: 4096 },
-			height: { ideal: 2160 }
-		}
-	};
-
-	navigator.mediaDevices.getUserMedia(constraints).
-	then(gotStream).catch(handleError);
-}
-
-function gotStream(stream) {
-	window.stream = stream; // make stream available to console
-	videoElement.srcObject = stream;
-}
-
-function handleError(error) {
-	console.log('Error: ', error);
-}
-
-
 
 /////////////////////////////////////////////////////////////////////
 // Functionality for sending / receiving the form and editing results
@@ -84,7 +64,7 @@ $(function() {
 			processData: false,
 			success: function(data) {
 				if (data.status == 'success') {
-					$('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
+					$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
 					form = data;
 					display(form);
 					visualize(form);
@@ -101,6 +81,9 @@ $(function() {
 		});
 	});
 });
+
+
+
 
 
 var form;
