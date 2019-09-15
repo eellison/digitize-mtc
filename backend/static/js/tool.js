@@ -468,11 +468,13 @@ function readThumbnailAsURL(input) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-			$('#file-thumbnail').css("display", "block");
-			$('#file-thumbnail').css("margin-left", "auto");
-			$('#file-thumbnail').css("margin-right", "auto");
-			$('#file-thumbnail').css("max-width", "500px");
+			// $('#file-thumbnail').css("display", "block");
+			// $('#file-thumbnail').css("margin-left", "auto");
+			// $('#file-thumbnail').css("margin-right", "auto");
+			// $('#file-thumbnail').css("max-width", "500px");
       $('#file-thumbnail').attr('src', e.target.result);
+      $('#file-thumbnail').closest(".page-box-new").removeClass("page-box-new");
+ 
     }
 
     reader.readAsDataURL(input.files[0]);
