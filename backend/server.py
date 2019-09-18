@@ -41,6 +41,13 @@ def getFormName(json_path):
         return "Delivery Page 2"
     assert False, "need to add another condition"
 
+@app.route('/basic_info/<json_path>', methods=['GET', 'POST'])
+def basic_info(json_path):
+    # TODO add parameters for form name and json path
+    return render_template('basic-info.html', form_name=getFormName(json_path), json_path = json_path)
+
+
+
 @app.route('/upload_page/<json_path>', methods=['GET', 'POST'])
 def upload_form(json_path):
     # TODO add parameters for form name and json path
