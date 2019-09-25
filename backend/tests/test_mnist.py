@@ -1,8 +1,13 @@
-
+import cv2
 import sys
 sys.path.append("..") # Adds higher directory to python modules path so we can import
 import os
 from scripts import predict_digit
+
+def predict_from_image_address(image_address):
+    grayscale_image = cv2.imread(image_address, 0)
+    assert grayscale_image is not None, "Could not read image address: {}".format(image_address)
+    return predict_digit(grayscale_image)
 
 def test():
 
@@ -19,7 +24,7 @@ def test():
     num_predicted = 0
     for image_name, expected_digit in images:
         image_path = os.path.abspath("./mnist_digits/" + image_name)
-        prediction, prob = predict_digit(image_path)
+        prediction, prob = predict_from_image_address(image_path)
 
         # we should either have the prediction right or have low confidence
         assert prediction == expected_digit or prob <= .8

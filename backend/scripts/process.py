@@ -26,9 +26,9 @@ def process(input_image_path, template_json_path, output_dir_path, debug_mode=Fa
     ###################################
     aligned_image, aligned_diag_image, h = align.align_images(input_image, template_image)
 
-    ####################################
-    ### Step 2: Run Mark Recognition ###
-    ####################################
+    ##############################################
+    ### Step 2: Run Mark and Digit Recognition ###
+    ##############################################
     answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
 
     ############################

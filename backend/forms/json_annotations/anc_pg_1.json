@@ -13,7 +13,7 @@
             "questions": [
                 {
                     "name": "Registration Number",
-                    "question_type": "text",
+                    "question_type": "digits",
                     "response_regions": [
                         {
                             "name": "",
@@ -26,7 +26,8 @@
                         }
                     ],
                     "answer_status": "NotAnswered",
-                    "__type__": "Question"
+                    "__type__": "Question",
+                    "expected_number_digits": 7
                 },
                 {
                     "name": "Date",
