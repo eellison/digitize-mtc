@@ -1,5 +1,7 @@
 from .form import *
 from .util import *
+from .digit_segmentation import extract_digit_boxes
+from .mnist import predict_digit
 import cv2
 
 
@@ -104,6 +106,44 @@ def text_answer(question, input_image, template_image):
     question.answer_status = AnswerStatus.unresolved
     return question
 
+def digits_answer(question, input_image, template_image):
+    """
+    Args:
+        question (Question): question with type QuestionType.digits
+        input_image (numpy.ndarray): image of filled form
+        template_image (numpy.ndarray): image of unfilled form template
+    Returns:
+        question (Question): same input question, with "answers" filled in
+    """
+    #
+    assert len(question.response_regions) == 1
+    rr = question.response_regions[0]
+    rr.value = ""
+    question.answer_status = AnswerStatus.unresolved
+
+    expected_number_digits = question.expected_number_digits
+    assert expected_number_digits is not None
+
+    w, h, x, y = (rr.w, rr.h, rr.x, rr.y)
+    digits_region = input_image[y : y+h, x : x+w]
+    digit_boxes = extract_digit_boxes(digits_region)
+    if len(digit_boxes) != expected_number_digits:
+        return question
+
+    digit_predictions = [predict_digit(digit) for digit in digit_boxes]
+    # TODO - only mark one digit as uncertain instead of entire answer,
+    # and refine probability cutoff. also need to figure out workflow on frontend
+    # of results
+    PROB_THRESHOLD = .6
+    if any(map(lambda digit_prob: digit_prob[1] < PROB_THRESHOLD, digit_predictions)):
+        return question
+
+    answer = "".join(map(lambda digit_prob: str(digit_prob[0]), digit_predictions))
+
+    rr.value = answer
+    question.answer_status = AnswerStatus.resolved
+    return question
+
 def answer(question, input_image, template_image):
     """
     Args:
@@ -119,6 +159,8 @@ def answer(question, input_image, template_image):
         return radio_answer(question, input_image, template_image)
     elif question.question_type == QuestionType.text.name:
         return text_answer(question, input_image, template_image)
+    elif question.question_type ==  QuestionType.digits.name:
+        return digits_answer(question, input_image, template_image)
     else:
         # No logic for other question types, yet...
         print("Warning: could not process question type %s, skipping for now, " % str(question.question_type))

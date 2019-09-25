@@ -1,11 +1,19 @@
 import numpy as np
-# import onnxruntime as rt
+import onnxruntime as rt
 import math
 import cv2
 from scipy import ndimage
 from pathlib import Path
 
-# Takes in a image address and returns a tuple of (predicted digit, probability)
+_digit_val = 0
+debug = False
+
+def write_prediction(image, argmax):
+    global _digit_val
+    cv2.imwrite("./_digit_input_" + str(_digit_val) + "_predict_" + str(argmax) + ".png", image)
+    _digit_val += 1
+
+# Takes in an image and returns a tuple of (predicted digit, probability)
 def predict_digit(image):
     processed_image = mnist_preprocess(image)
 
@@ -15,9 +23,9 @@ def predict_digit(image):
     pred_onnx = model.run(None, {input_name: processed_image})
     probabilities = softmax(pred_onnx[0][0])
     argmax = probabilities.argmax()
-    # import pdb; pdb.set_trace()
+    if debug:
+        write_prediction(image, argmax)
     return (argmax, probabilities[argmax])
-
 
 def getBestShift(img):
     cy,cx = ndimage.measurements.center_of_mass(img)
@@ -42,29 +50,29 @@ def shift(img, sx, sy):
 
 # takes in an (image address, optional write address) returns numpy [1, 1, 28, 28] tensor
 
-def mnist_preprocess(image_address, debug_out_file=None):
-    # read the image
-    grayscale_image = cv2.imread(image_address, 0)
-    assert grayscale_image is not None, "Could not read image address: {}".format(image_address)
-
+def mnist_preprocess(image):
     # rescale it
-    grayscale_image = cv2.resize(255 - grayscale_image, (28, 28))
-    # better black and white version
-    (thresh, grayscale_image) = cv2.threshold(grayscale_image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    image = cv2.resize(255 - image, (28, 28))
 
-    # TODO: Erase borders when they are included in the image and improve cropping below
-    # For now assume not present,
-    # while np.sum(gray[0]) == 0:
-    #   gray = gray[1:]
-    #
-    # while np.sum(gray[:,0]) == 0:
-    #   gray = np.delete(gray,0,1)
-    #
-    # while np.sum(gray[-1]) == 0:
-    #   gray = gray[:-1]
-    #
-    # while np.sum(gray[:,-1]) == 0:
-    #   gray = np.delete(gray,-1,1)
+    max = np.max(image)
+    # TODO: refine edge cutoff technique / percentage
+    EDGE_CUTOFF_PERCENT = .65
+    cutoff = max * EDGE_CUTOFF_PERCENT
+
+    while np.mean(image[0]) > cutoff:
+      image = image[1:]
+
+    while np.mean(image[:,0]) > cutoff:
+      image = np.delete(image, 0, 1)
+
+    while np.mean(image[-1]) > cutoff:
+      image = image[:-1]
+
+    while np.mean(image[:,-1]) > cutoff:
+      image = np.delete(image, -1, 1)
+
+    # better black and white version
+    (thresh, grayscale_image) = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
     rows, cols = grayscale_image.shape
 
@@ -87,6 +95,7 @@ def mnist_preprocess(image_address, debug_out_file=None):
 
     shiftx, shifty = getBestShift(grayscale_image)
     grayscale_image = shift(grayscale_image, shiftx, shifty)
+
     grayscale_image = grayscale_image / 255.0
     grayscale_image = np.float32(grayscale_image)
 
@@ -96,9 +105,6 @@ def mnist_preprocess(image_address, debug_out_file=None):
     # normalize data distribution to follow MNIST
     # see https://discuss.pytorch.org/t/normalization-in-the-mnist-example/457
     grayscale_image = (grayscale_image - MNIST_TRAINING_MEAN) / MNIST_TRAINING_STD
-
-    if debug_out_file:
-        cv2.imwrite(debug_out_file, grayscale_image)
 
     # trained mnist model 4-D inputs due to batching
     grayscale_image.resize([1, 1, 28, 28])
@@ -112,7 +118,7 @@ def mnist_preprocess(image_address, debug_out_file=None):
 # and preprocessing
 
 # TODO - relative path to digitize-mtc
-MODEL_ADDRESS = Path.cwd().parent / "scripts/model.onnx"
+MODEL_ADDRESS = Path.cwd() / "backend/scripts/model.onnx"
 mnist_model = None
 
 def getOrInitializeModel():
