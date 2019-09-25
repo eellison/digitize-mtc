@@ -21,11 +21,12 @@ class QuestionGroup():
         self.questions = questions # list of Question
 
 class Question():
-    def __init__(self, name, question_type, response_regions, answer_status):
+    def __init__(self, name, question_type, response_regions, answer_status, expected_number_digits):
         self.name = name # name of column in data table
         self.question_type = question_type # QuestionType
         self.response_regions = response_regions # list of ResponseRegion
         self.answer_status = answer_status # AnswerStatus
+        self.expected_number_digits = expected_number_digits
 
 class ResponseRegion():
     def __init__(self, name, x, y, width, height, value):
@@ -45,6 +46,7 @@ class QuestionType(Enum):
     checkbox = 1
     radio = 2
     text = 3
+    digits = 4
 
 class AnswerStatus(Enum):
     unresolved = -1
