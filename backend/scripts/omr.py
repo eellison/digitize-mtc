@@ -160,7 +160,8 @@ def answer(question, input_image, template_image):
     elif question.question_type == QuestionType.text.name:
         return text_answer(question, input_image, template_image)
     elif question.question_type ==  QuestionType.digits.name:
-        return digits_answer(question, input_image, template_image)
+        #return digits_answer(question, input_image, template_image)
+        return text_answer(question, input_image, template_image)
     else:
         # No logic for other question types, yet...
         print("Warning: could not process question type %s, skipping for now, " % str(question.question_type))

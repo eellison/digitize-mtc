@@ -352,7 +352,7 @@ function display(form) {
 			.attr("class", "responses")
 			.on("change", edit);
 
-			if (q.question_type == "text") {
+			if (q.question_type == "text" || q.question_type == "digits") {
 				responses.selectAll("input").data(q.response_regions).enter()
 				.append("input")
 				.attr("type", "text")
@@ -474,7 +474,7 @@ function readThumbnailAsURL(input) {
 			// $('#file-thumbnail').css("max-width", "500px");
       $('#file-thumbnail').attr('src', e.target.result);
       $('#file-thumbnail').closest(".page-box-new").removeClass("page-box-new");
- 
+
     }
 
     reader.readAsDataURL(input.files[0]);
