@@ -99,8 +99,8 @@ button.disabled{
 
 /*Video*/
 video {
-  /* position: absolute; */
-  transform: rotate(90deg);
+  /* position: absolute;
+  transform: rotate(90deg); */
 
   /* transform-origin: bottom left;
   width: 10vh;
