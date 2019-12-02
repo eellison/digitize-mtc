@@ -114,7 +114,7 @@ def save_response():
 # TODO: (sud) select video feed based on selection on frontend
 class Camera(object):
     def __init__(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(1)
         self.stream = cap
 
 # Continuously pull frames from Camera, and attempt alignment
@@ -134,11 +134,11 @@ def gen(camera):
             ret, live_frame = camera.stream.read()
             aligned_image, aligned_diag_image, h = align.align_images(live_frame, template_image)
             # Uncomment the line below for live alignment debug in console
-            # print("Good Alignment!")
+            print("Good Alignment!")
             good_frames_captured = good_frames_captured + 1
         except AlignmentError as err:
             # Uncomment the line below for live alignment debug in console
-            # print("Alignment Error!")
+            print("Alignment Error!")
             continue
 
     # Run mark recognition on aligned image
