@@ -24,7 +24,7 @@ def process_test_form(test_form_info, param_combo):
     input_image = util.read_image(form_path)
     template = util.read_json_to_form(json_annotation_path)
     template_image = util.read_image(template.image)
-    aligned_image, aligned_diag_image, h = align.align_images(
+    aligned_image, aligned_diag_image, h, _ = align.align_images(
         input_image, template_image)
     answered_questions, clean_input = omr.recognize_answers(
         aligned_image, template_image, template)

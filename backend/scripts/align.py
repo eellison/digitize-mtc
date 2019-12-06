@@ -3,7 +3,7 @@ import numpy as np
 
 MAX_FEATURES = 500
 GOOD_MATCH_PERCENT = 0.11
-AVG_MATCH_DIST_CUTOFF = 39 # lower cutoff is more strict
+AVG_MATCH_DIST_CUTOFF = 38 # lower cutoff is more strict
 
 
 class AlignmentError(Exception):
@@ -21,6 +21,7 @@ def align_images(im1, im2):
         im1reg (numpy.ndarray): aligned version of im1
         im_matches (numpy.ndarray): debug image showing the common features used for alignment
         h (numpy.ndarray): matrix describing homography
+        align_score (float): average max distance, lower is better
     """
 
     # Convert images to grayscale
@@ -76,4 +77,4 @@ def align_images(im1, im2):
     height, width, channels = im2.shape
     im1Reg = cv2.warpPerspective(im1, h, (width, height))
 
-    return im1Reg, im_matches, h
+    return im1Reg, im_matches, h, avg_match_dist

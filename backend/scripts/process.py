@@ -24,7 +24,7 @@ def process(input_image_path, template_json_path, output_dir_path, debug_mode=Fa
     ###################################
     ### Step 1: Run Image Alignment ###
     ###################################
-    aligned_image, aligned_diag_image, h = align.align_images(input_image, template_image)
+    aligned_image, aligned_diag_image, h, _ = align.align_images(input_image, template_image)
 
     ##############################################
     ### Step 2: Run Mark and Digit Recognition ###
