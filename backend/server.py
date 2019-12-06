@@ -9,6 +9,7 @@ import sys
 from scripts import *
 import time
 import cv2
+from math import inf
 
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -117,12 +118,22 @@ class Camera(object):
         cap = cv2.VideoCapture(1)
         self.stream = cap
 
+_input = 0
+def write_prediction(image, align_score, blurry_score):
+    global _input
+    cv2.imwrite("./_input" + str(_input) + "_align_" + str(align_score) + "_blur_" + str(blurry_score) + ".png", image)
+    _input += 1
+
+
 # Continuously pull frames from Camera, and attempt alignment
 # When a valid alignment is found, run the rest of the processing pipeline
 # and return a Form object in JSON that can be passed to frontend
 def gen(camera):
     good_frames_captured = 0
     good_frames_threshold = 5 # number of good frames before picking one
+
+    # lower alignment score is better
+    best_aligned_image, best_align_score = None, inf
     while good_frames_captured < good_frames_threshold:
         # time.sleep(1) # wait one second before re-processing
         # Capture frame-by-frame
@@ -132,17 +143,31 @@ def gen(camera):
         try:
             start = time.time()
             ret, live_frame = camera.stream.read()
-            aligned_image, aligned_diag_image, h = align.align_images(live_frame, template_image)
+            aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)
             # Uncomment the line below for live alignment debug in console
-            print("Good Alignment!")
-            good_frames_captured = good_frames_captured + 1
+            # print("Good Alignment!")
+            is_blurry, blurry_score = compute_blurriness(aligned_image)
+            # Uncomment to write out image with align_score & blurry_score
+            # write_prediction(aligned_image, align_score, blurry_score)
+            if is_blurry:
+                # print("Too blurry", blurry_score)
+                continue
+
+            if not is_blurry:
+                # because it is difficult to combine alignment & blurriness
+                # into one heuristic just use best alignment score for now.
+                good_frames_captured = good_frames_captured + 1
+                if align_score < best_align_score:
+                    best_align_score = align_score
+                    best_aligned_image = aligned_image
+
         except AlignmentError as err:
             # Uncomment the line below for live alignment debug in console
             print("Alignment Error!")
             continue
 
     # Run mark recognition on aligned image
-    answered_questions, clean_input = omr.recognize_answers(aligned_image, template_image, template)
+    answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
     # Write output
     aligned_filename = util.write_aligned_image("original_frame.jpg", aligned_image)
     # Create Form object with result, and JSONify to be sent to front end
