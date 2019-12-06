@@ -53,10 +53,10 @@
             <form action="upload-scan.html">
                     <label for="registration-num">Registration number</label>
                     <input type="text" id="registration-num" class="basic-info" name="registration-number" placeholder="Registration number">
-               
+
                     <label for="registration-date">Registration Date</label>
                     <input type="text" id="registration-date" class="basic-info" name="registration-date" placeholder="Registration date">
-              
+
                 </br>
                     <input type="submit" value="Submit">
             </form>
@@ -65,37 +65,42 @@
 
 
             <div class="basic-form" id="upload">
-                
-                    <div class="page-queue">
+
+
+                    <div class="page-queue" float="left">
                         <p>Page</p>
                         <form id="upload-file" method="post" float="left" enctype="multipart/form-data" >
                             <div class="page-box page-box-new">
                                 <div class="page-ph-add">
-                                   
+
                                     <img id="file-thumbnail" src="/static/image/add.png" />
                                 </div>
                                 <div class="page-details-add">
                                     <p>Page 1</p>
-                                    
-                                    
+
+
                                     <label id="upload-file-instruction" for="file" class="caption"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
                                     <input name="file" type="file" style="display: none" id="file">
                                 </div>
                             </div>
+
+
                         </form>
-                        
-                        
+
                         <div class="upload-button">
 	                        <button id="upload-file-btn" type="button" class="highlighted disabled">Process records</button>
 	                    </div>
-                    </div><div class="camera-feed" id="videoFeed">
-                    	<div class="select camera-select-box">
-	                        <label for="videoSource" display="block" padding-left="10px"> Video source: </label><select id="videoSource"></select>
-	                    </div>
-                    <video width="480" height="640" muted autoplay></video>
                     </div>
-                    
-              
+
+
+
+                    <div class="camera-feed" id="videoFeed">
+                    	<div class="select camera-select-box">
+	                        <label for="videoSource"> Video source: </label><select id="videoSource"></select>
+	                    </div>
+                      <video width="540" height="620" muted autoplay></video>
+                    </div>
+
             </div>
             <div id="update">
                 <!-- <h3>Review Annotated Record</h3> -->

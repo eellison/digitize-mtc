@@ -308,7 +308,7 @@ nav.side-bar-nav a{
 	height: 2em;
 }
 
-.logo-nav-block p{	
+.logo-nav-block p{
 	margin:0;
 	vertical-align: middle;
 	padding: 3vh 0;
@@ -397,13 +397,14 @@ nav.side-bar-nav a{
 .camera-feed{
 	display: inline-block;
 	vertical-align: top;
+	float:right;
 	width: 60%;
-	height: 60vh;
+	height: 100vh;
 	background-color: #d8d8d8;
 }
 
 .camera-select-box{
-	background-color: white;
+	  background-color: white;
     display: -webkit-inline-box;
     padding: 0.5em;
     font-size: 12px;
@@ -415,7 +416,6 @@ nav.side-bar-nav a{
 	width: 100%;
 	height: 80px;
 	margin-bottom:1em;
-	
 }
 
 .page-box-new{
@@ -440,7 +440,7 @@ nav.side-bar-nav a{
 	vertical-align: top;
 	width: 60px;
 	height: 80px;
-	border-radius: 10px;	
+	border-radius: 10px;
 	background-color: #FAFAFA;
 }
 
@@ -479,7 +479,7 @@ nav.side-bar-nav a{
 	opacity: 0.4;
 	font-size: 12px;
 	vertical-align: middle;
-	
+
 	margin:0 auto;
 }
 
@@ -509,11 +509,10 @@ nav.side-bar-nav a{
 /*Basic info entry*/
 .basic-form{
 
-
-	width: 720px;
+	width: 860px;
 
 	background-color: white;
-	
+
 	padding: 2em;
 	-moz-box-sizing: border-box;
     box-sizing: border-box;
