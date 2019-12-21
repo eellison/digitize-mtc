@@ -115,7 +115,7 @@ def save_response():
 # TODO: (sud) select video feed based on selection on frontend
 class Camera(object):
     def __init__(self):
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(0)
         self.stream = cap
 
 _input = 0
@@ -135,7 +135,7 @@ def gen(camera):
     # lower alignment score is better
     best_aligned_image, best_align_score = None, inf
     while good_frames_captured < good_frames_threshold:
-        # time.sleep(1) # wait one second before re-processing
+        time.sleep(3) # wait one second before re-processing
         # Capture frame-by-frame
         json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / "delivery_pg_1.json")
         template = util.read_json_to_form(json_template_location) # Form object
@@ -145,12 +145,12 @@ def gen(camera):
             ret, live_frame = camera.stream.read()
             aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)
             # Uncomment the line below for live alignment debug in console
-            # print("Good Alignment!")
+            print("Good Alignment!")
             is_blurry, blurry_score = compute_blurriness(aligned_image)
             # Uncomment to write out image with align_score & blurry_score
             # write_prediction(aligned_image, align_score, blurry_score)
             if is_blurry:
-                # print("Too blurry", blurry_score)
+                print("Too blurry", blurry_score)
                 continue
 
             if not is_blurry:
