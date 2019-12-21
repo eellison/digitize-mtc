@@ -29,6 +29,40 @@ function requestLiveFeedResponse() {
   });
 }
 
+function updateVidFeedColor() {
+  $.ajax({
+    type: 'GET',
+    url: '/alignment_status',
+    // data: form_data,
+    contentType: false,
+		cache: false,
+		processData:false,
+    success: function(data) {
+      if (data.status == 'aligned') {
+          console.log("got alignment!!");
+          d3.select("#videoFeed").classed("camera-feed", false);
+          d3.select("#videoFeed").classed("camera-feed-green", true);
+          updateVidFeedColor();
+      } else if (data.status == 'unaligned') {
+        console.log("not aligned...");
+        d3.select("#videoFeed").classed("camera-feed-green", false);
+        d3.select("#videoFeed").classed("camera-feed", true);
+        updateVidFeedColor();
+      }
+    },
+    error: function(xhr) {
+      console.log("got a data error?");
+    }
+  });
+}
+
+function runCamera() {
+  updateVidFeedColor();
+  requestLiveFeedResponse();
+}
+
+
+
 /////////////////////////////////////////////////////////////////////
 // Functionality for sending / receiving the form and editing results
 /////////////////////////////////////////////////////////////////////

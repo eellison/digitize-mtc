@@ -179,6 +179,25 @@ def gen(camera):
     print("\n\n\n It took %.2f to run the process script." % (end-start))
     return jsonify(encoded_form)
 
+
+# Check the alignment status and return a response to the frontend
+@app.route('/alignment_status')
+def alignment_status():
+    global ALIGNED
+    starting_alignment_status = deepcopy(ALIGNED)
+    print("in the alignment func")
+    while (starting_alignment_status ==  ALIGNED):
+        time.sleep(1) # wait for a couple seconds
+        continue # keep listening for change in global variable
+    resp = {}
+    print("found a change!")
+    if ALIGNED:
+        resp["status"] = "aligned"
+    else:
+        resp["status"] = "unaligned"
+    return jsonify(resp)
+
+
 # Stream from web cam
 @app.route('/video_feed')
 def video_feed():
