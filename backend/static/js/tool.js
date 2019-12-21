@@ -1,6 +1,34 @@
 /////////////////////////////////////////////////////////////////////
 // Functionality for pulling image from live stream
 /////////////////////////////////////////////////////////////////////
+function updateVidFeedColor() {
+  $.ajax({
+    type: 'GET',
+    url: '/alignment_status',
+    // data: form_data,
+    contentType: false,
+		cache: false,
+    async: true,
+		processData:false,
+    success: function(data) {
+      if (data.status == 'aligned') {
+          console.log("got alignment!!");
+          d3.select("#videoFeed").classed("camera-feed", false);
+          d3.select("#videoFeed").classed("camera-feed-green", true);
+          updateVidFeedColor();
+      } else if (data.status == 'unaligned') {
+        console.log("not aligned...");
+        d3.select("#videoFeed").classed("camera-feed-green", false);
+        d3.select("#videoFeed").classed("camera-feed", true);
+        updateVidFeedColor();
+      }
+    },
+    error: function(xhr) {
+      console.log("got a data error?");
+    }
+  });
+}
+
 function requestLiveFeedResponse() {
   $.ajax({
     type: 'GET',
@@ -8,6 +36,7 @@ function requestLiveFeedResponse() {
     // data: form_data,
     contentType: false,
 		cache: false,
+    async: true,
 		processData:false,
     success: function(data) {
       if (data.status == 'success') {
@@ -25,33 +54,6 @@ function requestLiveFeedResponse() {
     },
     error: function(xhr) {
       //Do Something to handle error
-    }
-  });
-}
-
-function updateVidFeedColor() {
-  $.ajax({
-    type: 'GET',
-    url: '/alignment_status',
-    // data: form_data,
-    contentType: false,
-		cache: false,
-		processData:false,
-    success: function(data) {
-      if (data.status == 'aligned') {
-          console.log("got alignment!!");
-          d3.select("#videoFeed").classed("camera-feed", false);
-          d3.select("#videoFeed").classed("camera-feed-green", true);
-          updateVidFeedColor();
-      } else if (data.status == 'unaligned') {
-        console.log("not aligned...");
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
-        updateVidFeedColor();
-      }
-    },
-    error: function(xhr) {
-      console.log("got a data error?");
     }
   });
 }

@@ -11,6 +11,7 @@ import time
 import cv2
 from math import inf
 
+ALIGNED = False
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
@@ -73,7 +74,7 @@ def get_anc_response(template_json):
 ## IDEA: create a version of this that works w/o file.filename
 # but jumps to the part where the file is already written (ie in live stream case)
 def get_processed_file_json(html_page, template_json):
-    if request.method == 'POST':
+    if request.method == 'GET':
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -129,6 +130,7 @@ def write_prediction(image, align_score, blurry_score):
 # When a valid alignment is found, run the rest of the processing pipeline
 # and return a Form object in JSON that can be passed to frontend
 def gen(camera):
+    global ALIGNED
     good_frames_captured = 0
     good_frames_threshold = 5 # number of good frames before picking one
 
@@ -150,10 +152,12 @@ def gen(camera):
             # Uncomment to write out image with align_score & blurry_score
             # write_prediction(aligned_image, align_score, blurry_score)
             if is_blurry:
+                ALIGNED = False
                 print("Too blurry", blurry_score)
                 continue
 
             if not is_blurry:
+                ALIGNED = True
                 # because it is difficult to combine alignment & blurriness
                 # into one heuristic just use best alignment score for now.
                 good_frames_captured = good_frames_captured + 1
@@ -162,6 +166,7 @@ def gen(camera):
                     best_aligned_image = aligned_image
 
         except AlignmentError as err:
+            ALIGNED = False
             # Uncomment the line below for live alignment debug in console
             print("Alignment Error!")
             continue
