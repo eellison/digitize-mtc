@@ -1,33 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Functionality for pulling image from live stream
 /////////////////////////////////////////////////////////////////////
-// function updateVidFeedColor() {
-//   $.ajax({
-//     type: 'GET',
-//     url: '/alignment_status',
-//     // data: form_data,
-//     contentType: false,
-// 		cache: false,
-// 		processData:false,
-//     success: function(data) {
-//       if (data.status == 'aligned') {
-//           console.log("got alignment!!");
-//           d3.select("#videoFeed").classed("camera-feed", false);
-//           d3.select("#videoFeed").classed("camera-feed-green", true);
-//           updateVidFeedColor();
-//       } else if (data.status == 'unaligned') {
-//         console.log("not aligned...");
-//         d3.select("#videoFeed").classed("camera-feed-green", false);
-//         d3.select("#videoFeed").classed("camera-feed", true);
-//         updateVidFeedColor();
-//       }
-//     },
-//     error: function(xhr) {
-//       console.log("got a data error?");
-//     }
-//   });
-// }
-
 function requestLiveFeedResponse() {
   $.ajax({
     type: 'GET',
@@ -65,50 +38,12 @@ function requestLiveFeedResponse() {
   });
 }
 
-// function requestLiveFeedResponse() {
-//   $.ajax({
-//     type: 'GET',
-//     url: '/video_feed',
-//     // data: form_data,
-//     contentType: false,
-// 		cache: false,
-// 		processData:false,
-//     success: function(data) {
-//       if (data.status == 'success') {
-//         $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
-// 				form = data;
-// 				console.log(form);
-// 				display(form);
-//         visualize(form);
-//         displaySvgFrame();
-//         $(".question_group_title").click();
-//         hideUpload();
-//       } else if (data.status == 'error') {
-//         $('#upload-response').append("<h3>" + data.error_msg + "</h3>")
-//       }
-//     },
-//     error: function(xhr) {
-//       //Do Something to handle error
-//     }
-//   });
-// }
-
-// function runCamera() {
-//   updateVidFeedColor();
-//   requestLiveFeedResponse();
-// }
-
 $(function() {
 	$('#turn-on-align-btn').click(function() {
+     d3.select("#turn-on-align-btn").text("Scanning...");
 	   requestLiveFeedResponse();
    })
  });
-
- // $(function() {
- // 	$('#turn-on-align-feedback-btn').click(function() {
- // 	   updateVidFeedColor();
- //    })
- //  });
 
 /////////////////////////////////////////////////////////////////////
 // Functionality for sending / receiving the form and editing results
