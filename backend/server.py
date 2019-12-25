@@ -186,9 +186,8 @@ def gen(camera):
 
 
 # Check the alignment status and return a response to the frontend
-@app.route('/alignment_status')
+@app.route('/alignment_status', methods=['GET', 'POST'])
 def alignment_status():
-    global ALIGNED
     starting_alignment_status = deepcopy(ALIGNED)
     print("in the alignment func")
     while (starting_alignment_status ==  ALIGNED):
@@ -204,7 +203,7 @@ def alignment_status():
 
 
 # Stream from web cam
-@app.route('/video_feed')
+@app.route('/video_feed', methods=['GET', 'POST'])
 def video_feed():
     return gen(Camera())
 

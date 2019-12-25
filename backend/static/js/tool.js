@@ -8,7 +8,6 @@ function updateVidFeedColor() {
     // data: form_data,
     contentType: false,
 		cache: false,
-    async: true,
 		processData:false,
     success: function(data) {
       if (data.status == 'aligned') {
@@ -36,7 +35,6 @@ function requestLiveFeedResponse() {
     // data: form_data,
     contentType: false,
 		cache: false,
-    async: true,
 		processData:false,
     success: function(data) {
       if (data.status == 'success') {
@@ -63,7 +61,17 @@ function runCamera() {
   requestLiveFeedResponse();
 }
 
+$(function() {
+	$('#turn-on-align-btn').click(function() {
+	   requestLiveFeedResponse();
+   })
+ });
 
+ $(function() {
+ 	$('#turn-on-align-feedback-btn').click(function() {
+ 	   updateVidFeedColor();
+    })
+  });
 
 /////////////////////////////////////////////////////////////////////
 // Functionality for sending / receiving the form and editing results
