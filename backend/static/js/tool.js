@@ -21,11 +21,13 @@ function requestLiveFeedResponse() {
         hideUpload();
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
+        d3.select("#turn-on-align-btn").text(data.remaining_frames);
         d3.select("#videoFeed").classed("camera-feed", false);
         d3.select("#videoFeed").classed("camera-feed-green", true);
         requestLiveFeedResponse();
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
+        d3.select("#turn-on-align-btn").text("Scanning...");
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
         requestLiveFeedResponse();

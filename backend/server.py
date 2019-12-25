@@ -126,9 +126,10 @@ def write_prediction(image, align_score, blurry_score):
     _input += 1
 
 
-def json_status(status_str):
+def json_status(status_str, remaining_frames):
     resp = {}
     resp["status"] = status_str
+    resp["remaining_frames"] = remaining_frames
     return jsonify(resp)
 
 # Set up global variables
@@ -165,7 +166,7 @@ def video_feed():
         if is_blurry:
             good_frames_captured = 0
             print("Too blurry", blurry_score)
-            return json_status("unaligned")
+            return json_status("unaligned", None)
 
         if not is_blurry:
             good_frames_captured = good_frames_captured + 1
@@ -176,7 +177,9 @@ def video_feed():
                 best_aligned_image = aligned_image
 
             if good_frames_captured < good_frames_to_capture_before_processing:
-                return json_status("aligned")
+                num_remaining_frames = good_frames_to_capture_before_processing - good_frames_captured
+                remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
+                return json_status("aligned", remaining_frames_str)
             else:
                 # Reset the good frame counter
                 good_frames_captured = 0
@@ -197,7 +200,7 @@ def video_feed():
         good_frames_captured = 0
         # Uncomment the line below for live alignment debug in console
         print("Alignment Error!")
-        return json_status("unaligned")
+        return json_status("unaligned", None)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
