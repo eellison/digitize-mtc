@@ -199,6 +199,8 @@ def video_feed():
             else:
                 # Reset the good frame counter
                 good_frames_captured = 0
+                # Release the camera feed
+                # cam.stream.release()
                 # Run mark recognition on aligned image
                 answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
                 # Write output
