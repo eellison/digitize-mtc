@@ -116,7 +116,13 @@ def save_response():
 # TODO: (sud) select video feed based on selection on frontend
 class Camera(object):
     def __init__(self):
-        cap = cv2.VideoCapture(0)
+        cams_test = 11
+        for i in range(-11, cams_test):
+            cap = cv2.VideoCapture(i)
+            test, frame = cap.read()
+            print("i : "+str(i)+" /// result: "+str(test))
+
+        cap = cv2.VideoCapture(1)
         self.stream = cap
 
 _input = 0
@@ -126,87 +132,81 @@ def write_prediction(image, align_score, blurry_score):
     _input += 1
 
 
-# Continuously pull frames from Camera, and attempt alignment
-# When a valid alignment is found, run the rest of the processing pipeline
-# and return a Form object in JSON that can be passed to frontend
-def gen(camera):
-    global ALIGNED
-    good_frames_captured = 0
-    good_frames_threshold = 5 # number of good frames before picking one
-
-    # lower alignment score is better
-    best_aligned_image, best_align_score = None, inf
-    while good_frames_captured < good_frames_threshold:
-        time.sleep(3) # wait one second before re-processing
-        # Capture frame-by-frame
-        json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / "delivery_pg_1.json")
-        template = util.read_json_to_form(json_template_location) # Form object
-        template_image = util.read_image(template.image) # numpy.ndarray
-        try:
-            start = time.time()
-            ret, live_frame = camera.stream.read()
-            aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)
-            # Uncomment the line below for live alignment debug in console
-            print("Good Alignment!")
-            is_blurry, blurry_score = compute_blurriness(aligned_image)
-            # Uncomment to write out image with align_score & blurry_score
-            # write_prediction(aligned_image, align_score, blurry_score)
-            if is_blurry:
-                ALIGNED = False
-                print("Too blurry", blurry_score)
-                continue
-
-            if not is_blurry:
-                ALIGNED = True
-                # because it is difficult to combine alignment & blurriness
-                # into one heuristic just use best alignment score for now.
-                good_frames_captured = good_frames_captured + 1
-                if align_score < best_align_score:
-                    best_align_score = align_score
-                    best_aligned_image = aligned_image
-
-        except AlignmentError as err:
-            ALIGNED = False
-            # Uncomment the line below for live alignment debug in console
-            print("Alignment Error!")
-            continue
-
-    # Run mark recognition on aligned image
-    answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
-    # Write output
-    aligned_filename = util.write_aligned_image("original_frame.jpg", aligned_image)
-    # Create Form object with result, and JSONify to be sent to front end
-    processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
-    encoder = FormTemplateEncoder()
-    encoded_form = encoder.default(processed_form)
-    encoded_form['status'] = "success"
-    end = time.time()
-    print("\n\n\n It took %.2f to run the process script." % (end-start))
-    return jsonify(encoded_form)
-
-
-# Check the alignment status and return a response to the frontend
-@app.route('/alignment_status')
-def alignment_status():
-    global ALIGNED
-    starting_alignment_status = deepcopy(ALIGNED)
-    print("in the alignment func")
-    while (starting_alignment_status ==  ALIGNED):
-        time.sleep(1) # wait for a couple seconds
-        continue # keep listening for change in global variable
+def json_status(status_str, remaining_frames):
     resp = {}
-    print("found a change!")
-    if ALIGNED:
-        resp["status"] = "aligned"
-    else:
-        resp["status"] = "unaligned"
+    resp["status"] = status_str
+    resp["remaining_frames"] = remaining_frames
     return jsonify(resp)
 
+# Set up global variables
+cam = Camera()
+sec_btw_captures = 1
+good_frames_captured = 0
+good_frames_to_capture_before_processing = 5
+best_aligned_image = None
+best_align_score = inf # lower alignment score is better
 
-# Stream from web cam
-@app.route('/video_feed')
+@app.route('/check_alignment', methods=['GET', 'POST'])
 def video_feed():
-    return gen(Camera())
+    global cam
+    global sec_btw_captures
+    global good_frames_captured
+    global good_frames_to_capture_before_processing
+    global best_aligned_image
+    global best_align_score
+
+    time.sleep(sec_btw_captures) # wait before processing frame
+
+    json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / "delivery_pg_1.json")
+    template = util.read_json_to_form(json_template_location) # Form object
+    template_image = util.read_image(template.image) # numpy.ndarray
+    try:
+        start = time.time()
+        ret, live_frame = cam.stream.read()
+        aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)
+        # Uncomment the line below for live alignment debug in console
+        print("Good Alignment!")
+        is_blurry, blurry_score = compute_blurriness(aligned_image)
+        # Uncomment to write out image with align_score & blurry_score
+        # write_prediction(aligned_image, align_score, blurry_score)
+        if is_blurry:
+            good_frames_captured = 0
+            print("Too blurry", blurry_score)
+            return json_status("unaligned", None)
+
+        if not is_blurry:
+            good_frames_captured = good_frames_captured + 1
+            # because it is difficult to combine alignment & blurriness
+            # into one heuristic just use best alignment score for now.
+            if align_score < best_align_score:
+                best_align_score = align_score
+                best_aligned_image = aligned_image
+
+            if good_frames_captured < good_frames_to_capture_before_processing:
+                num_remaining_frames = good_frames_to_capture_before_processing - good_frames_captured
+                remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
+                return json_status("aligned", remaining_frames_str)
+            else:
+                # Reset the good frame counter
+                good_frames_captured = 0
+                # Run mark recognition on aligned image
+                answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
+                # Write output
+                aligned_filename = util.write_aligned_image("original_frame.jpg", aligned_image)
+                # Create Form object with result, and JSONify to be sent to front end
+                processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
+                encoder = FormTemplateEncoder()
+                encoded_form = encoder.default(processed_form)
+                encoded_form['status'] = "success"
+                end = time.time()
+                print("\n\n\n It took %.2f to run the process script." % (end-start))
+                return jsonify(encoded_form)
+
+    except AlignmentError as err:
+        good_frames_captured = 0
+        # Uncomment the line below for live alignment debug in console
+        print("Alignment Error!")
+        return json_status("unaligned", None)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

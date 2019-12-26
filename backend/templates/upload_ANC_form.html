@@ -96,8 +96,13 @@
 
                     <div class="camera-feed" id="videoFeed">
                     	<div class="select camera-select-box">
-	                        <label for="videoSource"> Video source: </label><select id="videoSource"></select>
+	                        <label for="videoSource">  </label><select id="videoSource"></select>
+                          <!-- NOTE: Switch to line below for a "Video Source: " label next to the dropdown video -->
+                          <!-- <label for="videoSource"> Video source: </label><select id="videoSource"></select> -->
 	                    </div>
+                      <div class="upload-button">
+                        <button id="turn-on-align-btn" type="button" class="highlighted">Turn on Align Feature</button>
+                      </div>
                       <video width="540" height="620" muted autoplay></video>
                     </div>
 
@@ -123,6 +128,7 @@ var json_path = "{{ json_path }}"
 <script type="text/javascript" src="/static/js/video-stream.js"></script>
 <script type="text/javascript" src="/static/js/tool.js"></script>
 <script>
-requestLiveFeedResponse();
+// requestLiveFeedResponse();
 // runCamera();
+// updateVidFeedColor();
 </script>

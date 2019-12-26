@@ -403,13 +403,23 @@ nav.side-bar-nav a{
 	background-color: #d8d8d8;
 }
 
+.camera-feed-green{
+	display: inline-block;
+	vertical-align: top;
+	float:right;
+	width: 60%;
+	height: 100vh;
+	background-color: #00ff00;
+}
+
 .camera-select-box{
-	  background-color: white;
+	  /* background-color: white; */
     display: -webkit-inline-box;
-    padding: 0.5em;
-    font-size: 12px;
-    margin: 1em;
-    border-radius: 2px;
+		float: right;
+    /* padding: 0.5em; */
+    font-size: 11px;
+    /* margin: 1em; */
+    /* border-radius: 2px; */
 }
 
 .page-box{
