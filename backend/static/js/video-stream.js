@@ -49,8 +49,8 @@ function getStream() {
 	var constraints = {
 		video: {
 			deviceId: {exact: videoSelect.value},
-			width: { ideal: 4096 },
-			height: { ideal: 2160 }
+			// width: { ideal: 4096 },
+			// height: { ideal: 2160 }
 		}
 	};
 

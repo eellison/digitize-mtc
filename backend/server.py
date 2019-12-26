@@ -116,13 +116,20 @@ def save_response():
 # TODO: (sud) select video feed based on selection on frontend
 class Camera(object):
     def __init__(self):
-        cams_test = 11
-        for i in range(-11, cams_test):
-            cap = cv2.VideoCapture(i)
-            test, frame = cap.read()
-            print("i : "+str(i)+" /// result: "+str(test))
+        # cams_test = 11
+        # for i in range(-11, cams_test):
+        #     cap = cv2.VideoCapture(i)
+        #     test, frame = cap.read()
+        #     print("i : "+str(i)+" /// result: "+str(test))
+        #     print(frame)
+        #     cap.release()
 
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
+        test, frame = cap.read()
+        print(test)
+        print(frame)
         self.stream = cap
 
 _input = 0
@@ -163,6 +170,9 @@ def video_feed():
     try:
         start = time.time()
         ret, live_frame = cam.stream.read()
+        print(ret)
+        # print(live_frame)
+        # cv2.imwrite("test_image.jpg", live_frame)
         aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)
         # Uncomment the line below for live alignment debug in console
         print("Good Alignment!")
