@@ -116,7 +116,13 @@ def save_response():
 # TODO: (sud) select video feed based on selection on frontend
 class Camera(object):
     def __init__(self):
-        cap = cv2.VideoCapture(0)
+        cams_test = 11
+        for i in range(-11, cams_test):
+            cap = cv2.VideoCapture(i)
+            test, frame = cap.read()
+            print("i : "+str(i)+" /// result: "+str(test))
+
+        cap = cv2.VideoCapture(1)
         self.stream = cap
 
 _input = 0
