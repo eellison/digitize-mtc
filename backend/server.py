@@ -121,8 +121,7 @@ class Camera(object):
         # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
         # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
         test, frame = cap.read()
-        print(test)
-        print(frame)
+        print("Cam Connection Test Passed: " + str(test))
         self.stream = cap
 
 _input = 0
@@ -137,6 +136,15 @@ def json_status(status_str, remaining_frames):
     resp["status"] = status_str
     resp["remaining_frames"] = remaining_frames
     return jsonify(resp)
+
+def reset_globals():
+    global good_frames_captured
+    global best_aligned_image
+    global best_align_score
+    good_frames_captured = 0
+    best_aligned_image = None
+    best_align_score = inf
+    return None
 
 # Set up global variables
 cam = Camera()
@@ -190,8 +198,6 @@ def video_feed():
                 remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
                 return json_status("aligned", remaining_frames_str)
             else:
-                # Reset the good frame counter
-                good_frames_captured = 0
                 # Release the camera feed
                 # cam.stream.release()
                 # Run mark recognition on aligned image
@@ -205,10 +211,12 @@ def video_feed():
                 encoded_form['status'] = "success"
                 end = time.time()
                 print("\n\n\n It took %.2f to run the process script." % (end-start))
+                # Reset the global counters
+                reset_globals()
                 return jsonify(encoded_form)
 
     except AlignmentError as err:
-        good_frames_captured = 0
+        reset_globals()
         # Uncomment the line below for live alignment debug in console
         print("Alignment Error!")
         return json_status("unaligned", None)
