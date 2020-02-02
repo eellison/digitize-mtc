@@ -202,8 +202,6 @@ def video_feed():
                 remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
                 return json_status("aligned", remaining_frames_str)
             else:
-                # Release the camera feed
-                # cam.stream.release()
                 # Run mark recognition on aligned image
                 answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
                 # Write output
