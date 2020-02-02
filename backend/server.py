@@ -49,6 +49,11 @@ def basic_info(json_path):
     return render_template('basic-info.html', form_name=getFormName(json_path), json_path = json_path)
 
 
+@app.route('/settings/')
+def settings():
+    return render_template('settings.html')
+
+
 
 @app.route('/upload_page/<json_path>', methods=['GET', 'POST'])
 def upload_form(json_path):
