@@ -117,9 +117,9 @@ def save_response():
 class Camera(object):
     def __init__(self):
         # cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
-        cap = cv2.VideoCapture(0)
-        # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
-        # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
+        cap = cv2.VideoCapture(1)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
         test, frame = cap.read()
         print("Cam Connection Test Passed: " + str(test))
         self.stream = cap
@@ -171,7 +171,6 @@ def video_feed():
     try:
         start = time.time()
         ret, live_frame = cam.stream.read()
-        print(ret)
         # print(live_frame)
         # cv2.imwrite("test_image.jpg", live_frame)
         aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)

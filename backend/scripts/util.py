@@ -13,7 +13,7 @@ import time
 from skimage.filters import threshold_local
 
 # CONSTANTS
-BLACK_LEVEL  = 0.5 * 255
+BLACK_LEVEL  = 0.6 * 255
 
 def read_image(image_path):
     """
