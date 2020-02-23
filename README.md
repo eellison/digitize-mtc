@@ -10,7 +10,7 @@ Dependencies
 - NumPy (``python3-numpy``)
 - SciPy (``python3-scipy``)
 - scikit-image (``python3-skimage``)
-- opencv (``opencv-python``)
+- opencv (``opencv-contrib-python``)
 - onnxruntime (``onnxruntime``)
 - pathlib (``pathlib``)
 - flask (``flask``)
