@@ -25,7 +25,7 @@
 
 
   <div class="console">
-     
+
       <div class="console-wrapper">
 
         <div class="nav">
@@ -39,14 +39,18 @@
               Antenatal Record
             </div>
           </a>
-          <a href="{{ url_for('upload_form', json_path='delivery_pg_1.json') }}">
+          <a href="{{ url_for('upload_form', json_path='delivery') }}">
+            <div class="select-form-button">
+              Delivery Record
+            </div></a>
+          <!-- <a href="{{ url_for('upload_form', json_path='delivery_pg_1.json') }}">
             <div class="select-form-button">
               Delivery Record Pg 1
             </div></a>
           <a href="{{ url_for('upload_form', json_path='delivery_pg_2.json') }}">
             <div class="select-form-button">
               Delivery Record Pg 2
-            </div></a>
+            </div></a> -->
         </div>
       </div>
 

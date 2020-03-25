@@ -48,7 +48,7 @@ def getFormName(json_path):
 
 # DAN:
 # upload_page takes in form name and renders upload_ANC_form.html with formal form name and number of form pages
-# upload_ANC_form.html initializes form variable as an array of length number of form pages and initializes 
+# upload_ANC_form.html initializes form variable as an array of length number of form pages and initializes
 #  a local variable for which page it is looking at.
 # requestLiveFeedResponse calls with form name and local page number
 # upload_ANC_form.html has a process record button which moves to the visualize step.
@@ -74,8 +74,8 @@ def settings():
 @app.route('/upload_page/<json_path>', methods=['GET', 'POST'])
 def upload_form(json_path):
     template = templates[json_path]
-    form_name = template.name
-    num_pages = len(template.pages)
+    form_name = template["name"]
+    num_pages = len(template["pages"])
     return render_template('upload_ANC_form.html', form_name=form_name, num_pages=num_pages)
 
 # AJAX request with uploaded file
@@ -169,13 +169,6 @@ def reset_globals():
     best_align_score = inf
     return None
 
-# Set up global variables
-cam = Camera()
-sec_btw_captures = 1
-good_frames_captured = 0
-good_frames_to_capture_before_processing = 5
-best_aligned_image = None
-best_align_score = inf # lower alignment score is better
 
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def video_feed(form_name, page_number):
@@ -188,11 +181,8 @@ def video_feed(form_name, page_number):
 
     time.sleep(sec_btw_captures) # wait before processing frame
 
-    # json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / json_path)
-    # template = util.read_json_to_form(json_template_location) # Form object
-    # template_image = util.read_image(template.image) # numpy.ndarray
-    template = templates[form_name]
-    template_image = template_images[form_name]
+    template = templates[form_name]["pages"][int(page_number)]
+    template_image = templates[form_name]["images"][int(page_number)]
 
     try:
         start = time.time()
@@ -244,9 +234,29 @@ def video_feed(form_name, page_number):
         print("Alignment Error!")
         return json_status("unaligned", None)
 
+def upload_all_templates():
+    # Populate the "templates" and "template_images" Python dictionaries with
+    # modeled Python "Form" objects
+    global templates
+
+    # TODO: create a loop that loads all files *.json from forms/json_annotations
+    file_name = "delivery"
+    path_to_json_file = str(Path.cwd() / "backend" / "forms" / "json_annotations" / (file_name + ".json"))
+    templates[file_name] = read_multipage_json_to_form(path_to_json_file)
+
+# Set up global variables
+cam = Camera()
+sec_btw_captures = 1
+good_frames_captured = 0
+good_frames_to_capture_before_processing = 5
+best_aligned_image = None
+best_align_score = inf # lower alignment score is better
+templates = {}
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
     args = parser.parse_args()
+    upload_all_templates()
     webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)
