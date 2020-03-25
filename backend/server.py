@@ -77,7 +77,7 @@ def upload_form(json_path):
     # form_name = template.name
     # num_pages = len(template.pages)
     form_name = "Test"
-    num_pages = 10
+    num_pages = 3
     return render_template('upload_ANC_form.html', form_name=form_name, num_pages=num_pages)
 
 # AJAX request with uploaded file
@@ -194,7 +194,7 @@ def video_feed(form_name, page_number):
     # template = util.read_json_to_form(json_template_location) # Form object
     # template_image = util.read_image(template.image) # numpy.ndarray
     template = templates[form_name]
-    template_image = template.image
+    template_image = template_images[form_name]
 
     try:
         start = time.time()
