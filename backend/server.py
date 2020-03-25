@@ -43,9 +43,32 @@ def getFormName(json_path):
         return "Delivery Page 2"
     assert False, "need to add another condition"
 
+def get_form_templates():
+    json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / json_path)
+    template = util.read_json_to_form(json_template_location) # Form object
+    template_image = util.read_image(template.image) # numpy.ndarray
+
+
+# DAN:
+# Dictionary of "form name" \to "template python forms" created when main is called
+# upload_page takes in form name and renders upload_ANC_form.html with formal form name and number of form pages
+# upload_ANC_form.html initializes form variable as an array of length number of form pages and initializes 
+#  a local variable for which page it is looking at.
+# requestLiveFeedResponse calls with form name and local page number
+# upload_ANC_form.html has a process record button which moves to the visualize step.
+
+# SUD:
+# save button saves the array form and needs location to save to
+# write_to_csv will concatenate data from each page of the form.
+
+
+
 @app.route('/basic_info/<json_path>', methods=['GET', 'POST'])
 def basic_info(json_path):
     # TODO add parameters for form name and json path
+    template = template_form[json_path]
+    form_name = template.name
+    number_pages = template.pages.length
     return render_template('basic-info.html', form_name=getFormName(json_path), json_path = json_path)
 
 

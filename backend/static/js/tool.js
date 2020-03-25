@@ -24,13 +24,13 @@ function requestLiveFeedResponse(json_path) {
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
         d3.select("#videoFeed").classed("camera-feed", false);
         d3.select("#videoFeed").classed("camera-feed-green", true);
-        requestLiveFeedResponse();
+        requestLiveFeedResponse(json_path);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
         d3.select("#turn-on-align-btn").text("Scanning...");
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
-        requestLiveFeedResponse();
+        requestLiveFeedResponse(json_path);
       }
     },
     error: function(xhr) {
