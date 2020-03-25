@@ -37,7 +37,7 @@ function requestLiveFeedResponse(form_name, page_number) {
 $(function() {
 	$('#turn-on-align-btn').click(function() {
      d3.select("#turn-on-align-btn").text("Scanning...");
-	   requestLiveFeedResponse(json_path);
+	   requestLiveFeedResponse(json_path, current_page);
    })
  });
 
