@@ -122,7 +122,7 @@ def save_response():
 class Camera(object):
     def __init__(self):
         # cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(0)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
         test, frame = cap.read()
