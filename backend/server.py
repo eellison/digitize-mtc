@@ -62,9 +62,6 @@ def getFormName(json_path):
 @app.route('/basic_info/<json_path>', methods=['GET', 'POST'])
 def basic_info(json_path):
     # TODO add parameters for form name and json path
-    template = template_form[json_path]
-    form_name = template.name
-    number_pages = template.pages.length
     return render_template('basic-info.html', form_name=getFormName(json_path), json_path = json_path)
 
 
@@ -76,8 +73,12 @@ def settings():
 
 @app.route('/upload_page/<json_path>', methods=['GET', 'POST'])
 def upload_form(json_path):
-    # TODO add parameters for form name and json path
-    return render_template('upload_ANC_form.html', form_name=getFormName(json_path), json_path = json_path)
+    # template = templates[json_path]
+    # form_name = template.name
+    # num_pages = len(template.pages)
+    form_name = "Test"
+    num_pages = 10
+    return render_template('upload_ANC_form.html', form_name=form_name, num_pages=num_pages)
 
 # AJAX request with uploaded file
 ## IDEA: create a version of this that is also checking the global variable
@@ -178,8 +179,8 @@ good_frames_to_capture_before_processing = 5
 best_aligned_image = None
 best_align_score = inf # lower alignment score is better
 
-@app.route('/check_alignment/<json_path>', methods=['GET', 'POST'])
-def video_feed(json_path):
+@app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
+def video_feed(form_name, page_number):
     global cam
     global sec_btw_captures
     global good_frames_captured
@@ -189,9 +190,12 @@ def video_feed(json_path):
 
     time.sleep(sec_btw_captures) # wait before processing frame
 
-    json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / json_path)
-    template = util.read_json_to_form(json_template_location) # Form object
-    template_image = util.read_image(template.image) # numpy.ndarray
+    # json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / json_path)
+    # template = util.read_json_to_form(json_template_location) # Form object
+    # template_image = util.read_image(template.image) # numpy.ndarray
+    template = templates[form_name]
+    template_image = template.image
+
     try:
         start = time.time()
         ret, live_frame = cam.stream.read()
