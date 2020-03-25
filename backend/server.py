@@ -71,11 +71,13 @@ def settings():
 
 
 
-@app.route('/upload_page/<form>', methods=['GET', 'POST'])
-def upload_form(form):
-    template = templates[form]
-    form_name = template.name
-    num_pages = len(template.pages)
+@app.route('/upload_page/<json_path>', methods=['GET', 'POST'])
+def upload_form(json_path):
+    # template = templates[json_path]
+    # form_name = template.name
+    # num_pages = len(template.pages)
+    form_name = "Test"
+    num_pages = 10
     return render_template('upload_ANC_form.html', form_name=form_name, num_pages=num_pages)
 
 # AJAX request with uploaded file
