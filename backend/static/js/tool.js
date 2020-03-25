@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////
 // Functionality for pulling image from live stream
 /////////////////////////////////////////////////////////////////////
-function requestLiveFeedResponse() {
+function requestLiveFeedResponse(json_path) {
   $.ajax({
     type: 'GET',
-    url: '/check_alignment',
+    url: '/check_alignment/' + json_path,
     // data: form_data,
     contentType: false,
 		cache: false,
@@ -43,7 +43,7 @@ function requestLiveFeedResponse() {
 $(function() {
 	$('#turn-on-align-btn').click(function() {
      d3.select("#turn-on-align-btn").text("Scanning...");
-	   requestLiveFeedResponse();
+	   requestLiveFeedResponse(json_path);
    })
  });
 

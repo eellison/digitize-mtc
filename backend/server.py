@@ -159,8 +159,8 @@ good_frames_to_capture_before_processing = 5
 best_aligned_image = None
 best_align_score = inf # lower alignment score is better
 
-@app.route('/check_alignment', methods=['GET', 'POST'])
-def video_feed():
+@app.route('/check_alignment/<json_path>', methods=['GET', 'POST'])
+def video_feed(json_path):
     global cam
     global sec_btw_captures
     global good_frames_captured
@@ -170,7 +170,7 @@ def video_feed():
 
     time.sleep(sec_btw_captures) # wait before processing frame
 
-    json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / "delivery_pg_1.json")
+    json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / json_path)
     template = util.read_json_to_form(json_template_location) # Form object
     template_image = util.read_image(template.image) # numpy.ndarray
     try:
