@@ -37,8 +37,8 @@ function requestLiveFeedResponse(form_name, page_number) {
 
 $(function() {
 	$('#turn-on-align-btn').click(function() {
-     d3.select("#turn-on-align-btn").text("Scanning for page " + current_page);
-	   requestLiveFeedResponse(json_path, current_page);
+     d3.select("#turn-on-align-btn").text("Scanning for page " + (current_page + 1));
+	   requestLiveFeedResponse(file_path, current_page);
    })
  });
 
@@ -65,10 +65,10 @@ $(function() {
 // 	$('#upload-file-btn').click(function() {
 // 		var form_data = new FormData($('#upload-file')[0]);
 
-// 		// json_path is passed in by the template
+// 		// file_path is passed in by the template
 // 		$.ajax({
 // 			type: 'POST',
-// 			url: '/upload_and_process_file/' + json_path,
+// 			url: '/upload_and_process_file/' + file_path,
 // 			data: form_data,
 // 			contentType: false,
 // 			cache: false,
@@ -447,7 +447,7 @@ $(function() {
 		// $('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
-			url: '/save/' + json_path,
+			url: '/save/' + file_path,
 			data: JSON.stringify(form),
 			contentType: false,
 			cache: false,
