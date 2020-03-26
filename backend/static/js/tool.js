@@ -12,7 +12,10 @@ function requestLiveFeedResponse(form_name, page_number) {
     success: function(data) {
       if (data.status == 'success') {
         $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
-		form[current_page] = data;
+		form[page_number] = data;
+		d3.select("#turn-on-align-btn").text("Turn on Align Feature");
+		d3.select("#videoFeed").classed("camera-feed-green", false);
+		d3.select("#videoFeed").classed("camera-feed", true);
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
@@ -48,6 +51,12 @@ $(function() {
         displaySvgFrame();
         $(".question_group_title").click();
         hideUpload();
+   })
+ });
+
+$(function() {
+	$('.page-box').click(function() {
+     current_page = $('.page-box').index(this);
    })
  });
 
