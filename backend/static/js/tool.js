@@ -416,14 +416,14 @@ function display(form) {
 }
 
 
-function validate(form) {
-	var unanswered = [];
-	for (var i = 0; i < form.question_groups.length; i++) {
-		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "unresolved"; })
-		unanswered = unanswered.concat(a)
-	}
-	return unanswered.length
-}
+// function validate(form) {
+// 	var unanswered = [];
+// 	for (var i = 0; i < form.question_groups.length; i++) {
+// 		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "unresolved"; })
+// 		unanswered = unanswered.concat(a)
+// 	}
+// 	return unanswered.length
+// }
 
 function displaySvgFrame(){
 	$("#update").css("display","inline-block");
@@ -444,7 +444,7 @@ function hideUpload(){
 
 $(function() {
 	$('#save-file-btn').click(function() {
-		$('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
+		// $('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
 			url: '/save/' + json_path,
