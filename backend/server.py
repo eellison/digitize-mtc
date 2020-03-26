@@ -53,6 +53,7 @@ def getFormName(json_path):
 # [DONE] requestLiveFeedResponse calls with form name and local page number
 # [TODO] when page icon click cancel previous requestLiveFeedResponse calls
 # [DONE] upload_ANC_form.html has a process record button which moves to the visualize step.
+# [TODO] on edit annotation page, have buttons to click between pages (ex. $('#process-form-btn').click(), with updated current_page var)
 
 # SUD:
 # [TODO] save button saves the array form and needs location to save to and on sucess returns home
