@@ -44,20 +44,12 @@ def getFormName(json_path):
     assert False, "need to add another condition"
 
 # SUD:
-# [FINISH] Dictionary of "form name" \to "template python forms" created when main is called
+# [TODO] Dictionary of "form name" \to "template python forms" created when main is called
+# [TODO] write_to_csv will concatenate data from each page of the form.
 
 # DAN:
-# [DONE] upload_page takes in form name and renders upload_ANC_form.html with formal form name and number of form pages
-# [DONE] upload_ANC_form.html initializes form variable as an array of length number of form pages and initializes
-#  a local variable for which page it is looking at.
-# [DONE] requestLiveFeedResponse calls with form name and local page number
 # [TODO] when page icon click cancel previous requestLiveFeedResponse calls
-# [DONE] upload_ANC_form.html has a process record button which moves to the visualize step.
 # [TODO] on edit annotation page, have buttons to click between pages (ex. $('#process-form-btn').click(), with updated current_page var)
-
-# SUD:
-# [TODO] save button saves the array form and needs location to save to and on sucess returns home
-# [TODO] write_to_csv will concatenate data from each page of the form.
 
 
 
@@ -128,11 +120,17 @@ def get_processed_file_json(html_page, template_json):
     return render_template(html_page)
 
 
-@app.route('/save', methods=['POST'])
-def save_response():
+@app.route('/save/<file>', methods=['POST'])
+def save_response(file):
     try:
-        decoded_form = decode_form(json.loads(request.data))
-        write_form_to_csv(decoded_form)
+        # NOTE: form is an array of jsons
+        form = decode_form(json.loads(request.data))
+        # TODO: write_form_to_csv should take in a file name (ex. delivery) and an array of jsons
+        # and should append a row to file.csv with concatenated jsons from array.
+        # write_form_to_csv(file, form)
+        
+        # decoded_form = decode_form(json.loads(request.data))
+        # write_form_to_csv(decoded_form)
         return jsonify(status='success')
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')

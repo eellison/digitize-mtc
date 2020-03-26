@@ -447,7 +447,7 @@ $(function() {
 		$('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
-			url: '/save',
+			url: '/save/' + json_path,
 			data: JSON.stringify(form),
 			contentType: false,
 			cache: false,
@@ -457,6 +457,7 @@ $(function() {
 
 				if (data.status == 'success') {
 					$('#save-response').append("<p>" + "Save success!" + "</p>")
+					window.location = "/"
 				} else if (data.status == 'error') {
 					$('#save-response').append("<p>" + data.error_msg + "</p>")
 				}
