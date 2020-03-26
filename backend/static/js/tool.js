@@ -129,14 +129,6 @@ svg.append("rect")
 	.call(zoom);
 
 var form_image = svg.append("g");
-// Add the question bounding box
-form_image.append("rect")
-	.attr("id", "tempRect")
-	.attr("class", "boundingBox")
-	.attr("x", 0)
-	.attr("y", 0)
-	.attr("width", 0)
-	.attr("height", 0);
 
 function zoomed() {
 	const currentTransform = d3.event.transform;
@@ -293,7 +285,7 @@ function drawRectAroundQuestionRegion( ) {
 }
 
 function visualize(form) {
-	// Image
+	// Images
 	var images = form_image.selectAll("image");
 	images = images.data([form.image]).enter()
 	.append('image')
@@ -301,6 +293,15 @@ function visualize(form) {
 	.attr('xlink:href', function(d) { return ("../static/" + d); })
 	.attr('width', "100%")
 	.on("click", reset);
+
+	// Add the question bounding box
+	form_image.append("rect")
+		.attr("id", "tempRect")
+		.attr("class", "boundingBox")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", 0)
+		.attr("height", 0);
 
 	// Question Groups
 	var question_groups = form_image.selectAll("g.question_group");
