@@ -1,36 +1,31 @@
 /////////////////////////////////////////////////////////////////////
 // Functionality for pulling image from live stream
 /////////////////////////////////////////////////////////////////////
-function requestLiveFeedResponse(json_path) {
+function requestLiveFeedResponse(form_name, page_number) {
   $.ajax({
     type: 'GET',
-    url: '/check_alignment/' + json_path,
-    // data: form_data,
+    url: '/check_alignment/' + form_name + '/' + page_number,
     contentType: false,
 		cache: false,
 		processData:false,
     success: function(data) {
       if (data.status == 'success') {
-        $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
-				form = data;
-				console.log(form);
-				display(form);
-        visualize(form);
-        displaySvgFrame();
-        $(".question_group_title").click();
-        hideUpload();
+		form[page_number] = data;
+		d3.select("#turn-on-align-btn").text("Turn on Align Feature");
+		d3.select("#videoFeed").classed("camera-feed-green", false);
+		d3.select("#videoFeed").classed("camera-feed", true);
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
         d3.select("#videoFeed").classed("camera-feed", false);
         d3.select("#videoFeed").classed("camera-feed-green", true);
-        requestLiveFeedResponse(json_path);
+        requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning...");
+        d3.select("#turn-on-align-btn").text("Scanning for page " + page_number);
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
-        requestLiveFeedResponse(json_path);
+        requestLiveFeedResponse(form_name, page_number);
       }
     },
     error: function(xhr) {
@@ -42,51 +37,65 @@ function requestLiveFeedResponse(json_path) {
 
 $(function() {
 	$('#turn-on-align-btn').click(function() {
-     d3.select("#turn-on-align-btn").text("Scanning...");
-	   requestLiveFeedResponse(json_path);
+     d3.select("#turn-on-align-btn").text("Scanning for page " + (current_page + 1));
+	   requestLiveFeedResponse(file_path, current_page);
+   })
+ });
+
+$(function() {
+	$('#process-form-btn').click(function() {
+     	display(form[current_page]);
+        visualize(form[current_page]);
+        displaySvgFrame();
+        $(".question_group_title").click();
+        hideUpload();
+   })
+ });
+
+$(function() {
+	$('.page-box').click(function() {
+     current_page = $('.page-box').index(this);
    })
  });
 
 /////////////////////////////////////////////////////////////////////
 // Functionality for sending / receiving the form and editing results
 /////////////////////////////////////////////////////////////////////
-$(function() {
-	$('#upload-file-btn').click(function() {
-		var form_data = new FormData($('#upload-file')[0]);
+// $(function() {
+// 	$('#upload-file-btn').click(function() {
+// 		var form_data = new FormData($('#upload-file')[0]);
 
-		// json_path is passed in by the template
-		$.ajax({
-			type: 'POST',
-			url: '/upload_and_process_file/' + json_path,
-			data: form_data,
-			contentType: false,
-			cache: false,
-			processData: false,
-			success: function(data) {
-				if (data.status == 'success') {
-					$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
-					form = data;
-					display(form);
-					visualize(form);
-					displaySvgFrame();
-					$(".question_group_title").click();
-					hideUpload();
-				} else if (data.status == 'error') {
-					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
-				}
-			},
-			error: function(error) {
-				$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
-			}
-		});
-	});
-});
-
-
+// 		// file_path is passed in by the template
+// 		$.ajax({
+// 			type: 'POST',
+// 			url: '/upload_and_process_file/' + file_path,
+// 			data: form_data,
+// 			contentType: false,
+// 			cache: false,
+// 			processData: false,
+// 			success: function(data) {
+// 				if (data.status == 'success') {
+// 					$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
+// 					form = data;
+// 					display(form);
+// 					visualize(form);
+// 					displaySvgFrame();
+// 					$(".question_group_title").click();
+// 					hideUpload();
+// 				} else if (data.status == 'error') {
+// 					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
+// 				}
+// 			},
+// 			error: function(error) {
+// 				$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
+// 			}
+// 		});
+// 	});
+// });
 
 
 
-var form;
+
 
 var width = (document.getElementById("main-content").offsetWidth)*0.6,
 	height = (document.getElementById("main-content").offsetWidth)*0.6,
@@ -172,7 +181,7 @@ function clicked(d) {
 	var response_region_name = d3.select(this).attr("response_region_name");
 	var question_name = d3.select(parentNode).attr('question_name');
 	var question_group_name = d3.select(getParentNode(parentNode)).attr('question_group_name');
-	var question_group = findByName(form.question_groups, question_group_name);
+	var question_group = findByName(form[current_page].question_groups, question_group_name);
 	var question = findByName(question_group.questions, question_name);
 
 	if (active.node() === parentNode) {
@@ -184,15 +193,15 @@ function clicked(d) {
 				question.response_regions[i].value = "empty";
 			}
 			response_region.value = "checked";
-			display(form);
-			visualize(form);
+			display(form[current_page]);
+			visualize(form[current_page]);
 
 		} else if (question_type_string == "checkbox") {
 			var response_region = question.response_regions[0];
 			// Flip the response region value on click
 			response_region.value = (response_region.value == "checked") ? "empty" : "checked";
-			display(form);
-			visualize(form);
+			display(form[current_page]);
+			visualize(form[current_page]);
 		}
 
 	} else {
@@ -233,7 +242,7 @@ function getQuestionBoundingCoordinates(question) {
 			boundary_box_width = (max_dx - min_x)
 			boundary_box_height = (max_dy - min_y);
 
-	return project_coordinates(min_x, min_y, boundary_box_width, boundary_box_height, form.w)
+	return project_coordinates(min_x, min_y, boundary_box_width, boundary_box_height, form[current_page].w)
 
 }
 
@@ -268,7 +277,7 @@ function edit(q) {
 			q.response_regions[i].value = d.checked ? "checked" : "empty";
 		}
 	});
-	visualize(form);
+	visualize(form[current_page]);
 }
 
 function drawRectAroundQuestionRegion( ) {
@@ -276,21 +285,23 @@ function drawRectAroundQuestionRegion( ) {
 }
 
 function visualize(form) {
-	// Image
-	form_image.selectAll("image").data([form.image]).enter()
+	// Images
+	var images = form_image.selectAll("image");
+	images = images.data([form.image]).enter()
 	.append('image')
+	.merge(images)
 	.attr('xlink:href', function(d) { return ("../static/" + d); })
 	.attr('width', "100%")
 	.on("click", reset);
 
 	// Add the question bounding box
 	form_image.append("rect")
-			.attr("id", "tempRect")
-			.attr("class", "boundingBox")
-			.attr("x", 0)
-			.attr("y", 0)
-			.attr("width", 0)
-			.attr("height", 0);
+		.attr("id", "tempRect")
+		.attr("class", "boundingBox")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", 0)
+		.attr("height", 0);
 
 	// Question Groups
 	var question_groups = form_image.selectAll("g.question_group");
@@ -405,14 +416,14 @@ function display(form) {
 }
 
 
-function validate(form) {
-	var unanswered = [];
-	for (var i = 0; i < form.question_groups.length; i++) {
-		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "unresolved"; })
-		unanswered = unanswered.concat(a)
-	}
-	return unanswered.length
-}
+// function validate(form) {
+// 	var unanswered = [];
+// 	for (var i = 0; i < form.question_groups.length; i++) {
+// 		var a = form.question_groups[i].questions.filter(function(d) { return d.answer_status == "unresolved"; })
+// 		unanswered = unanswered.concat(a)
+// 	}
+// 	return unanswered.length
+// }
 
 function displaySvgFrame(){
 	$("#update").css("display","inline-block");
@@ -433,10 +444,10 @@ function hideUpload(){
 
 $(function() {
 	$('#save-file-btn').click(function() {
-		$('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
+		// $('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
-			url: '/save',
+			url: '/save/' + file_path,
 			data: JSON.stringify(form),
 			contentType: false,
 			cache: false,
@@ -446,6 +457,7 @@ $(function() {
 
 				if (data.status == 'success') {
 					$('#save-response').append("<p>" + "Save success!" + "</p>")
+					window.location = "/"
 				} else if (data.status == 'error') {
 					$('#save-response').append("<p>" + data.error_msg + "</p>")
 				}

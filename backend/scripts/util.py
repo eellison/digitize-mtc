@@ -69,6 +69,29 @@ def read_json_to_form(path_to_json_file):
         template = decode_form(loaded_json)
     return template
 
+def read_multipage_json_to_form(path_to_json_file):
+    """
+    Args:
+        path_to_json_file (str): file with JSON for file
+    Returns:
+        template (Form): a template for the form (with no answers filled in)
+    """
+    with open(path_to_json_file, 'r') as json_template:
+        loaded_json = json.load(json_template)
+        template_form = {}
+        name = loaded_json["name"]
+        pages = []
+        images = []
+        for page in loaded_json["pages"]:
+            template_image = read_image(page["image"])
+            template_page = decode_form(page)
+            pages.append(template_page)
+            images.append(template_image)
+        template_form["name"] = name
+        template_form["pages"] = pages
+        template_form["images"] = images
+    return template_form
+
 def write_form_to_json(processed_form, json_output_path):
     """
     Args:

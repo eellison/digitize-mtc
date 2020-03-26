@@ -45,7 +45,7 @@
         </div>
         <div class="console-wrapper">
             <div class="nav">
-                <p class="caption">{{ form_name }}</p>
+                <p class="caption">{{ name }}</p>
                 <h1 id="nav-title">Scan Record</h1>
             </div>
 
@@ -70,25 +70,31 @@
                     <div class="page-queue" float="left">
                         <p>Page</p>
                         <form id="upload-file" method="post" float="left" enctype="multipart/form-data" >
-                            <div class="page-box page-box-new">
-                                <div class="page-ph-add">
 
-                                    <img id="file-thumbnail" src="/static/image/add.png" />
-                                </div>
-                                <div class="page-details-add">
-                                    <p>Page 1</p>
+                            {% for i in range(0, num_pages) %}
+							    <div class="page-box page-box-new">
+	                                <div class="page-ph-add">
+
+	                                    <img id="file-thumbnail" src="/static/image/add.png" />
+	                                </div>
+	                                <div class="page-details-add">
+	                                    <p>Page {{ i + 1 }}</p>
 
 
-                                    <label id="upload-file-instruction" for="file" class="caption"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
-                                    <input name="file" type="file" style="display: none" id="file">
-                                </div>
-                            </div>
+	                                    <label id="upload-file-instruction" for="file" class="caption"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
+	                                    <input name="file" type="file" style="display: none" id="file">
+	                                </div>
+	                            </div>
+							{% endfor %}
 
 
                         </form>
 
-                        <div class="upload-button">
+                        <!-- <div class="upload-button">
 	                        <button id="upload-file-btn" type="button" class="highlighted disabled">Process records</button>
+	                    </div> -->
+	                    <div class="upload-button">
+	                        <button id="process-form-btn" type="button" class="highlighted">Process record</button>
 	                    </div>
                     </div>
 
@@ -122,7 +128,9 @@
     </div>
 </body>
 <script>
-var json_path = "{{ json_path }}"
+var file_path = "{{ file_path }}";
+var form = new Array("{{ num_pages }}");
+var current_page = 0;
 </script>
 <script src="/static/js/d3.min.js"></script>
 <script type="text/javascript" src="/static/js/video-stream.js"></script>
