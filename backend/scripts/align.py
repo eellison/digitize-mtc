@@ -3,7 +3,7 @@ import numpy as np
 
 MAX_FEATURES = 500
 GOOD_MATCH_PERCENT = 0.11
-AVG_MATCH_DIST_CUTOFF = 42 # lower cutoff is more strict
+AVG_MATCH_DIST_CUTOFF = 47 # lower cutoff is more strict
 
 
 class AlignmentError(Exception):
