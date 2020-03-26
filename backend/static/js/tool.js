@@ -5,13 +5,11 @@ function requestLiveFeedResponse(form_name, page_number) {
   $.ajax({
     type: 'GET',
     url: '/check_alignment/' + form_name + '/' + page_number,
-    // data: form_data,
     contentType: false,
 		cache: false,
 		processData:false,
     success: function(data) {
       if (data.status == 'success') {
-        $('#upload-response').append("<h3>" + "Upload success!" + "</h3>")
 		form[page_number] = data;
 		d3.select("#turn-on-align-btn").text("Turn on Align Feature");
 		d3.select("#videoFeed").classed("camera-feed-green", false);
@@ -24,7 +22,7 @@ function requestLiveFeedResponse(form_name, page_number) {
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning...");
+        d3.select("#turn-on-align-btn").text("Scanning for page " + page_number);
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
         requestLiveFeedResponse(form_name, page_number);
@@ -39,7 +37,7 @@ function requestLiveFeedResponse(form_name, page_number) {
 
 $(function() {
 	$('#turn-on-align-btn').click(function() {
-     d3.select("#turn-on-align-btn").text("Scanning...");
+     d3.select("#turn-on-align-btn").text("Scanning for page " + current_page);
 	   requestLiveFeedResponse(json_path, current_page);
    })
  });

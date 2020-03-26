@@ -44,18 +44,19 @@ def getFormName(json_path):
     assert False, "need to add another condition"
 
 # SUD:
-# [DONE-ish] Dictionary of "form name" \to "template python forms" created when main is called
+# [FINISH] Dictionary of "form name" \to "template python forms" created when main is called
 
 # DAN:
 # [DONE] upload_page takes in form name and renders upload_ANC_form.html with formal form name and number of form pages
 # [DONE] upload_ANC_form.html initializes form variable as an array of length number of form pages and initializes
 #  a local variable for which page it is looking at.
 # [DONE] requestLiveFeedResponse calls with form name and local page number
+# [TODO] when page icon click cancel previous requestLiveFeedResponse calls
 # [DONE] upload_ANC_form.html has a process record button which moves to the visualize step.
 
 # SUD:
-# save button saves the array form and needs location to save to and on sucess returns home
-# write_to_csv will concatenate data from each page of the form.
+# [TODO] save button saves the array form and needs location to save to and on sucess returns home
+# [TODO] write_to_csv will concatenate data from each page of the form.
 
 
 
