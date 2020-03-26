@@ -124,11 +124,12 @@ def get_processed_file_json(html_page, template_json):
 def save_response(file):
     try:
         # NOTE: form is an array of jsons
-        form = decode_form(json.loads(request.data))
+        # TODO: fix decode_form to take in the array of JSONs and convert to Python model
+        # form = decode_form(json.loads(request.data))
         # TODO: write_form_to_csv should take in a file name (ex. delivery) and an array of jsons
         # and should append a row to file.csv with concatenated jsons from array.
         # write_form_to_csv(file, form)
-        
+
         # decoded_form = decode_form(json.loads(request.data))
         # write_form_to_csv(decoded_form)
         return jsonify(status='success')
