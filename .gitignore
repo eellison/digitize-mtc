@@ -1,6 +1,5 @@
 *.bak
 *.pyc
-*.json
 
 *__pycache__*
 backend/output/*.csv
