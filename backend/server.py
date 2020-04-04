@@ -88,6 +88,9 @@ def home():
 def settings():
     return render_template('settings.html')
 
+@app.route('/draw/')
+def draw():
+    return render_template('draw.html')
 
 @app.route('/upload/<form>', methods=['GET', 'POST'])
 def upload(form):
