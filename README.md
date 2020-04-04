@@ -9,7 +9,7 @@ Dependencies
 - Python lxml (``python3-lxml``)
 - NumPy (``python3-numpy``)
 - SciPy (``python3-scipy``)
-- scikit-image (``python3-skimage``)
+- scikit-image (``scikit-image``)
 - opencv (``opencv-contrib-python``)
 - onnxruntime (``onnxruntime``)
 - pathlib (``pathlib``)
