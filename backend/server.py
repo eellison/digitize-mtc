@@ -88,9 +88,19 @@ def home():
 def settings():
     return render_template('settings.html')
 
-@app.route('/annotate/')
-def annotate():
-    return render_template('annotate.html')
+@app.route('/create/', methods=['GET', 'POST'])
+def create():
+    if request.method == "GET":
+        return render_template('create.html')
+    if request.method == "POST":
+        name = request.form['name']
+        num_pages = int(request.form['number'])
+        # To Do: construct name.json of length number and update global templates
+        return render_template('annotate.html', name=name, num_pages=num_pages)
+
+# To Do: Remove file_path from the upload.  That way new form is just needing
+# name and num_pages.  We will do standard function from name => file_path (i.e. lower-case 
+# and replace spaces with hyphens).
 
 @app.route('/upload/<form>', methods=['GET', 'POST'])
 def upload(form):

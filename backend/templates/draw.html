@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+	html, body {height:100%;}
+	html {display:table; width:100%;}
+	body {display:table-cell; text-align:center; vertical-align:middle;}
+	svg {border: 1px solid black;}
+	svg g { cursor: all-scroll; }
+	.shift-pressed { cursor: pointer !important; }
+	rect {
+	  fill-opacity: 0.2;
+	  stroke: black;
+	  stroke-width: 0.5px;
+	  cursor: grab;
+	}
+	rect.dragging { cursor: grabbing; }
+</style>
+<body>
+	<ol>
+		<li>Upload File (must be in same directory) <input type="file" id="file-upload"/></li>
+		<li>Add boxes using shift-click, drag & drop to reshape box, double-click to remove</li>
+		<li>Download template <button id="file-download">Download</button></li>
+	</ol>
+</body>
+<script src = "https://d3js.org/d3.v4.min.js"></script>
+<script>
+	// (1) Upload File
+	
+	function readSingleFile(e) {
+	  var file = e.target.files[0];
+	  if (!file) {
+	    return;
+	  }
+	  var reader = new FileReader();
+	  reader.onload = function(e) {
+	    var contents = e.target.result;
+	    displayContents(file, contents);
+	  };
+	  reader.readAsText(file);
+	}
+
+	function displayContents(file, contents) {
+
+	  var myimage = container.append('image')
+	    .attr('xlink:href', file.name)
+	    .attr('width', "100%")
+	    // .attr('height', "100%")
+	}
+
+	document.getElementById('file-upload')
+	  .addEventListener('change', readSingleFile, false);
+
+
+
+	// (2) Edit File
+
+	var margin = { top: -5, right: -5, bottom: -5, left: -5 },
+	            width = 600 - margin.left - margin.right,
+	            height = 400 - margin.top - margin.bottom;
+
+	var zoom = d3.zoom()
+	    .scaleExtent([1, 10])
+	    .on("zoom", zoomed);
+
+	var drag = d3.drag()
+		.subject(dragorigin)
+	    .on("start", dragstarted)
+	    .on("drag", dragged)
+	    .on("end", dragended);
+
+	var svg = d3.select("body").append("svg")
+	    .attr('id', 'svg')
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	    .append("g")    
+	    .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
+	    .call(zoom);
+
+	var container = svg.append("g")
+		.on("mousedown", mousedown)
+	  	.on("mouseup", mouseup);
+
+	function zoomed() {
+	    const currentTransform = d3.event.transform;
+	    container.attr("transform", currentTransform);
+	}
+
+	function dragorigin(d) { 
+		var t = d3.select(this);
+		return {x: t.attr("x"), y: t.attr("y")};
+	}
+
+	function dragstarted(d) {
+	    d3.event.sourceEvent.stopPropagation();
+	    d3.select(this).classed("dragging", true);
+	}
+
+	function dragged(d) {
+	    d3.select(this).attr("x", d3.event.x).attr("y", d3.event.y);
+	}
+
+	function dragended(d) {
+	    d3.select(this).classed("dragging", false);
+	}
+
+	function remove(d) {
+		d3.event.stopPropagation();
+		d3.select(this).remove()
+	}
+
+	function mousedown() {   
+	    if (d3.event.shiftKey) {
+	    	d3.event.stopImmediatePropagation();
+	    	var m = d3.mouse(this);
+			rect = container.append("rect")
+			  .attr("x", m[0])
+			  .attr("y", m[1])
+			  .attr("height", 0)
+			  .attr("width", 0)
+			  .classed('shift-pressed', true)
+			  .on('dblclick', remove)
+			  .call(drag);
+			container.on("mousemove", mousemove);
+	    }
+	}
+
+	function mousemove(d) {
+		var m = d3.mouse(this);
+	    rect.attr("width", Math.max(0, m[0] - +rect.attr("x")))
+	        .attr("height", Math.max(0, m[1] - +rect.attr("y")));
+	}
+
+	function mouseup() {
+		rect.classed('shift-pressed', false)
+	    container.on("mousemove", null);
+	}
+
+
+	window.addEventListener("keydown", shiftHandler, false);
+	window.addEventListener("keyup", shiftHandler, false);
+
+	function shiftHandler(event) {
+	    shift = event.shiftKey;
+	    svg.selectAll('g').classed('shift-pressed', shift)
+	};
+
+
+	// (3) Download File
+
+	function saveSvg() {
+	    SVGel = document.getElementById("svg");
+	    SVGel.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+	    var svgData = SVGel.outerHTML;
+	    var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+	    var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+	    var svgUrl = URL.createObjectURL(svgBlob);
+	    var downloadLink = document.createElement("a");
+	    downloadLink.href = svgUrl;
+	    downloadLink.download = 'template';
+	    document.body.appendChild(downloadLink);
+	    downloadLink.click();
+	    document.body.removeChild(downloadLink);
+	}
+
+	document.getElementById('file-download')
+	  .addEventListener('click', saveSvg);
+</script>

@@ -1,0 +1,65 @@
+<!doctype html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/input.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/45c5b12d62.js"></script>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <nav class="side-bar-nav">
+        <div class="logo-nav-block">
+            <p>Mae Tao </br>Clinic</p>
+        </div>
+        <a href="{{ url_for('home') }}">
+            <div class="item-logo-block nav-block-highlighted">
+                <img src="/static/image/record-upload.png">
+                <p>Scan Record</p>
+            </div>
+        </a>
+        <div class="item-logo-block">
+            <img src="/static/image/search.png">
+            <p>Search</p>
+        </div>
+        <div class="profile-logo-block">
+            <img src="/static/image/login.png" />
+            <p>Profile</p>
+        </div>
+    </nav>
+    <!-- <div class="header-nav">
+	    <div class="header-nav-wrapper">
+	       <span id="logo">Mae Tao Clinic</span>
+         <a id="home" href="{{ url_for('home') }}">← back to home </a>
+	    </div>
+	</div> -->
+    <div class="console">
+        <div class="progress-bar-box" id="main-content">
+            <div class="progress-bar-wrapper">
+                <a href="">
+                    <div class="back-button">←</div>
+                </a>
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+        <div class="console-wrapper">
+            <div class="nav">
+                <!-- <p class="caption">{{ name }}</p> -->
+                <h1 id="nav-title">Create Form</h1>
+            </div>
+
+            <div class="basic-form">
+                <form method="POST" action="">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="basic-info" name="name" placeholder="">
+
+                        <label for="number">Number of pages</label>
+                        <input type="number" id="number" class="basic-info" name="number" placeholder="" min="1" max="10">
+                    </br>
+                        <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
