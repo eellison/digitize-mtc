@@ -75,14 +75,14 @@
 							    <div class="page-box page-box-new">
 	                                <div class="page-ph-add">
 
-	                                    <img id="file-thumbnail" src="/static/image/add.png" />
+	                                    <img id="file-thumbnail{{ i }}" src="/static/image/add.png" />
 	                                </div>
 	                                <div class="page-details-add">
 	                                    <p>Page {{ i + 1 }}</p>
 
 
-	                                    <label id="upload-file-instruction" for="file" class="caption"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
-	                                    <input name="file" type="file" style="display: none" id="file">
+	                                    <label id="upload-file-instruction" for="file{{ i }}" class="caption"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
+	                                    <input name="file" type="file" style="display: none" id="file{{ i }}">
 	                                </div>
 	                            </div>
 							{% endfor %}

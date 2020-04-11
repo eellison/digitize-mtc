@@ -471,39 +471,32 @@ $(function() {
 });
 
 
-
-$('#file').change(function() {
-  var i = $(this).prev('label').clone();
-  var file = $('#file')[0].files[0].name;
-  $(this).prev('label').text(file);
-  $("button#upload-file-btn").removeClass("disabled");
-	readThumbnailAsURL(this);
-});
-
-
 $(function() {
-
 	$(document).on("click", ".question_group_title", function () {
         var questions = $(this).parent().find(".question");
         questions.toggle();
-
         var icons = $(this).parent().find("i");
         icons.toggle();
     });
 });
 
+$("input[name='file']").change(function() {
+	var index = $("input[name='file']").index(this);
+	var file_name = $(this)[0].files[0].name;
+	$(this).prev('label').text(file_name);
+	readThumbnailAsURL(this, index);
+});
 
-function readThumbnailAsURL(input) {
+
+
+function readThumbnailAsURL(input, index) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-			// $('#file-thumbnail').css("display", "block");
-			// $('#file-thumbnail').css("margin-left", "auto");
-			// $('#file-thumbnail').css("margin-right", "auto");
-			// $('#file-thumbnail').css("max-width", "500px");
-      $('#file-thumbnail').attr('src', e.target.result);
-      $('#file-thumbnail').closest(".page-box-new").removeClass("page-box-new");
+
+      $('#file-thumbnail' + index).attr('src', e.target.result);
+      $('#file-thumbnail' + index).closest(".page-box-new").removeClass("page-box-new");
 
     }
 

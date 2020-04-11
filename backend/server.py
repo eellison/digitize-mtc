@@ -98,10 +98,11 @@ def create():
         # To Do: construct name.json of length number and update global templates
         return render_template('annotate.html', name=name, num_pages=num_pages)
 
+
+
 # To Do: Remove file_path from the upload.  That way new form is just needing
 # name and num_pages.  We will do standard function from name => file_path (i.e. lower-case 
 # and replace spaces with hyphens).
-
 @app.route('/upload/<form>', methods=['GET', 'POST'])
 def upload(form):
     template = templates[form]
