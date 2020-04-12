@@ -44,7 +44,7 @@ $(function() {
 
 $(function() {
 	$('#process-form-btn').click(function() {
-     	display(form[current_page]);
+     	  display(form[current_page]);
         visualize(form[current_page]);
         displaySvgFrame();
         $(".question_group_title").click();
@@ -66,30 +66,30 @@ $(function() {
 // 		var form_data = new FormData($('#upload-file')[0]);
 
 // 		// file_path is passed in by the template
-// 		$.ajax({
-// 			type: 'POST',
-// 			url: '/upload_and_process_file/' + file_path,
-// 			data: form_data,
-// 			contentType: false,
-// 			cache: false,
-// 			processData: false,
-// 			success: function(data) {
-// 				if (data.status == 'success') {
-// 					$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
-// 					form = data;
-// 					display(form);
-// 					visualize(form);
-// 					displaySvgFrame();
-// 					$(".question_group_title").click();
-// 					hideUpload();
-// 				} else if (data.status == 'error') {
-// 					$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
-// 				}
-// 			},
-// 			error: function(error) {
-// 				$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
-// 			}
-// 		});
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: '/upload_and_process_file/' + file_path,
+		// 	data: form_data,
+		// 	contentType: false,
+		// 	cache: false,
+		// 	processData: false,
+		// 	success: function(data) {
+		// 		if (data.status == 'success') {
+		// 			$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
+		// 			form = data;
+		// 			display(form);
+		// 			visualize(form);
+		// 			displaySvgFrame();
+		// 			$(".question_group_title").click();
+		// 			hideUpload();
+		// 		} else if (data.status == 'error') {
+		// 			$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
+		// 		}
+		// 	},
+		// 	error: function(error) {
+		// 		$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
+		// 	}
+		// });
 // 	});
 // });
 
@@ -480,14 +480,71 @@ $(function() {
     });
 });
 
+//
+// var images = [image1, image2, image3]
+// var data   = new FormData();
+//
+// images.forEach(function(image, i) {
+//     data.append('image_' + i, image);
+// });
+//
+// $.ajax({
+//     url: 'PHP/posts.php',
+//     type: 'post',
+//     data: data,
+//     contentType: false,
+//     processData: false,
+//     success: function(data) {
+//        console.log(data);
+//        location.reload();
+//     }
+// });
+
+var pages  = new FormData();
+function resetPages() {
+  pages = new FormData();
+}
+
+// var form_data = new FormData($('#upload-file')[0]);
+$(function() {
+	$('#upload-pages-btn').click(function() {
+    // Send AJAX request to hit server-side function
+    $.ajax({
+      type: 'POST',
+      url: '/new_form/',
+      data: pages,
+      contentType: false,
+      cache: false,
+      processData: false,
+      success: function(data) {
+        if (data.status == 'success') {
+          console.log("SUCCESS");
+          console.log(data);
+        } else {
+          console.log("NOT A SUCCESS :(");
+        }
+        resetPages();
+      },
+      error: function(error) {
+        console.log(error);
+        resetPages();
+      }
+    });
+   })
+ });
+
+
 $("input[name='file']").change(function() {
 	var index = $("input[name='file']").index(this);
 	var file_name = $(this)[0].files[0].name;
 	$(this).prev('label').text(file_name);
+  ///
+  // Add this file to the set of pages that will be sent to the server
+  // for processing
+  pages.set('image_' + index, $(this)[0]);
+  ///
 	readThumbnailAsURL(this, index);
 });
-
-
 
 function readThumbnailAsURL(input, index) {
   if (input.files && input.files[0]) {
