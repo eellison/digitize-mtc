@@ -505,14 +505,13 @@ function resetPages() {
   pages = new FormData();
 }
 
-// var form_data = new FormData($('#upload-file')[0]);
 $(function() {
 	$('#upload-pages-btn').click(function() {
-    // Send AJAX request to hit server-side function
+    var form_data = new FormData($('#upload-file')[0]);
     $.ajax({
       type: 'POST',
       url: '/new_form/',
-      data: pages,
+      data: form_data,
       contentType: false,
       cache: false,
       processData: false,
@@ -530,19 +529,13 @@ $(function() {
         resetPages();
       }
     });
-   })
- });
-
+	});
+});
 
 $("input[name='file']").change(function() {
 	var index = $("input[name='file']").index(this);
 	var file_name = $(this)[0].files[0].name;
 	$(this).prev('label').text(file_name);
-  ///
-  // Add this file to the set of pages that will be sent to the server
-  // for processing
-  pages.set('image_' + index, $(this)[0]);
-  ///
 	readThumbnailAsURL(this, index);
 });
 

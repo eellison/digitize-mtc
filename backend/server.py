@@ -102,22 +102,10 @@ def create():
 @app.route('/new_form/', methods=['POST', 'GET'])
 def new_form():
     if request.method == 'POST':
-        uploaded_files = request.files.getlist("file[]")
-        print(request.form.to_dict())
-        print(uploaded_files)
-
-        # # check if the post request has the file part
-        # if 'file' not in request.files:
-        #     flash('No file part')
-        #     return redirect(request.url)
-        # file = request.files['file']
-        # # if user does not select file, browser also
-        # # submit an empty part without filename
-        # if file.filename == '':
-        #     flash('No selected file')
-        #     return redirect(request.url)
-        # if file and allowed_file(file.filename):
-        #     print("ok")
+        files = request.files.getlist("file")
+        for page_num, file in enumerate(files, start=1):
+            upload_location = os.path.join(app.config['UPLOAD_FOLDER'], "page_" + str(page_num) + ".jpeg")
+            file.save(upload_location)
     return json_status("success", None)
 
 # To Do: Remove file_path from the upload.  That way new form is just needing
@@ -129,7 +117,6 @@ def upload(form):
     name = template["name"]
     num_pages = len(template["pages"])
     return render_template('upload.html', name=name, num_pages=num_pages, file_path=form)
-
 
 @app.route('/save/<file>', methods=['POST'])
 def save_response(file):
