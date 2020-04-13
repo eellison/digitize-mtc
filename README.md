@@ -31,4 +31,4 @@ python backend/server.py
 
 Find Out More
 =============
-Find out more about our project and vision at www.sdrp.github.io/digitize-mtc.
+Find out more about our project and vision at https://sdrp.github.io/digitize-mtc/.
