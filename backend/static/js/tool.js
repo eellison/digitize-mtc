@@ -6,14 +6,14 @@ function requestLiveFeedResponse(form_name, page_number) {
     type: 'GET',
     url: '/check_alignment/' + form_name + '/' + page_number,
     contentType: false,
-		cache: false,
-		processData:false,
+    cache: false,
+    processData:false,
     success: function(data) {
       if (data.status == 'success') {
-		form[page_number] = data;
-		d3.select("#turn-on-align-btn").text("Turn on Align Feature");
-		d3.select("#videoFeed").classed("camera-feed-green", false);
-		d3.select("#videoFeed").classed("camera-feed", true);
+        form[page_number] = data;
+        d3.select("#turn-on-align-btn").text("Turn on Align Feature");
+        d3.select("#videoFeed").classed("camera-feed-green", false);
+        d3.select("#videoFeed").classed("camera-feed", true);
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
@@ -78,7 +78,15 @@ function upload_files_to_server() {
     success: function(data) {
       if (data.status == 'success') {
         console.log("SUCCESS");
-        console.log(data);
+        form = data.forms
+        console.log(form);
+        current_page = 0;
+        display(form[current_page]);
+        visualize(form[current_page]);
+        displaySvgFrame();
+        // $(".question_group_title").click();
+        hideUpload();
+
       } else {
         console.log("NOT A SUCCESS :(");
       }

@@ -5,6 +5,7 @@
 backend/output/*.csv
 backend/uploads/*
 backend/static/*.jpg
+backend/static/*.jpeg
 scratch/*.png
 scratch/*jpg
 

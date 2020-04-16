@@ -103,10 +103,22 @@ def create():
 def new_form():
     if request.method == 'POST':
         files = request.files.getlist("file")
+        forms_to_send_back = []
+        encoder = FormTemplateEncoder()
         for page_num, file in enumerate(files, start=1):
-            upload_location = os.path.join(app.config['UPLOAD_FOLDER'], "page_" + str(page_num) + ".jpeg")
+            # 1) Construct a name/path for the file
+            timestamp = "_" + str(time.time())
+            page_name = "page_" + str(page_num) + timestamp + ".jpeg"
+            upload_location = str(Path.cwd() / "backend" / "static" / page_name)
+            # 2) Save the file to that path
             file.save(upload_location)
-    return json_status("success", None)
+            # 3) Create an Form object to send back to the frontend
+            # TODO (sud): parametrize the form_name
+            form_name  = "new-form" + "_page_" + str(page_num)
+            processed_form = Form(form_name, page_name, 0, 0, [])
+            encoded_form = encoder.default(processed_form)
+            forms_to_send_back.append(encoded_form)
+    return json_status("success", forms = forms_to_send_back)
 
 # To Do: Remove file_path from the upload.  That way new form is just needing
 # name and num_pages.  We will do standard function from name => file_path (i.e. lower-case
@@ -153,10 +165,11 @@ def write_prediction(image, align_score, blurry_score):
     _input += 1
 
 
-def json_status(status_str, remaining_frames):
+def json_status(status_str, remaining_frames = "", forms = []):
     resp = {}
     resp["status"] = status_str
     resp["remaining_frames"] = remaining_frames
+    resp["forms"] = forms
     return jsonify(resp)
 
 def reset_globals():
@@ -196,7 +209,7 @@ def video_feed(form_name, page_number):
         if is_blurry:
             good_frames_captured = 0
             print("Too blurry", blurry_score)
-            return json_status("unaligned", None)
+            return json_status("unaligned")
 
         if not is_blurry:
             good_frames_captured = good_frames_captured + 1
@@ -209,7 +222,7 @@ def video_feed(form_name, page_number):
             if good_frames_captured < good_frames_to_capture_before_processing:
                 num_remaining_frames = good_frames_to_capture_before_processing - good_frames_captured
                 remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
-                return json_status("aligned", remaining_frames_str)
+                return json_status("aligned", remaining_frames = remaining_frames_str)
             else:
                 # Run mark recognition on aligned image
                 answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
@@ -230,7 +243,7 @@ def video_feed(form_name, page_number):
         reset_globals()
         # Uncomment the line below for live alignment debug in console
         print("Alignment Error!")
-        return json_status("unaligned", None)
+        return json_status("unaligned")
 
 def upload_all_templates():
     # Populate the "templates" and "template_images" Python dictionaries with
