@@ -115,7 +115,8 @@ def new_form():
             # 3) Create an Form object to send back to the frontend
             # TODO (sud): parametrize the form_name
             form_name  = "new-form" + "_page_" + str(page_num)
-            processed_form = Form(form_name, page_name, 0, 0, [])
+            (x, y) = util.get_image_dimensions(upload_location)
+            processed_form = Form(form_name, page_name, y, x, [])
             encoded_form = encoder.default(processed_form)
             pages_to_send_back.append(encoded_form)
     return json_status("success", pages = pages_to_send_back)
