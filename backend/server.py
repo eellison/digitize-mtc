@@ -168,7 +168,6 @@ def reset_globals():
     best_align_score = inf
     return None
 
-
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def video_feed(form_name, page_number):
     global cam

@@ -43,7 +43,7 @@ $(function() {
  });
 
 $(function() {
-	$('#process-form-btn').click(function() {
+	$('#process-live-feed-btn').click(function() {
      	  display(form[current_page]);
         visualize(form[current_page]);
         displaySvgFrame();
@@ -52,11 +52,42 @@ $(function() {
    })
  });
 
+ $(function() {
+   $('#manual-upload-btn').click(function() {
+     upload_files_to_server();
+   })
+ });
+
+
 $(function() {
 	$('.page-box').click(function() {
      current_page = $('.page-box').index(this);
+     // TODO: also highlight this page box and un-highlight the others
    })
  });
+
+function upload_files_to_server() {
+  var form_data = new FormData($('#upload-file')[0]);
+  $.ajax({
+    type: 'POST',
+    url: '/new_form/',
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function(data) {
+      if (data.status == 'success') {
+        console.log("SUCCESS");
+        console.log(data);
+      } else {
+        console.log("NOT A SUCCESS :(");
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
 
 /////////////////////////////////////////////////////////////////////
 // Functionality for sending / receiving the form and editing results
@@ -480,55 +511,10 @@ $(function() {
     });
 });
 
-//
-// var images = [image1, image2, image3]
-// var data   = new FormData();
-//
-// images.forEach(function(image, i) {
-//     data.append('image_' + i, image);
-// });
-//
-// $.ajax({
-//     url: 'PHP/posts.php',
-//     type: 'post',
-//     data: data,
-//     contentType: false,
-//     processData: false,
-//     success: function(data) {
-//        console.log(data);
-//        location.reload();
-//     }
-// });
-
-var pages  = new FormData();
-function resetPages() {
-  pages = new FormData();
-}
 
 $(function() {
 	$('#upload-pages-btn').click(function() {
-    var form_data = new FormData($('#upload-file')[0]);
-    $.ajax({
-      type: 'POST',
-      url: '/new_form/',
-      data: form_data,
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function(data) {
-        if (data.status == 'success') {
-          console.log("SUCCESS");
-          console.log(data);
-        } else {
-          console.log("NOT A SUCCESS :(");
-        }
-        resetPages();
-      },
-      error: function(error) {
-        console.log(error);
-        resetPages();
-      }
-    });
+    upload_files_to_server()
 	});
 });
 
