@@ -422,6 +422,16 @@ nav.side-bar-nav a{
     /* border-radius: 2px; */
 }
 
+.page-select-box{
+	  /* background-color: white; */
+    display: -webkit-inline-box;
+		float: right;
+    /* padding: 0.5em; */
+    font-size: 11px;
+    /* margin: 1em; */
+    /* border-radius: 2px; */
+}
+
 /* Marching Ants style attempt below */
 /* .marching-ants{
 	display: inline-block;

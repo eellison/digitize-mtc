@@ -103,7 +103,7 @@ def create():
 def new_form():
     if request.method == 'POST':
         files = request.files.getlist("file")
-        forms_to_send_back = []
+        pages_to_send_back = []
         encoder = FormTemplateEncoder()
         for page_num, file in enumerate(files, start=1):
             # 1) Construct a name/path for the file
@@ -117,8 +117,8 @@ def new_form():
             form_name  = "new-form" + "_page_" + str(page_num)
             processed_form = Form(form_name, page_name, 0, 0, [])
             encoded_form = encoder.default(processed_form)
-            forms_to_send_back.append(encoded_form)
-    return json_status("success", forms = forms_to_send_back)
+            pages_to_send_back.append(encoded_form)
+    return json_status("success", pages = pages_to_send_back)
 
 # To Do: Remove file_path from the upload.  That way new form is just needing
 # name and num_pages.  We will do standard function from name => file_path (i.e. lower-case
@@ -165,11 +165,11 @@ def write_prediction(image, align_score, blurry_score):
     _input += 1
 
 
-def json_status(status_str, remaining_frames = "", forms = []):
+def json_status(status_str, remaining_frames = "", pages = []):
     resp = {}
     resp["status"] = status_str
     resp["remaining_frames"] = remaining_frames
-    resp["forms"] = forms
+    resp["pages"] = pages
     return jsonify(resp)
 
 def reset_globals():

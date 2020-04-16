@@ -44,11 +44,7 @@ $(function() {
 
 $(function() {
 	$('#process-live-feed-btn').click(function() {
-     	  display(form[current_page]);
-        visualize(form[current_page]);
-        displaySvgFrame();
-        $(".question_group_title").click();
-        hideUpload();
+     	  render_form();
    })
  });
 
@@ -58,13 +54,20 @@ $(function() {
    })
  });
 
-
 $(function() {
 	$('.page-box').click(function() {
      current_page = $('.page-box').index(this);
      // TODO: also highlight this page box and un-highlight the others
    })
  });
+
+function render_form() {
+  display(form[current_page]);
+  visualize(form[current_page]);
+  displaySvgFrame();
+  $(".question_group_title").click();
+  hideUpload();
+}
 
 function upload_files_to_server() {
   var form_data = new FormData($('#upload-file')[0]);
@@ -78,15 +81,10 @@ function upload_files_to_server() {
     success: function(data) {
       if (data.status == 'success') {
         console.log("SUCCESS");
-        form = data.forms
-        console.log(form);
+        form = data.pages;
         current_page = 0;
-        display(form[current_page]);
-        visualize(form[current_page]);
-        displaySvgFrame();
-        // $(".question_group_title").click();
-        hideUpload();
-
+        render_form();
+        populate_pages_dropdown();
       } else {
         console.log("NOT A SUCCESS :(");
       }
@@ -95,6 +93,22 @@ function upload_files_to_server() {
       console.log(error);
     }
   });
+}
+
+var pages_dropdown = document.querySelector('select#pagesDropdown');
+pages_dropdown.onchange = function() {
+  // NOTE: need to do "value - 1" since the variable form is 0-indexed
+  current_page = pages_dropdown.value - 1;
+  render_form();
+};
+
+function populate_pages_dropdown() {
+  for (var i = 1; i <= form.length; i++) {
+    var option = document.createElement('option');
+    option.value = i;
+    option.text = i.toString();
+    pages_dropdown.appendChild(option);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -131,9 +145,6 @@ function upload_files_to_server() {
 		// });
 // 	});
 // });
-
-
-
 
 
 var width = (document.getElementById("main-content").offsetWidth)*0.6,
