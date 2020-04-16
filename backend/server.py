@@ -116,7 +116,7 @@ def new_form():
             # TODO (sud): parametrize the form_name
             form_name  = "new-form" + "_page_" + str(page_num)
             (x, y) = util.get_image_dimensions(upload_location)
-            processed_form = Form(form_name, page_name, y, x, [])
+            processed_form = Form(form_name, page_name, y, x, [QuestionGroup()])
             encoded_form = encoder.default(processed_form)
             pages_to_send_back.append(encoded_form)
     return json_status("success", pages = pages_to_send_back)
