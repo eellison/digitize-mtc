@@ -465,6 +465,14 @@ nav.side-bar-nav a{
 	margin-bottom:1em;
 }
 
+.page-box-active{
+	border:2px solid #EDEDED;
+	border-style: dashed;
+	background-color: #008000;
+	border-radius: 8px;
+	margin-bottom:1em;
+}
+
 .page-ph{
 	display: inline-block;
 	vertical-align: top;

@@ -57,7 +57,11 @@ $(function() {
 $(function() {
 	$('.page-box').click(function() {
      current_page = $('.page-box').index(this);
+     console.log(current_page);
      // TODO: also highlight this page box and un-highlight the others
+     // Basic outline to change the CSS class of the clicked box is below
+     // d3.select(this).classed("page-box-active", true);
+     // d3.select(this).classed("page-box-new", false);
    })
  });
 
