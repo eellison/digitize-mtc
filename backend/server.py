@@ -143,6 +143,7 @@ def save_response(file):
 
         # decoded_form = decode_form(json.loads(request.data))
         # write_form_to_csv(decoded_form)
+        print(request.data)
         return jsonify(status='success')
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')

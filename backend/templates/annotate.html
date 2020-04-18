@@ -83,6 +83,31 @@
       <div class="select page-select-box" style="width:100%">
         <label for="pagesDropdown"> View Page: </label><select id="pagesDropdown"></select>
       </div>
+      
+      <div id="question_group_modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <label for="name">Question Group Name</label>
+          <input type="text" id="question_group_name" class="basic-info" name="name" placeholder="">
+        </div>
+      </div>
+
+      <div id="question_modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <label>Question Name</label>
+          <input type="text" id="question_name" class="basic-info" placeholder="">
+          <label>Question Type</label>
+          <select id="question_type">
+            <option value="text">Text</option>
+            <option value="digits">Digits</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="radio">Radio</option>
+          </select>
+          <label>Number of Response Regions</label>
+          <input type="number" id="question_number" class="basic-info" min="1" max="10">
+        </div>
+      </div>
 
     </div>
 
@@ -103,4 +128,4 @@ var form = new Array("{{ num_pages }}");
 var current_page = 0;
 </script>
 <script src="/static/js/d3.min.js"></script>
-<script type="text/javascript" src="/static/js/tool.js"></script>
+<script type="text/javascript" src="/static/js/annotate.js"></script>
