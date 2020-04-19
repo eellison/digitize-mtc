@@ -23,7 +23,7 @@ to download ``opencv-contrib-python``, since the package hosted under
 
 Getting Started
 ===============
-To get a feel for how the scripts works, start the server using the following line:
+Start the server using the following line:
 
 ```
 python backend/server.py
