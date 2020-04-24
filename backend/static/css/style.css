@@ -473,6 +473,15 @@ nav.side-bar-nav a{
 	margin-bottom:1em;
 }
 
+.page-box-red{
+	border:2px solid #EDEDED;
+	border-style: dashed;
+	background-color: #800000;
+	border-radius: 8px;
+	margin-bottom:1em;
+}
+
+
 .page-ph{
 	display: inline-block;
 	vertical-align: top;

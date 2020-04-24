@@ -183,6 +183,24 @@ def reset_globals():
     best_align_score = inf
     return None
 
+
+def get_image_from_request(request, page_number = 1):
+    file = request.files.getlist("file")[page_number - 1]
+    # 1) Construct a name/path for the file
+    timestamp = "_" + str(time.time())
+    page_name = "page_" + str(page_number) + timestamp + ".jpeg"
+    upload_location = str(Path.cwd() / "backend" / "static" / page_name)
+    # 2) Save the file to that path
+    file.save(upload_location)
+    # 3) Read in the image using OpenCV
+    image = util.read_image(upload_location)
+    return (upload_location, image)
+
+
+# Idea: use GET/POST to determine whether to pull a frame from backend
+# or parse the files in the request;
+# If not pulling a frame from backend, reset the counter
+
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def video_feed(form_name, page_number):
     global cam
@@ -197,12 +215,19 @@ def video_feed(form_name, page_number):
     template = templates[form_name]["pages"][int(page_number)]
     template_image = templates[form_name]["images"][int(page_number)]
 
+    if request.method == "GET":
+        # Grab a frame from the live camera feed
+        _, frame = cam.stream.read()
+    else:
+        # Parse the request for an uploaded file
+        _, frame = get_image_from_request(request, int(page_number))
+        reset_globals()
+
     try:
         start = time.time()
-        ret, live_frame = cam.stream.read()
-        # print(live_frame)
-        # cv2.imwrite("test_image.jpg", live_frame)
-        aligned_image, aligned_diag_image, h, align_score = align.align_images(live_frame, template_image)
+        # print(frame)
+        # cv2.imwrite("test_image.jpg", frame)
+        aligned_image, aligned_diag_image, h, align_score = align.align_images(frame, template_image)
         # Uncomment the line below for live alignment debug in console
         print("Good Alignment!")
         is_blurry, blurry_score = compute_blurriness(aligned_image)

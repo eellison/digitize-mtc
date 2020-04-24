@@ -498,7 +498,6 @@ function hideUpload(){
 
 $(function() {
 	$('#save-file-btn').click(function() {
-		// $('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
 			url: '/save/' + file_path,
@@ -537,15 +536,46 @@ $(function() {
 
 $(function() {
 	$('#upload-pages-btn').click(function() {
-    upload_files_to_server()
+    upload_files_to_server();
 	});
 });
+
+function is_aligned(page_num) {
+  var form_data = new FormData($('#upload-file')[0]);
+  $.ajax({
+    type: 'POST',
+    url: '/check_alignment/' + file_path +  "/" + page_num,
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function(data) {
+      if (data.status == 'aligned') {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
 
 $("input[name='file']").change(function() {
 	var index = $("input[name='file']").index(this);
 	var file_name = $(this)[0].files[0].name;
 	$(this).prev('label').text(file_name);
 	readThumbnailAsURL(this, index);
+  if (is_aligned(index + 1)) {
+    $('#file-thumbnail' + index).closest(".page-box-new").addClass("page-box-active");
+    d3.select(this).classed("page-box-active", true);
+    d3.select(this).classed("page-box-new", false);
+  } else {
+    $('#file-thumbnail' + index).closest(".page-box-new").addClass("page-box-red");
+    d3.select(this).classed("page-box-red", false);
+    d3.select(this).classed("page-box-new", false);
+  };
 });
 
 function readThumbnailAsURL(input, index) {
