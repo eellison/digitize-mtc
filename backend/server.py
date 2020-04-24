@@ -184,8 +184,8 @@ def reset_globals():
     return None
 
 
-def get_image_from_request(request, page_number = 1):
-    file = request.files.getlist("file")[page_number - 1]
+def get_image_from_request(request, page_number = 0):
+    file = request.files.getlist("file")[page_number]
     # 1) Construct a name/path for the file
     timestamp = "_" + str(time.time())
     page_name = "page_" + str(page_number) + timestamp + ".jpeg"
@@ -197,9 +197,7 @@ def get_image_from_request(request, page_number = 1):
     return (upload_location, image)
 
 
-# Idea: use GET/POST to determine whether to pull a frame from backend
-# or parse the files in the request;
-# If not pulling a frame from backend, reset the counter
+
 
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def video_feed(form_name, page_number):
@@ -246,7 +244,7 @@ def video_feed(form_name, page_number):
                 best_align_score = align_score
                 best_aligned_image = aligned_image
 
-            if good_frames_captured < good_frames_to_capture_before_processing:
+            if (request.method == "GET") and (good_frames_captured < good_frames_to_capture_before_processing):
                 num_remaining_frames = good_frames_to_capture_before_processing - good_frames_captured
                 remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
                 return json_status("aligned", remaining_frames = remaining_frames_str)
