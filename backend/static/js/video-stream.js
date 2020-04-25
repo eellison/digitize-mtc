@@ -27,9 +27,9 @@ function gotDevices(deviceInfos) {
 			// Do nothing! We only care about streaming video
 		} else if (deviceInfo.kind === 'audiooutput'){
 			// Do nothing! We only care about streaming video
-		} else if (deviceInfo.kind === 'videoinput' && deviceInfo.label.includes("IPEVO")) {
-			// The criteria above is used to filter out a Mac's built-in camera
-			// TODO (sud): Figure out a more legitimate way to filter out the build-in camera
+		} else if (deviceInfo.kind === 'videoinput' ) {
+			// The criteria below can used to pick a specific camera input
+			// && deviceInfo.label.includes("IPEVO")
 			option.text = deviceInfo.label || 'camera ' +
 			(videoSelect.length + 1);
 			videoSelect.appendChild(option);

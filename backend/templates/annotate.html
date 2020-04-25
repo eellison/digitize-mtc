@@ -1,0 +1,131 @@
+<!doctype html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/input.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/45c5b12d62.js"></script>
+  <script src="/static/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+  <nav class="side-bar-nav">
+    <div class="logo-nav-block">
+      <p>Mae Tao </br>Clinic</p>
+    </div>
+    <a href="{{ url_for('home') }}">
+      <div class="item-logo-block nav-block-highlighted">
+        <img src="/static/image/record-upload.png">
+        <p>New Form</p>
+      </div>
+    </a>
+    <div class="item-logo-block">
+      <img src="/static/image/search.png">
+      <p>Search</p>
+    </div>
+    <div class="profile-logo-block">
+      <img src="/static/image/login.png" />
+      <p>Profile</p>
+    </div>
+  </nav>
+  <!-- <div class="header-nav">
+  <div class="header-nav-wrapper">
+  <span id="logo">Mae Tao Clinic</span>
+  <a id="home" href="{{ url_for('home') }}">← back to home </a>
+</div>
+</div> -->
+<div class="console">
+  <div class="progress-bar-box" id="main-content">
+    <div class="progress-bar-wrapper">
+      <a href="">
+        <div class="back-button">←</div>
+      </a>
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+  <div class="console-wrapper">
+    <div class="nav">
+      <p class="caption">{{ name }}</p>
+      <h1 id="nav-title">New Form</h1>
+    </div>
+
+    <div class="basic-form" id="upload">
+
+
+      <div class="page-queue" float="left">
+        <p>Page</p>
+        <form id="upload-file" method="post" float="left" enctype="multipart/form-data" >
+          {% for i in range(0, num_pages) %}
+          <div class="page-box page-box-new">
+            <div class="page-ph-add">
+
+              <img id="file-thumbnail{{ i }}" src="/static/image/add.png" />
+            </div>
+            <div class="page-details-add">
+              <p>Page {{ i + 1 }}</p>
+              <label id="upload-file-instruction" for="file{{ i }}" class="caption"><span id="click-upload">Select a file</span> or drag and drop directly.</label>
+              <input name="file" type="file" style="display: none" id="file{{ i }}">
+            </div>
+          </div>
+          {% endfor %}
+        </form>
+
+        <div class="upload-button">
+          <button id="upload-pages-btn" type="button" class="highlighted">Upload Pages</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div id="update">
+
+      <div class="select page-select-box" style="width:100%">
+        <label for="pagesDropdown"> View Page: </label><select id="pagesDropdown"></select>
+      </div>
+      
+      <div id="question_group_modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <label for="name">Question Group Name</label>
+          <input type="text" id="question_group_name" class="basic-info" name="name" placeholder="">
+        </div>
+      </div>
+
+      <div id="question_modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <label>Question Name</label>
+          <input type="text" id="question_name" class="basic-info" placeholder="">
+          <label>Question Type</label>
+          <select id="question_type">
+            <option value="text">Text</option>
+            <option value="digits">Digits</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="radio">Radio</option>
+          </select>
+          <label>Number of Response Regions</label>
+          <input type="number" id="question_number" class="basic-info" min="1" max="10">
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+<div id="save">
+  <div id="save-bar-wrapper">
+    <form method=post enctype=multipart/form-data id="save-button-form">
+      <button id="save-file-btn" class="disabled" type="button">Save</button>
+    </form>
+    <div id="save-response"></div>
+  </div>
+</div>
+</body>
+<script>
+var form = new Array("{{ num_pages }}");
+var current_page = 0;
+</script>
+<script src="/static/js/d3.min.js"></script>
+<script type="text/javascript" src="/static/js/annotate.js"></script>

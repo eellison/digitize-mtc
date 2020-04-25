@@ -422,6 +422,16 @@ nav.side-bar-nav a{
     /* border-radius: 2px; */
 }
 
+.page-select-box{
+	  /* background-color: white; */
+    display: -webkit-inline-box;
+		float: right;
+    /* padding: 0.5em; */
+    font-size: 11px;
+    /* margin: 1em; */
+    /* border-radius: 2px; */
+}
+
 /* Marching Ants style attempt below */
 /* .marching-ants{
 	display: inline-block;
@@ -447,6 +457,11 @@ nav.side-bar-nav a{
 	margin-bottom:1em;
 }
 
+.page-box-active{
+	border:4px solid #EDEDED;
+	border-style: dashed;
+}
+
 .page-box-new{
 	border:2px solid #EDEDED;
 	border-style: dashed;
@@ -454,6 +469,23 @@ nav.side-bar-nav a{
 	border-radius: 8px;
 	margin-bottom:1em;
 }
+
+.page-box-green{
+	border:2px solid #EDEDED;
+	border-style: dashed;
+	background-color: #77dd77;
+	border-radius: 8px;
+	margin-bottom:1em;
+}
+
+.page-box-red{
+	border:2px solid #EDEDED;
+	border-style: dashed;
+	background-color: #ff6961;
+	border-radius: 8px;
+	margin-bottom:1em;
+}
+
 
 .page-ph{
 	display: inline-block;
@@ -559,4 +591,42 @@ nav.side-bar-nav a{
 
 .basic-form p{
 	margin-top:0;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

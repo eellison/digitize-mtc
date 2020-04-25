@@ -12,7 +12,7 @@ class Form():
         self.question_groups = question_groups # list of QuestionGroup
 
 class QuestionGroup():
-    def __init__(self, name, x, y, width, height, questions):
+    def __init__(self, name = "Default", x = 0, y = 0, width = 0, height = 0, questions = []):
         self.name = name
         self.w = width
         self.h = height

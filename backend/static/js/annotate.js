@@ -44,18 +44,24 @@ $(function() {
 
 $(function() {
 	$('#process-live-feed-btn').click(function() {
-        populate_pages_dropdown();
-        render_form();
+     	  render_form();
+   })
+ });
+
+ $(function() {
+   $('#manual-upload-btn').click(function() {
+     upload_files_to_server();
    })
  });
 
 $(function() {
 	$('.page-box').click(function() {
      current_page = $('.page-box').index(this);
+     console.log(current_page);
      // TODO: also highlight this page box and un-highlight the others
      // Basic outline to change the CSS class of the clicked box is below
-     // $('.page-box').removeClass(".page-box-active");
-     // $('#page-box' + current_page).addClass("page-box-active");
+     // d3.select(this).classed("page-box-active", true);
+     // d3.select(this).classed("page-box-new", false);
    })
  });
 
@@ -63,7 +69,6 @@ function render_form() {
   display(form[current_page]);
   visualize(form[current_page]);
   displaySvgFrame();
-  $(".question_group_title").click();
   hideUpload();
 }
 
@@ -390,6 +395,12 @@ function visualize(form) {
 
 }
 
+// Handles closing all modal
+$("span.close").on("click", function() {
+ 	$(".modal").hide();
+ 	display(form[current_page]);
+});
+
 function display(form) {
 	// Clear the existing HTML form, if there is one
 	d3.selectAll("form.update").html("");
@@ -405,9 +416,22 @@ function display(form) {
 			.attr("class",  "question_group_title")
 			.text(qg.name);
 
+		// add question group edit button
+		div.append("i")
+		.attr("class", "fas fa-edit")
+		.on("click", function() {
+			 $("#question_group_modal").show();
+			 $("#question_group_name").off()
+			 .val("")
+			 .attr("placeholder", qg.name)
+			 .on("input", function() {
+			 	qg.name = $(this).val()
+			 });
+		});
+
 		// add icons
-		div.append("i").attr("class", "fas fa-angle-up");
-		div.append("i").attr("class", "fas fa-angle-down").style("display", "none");
+		div.append("i").attr("class", "fas fa-angle-up angle");
+		div.append("i").attr("class", "fas fa-angle-down angle").style("display", "none");
 
 		// questions
 		d3.select(this).selectAll("div.questions").data(qg.questions).enter()
@@ -419,10 +443,37 @@ function display(form) {
 			d3.select(this).append("label")
 				.text(q.name)
 
-			// add location finder
+			// add question edit button
 			d3.select(this).append("i")
-				.attr("class", "fas fa-search-plus fa-xs")
-				.on("click", function(d) { return panToQuestion(q); });
+			.attr("class", "fas fa-edit")
+			.on("click", function() {
+				 $("#question_modal").show();
+				 $("#question_name").off()
+				 .val("")
+				 .attr("placeholder", q.name)
+				 .on("input", function() {
+				 	q.name = $(this).val()
+				 });
+				 $("#question_type").off()
+				 .val("")
+				 .attr("placeholder", q.question_type)
+				 .on("input", function() {
+				 	q.question_type = $(this).val()
+				 });
+				 $("#question_number").off()
+				 .val("")
+				 .attr("placeholder", q.response_regions.length)
+				 .on("input", function() {
+				 	for (i = 0; i < $(this).val(); i++) {
+				 		q.response_regions.push({
+				 			"x" : 0,
+				 			"y" : 0,
+				 			"w" : 0,
+				 			"h" : 0
+				 		})
+				 	}
+				 });
+			});
 
 			// responses div
 			var responses = d3.select(this).append("div")
@@ -459,6 +510,52 @@ function display(form) {
 			}
 		});
 
+		d3.select(this).append("div")
+		.attr("class", "question")
+		.each(function() {
+			
+			d3.select(this).append("label")
+			.text("Add New Question");
+
+			d3.select(this).append("i")
+			.attr("class", "fas fa-plus")
+			.on("click", function() {
+				qg.questions.push({
+					"__type__" : "Question",
+					"name" : "New Question",
+					"question_type": "text",
+					"response_regions" : [],
+					"answer_status" : "unresolved"
+				})
+				display(form)
+			});
+		});
+
+	});
+
+	// Add new Question Group
+	form_table.append("fieldset")
+	.attr("class", "question_group")
+	.each(function() {
+		
+		var div = d3.select(this).append("div")
+			.text("Add New Question Group");
+
+		div.append("i")
+		.attr("class", "fas fa-plus")
+		.on("click", function() {
+			form.question_groups.push({
+				"__type__" : "QuestionGroup",
+				"name" : "New Question Group",
+				"questions" : [],
+				"x" : 0,
+				"y" : 0,
+				"w" : 0,
+				"h" : 0
+			})
+			display(form)
+		});
+
 	});
 
 }
@@ -492,6 +589,7 @@ function hideUpload(){
 
 $(function() {
 	$('#save-file-btn').click(function() {
+		// $('#save-response').append("<p>" + validate(form) + "unanswered questions." + "</p>")
 		$.ajax({
 			type: 'POST',
 			url: '/save/' + file_path,
@@ -522,7 +620,7 @@ $(function() {
 	$(document).on("click", ".question_group_title", function () {
         var questions = $(this).parent().find(".question");
         questions.toggle();
-        var icons = $(this).parent().find("i");
+        var icons = $(this).parent().find("i.angle");
         icons.toggle();
     });
 });
@@ -530,39 +628,15 @@ $(function() {
 
 $(function() {
 	$('#upload-pages-btn').click(function() {
-    upload_files_to_server();
+    upload_files_to_server()
 	});
 });
-
-function check_alignment(input, page_number) {
-  var form_data = new FormData($('#upload-file')[0]);
-  $.ajax({
-    type: 'POST',
-    url: '/check_alignment/' + file_path +  "/" + page_number,
-    data: form_data,
-    contentType: false,
-    cache: false,
-    processData: false,
-    success: function(data) {
-      if (data.status == 'success') {
-        form[page_number] = data;
-        $('#page-box' + page_number).attr("class", "page-box-green");
-      } else {
-        $('#page-box' + page_number).attr("class", "page-box-red");
-      }
-    },
-    error: function(error) {
-      console.log(error);
-    }
-  });
-}
 
 $("input[name='file']").change(function() {
 	var index = $("input[name='file']").index(this);
 	var file_name = $(this)[0].files[0].name;
 	$(this).prev('label').text(file_name);
 	readThumbnailAsURL(this, index);
-  check_alignment(this, index);
 });
 
 function readThumbnailAsURL(input, index) {

@@ -69,6 +69,18 @@ def read_json_to_form(path_to_json_file):
         template = decode_form(loaded_json)
     return template
 
+def get_image_dimensions(image_path):
+    """
+    Args:
+        image_path (str): path to image
+    Returns:
+        x (int): width of image
+        y (int): height of image
+    """
+    loaded_image = read_image(image_path)
+    (x, y, _) = loaded_image.shape
+    return (x, y)
+
 def read_multipage_json_to_form(path_to_json_file):
     """
     Args:
