@@ -44,6 +44,7 @@ $(function() {
 
 $(function() {
 	$('#process-live-feed-btn').click(function() {
+        current_page = 0;
         populate_pages_dropdown();
         render_form();
    })
