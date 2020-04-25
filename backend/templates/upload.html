@@ -72,7 +72,7 @@
     <form id="upload-file" method="post" float="left" enctype="multipart/form-data" >
 
       {% for i in range(0, num_pages) %}
-      <div class="page-box page-box-new">
+      <div id="page-box{{ i }}" class="page-box page-box-new">
         <div class="page-ph-add">
 
           <img id="file-thumbnail{{ i }}" src="/static/image/add.png" />
@@ -94,7 +94,7 @@
     <button id="upload-file-btn" type="button" class="highlighted disabled">Process records</button>
   </div> -->
   <div class="upload-button">
-    <button id="process-live-feed-btn" type="button" class="highlighted">Process Live Feed</button>
+    <button id="process-live-feed-btn" type="button" class="highlighted">Submit</button>
   </div>
 </div>
 

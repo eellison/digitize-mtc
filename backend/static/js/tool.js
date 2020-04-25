@@ -49,20 +49,13 @@ $(function() {
    })
  });
 
- // $(function() {
- //   $('#manual-upload-btn').click(function() {
- //     upload_files_to_server();
- //   })
- // });
-
 $(function() {
 	$('.page-box').click(function() {
      current_page = $('.page-box').index(this);
-     console.log(current_page);
      // TODO: also highlight this page box and un-highlight the others
      // Basic outline to change the CSS class of the clicked box is below
-     // d3.select(this).classed("page-box-active", true);
-     // d3.select(this).classed("page-box-new", false);
+     // $('.page-box').removeClass(".page-box-active");
+     // $('#page-box' + current_page).addClass("page-box-active");
    })
  });
 
@@ -541,7 +534,7 @@ $(function() {
 	});
 });
 
-function is_aligned(page_number) {
+function check_alignment(input, page_number) {
   var form_data = new FormData($('#upload-file')[0]);
   $.ajax({
     type: 'POST',
@@ -551,13 +544,11 @@ function is_aligned(page_number) {
     cache: false,
     processData: false,
     success: function(data) {
-      console.log(data.status);
       if (data.status == 'success') {
         form[page_number] = data;
-        // $('#file-thumbnail' + page_number).closest(".page-box-new").addClass("page-box-active");
+        $('#page-box' + page_number).attr("class", "page-box-green");
       } else {
-        return false;
-        // $('#file-thumbnail' + page_number).closest(".page-box-new").addClass("page-box-red");
+        $('#page-box' + page_number).attr("class", "page-box-red");
       }
     },
     error: function(error) {
@@ -571,11 +562,7 @@ $("input[name='file']").change(function() {
 	var file_name = $(this)[0].files[0].name;
 	$(this).prev('label').text(file_name);
 	readThumbnailAsURL(this, index);
-  if (is_aligned(index)) {
-    $('#file-thumbnail' + index).closest(".page-box-new").addClass("page-box-active");
-  } else {
-    $('#file-thumbnail' + index).closest(".page-box-new").addClass("page-box-red");
-  };
+  check_alignment(this, index);
 });
 
 function readThumbnailAsURL(input, index) {

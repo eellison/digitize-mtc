@@ -457,6 +457,11 @@ nav.side-bar-nav a{
 	margin-bottom:1em;
 }
 
+.page-box-active{
+	border:4px solid #EDEDED;
+	border-style: dashed;
+}
+
 .page-box-new{
 	border:2px solid #EDEDED;
 	border-style: dashed;
@@ -465,10 +470,10 @@ nav.side-bar-nav a{
 	margin-bottom:1em;
 }
 
-.page-box-active{
+.page-box-green{
 	border:2px solid #EDEDED;
 	border-style: dashed;
-	background-color: #008000;
+	background-color: #77dd77;
 	border-radius: 8px;
 	margin-bottom:1em;
 }
@@ -476,7 +481,7 @@ nav.side-bar-nav a{
 .page-box-red{
 	border:2px solid #EDEDED;
 	border-style: dashed;
-	background-color: #800000;
+	background-color: #ff6961;
 	border-radius: 8px;
 	margin-bottom:1em;
 }
