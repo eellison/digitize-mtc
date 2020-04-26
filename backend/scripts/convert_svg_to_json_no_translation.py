@@ -12,6 +12,7 @@ from pathlib import Path
 import lxml.etree
 from copy import deepcopy
 from encoder import FormTemplateEncoder
+import util
 
 
 ############
@@ -54,17 +55,18 @@ def get_tag_parts(tag):
 # Function to generate Questions from SVG, and put them into question groups
 def questions_from_svg(svg_path):
     data = lxml.etree.parse(svg_path).getroot()
-    template_width = float(data.get('width'))
-    template_height = float(data.get('height'))
-    dw = 2475 / template_width #hardcoded based on ANC image (example/template.jpg)
-    dh = 3504 / template_height #hardcoded based on ANC image (example/template.jpg)
+    # TODO: get these from the image file itself
+    # template_width = float(data.get('width'))
+    # template_height = float(data.get('height'))
+    # dw = 1275 / template_width #hardcoded based on ANC image (example/template.jpg)
+    # dh = 1650 / template_height #hardcoded based on ANC image (example/template.jpg)
 
     # First find the question groups
     question_groups = {}
     for tag in data.iterfind('.//{*}rect'):
         tag_name = tag.get('id')
         if tag_name[:2] != 'qg' and tag_name[:2] != 'gq': # only QuestionGroups don't start with qg
-            w, h, x, y = get_pixel_dimensions(tag, dw, dh)
+            w, h, x, y = get_pixel_dimensions(tag, None, None)
             new_group = QuestionGroup(tag_name, w, h, x, y, [])
             question_groups[tag_name] = new_group
 
@@ -74,13 +76,13 @@ def questions_from_svg(svg_path):
         tag_name = tag.get('id')
         if tag_name[:2] == 'qg' or tag_name[:2] == 'gq':
             group_name, question_type, question_name, response_name = get_tag_parts(tag)
-            w, h, x, y = get_pixel_dimensions(tag, dw, dh)
+            w, h, x, y = get_pixel_dimensions(tag, None, None)
             if question_type == "rb":
                 rb_tag_list.append(tag)
                 continue
             else:
                 new_response_region = ResponseRegion("", w, h, x, y, None)
-                new_question = Question(question_name, None, [new_response_region], AnswerStatus.unresolved)
+                new_question = Question(question_name, None, [new_response_region], AnswerStatus.unresolved, 0)
                 if question_type == "ocr":
                     new_question.question_type = QuestionType.text
                 elif question_type == "cb":
@@ -90,13 +92,13 @@ def questions_from_svg(svg_path):
                 question_groups[group_name].questions.append(new_question)
 
     # Handle radio button questions separately
-    radio_questions, question_to_group = create_radio_questions(rb_tag_list, dw, dh)
+    radio_questions, question_to_group = create_radio_questions(rb_tag_list, None, None)
     for question in radio_questions:
         group = question_to_group[question.name]
         question_groups[group].questions.append(question)
 
     # Output the question groups as a list
-    return(list(question_groups.values()), template_width, template_height)
+    return(list(question_groups.values()), None, None)
 
 def create_radio_questions(tag_list, dw, dh):
     # First, construct all of the radio questions
@@ -115,7 +117,7 @@ def create_radio_questions(tag_list, dw, dh):
     # Construct questions from grouped responses
     all_questions = []
     for question_name, response_regions in response_dict.items():
-        new_question = Question(question_name, QuestionType.radio, response_regions, AnswerStatus.unresolved)
+        new_question = Question(question_name, QuestionType.radio, response_regions, AnswerStatus.unresolved, 0)
         all_questions.append(new_question)
 
     return all_questions, question_to_group_dict
@@ -126,13 +128,14 @@ def create_radio_questions(tag_list, dw, dh):
 ##########################
 
 # Create Paths / names
-form_name = "Delivery Page 1"
-template_file_name = "delivery_pg_1.json"
-abs_path_to_svg = str((Path.cwd() / "backend" / "forms" / "template_images_v2" / "test.svg").resolve())
-relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "delivery_pg_1.jpeg")
+form_name = "COVID"
+template_file_name = "covid_single_page.json"
+abs_path_to_svg = str((Path.cwd() / "test.svg").resolve())
+relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "Case_Report_Form.jpeg")
 
 # Generate questions from SVG
-(all_question_groups, template_width, template_height) = questions_from_svg(abs_path_to_svg)
+(all_question_groups, _, _) = questions_from_svg(abs_path_to_svg)
+(template_height, template_width) = util.get_image_dimensions(relative_path_to_template_image)
 
 # Create Form object
 form = Form(form_name, relative_path_to_template_image, template_width, template_height, all_question_groups)

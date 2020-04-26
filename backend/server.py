@@ -276,7 +276,7 @@ def upload_all_templates():
     global templates
 
     # TODO: loop through all files *.json from forms/json_annotations
-    for file in ["delivery", "antenatal"]:
+    for file in ["delivery", "antenatal", "covid"]:
         path_to_json_file = str(Path.cwd() / "backend" / "forms" / "json_annotations" / (file + ".json"))
         templates[file] = read_multipage_json_to_form(path_to_json_file)
 

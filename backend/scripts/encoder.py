@@ -1,7 +1,10 @@
 import json
 from copy import deepcopy
-from .form import *
 
+try:
+    from .form import *
+except:
+    from form import *
 
 # JSON encoder for Form objects
 class FormTemplateEncoder(json.JSONEncoder):

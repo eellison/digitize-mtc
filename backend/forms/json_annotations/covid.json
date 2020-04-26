@@ -1,0 +1,58 @@
+{
+  "name": "COVID",
+  "pages": [{
+      "name": "COVID",
+      "image": "backend/forms/template_images_v2/Case_Report_Form.jpeg",
+      "w": 1275,
+      "h": 1650,
+      "question_groups": [
+          {
+              "name": "all",
+              "w": 132.30763244628906,
+              "h": 29.723915100097656,
+              "x": 217.39152145385742,
+              "y": 94.16145420074463,
+              "questions": [
+                  {
+                      "name": "cardio",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "no",
+                              "x": 14.499481201171875,
+                              "y": 14.499473571777344,
+                              "w": 262.44940185546875,
+                              "h": 100.95047760009766,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "unknown",
+                              "w": 14.136993408203125,
+                              "h": 14.136985778808594,
+                              "x": 296.1606750488281,
+                              "y": 101.3129653930664,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "yes",
+                              "w": 15.586929321289062,
+                              "h": 14.136985778808594,
+                              "x": 228.37567138671875,
+                              "y": 100.5879898071289,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  }
+              ],
+              "__type__": "QuestionGroup"
+          }
+      ],
+      "__type__": "Form"
+  }]
+}
