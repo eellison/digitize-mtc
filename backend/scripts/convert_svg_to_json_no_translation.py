@@ -56,8 +56,8 @@ def get_tag_parts(tag):
 def questions_from_svg(svg_path):
     data = lxml.etree.parse(svg_path).getroot()
     # TODO: get these from the image file itself
-    # template_width = float(data.get('width'))
-    # template_height = float(data.get('height'))
+    template_width = float(data.get('width'))
+    template_height = float(data.get('height'))
     # dw = 1275 / template_width #hardcoded based on ANC image (example/template.jpg)
     # dh = 1650 / template_height #hardcoded based on ANC image (example/template.jpg)
 
@@ -98,7 +98,7 @@ def questions_from_svg(svg_path):
         question_groups[group].questions.append(question)
 
     # Output the question groups as a list
-    return(list(question_groups.values()), None, None)
+    return(list(question_groups.values()), template_width, template_height)
 
 def create_radio_questions(tag_list, dw, dh):
     # First, construct all of the radio questions
@@ -129,13 +129,18 @@ def create_radio_questions(tag_list, dw, dh):
 
 # Create Paths / names
 form_name = "COVID"
-template_file_name = "covid_single_page.json"
-abs_path_to_svg = str((Path.cwd() / "test.svg").resolve())
+template_file_name = "covid_full.json"
+abs_path_to_svg = str((Path.cwd() / "Case_Report_Form_Full.svg").resolve())
 relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "Case_Report_Form.jpeg")
 
 # Generate questions from SVG
-(all_question_groups, _, _) = questions_from_svg(abs_path_to_svg)
-(template_height, template_width) = util.get_image_dimensions(relative_path_to_template_image)
+(all_question_groups, template_width, template_height) = questions_from_svg(abs_path_to_svg)
+(template_height_cv2, template_width_cv2) = util.get_image_dimensions(relative_path_to_template_image)
+
+print(template_width)
+print(template_height)
+print(template_width_cv2)
+print(template_height_cv2)
 
 # Create Form object
 form = Form(form_name, relative_path_to_template_image, template_width, template_height, all_question_groups)

@@ -1,0 +1,58 @@
+{
+  "name": "COVID",
+  "pages": [{
+      "name": "COVID",
+      "image": "backend/forms/template_images_v2/Case_Report_Form.jpeg",
+      "w": 816.0,
+      "h": 1056.0,
+      "question_groups": [
+          {
+              "name": "all",
+              "w": 303.13812,
+              "h": 132.97238,
+              "x": 132.24309,
+              "y": 31.116022,
+              "questions": [
+                  {
+                      "name": "cardio",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "no",
+                              "w": 20.662983,
+                              "h": 19.933702,
+                              "x": 355.8895,
+                              "y": 136.61879,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "unknown",
+                              "w": 21.635359,
+                              "h": 19.447514,
+                              "x": 400.61877,
+                              "y": 137.59116,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "yes",
+                              "w": 21.392265,
+                              "h": 19.447514,
+                              "x": 310.43094,
+                              "y": 137.10497,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  }
+              ],
+              "__type__": "QuestionGroup"
+          }
+      ],
+      "__type__": "Form"
+  }]
+}

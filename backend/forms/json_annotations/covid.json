@@ -3,44 +3,774 @@
   "pages": [{
       "name": "COVID",
       "image": "backend/forms/template_images_v2/Case_Report_Form.jpeg",
-      "w": 1275,
-      "h": 1650,
+      "w": 816.0,
+      "h": 1056.0,
       "question_groups": [
           {
-              "name": "all",
-              "w": 132.30763244628906,
-              "h": 29.723915100097656,
-              "x": 217.39152145385742,
-              "y": 94.16145420074463,
+              "name": "Exposures",
+              "w": 38.504112,
+              "h": 338.17331,
+              "x": 741.20416,
+              "y": 660.0705,
               "questions": [
                   {
-                      "name": "cardio",
+                      "name": "QuarantineStart",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 97.979218,
+                              "h": 25.440218,
+                              "x": 558.65344,
+                              "y": 386.30347,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "QuarantineEnd",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 97.635429,
+                              "h": 24.752644,
+                              "x": 669.35272,
+                              "y": 386.30347,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "HealthcareSettingRole",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 105.54253,
+                              "h": 16.501762,
+                              "x": 662.47699,
+                              "y": 412.43124,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "InternationalTravelMethodOther",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 58.099957,
+                              "h": 19.595842,
+                              "x": 486.45822,
+                              "y": 506.9726,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "InternationalTravel",
                       "question_type": "radio",
                       "response_regions": [
                           {
-                              "name": "no",
-                              "x": 14.499481201171875,
-                              "y": 14.499473571777344,
-                              "w": 262.44940185546875,
-                              "h": 100.95047760009766,
+                              "name": "No",
+                              "w": 17.876909,
+                              "h": 19.252056,
+                              "x": 318.00272,
+                              "y": 433.05847,
                               "value": null,
                               "__type__": "ResponseRegion"
                           },
                           {
-                              "name": "unknown",
-                              "w": 14.136993408203125,
-                              "h": 14.136985778808594,
-                              "x": 296.1606750488281,
-                              "y": 101.3129653930664,
+                              "name": "Yes",
+                              "w": 17.876909,
+                              "h": 19.252056,
+                              "x": 275.37317,
+                              "y": 432.71466,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "InternationalTravelMethod",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "Airplane",
+                              "w": 17.533123,
+                              "h": 16.157976,
+                              "x": 388.82278,
+                              "y": 476.71936,
                               "value": null,
                               "__type__": "ResponseRegion"
                           },
                           {
-                              "name": "yes",
-                              "w": 15.586929321289062,
-                              "h": 14.136985778808594,
-                              "x": 228.37567138671875,
-                              "y": 100.5879898071289,
+                              "name": "Car",
+                              "w": 17.876909,
+                              "h": 18.220694,
+                              "x": 388.82278,
+                              "y": 492.87735,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Other",
+                              "w": 15.814188,
+                              "h": 17.876902,
+                              "x": 388.82278,
+                              "y": 511.09805,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Quarantine",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 16.501762,
+                              "h": 15.470403,
+                              "x": 354.10031,
+                              "y": 390.08511,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 17.876909,
+                              "h": 15.814189,
+                              "x": 311.12698,
+                              "y": 389.74133,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "HealthcareSetting",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "HealthcareWorker",
+                              "w": 16.845549,
+                              "h": 15.126616,
+                              "x": 465.48721,
+                              "y": 413.11884,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "No",
+                              "w": 15.470403,
+                              "h": 15.814189,
+                              "x": 362.3512,
+                              "y": 412.43124,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Visitor",
+                              "w": 16.501762,
+                              "h": 15.470403,
+                              "x": 407.38727,
+                              "y": 413.46262,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Contact",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 15.126616,
+                              "h": 14.439042,
+                              "x": 518.08661,
+                              "y": 680.92871,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 17.189337,
+                              "h": 14.439042,
+                              "x": 555.21558,
+                              "y": 680.5849,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 16.845549,
+                              "h": 14.439042,
+                              "x": 476.4884,
+                              "y": 680.5849,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "ContactRespiratory",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 15.470403,
+                              "h": 14.782829,
+                              "x": 499.52209,
+                              "y": 769.28186,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 15.470403,
+                              "h": 14.439042,
+                              "x": 537.68243,
+                              "y": 769.96942,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 16.501762,
+                              "h": 14.095256,
+                              "x": 455.5174,
+                              "y": 769.96942,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Classification",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "Healthcare-Associated",
+                              "w": 18.475138,
+                              "h": 18.475138,
+                              "x": 562.03314,
+                              "y": 916.95026,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Household-Contact",
+                              "w": 15.470403,
+                              "h": 18.564484,
+                              "x": 320.06543,
+                              "y": 939.80011,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Other-Close-Contact",
+                              "w": 16.845549,
+                              "h": 15.470403,
+                              "x": 444.51624,
+                              "y": 940.83142,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Travel-Domestic",
+                              "w": 17.876909,
+                              "h": 15.814189,
+                              "x": 453.79846,
+                              "y": 918.14154,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Travel-International",
+                              "w": 18.564484,
+                              "h": 16.845549,
+                              "x": 320.06543,
+                              "y": 918.48529,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown-Community",
+                              "w": 15.814173,
+                              "h": 15.470399,
+                              "x": 575.15521,
+                              "y": 940.48767,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "DomesticTravel",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 16.845549,
+                              "h": 16.501762,
+                              "x": 486.11444,
+                              "y": 531.72522,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 19.252056,
+                              "h": 17.189337,
+                              "x": 441.42215,
+                              "y": 530.69391,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "DomesticTravelMethod1",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "Airplane",
+                              "w": 17.876909,
+                              "h": 14.782829,
+                              "x": 388.13522,
+                              "y": 571.9483,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Car",
+                              "w": 16.501762,
+                              "h": 14.439042,
+                              "x": 388.13522,
+                              "y": 590.51276,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Other",
+                              "w": 16.845549,
+                              "h": 13.407682,
+                              "x": 388.82278,
+                              "y": 608.38971,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  }
+              ],
+              "__type__": "QuestionGroup"
+          },
+          {
+              "name": "History",
+              "w": 31.628378,
+              "h": 100.27291,
+              "x": 748.0799,
+              "y": 237.90039,
+              "questions": [
+                  {
+                      "name": "Neuro-Specify",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 191.14542,
+                              "h": 17.876909,
+                              "x": 572.0611,
+                              "y": 217.1604,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Chronic-Specify",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 192.17677,
+                              "h": 14.095256,
+                              "x": 571.71735,
+                              "y": 239.16275,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Neurologic",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 17.876909,
+                              "h": 14.782829,
+                              "x": 356.16306,
+                              "y": 217.1604,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 16.157976,
+                              "h": 14.782829,
+                              "x": 403.9494,
+                              "y": 218.19176,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 16.845549,
+                              "h": 14.439042,
+                              "x": 312.15836,
+                              "y": 217.84798,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Cardiovascular",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 17.533123,
+                              "h": 16.845549,
+                              "x": 357.53818,
+                              "y": 138.43324,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 18.564484,
+                              "h": 17.876909,
+                              "x": 402.57425,
+                              "y": 137.74567,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 19.252056,
+                              "h": 16.845549,
+                              "x": 310.7832,
+                              "y": 137.74567,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Chronic-Other",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 16.157976,
+                              "h": 15.126616,
+                              "x": 357.88199,
+                              "y": 236.75624,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 18.220695,
+                              "h": 15.470403,
+                              "x": 402.23047,
+                              "y": 237.10002,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 16.157976,
+                              "h": 15.470403,
+                              "x": 312.50214,
+                              "y": 236.06866,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Immunocompromised",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 13.407682,
+                              "h": 13.407682,
+                              "x": 359.60092,
+                              "y": 198.59592,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 14.782829,
+                              "h": 14.439042,
+                              "x": 404.98077,
+                              "y": 198.9397,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 15.814189,
+                              "h": 15.126616,
+                              "x": 312.84592,
+                              "y": 197.22076,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "CurrentSmoker",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 20.283417,
+                              "h": 17.533123,
+                              "x": 355.13168,
+                              "y": 295.54376,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 20.283417,
+                              "h": 17.533123,
+                              "x": 400.85532,
+                              "y": 294.8562,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 18.90827,
+                              "h": 16.845549,
+                              "x": 311.12698,
+                              "y": 295.54376,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "FormerSmoker",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 19.252058,
+                              "h": 16.501781,
+                              "x": 355.13168,
+                              "y": 313.07687,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 20.627207,
+                              "h": 17.876915,
+                              "x": 400.85532,
+                              "y": 312.38931,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 17.189337,
+                              "h": 16.157982,
+                              "x": 311.12698,
+                              "y": 312.38931,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Liver",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 14.782829,
+                              "h": 14.782829,
+                              "x": 358.56955,
+                              "y": 177.9687,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 15.814189,
+                              "h": 15.470403,
+                              "x": 403.9494,
+                              "y": 178.65628,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 16.845549,
+                              "h": 15.126616,
+                              "x": 312.50214,
+                              "y": 177.62492,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Pregnant",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 14.095256,
+                              "h": 12.720109,
+                              "x": 261.96548,
+                              "y": 257.03964,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 14.439042,
+                              "h": 13.751469,
+                              "x": 301.15717,
+                              "y": 256.69586,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 12.032536,
+                              "h": 12.376322,
+                              "x": 221.39865,
+                              "y": 256.35208,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Renal",
+                      "question_type": "radio",
+                      "response_regions": [
+                          {
+                              "name": "No",
+                              "w": 16.157976,
+                              "h": 14.782829,
+                              "x": 358.56955,
+                              "y": 158.71666,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Unknown",
+                              "w": 16.845549,
+                              "h": 14.439042,
+                              "x": 403.60562,
+                              "y": 159.06044,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          },
+                          {
+                              "name": "Yes",
+                              "w": 17.189337,
+                              "h": 14.782829,
+                              "x": 311.81454,
+                              "y": 159.06044,
                               "value": null,
                               "__type__": "ResponseRegion"
                           }
