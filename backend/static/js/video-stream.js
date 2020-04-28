@@ -27,7 +27,7 @@ function gotDevices(deviceInfos) {
 			// Do nothing! We only care about streaming video
 		} else if (deviceInfo.kind === 'audiooutput'){
 			// Do nothing! We only care about streaming video
-		} else if (deviceInfo.kind === 'videoinput' ) {
+		} else if (deviceInfo.kind === 'videoinput' && deviceInfo.label.includes("IPEVO")) {
 			// The criteria below can used to pick a specific camera input
 			// && deviceInfo.label.includes("IPEVO")
 			option.text = deviceInfo.label || 'camera ' +

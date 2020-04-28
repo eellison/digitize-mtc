@@ -14,6 +14,8 @@ function requestLiveFeedResponse(form_name, page_number) {
         d3.select("#turn-on-align-btn").text("Turn on Align Feature");
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
+        $('#page-box' + page_number).attr("class", "page-box-green");
+        $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
@@ -22,7 +24,7 @@ function requestLiveFeedResponse(form_name, page_number) {
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning for page " + page_number);
+        d3.select("#turn-on-align-btn").text("Scanning for page " + (page_number + 1));
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
         requestLiveFeedResponse(form_name, page_number);
@@ -388,6 +390,8 @@ function visualize(form) {
 	.attr("width", function(d) { return d.w* width / form.w;})
 	.attr("height", function(d) { return d.h * width / form.w; })
 	.on("click", clicked);
+
+  // $(".question_group_title").click();
 }
 
 function display(form) {
