@@ -90,6 +90,10 @@ def questions_from_svg(svg_path):
                 else:
                     raise Exception("Unknown question type %s in SVG!!" % question_type)
                 question_groups[group_name].questions.append(new_question)
+        else:
+            print("Tag with name " + tag_name + " skipped!")
+            print("^^ If these all look like Question Group names, then everything is working as expected.")
+            print("If not, then there are rectangles in the SVG that aren't tagged with a QuestionGroup!")
 
     # Handle radio button questions separately
     radio_questions, question_to_group = create_radio_questions(rb_tag_list, None, None)
@@ -128,10 +132,10 @@ def create_radio_questions(tag_list, dw, dh):
 ##########################
 
 # Create Paths / names
-form_name = "COVID"
-template_file_name = "covid_full.json"
-abs_path_to_svg = str((Path.cwd() / "Case_Report_Form_Full.svg").resolve())
-relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "Case_Report_Form.jpeg")
+form_name = "Delivery Page 2"
+template_file_name = "delivery_page_2.json"
+abs_path_to_svg = str((Path.cwd() / "delivery_pg_2.svg").resolve())
+relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "delivery_pg_2.jpeg")
 
 # Generate questions from SVG
 (all_question_groups, template_width, template_height) = questions_from_svg(abs_path_to_svg)

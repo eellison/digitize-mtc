@@ -63,6 +63,7 @@ $(function() {
  });
 
 function render_form() {
+  clearSVG();
   display(form[current_page]);
   visualize(form[current_page]);
   displaySvgFrame();
@@ -180,6 +181,14 @@ svg.append("rect")
 	.call(zoom);
 
 var form_image = svg.append("g");
+
+function clearSVG() {
+  // Essentially just remove all the question groups
+  // This way when the user switches which page they want to view,
+  // rectangles from the previous page no longer visible.
+  // TODO (Dan): "Is this abuse of D3, or good form?" - Sud
+  form_image.selectAll("g.question_group").remove();
+}
 
 function zoomed() {
 	const currentTransform = d3.event.transform;
