@@ -29,7 +29,7 @@ class Question():
         self.expected_number_digits = expected_number_digits
 
 class ResponseRegion():
-    def __init__(self, name, x, y, width, height, value):
+    def __init__(self, name, width, height, x, y,  value):
         self.name = name # meaning of region
         self.w = width # width of bounding rectangle
         self.h = height # height of bounding rectangle

@@ -14,6 +14,8 @@ function requestLiveFeedResponse(form_name, page_number) {
         d3.select("#turn-on-align-btn").text("Turn on Align Feature");
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
+        $('#page-box' + page_number).attr("class", "page-box-green");
+        $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
@@ -22,7 +24,7 @@ function requestLiveFeedResponse(form_name, page_number) {
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning for page " + page_number);
+        d3.select("#turn-on-align-btn").text("Scanning for page " + (page_number + 1));
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
         requestLiveFeedResponse(form_name, page_number);
@@ -61,6 +63,7 @@ $(function() {
  });
 
 function render_form() {
+  clearSVG();
   display(form[current_page]);
   visualize(form[current_page]);
   displaySvgFrame();
@@ -146,8 +149,8 @@ function populate_pages_dropdown() {
 // });
 
 
-var width = (document.getElementById("main-content").offsetWidth)*0.6,
-	height = (document.getElementById("main-content").offsetWidth)*0.6,
+var width = (document.getElementById("main-content").offsetWidth),
+	height = (document.getElementById("main-content").offsetWidth),
 	active = d3.select(null);
 
 var ZOOM_BOX_TIGHTNESS = 16; // Higher is tigher
@@ -178,6 +181,14 @@ svg.append("rect")
 	.call(zoom);
 
 var form_image = svg.append("g");
+
+function clearSVG() {
+  // Essentially just remove all the question groups
+  // This way when the user switches which page they want to view,
+  // rectangles from the previous page no longer visible.
+  // TODO (Dan): "Is this abuse of D3, or good form?" - Sud
+  form_image.selectAll("g.question_group").remove();
+}
 
 function zoomed() {
 	const currentTransform = d3.event.transform;
@@ -385,10 +396,11 @@ function visualize(form) {
 	}).attr("response_region_name", function(d) { return d.name; })
 	.attr("x", function(d) { return d.x * width / form.w; })
 	.attr("y", function(d) { return d.y * width / form.w; })
-	.attr("width", function(d) { return d.w * width / form.w; })
+	.attr("width", function(d) { return d.w* width / form.w;})
 	.attr("height", function(d) { return d.h * width / form.w; })
 	.on("click", clicked);
 
+  // $(".question_group_title").click();
 }
 
 function display(form) {

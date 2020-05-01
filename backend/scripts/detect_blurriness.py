@@ -3,7 +3,7 @@ import numpy as np
 
 # TODO: compare the amount of blur versus the template image bluriness
 BLUR_THRESHOLD_MAX = -11  # lower is better, TODO: test with more images
-BLUR_THRESHOLD_MIN = -300  # if the image is skewed/too low, something went wrong
+BLUR_THRESHOLD_MIN = -3000  # if the image is skewed/too low, something went wrong
 
 def variance_of_laplacian(grayscale_image):
 	# compute the Laplacian of the image and then return the focus

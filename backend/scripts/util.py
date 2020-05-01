@@ -1,7 +1,11 @@
 ## Utility Functions for Form Processing
 from pathlib import Path
-from .encoder import *
-from .form import *
+try:
+    from encoder import *
+    from form import *
+except:
+    from .encoder import *
+    from .form import *
 import os
 from PIL import Image, ImageDraw, ImageOps
 import csv

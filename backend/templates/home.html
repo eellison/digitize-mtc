@@ -8,7 +8,7 @@
 
 <body>
   <nav class="side-bar-nav">
-          <div class="logo-nav-block"> <p>Mae Tao </br>Clinic</p> </div>
+          <div class="logo-nav-block"> <p>Rhode Island </br> Department </br> of Health </p> </div>
           <div class="item-logo-block nav-block-highlighted">
               <img src="/static/image/record-upload.png">
               <p>Scan Record</p>
@@ -42,6 +42,10 @@
           <a href="{{ url_for('upload', form='delivery') }}">
             <div class="select-form-button">
               Delivery Record
+            </div></a>
+          <a href="{{ url_for('upload', form='covid') }}">
+            <div class="select-form-button">
+              COVID-19 Case Report
             </div></a>
         </div>
       </div>
