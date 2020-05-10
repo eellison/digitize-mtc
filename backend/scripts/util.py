@@ -11,6 +11,7 @@ import numpy as np
 import math
 import time
 from skimage.filters import threshold_local
+from app import get_output_folder
 
 # CONSTANTS
 BLACK_LEVEL  = 0.6 * 255
@@ -147,28 +148,50 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
               Image.fromarray(bw, 'L'))
     buf.save(output_path)
 
+
+def santize_form_name(form_name):
+    return form_name.replace(" ", "_")
+
 def write_form_to_csv(form):
     """
     Args:
         form (Form): modeled Form object
     """
+
+    # TODO: move all Forms -> Page and Form and Form to Page
+    if isinstance(form, FormContainer):
+        forms = form.forms
+    else:
+        forms = [form]
+
     # Get list of answer values, which will form a new row of the CSV
-    all_questions = [q for group in form.question_groups for q in group.questions]
+    all_questions = []
+    for f in forms:
+        all_questions += [q for group in f.question_groups for q in group.questions]
+
+
     # Alphabetize questions by name
     all_questions.sort(key=lambda q: q.name)
     answers = [extract_answer(q) for q in all_questions]
     # Check if the output file already exists
-    file_name = form.name + ".csv"
-    path_to_csv = str(Path.cwd() / "backend" / "output" / file_name)
+    file_name = santize_form_name(form.name + ".csv")
+    path_to_csv = str(get_output_folder() + "/" + file_name)
     file_existed_already = os.path.isfile(path_to_csv)
-    # Open file in "append" mode
+
+    import pdb; pdb.set_trace()
+    aligned_images = [Image.open(aligned_static_path(form.image)) for form in forms]
+    pdf_path = aligned_static_path("aligned_images_" + str(time.time()) + ".pdf")
+    aligned_images[0].save(pdf_path, save_all=True, append_images = aligned_images[1:])
     with open(path_to_csv,"a+") as csv_file:
         writer = csv.writer(csv_file)
         # Write header if file did not already exist
         if not file_existed_already:
-            header_line = [[question.name for question in all_questions]]
+            questions = [question.name for question in all_questions]
+            questions.append("All_Forms_Pdf")
+            header_line = [questions]
             writer.writerows(header_line)
         # Now append answers from the Form
+        answers.append(pdf_path)
         writer.writerows([answers])
     return True
 
@@ -218,9 +241,12 @@ def extract_radio_answer(q):
     Returns:
         answer (str): the answer embedded in the response region value
     '''
-    chosen_response = next(rr for rr in q.response_regions if \
-                           rr.value == CheckboxState.checked.name)
-    return chosen_response.name
+    out = list(filter(lambda rr: rr.value == CheckboxState.checked.name, q.response_regions))
+    # if the checkbox is not filled in return an empty string
+    return out[0].name if out else ""
+
+def aligned_static_path(aligned_filename):
+    return str(Path.cwd() / "backend" / "static" / aligned_filename)
 
 def write_aligned_image(input_image_path, aligned_image):
     """
@@ -232,7 +258,7 @@ def write_aligned_image(input_image_path, aligned_image):
     """
     image_name = file_name_from_path(input_image_path)
     aligned_filename = image_name + "_aligned_" + str(time.time()) + ".jpg"
-    static_path = str(Path.cwd() / "backend" / "static" / aligned_filename)
+    static_path = aligned_static_path(aligned_filename)
     cv2.imwrite(static_path, aligned_image)
     return aligned_filename # name of the file that can be found in static/
 
