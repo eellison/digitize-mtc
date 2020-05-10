@@ -24,6 +24,8 @@ def align_images(im1, im2):
         align_score (float): average max distance, lower is better
     """
 
+    assert isinstance(im1, np.ndarray) and isinstance(im2, np.ndarray)
+
     # Convert images to grayscale
     im_1_gray = cv2.cvtColor(im1, cv2.COLOR_BGR2GRAY)
     im_2_gray = cv2.cvtColor(im2, cv2.COLOR_BGR2GRAY)

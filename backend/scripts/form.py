@@ -3,6 +3,15 @@ from enum import Enum
 ###########################
 ### Form Template Model ###
 ###########################
+
+# TODO: rename FormContainer to Form and Form to Page
+class FormContainer():
+    def __init__(self, forms):
+        self.forms = forms
+        # TODO separate name
+        self.name = forms[0].name
+
+
 class Form():
     def __init__(self, name, image, width, height, question_groups):
         self.name = name # name of data table

@@ -9,6 +9,7 @@ import sys
 from scripts import *
 import time
 import cv2
+import platform
 from math import inf
 
 ###############################
@@ -135,25 +136,28 @@ def upload(form):
 def save_response(file):
     try:
         # NOTE: form is an array of jsons
-        # TODO: fix decode_form to take in the array of JSONs and convert to Python model
-        # form = decode_form(json.loads(request.data))
         # TODO: write_form_to_csv should take in a file name (ex. delivery) and an array of jsons
         # and should append a row to file.csv with concatenated jsons from array.
-        # write_form_to_csv(file, form)
-
-        # decoded_form = decode_form(json.loads(request.data))
-        # write_form_to_csv(decoded_form)
-        print(request.data)
+        loaded_json = json.loads(request.data)
+        decoded_form = decode_form(loaded_json)
+        write_form_to_csv(decoded_form)
         return jsonify(status='success')
     except AlignmentError as err:
         return jsonify(error_msg=err.msg, status='error')
+
+
+def camera_index():
+    # camera indexing is 0 on Macs 1 otherwise
+    return 0 if platform.system() == "Darwin" else 1
 
 # Capture live stream via OpenCV
 # TODO: (sud) select video feed based on selection on frontend
 class Camera(object):
     def __init__(self):
-        # cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
-        cap = cv2.VideoCapture(1)
+
+        # with capture_stdout() as output:
+        cap = cv2.VideoCapture(camera_index())
+        assert cap.isOpened(), "Failed to connect to OpenCV. Could not connect to Camera"
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
         test, frame = cap.read()
@@ -211,7 +215,11 @@ def video_feed(form_name, page_number):
     time.sleep(sec_btw_captures) # wait before processing frame
 
     template = templates[form_name]["pages"][int(page_number)]
-    template_image = templates[form_name]["images"][int(page_number)]
+    template_image = template.image
+    if isinstance(template_image, str):
+        template_image = util.read_image(template_image)
+
+    assert template_image is not None
 
     if request.method == "GET":
         # Grab a frame from the live camera feed
@@ -292,7 +300,11 @@ templates = {}
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
+    parser.add_argument('--upload_folder', nargs='?', const=1,  default=None)
     args = parser.parse_args()
+    if args.upload_folder:
+        app.config['UPLOAD_FOLDER'] = app.upload_folder
+
     upload_all_templates()
     webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)

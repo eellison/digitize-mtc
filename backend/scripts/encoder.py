@@ -45,6 +45,13 @@ class FormTemplateEncoder(json.JSONEncoder):
 
 # Decoder that converts JSON back to FormTemplate object (should be inverse of above)
 def decode_form(form_json):
+    if isinstance(form_json, list):
+        li = []
+        for elem in form_json:
+            decoded_elem = decode_form(elem)
+            assert isinstance(decoded_elem, Form)
+            li.append(decoded_elem)
+        return FormContainer(li)
     if '__type__' in form_json and form_json['__type__'] == Form.__name__:
         question_groups = [decode_form(question) for question in form_json["question_groups"]]
         return Form(form_json['name'], form_json['image'], form_json['w'], form_json['h'], question_groups)
