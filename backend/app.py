@@ -22,6 +22,9 @@ safe_makedirs(OUTPUT_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
+def get_output_folder():
+    return app.config['OUTPUT_FOLDER']
+
 # Makes the server re-render when local changes are made
 def before_request():
     app.jinja_env.cache = {}
