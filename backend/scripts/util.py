@@ -173,7 +173,6 @@ def write_form_to_csv(form):
     for f in forms:
         all_questions += [q for group in f.question_groups for q in group.questions]
 
-
     # Alphabetize questions by name
     all_questions.sort(key=lambda q: q.name)
     answers = [extract_answer(q) for q in all_questions]
@@ -182,7 +181,6 @@ def write_form_to_csv(form):
     path_to_csv = str(get_output_folder() + "/" + file_name)
     file_existed_already = os.path.isfile(path_to_csv)
 
-    import pdb; pdb.set_trace()
     aligned_images = [Image.open(aligned_static_path(form.image)) for form in forms]
     pdf_path = aligned_static_path("aligned_images_" + str(time.time()) + ".pdf")
     aligned_images[0].save(pdf_path, save_all=True, append_images = aligned_images[1:])
