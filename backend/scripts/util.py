@@ -15,7 +15,7 @@ import numpy as np
 import math
 import time
 from skimage.filters import threshold_local
-from app import get_output_folder
+from app import get_output_folder, get_debug_write_id, save_debug
 
 # CONSTANTS
 BLACK_LEVEL  = 0.6 * 255
@@ -156,7 +156,7 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
 def santize_form_name(form_name):
     return form_name.replace(" ", "_")
 
-def write_form_to_csv(form):
+def write_form_to_csv(form, form_name):
     """
     Args:
         form (Form): modeled Form object
@@ -176,18 +176,20 @@ def write_form_to_csv(form):
     # Alphabetize questions by name
     all_questions.sort(key=lambda q: q.name)
     answers = [extract_answer(q) for q in all_questions]
-    # Check if the output file already exists
-    file_name = santize_form_name(form.name + ".csv")
-    path_to_csv = str(get_output_folder() + "/" + file_name)
-    file_existed_already = os.path.isfile(path_to_csv)
 
+    # save aligned images as one pdf file
     aligned_images = [Image.open(aligned_static_path(form.image)) for form in forms]
-    pdf_path = aligned_static_path("aligned_images_" + str(time.time()) + ".pdf")
+    if save_debug():
+        pdf_path = str(get_output_folder() + "/" + form_name + "_" + str(get_debug_write_id()) + "/aligned_images.pdf")
+    else:
+        pdf_path = aligned_static_path("aligned_images_" + str(time.time()) + ".pdf")
     aligned_images[0].save(pdf_path, save_all=True, append_images = aligned_images[1:])
+
+    path_to_csv = str(get_output_folder() + "/" + form_name + ".csv")
     with open(path_to_csv,"a+") as csv_file:
         writer = csv.writer(csv_file)
         # Write header if file did not already exist
-        if not file_existed_already:
+        if not os.path.isfile(path_to_csv):
             questions = [question.name for question in all_questions]
             questions.append("All_Forms_Pdf")
             header_line = [questions]
