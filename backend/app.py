@@ -25,6 +25,12 @@ app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 def get_output_folder():
     return app.config['OUTPUT_FOLDER']
 
+def get_debug_write_id():
+    return app.config["DEBUG_WRITE_ID"]
+
+def save_debug():
+    return app.config["SAVE_DEBUG"]
+
 # Makes the server re-render when local changes are made
 def before_request():
     app.jinja_env.cache = {}
