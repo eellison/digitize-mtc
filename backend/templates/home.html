@@ -8,48 +8,48 @@
 
 <body>
   <nav class="side-bar-nav">
-          <div class="logo-nav-block"> <p>Rhode Island </br> Department </br> of Health </p> </div>
-          <div class="item-logo-block nav-block-highlighted">
-              <img src="/static/image/record-upload.png">
-              <p>Scan Record</p>
-          </div>
-          <div class="item-logo-block">
-              <img src="/static/image/search.png">
-              <p>Search</p>
-          </div>
-          <div class="profile-logo-block">
-              <img src="/static/image/login.png" />
-              <p>Profile</p>
-          </div>
+    <div class="logo-nav-block"> <p>Rhode Island </br> Department </br> of Health </p> </div>
+    <div class="item-logo-block nav-block-highlighted">
+      <img src="/static/image/record-upload.png">
+      <p>Scan Record</p>
+    </div>
+    <div class="item-logo-block">
+      <img src="/static/image/search.png">
+      <p>Search</p>
+    </div>
+    <div class="profile-logo-block">
+      <img src="/static/image/login.png" />
+      <p>Profile</p>
+    </div>
   </nav>
 
 
   <div class="console">
 
-      <div class="console-wrapper">
+    <div class="console-wrapper">
 
-        <div class="nav">
-          <p class="caption">Scan Record</p>
-          <h1 id="nav-title">Choose a record type to start</h1>
-        </div>
-
-        <div id="select-form">
-          <a href="{{ url_for('upload', form='antenatal') }}">
-            <div class="select-form-button">
-              Antenatal Record
-            </div>
-          </a>
-          <a href="{{ url_for('upload', form='delivery') }}">
-            <div class="select-form-button">
-              Delivery Record
-            </div></a>
-          <a href="{{ url_for('upload', form='covid') }}">
-            <div class="select-form-button">
-              COVID-19 Case Report
-            </div></a>
-        </div>
+      <div class="nav">
+        <p class="caption">Scan Record</p>
+        <h1 id="nav-title">Choose a record type to start</h1>
       </div>
 
+      <div id="select-form">
+        <a href="{{ url_for('upload', form='delivery') }}">
+          <div class="select-form-button">
+            Delivery Record
+          </div></a>
+          <a href="{{ url_for('upload', form='covid') }}">
+            <div class="select-form-button">
+              RIDOH COVID Report
+            </div></a>
+            <a href="{{ url_for('upload', form='admission') }}">
+              <div class="select-form-button">
+                PIH Admission Record
+              </div>
+            </a>
+          </div>
+        </div>
 
-  </div>
-</body>
+
+      </div>
+    </body>

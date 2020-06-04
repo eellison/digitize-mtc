@@ -1,0 +1,258 @@
+{ "name": "Delivery",
+  "pages": [
+    {
+        "name": "Admission Page 1",
+        "image": "backend/forms/template_images_v2/admission_pg_1.jpeg",
+        "w": 816.0,
+        "h": 1056.0,
+        "question_groups": [
+            {
+                "name": "Demographics",
+                "w": 11.638132,
+                "h": 96.479965,
+                "x": 394.24176,
+                "y": 260.40323,
+                "questions": [
+                    {
+                        "name": "PostPartum",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "no",
+                                "w": 18.283974,
+                                "h": 17.826874,
+                                "x": 313.57013,
+                                "y": 211.63699,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "yes",
+                                "w": 18.283974,
+                                "h": 17.369774,
+                                "x": 262.37503,
+                                "y": 211.63699,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    },
+                    {
+                        "name": "Pregnant",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "no",
+                                "w": 17.794931,
+                                "h": 17.021238,
+                                "x": 313.60342,
+                                "y": 143.64894,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "yes",
+                                "w": 20.116009,
+                                "h": 17.279137,
+                                "x": 261.50812,
+                                "y": 144.16472,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    },
+                    {
+                        "name": "HealthCareWorker",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "no",
+                                "w": 18.310726,
+                                "h": 16.76334,
+                                "x": 313.08762,
+                                "y": 120.18026,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "yes",
+                                "w": 18.309399,
+                                "h": 17.477154,
+                                "x": 262.98953,
+                                "y": 120.25947,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    },
+                    {
+                        "name": "Outcome",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "LiveBirth",
+                                "w": 15.084278,
+                                "h": 14.170079,
+                                "x": 88.220169,
+                                "y": 235.40616,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "StillBirth",
+                                "w": 15.084278,
+                                "h": 12.798781,
+                                "x": 144.44339,
+                                "y": 236.32036,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    }
+                ],
+                "__type__": "QuestionGroup"
+            }
+        ],
+        "__type__": "Form"
+    },
+    {
+        "name": "Admission Page 2",
+        "image": "backend/forms/template_images_v2/admission_pg_2.jpeg",
+        "w": 816.0,
+        "h": 1056.0,
+        "question_groups": [
+            {
+                "name": "Demographics",
+                "w": 11.638132,
+                "h": 96.479965,
+                "x": 394.24176,
+                "y": 260.40323,
+                "questions": [
+                    {
+                        "name": "PostPartum",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "no",
+                                "w": 18.283974,
+                                "h": 17.826874,
+                                "x": 313.57013,
+                                "y": 211.63699,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "yes",
+                                "w": 18.283974,
+                                "h": 17.369774,
+                                "x": 262.37503,
+                                "y": 211.63699,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    },
+                    {
+                        "name": "Pregnant",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "no",
+                                "w": 17.794931,
+                                "h": 17.021238,
+                                "x": 313.60342,
+                                "y": 143.64894,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "yes",
+                                "w": 20.116009,
+                                "h": 17.279137,
+                                "x": 261.50812,
+                                "y": 144.16472,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    },
+                    {
+                        "name": "HealthCareWorker",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "no",
+                                "w": 18.310726,
+                                "h": 16.76334,
+                                "x": 313.08762,
+                                "y": 120.18026,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "yes",
+                                "w": 18.309399,
+                                "h": 17.477154,
+                                "x": 262.98953,
+                                "y": 120.25947,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    },
+                    {
+                        "name": "Outcome",
+                        "question_type": "radio",
+                        "response_regions": [
+                            {
+                                "name": "LiveBirth",
+                                "w": 15.084278,
+                                "h": 14.170079,
+                                "x": 88.220169,
+                                "y": 235.40616,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            },
+                            {
+                                "name": "StillBirth",
+                                "w": 15.084278,
+                                "h": 12.798781,
+                                "x": 144.44339,
+                                "y": 236.32036,
+                                "value": null,
+                                "__type__": "ResponseRegion"
+                            }
+                        ],
+                        "answer_status": "unresolved",
+                        "expected_number_digits": 0,
+                        "__type__": "Question"
+                    }
+                ],
+                "__type__": "QuestionGroup"
+            }
+        ],
+        "__type__": "Form"
+    }
+  ]
+}
