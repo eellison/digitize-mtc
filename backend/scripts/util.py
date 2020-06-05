@@ -15,7 +15,7 @@ import numpy as np
 import math
 import time
 from skimage.filters import threshold_local
-from app import get_output_folder, get_debug_write_id, save_debug
+#from app import get_output_folder, get_debug_write_id, save_debug
 
 # CONSTANTS
 BLACK_LEVEL  = 0.6 * 255
