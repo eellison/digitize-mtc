@@ -7,7 +7,7 @@
         "h": 1056.0,
         "question_groups": [
             {
-              "name": "DateTime",
+              "name": "Date / Time",
               "w": 21.564562,
               "h": 58.224319,
               "x": 361.20639,
@@ -159,6 +159,304 @@
                               "h": 18.91972,
                               "x": 751.88367,
                               "y": 76.379608,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  }
+              ],
+              "__type__": "QuestionGroup"
+          },
+            {
+              "name": "PatientHistory",
+              "w": 410.8049,
+              "h": 101.35344,
+              "x": 381.02042,
+              "y": 237.09932,
+              "questions": [
+                  {
+                      "name": "SymptomStartDate",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 102.30663,
+                              "h": 18.21899,
+                              "x": 646.07343,
+                              "y": 101.6059,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Fever",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 578.80328,
+                              "y": 122.62782,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Cough",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 577.40186,
+                              "y": 144.35046,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "SputumProduction",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 578.80328,
+                              "y": 165.37238,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "ShortnessOfBreath",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 578.10254,
+                              "y": 187.79575,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Fever-0-5",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 578.80328,
+                              "y": 208.11693,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "RunnyNose",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 578.80328,
+                              "y": 230.5403,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Headache",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 578.80328,
+                              "y": 251.56221,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "ChestPain",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 768.00049,
+                              "y": 122.62782,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "MuscleAches",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 767.2998,
+                              "y": 143.64973,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "FatigueMalaise",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 768.00049,
+                              "y": 164.67165,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "NauseaVomiting",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 767.2998,
+                              "y": 187.095,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Diarrhea",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 768.00049,
+                              "y": 208.11693,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "LossOfTasteSmell",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 767.29974,
+                              "y": 230.54028,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "Confusion",
+                      "question_type": "checkbox",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 19.620451,
+                              "h": 19.620451,
+                              "x": 768.00049,
+                              "y": 252.26292,
+                              "value": null,
+                              "__type__": "ResponseRegion"
+                          }
+                      ],
+                      "answer_status": "unresolved",
+                      "expected_number_digits": 0,
+                      "__type__": "Question"
+                  },
+                  {
+                      "name": "HistoryOther",
+                      "question_type": "text",
+                      "response_regions": [
+                          {
+                              "name": "",
+                              "w": 376.29221,
+                              "h": 65.167923,
+                              "x": 415.53311,
+                              "y": 273.28485,
                               "value": null,
                               "__type__": "ResponseRegion"
                           }
@@ -857,7 +1155,7 @@
                 "__type__": "QuestionGroup"
             },
             {
-                "name": "Onset",
+                "name": "Onset / Admission",
                 "w": 15.095193,
                 "h": 723.12128,
                 "x": 384.92743,
@@ -2555,7 +2853,7 @@
         "h": 1056.0,
         "question_groups": [
             {
-                "name": "Specimen1",
+                "name": "Specimen 1",
                 "w": 64.062073,
                 "h": 84.086014,
                 "x": 666.33649,
@@ -2580,7 +2878,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "NasalSwab",
+                        "name": "Nasal Swab",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -2616,7 +2914,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "VenousBlood",
+                        "name": "Venous Blood",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -2634,7 +2932,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "FingerPrick",
+                        "name": "Finger Prick",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -2835,7 +3133,7 @@
                 "__type__": "QuestionGroup"
             },
             {
-                "name": "Specimen2",
+                "name": "Specimen 2",
                 "w": 64.438843,
                 "h": 146.79512,
                 "x": 667.95636,
@@ -2860,7 +3158,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "NasalSwab",
+                        "name": "Nasal Swab",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -2896,7 +3194,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "VenousBlood",
+                        "name": "Venous Blood",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -2914,7 +3212,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "FingerPrick",
+                        "name": "Finger Prick",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3115,7 +3413,7 @@
                 "__type__": "QuestionGroup"
             },
             {
-                "name": "Specimen3",
+                "name": "Specimen 3",
                 "w": 63.996979,
                 "h": 213.59534,
                 "x": 668.84009,
@@ -3140,7 +3438,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "NasalSwab",
+                        "name": "Nasal Swab",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3176,7 +3474,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "VenousBlood",
+                        "name": "Venous Blood",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3194,7 +3492,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "FingerPrick",
+                        "name": "Finger Prick",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3212,7 +3510,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "AntibodyTest3",
+                        "name": "Antibody Test 3",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3230,7 +3528,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "AntigenTest3",
+                        "name": "Antigen Test 3",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3248,7 +3546,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "RTPCRTest3",
+                        "name": "RTPCR Test 3",
                         "question_type": "checkbox",
                         "response_regions": [
                             {
@@ -3266,7 +3564,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "AntigenTestResult3",
+                        "name": "Antigen Test Result 3",
                         "question_type": "radio",
                         "response_regions": [
                             {
@@ -3302,7 +3600,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "AntibodyTestResult3",
+                        "name": "Antibody Test Result 3",
                         "question_type": "radio",
                         "response_regions": [
                             {
@@ -3333,7 +3631,7 @@
                                 "__type__": "ResponseRegion"
                             },
                             {
-                                "name": "PositiveIgG",
+                                "name": "Positive IgG",
                                 "w": 9.9750147,
                                 "h": 9.7952089,
                                 "x": 669.36011,
@@ -3342,7 +3640,7 @@
                                 "__type__": "ResponseRegion"
                             },
                             {
-                                "name": "PositiveIgM",
+                                "name": "Positive IgM",
                                 "w": 9.9750147,
                                 "h": 9.7952089,
                                 "x": 603.05737,
@@ -3356,7 +3654,7 @@
                         "__type__": "Question"
                     },
                     {
-                        "name": "RTPCRTestResult3",
+                        "name": "RTPCR TestResult 3",
                         "question_type": "radio",
                         "response_regions": [
                             {

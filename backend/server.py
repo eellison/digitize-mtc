@@ -161,6 +161,7 @@ class Camera(object):
     def __init__(self):
 
         # with capture_stdout() as output:
+        #camera_index()
         cap = cv2.VideoCapture(camera_index())
         assert cap.isOpened(), "Failed to connect to OpenCV. Could not connect to Camera"
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)

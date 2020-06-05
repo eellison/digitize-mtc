@@ -16,6 +16,7 @@ function requestLiveFeedResponse(form_name, page_number) {
         d3.select("#videoFeed").classed("camera-feed", true);
         $('#page-box' + page_number).attr("class", "page-box-green");
         $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
+        current_page = current_page + 1;
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
