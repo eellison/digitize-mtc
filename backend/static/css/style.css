@@ -181,11 +181,12 @@ fieldset.question_group:last-child {
 	margin-top:2em;
 	padding-bottom:1em;
 
-	width: 100%;
+	width: 35%;
 	background-color: white;
 	border-top:1px solid #D9D9D9;
 
 	position: fixed;
+	left: 9%;
 	bottom: 0;
 }
 

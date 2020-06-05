@@ -34,9 +34,9 @@
      inkscape:window-maximized="0"
      inkscape:window-y="24"
      inkscape:window-x="1920"
-     inkscape:cy="320.15512"
-     inkscape:cx="199.06202"
-     inkscape:zoom="1.0415905"
+     inkscape:cy="587.28345"
+     inkscape:cx="404.38153"
+     inkscape:zoom="0.92744758"
      showgrid="false"
      id="namedview152"
      inkscape:window-height="755"
@@ -19769,11 +19769,1208 @@ AKKKKACiiigAooooA//Z
        id="qg_Demographics_rb_Outcome_StillBirth"
        style="opacity:0.75;fill:#ff7f2a" />
     <rect
-       y="96.479965"
-       x="11.638132"
-       height="260.40323"
-       width="394.24176"
+       y="68.017303"
+       x="61.934456"
+       height="31.520214"
+       width="122.20995"
+       id="qg_DateTime_ocr_Date"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="68.017303"
+       x="224.51242"
+       height="30.967224"
+       width="138.79953"
+       id="qg_Patient_ocr_Time"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="159.26003"
+       x="126.08086"
+       height="21.013477"
+       width="95.666618"
+       id="qg_Demographics_ocr_GestationalAge"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="181.93246"
+       x="159.81302"
+       height="22.11945"
+       width="95.113632"
+       id="qg_Demographics_ocr_ExpectedDueDate"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="230.04227"
+       x="300.82449"
+       height="17.142572"
+       width="81.841965"
+       id="qg_Demographics_ocr_DeliveryDate"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="258.79755"
+       x="261.00949"
+       height="19.907503"
+       width="21.566463"
+       id="qg_Demographics_rb_Infant_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="259.90353"
+       x="313.54318"
+       height="17.142572"
+       width="18.248545"
+       id="qg_Demographics_rb_Infant_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="281.47"
+       x="160.366"
+       height="15.483614"
+       width="15.483614"
+       id="qg_Demographics_rb_GestationalOutcome_TermBirth"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="282.02298"
+       x="271.51624"
+       height="14.377642"
+       width="14.930628"
+       id="qg_Demographics_rb_GestationalOutcome_PretermBirth"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="302.48346"
+       x="100.09051"
+       height="14.377642"
+       width="16.589586"
+       id="qg_Demographics_rb_BreastFeed_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="301.3775"
+       x="136.03461"
+       height="15.483614"
+       width="16.0366"
+       id="qg_Demographics_rb_BreastFeed_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="327.36786"
+       x="260.45651"
+       height="19.907503"
+       width="22.11945"
+       id="qg_Demographics_rb_Vaccination_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="327.92084"
+       x="312.43723"
+       height="19.354517"
+       width="20.460491"
+       id="qg_Demographics_rb_Vaccination_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="359.44104"
+       x="22.11945"
+       height="40.920982"
+       width="376.58362"
+       id="qg_Demographics_ocr_HomeMedications"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="406.44489"
+       x="21.566462"
+       height="40.920975"
+       width="379.34854"
+       id="qg_Demographics_ocr_Allergies"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="449.90161"
+       x="137.82411"
+       height="16.393177"
+       width="17.000332"
+       id="qg_Comorbidities_cb_None"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="450.50879"
+       x="209.46835"
+       height="15.178867"
+       width="17.000332"
+       id="qg_Comorbidities_cb_Unknown"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="469.33057"
+       x="183.36072"
+       height="17.607487"
+       width="19.428949"
+       id="qg_Comorbidities_cb_Type1Diabetes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="491.18814"
+       x="184.57503"
+       height="17.607487"
+       width="18.21464"
+       id="qg_Comorbidities_cb_Type2Diabetes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="513.65289"
+       x="184.57501"
+       height="18.21464"
+       width="17.607487"
+       id="qg_Comorbidities_cb_Hypertension"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="536.11761"
+       x="184.57501"
+       height="18.214588"
+       width="17.607496"
+       id="qg_Comorbidities_cb_Epilepsy"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="557.97516"
+       x="185.18216"
+       height="15.786032"
+       width="16.393188"
+       id="qg_Comorbidities_cb_SickleCellDisease"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="580.43988"
+       x="183.96788"
+       height="17.607513"
+       width="18.214645"
+       id="qg_Comorbidities_cb_RheumaticHeartDisease"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="603.51178"
+       x="185.18219"
+       height="15.786022"
+       width="15.786022"
+       id="qg_Comorbidities_cb_HIV"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="469.93771"
+       x="362.47134"
+       height="17.000332"
+       width="18.21464"
+       id="qg_Comorbidities_cb_ChronicKidneyDisease"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="493.00958"
+       x="362.47134"
+       height="15.786018"
+       width="19.428947"
+       id="qg_Comorbidities_cb_Asthma"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="514.86719"
+       x="362.47134"
+       height="17.000332"
+       width="19.428949"
+       id="qg_Comorbidities_cb_ChronicPulmonaryDisease"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="536.11761"
+       x="361.25705"
+       height="18.21463"
+       width="20.643248"
+       id="qg_Comorbidities_cb_Tuberculosis"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="557.97516"
+       x="361.8642"
+       height="18.214607"
+       width="20.036085"
+       id="qg_Comorbidities_cb_Cardiomyopathy"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="582.26135"
+       x="361.86423"
+       height="15.178856"
+       width="18.214645"
+       id="qg_Comorbidities_cb_Stroke"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="602.29749"
+       x="363.07849"
+       height="18.21464"
+       width="18.21464"
+       id="qg_Comorbidities_cb_Malnutrition"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="622.33356"
+       x="163.32462"
+       height="24.286188"
+       width="233.1474"
+       id="qg_Comorbidities_ocr_MentalHealthCondition"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="652.08411"
+       x="83.787346"
+       height="17.607487"
+       width="20.643259"
+       id="qg_Comorbidities_rb_Smoking_Current"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="651.47699"
+       x="155.43159"
+       height="18.21464"
+       width="20.643259"
+       id="qg_Comorbidities_rb_Smoking_Past"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="651.47699"
+       x="220.39716"
+       height="18.821795"
+       width="19.428949"
+       id="qg_Comorbidities_rb_Smoking_Never"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="675.76318"
+       x="63.144089"
+       height="47.358067"
+       width="333.32791"
+       id="qg_Comorbidities_ocr_OtherComorbidities"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="741.94299"
+       x="261.07651"
+       height="17.607487"
+       width="18.21464"
+       id="qg_Onset_rb_Transfer_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="740.12158"
+       x="310.86319"
+       height="19.428949"
+       width="18.821795"
+       id="qg_Onset_rb_Transfer_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="783.83667"
+       x="259.86221"
+       height="18.821795"
+       width="18.21464"
+       id="qg_Onset_rb_Contact14Days_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="783.22955"
+       x="310.25604"
+       height="19.428949"
+       width="19.428949"
+       id="qg_Onset_rb_Contact14Days_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="814.80157"
+       x="190.03941"
+       height="18.21464"
+       width="18.821795"
+       id="qg_Onset_rb_AdmissionConditionStatus_Mild"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="814.19446"
+       x="235.57602"
+       height="18.21464"
+       width="20.036104"
+       id="qg_Onset_rb_AdmissionConditionStatus_Moderate"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="815.40875"
+       x="309.6489"
+       height="17.000332"
+       width="18.821795"
+       id="qg_Onset_rb_AdmissionConditionStatus_Critical"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="755.30042"
+       x="121.43094"
+       height="18.821795"
+       width="116.5737"
+       id="qg_Onset_ocr_TransferFacility"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="759.55054"
+       x="329.685"
+       height="15.785992"
+       width="62.536926"
+       id="qg_Onset_ocr_AdmissionDate"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="856.69525"
+       x="29.143425"
+       height="17.000332"
+       width="20.036104"
+       id="qg_Medications_cb_Chloroquine"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="869.4455"
+       x="100.78767"
+       height="32.179199"
+       width="293.86285"
+       id="qg_Medications_ocr_FirstLineOther"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="916.80359"
+       x="27.929115"
+       height="18.21464"
+       width="19.428949"
+       id="qg_Medications_cb_LopinavirRitonavir"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="935.01825"
+       x="27.929115"
+       height="17.000292"
+       width="18.821795"
+       id="qg_Medications_cb_Remdesivir"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="952.01855"
+       x="27.929115"
+       height="20.643246"
+       width="18.821795"
+       id="qg_Medications_cb_SecondLineOther"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="948.98279"
+       x="78.930107"
+       height="21.250414"
+       width="168.18185"
+       id="qg_Medications_ocr_SecondLineOtherSpecify"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="999.37659"
+       x="29.143425"
+       height="17.607487"
+       width="18.821795"
+       id="qg_Medications_cb_Ceftriaxone"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="1018.8667"
+       x="28.923164"
+       height="15.811312"
+       width="17.353899"
+       id="qg_Medications_cb_Doxycycline"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="999.97021"
+       x="197.06316"
+       height="17.353899"
+       width="19.667751"
+       id="qg_Medications_cb_Amoxicillin"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="1002.2818"
+       x="105.68933"
+       height="10.279814"
+       width="22.487091"
+       id="qg_Medications_ocr_CeftriaxoneGm"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="1002.603"
+       x="145.84485"
+       height="9.6373253"
+       width="22.808336"
+       id="qg_Medications_ocr_CeftriaxoneHourse"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="1002.603"
+       x="280.7674"
+       height="10.922301"
+       width="41.440498"
+       id="qg_Medications_ocr_AmoxicillinQ"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="1002.603"
+       x="328.95404"
+       height="10.601057"
+       width="19.274651"
+       id="qg_Medications_ocr_AmoxicillinHours"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="16.116798"
+       x="499.62076"
+       height="33.635059"
+       width="168.17529"
+       id="qg_Patient_ocr_PatientName"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="22.423372"
+       x="725.95667"
+       height="26.627754"
+       width="61.664272"
+       id="qg_Patient_ocr_PatientID"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="53.255508"
+       x="452.67181"
+       height="22.423372"
+       width="62.365002"
+       id="qg_Patient_ocr_Age"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="75.678879"
+       x="452.67181"
+       height="21.021912"
+       width="63.065735"
+       id="qg_Patient_ocr_Sex"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="53.255508"
+       x="709.83984"
+       height="21.021912"
+       width="46.948936"
+       id="qg_Patient_ocr_EMRID"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="76.379608"
+       x="751.88367"
+       height="18.91972"
+       width="35.737247"
+       id="qg_Patient_ocr_HospitalDayNumber"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="101.6059"
+       x="646.07343"
+       height="18.21899"
+       width="102.30663"
+       id="qg_PatientHistory_ocr_SymptomStartDate"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="122.62782"
+       x="578.80328"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_Fever"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PatientHistory_cb_Cough"
+       width="19.620451"
+       height="19.620451"
+       x="577.40186"
+       y="144.35046" />
+    <rect
+       y="165.37238"
+       x="578.80328"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_SputumProduction"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="187.79575"
+       x="578.10254"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_ShortnessOfBreath"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="208.11693"
+       x="578.80328"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_Fever-0-5"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="230.5403"
+       x="578.80328"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_RunnyNose"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="251.56221"
+       x="578.80328"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_Headache"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="122.62782"
+       x="768.00049"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_ChestPain"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="143.64973"
+       x="767.2998"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_MuscleAches"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="164.67165"
+       x="768.00049"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_FatigueMalaise"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="187.095"
+       x="767.2998"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_NauseaVomiting"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="208.11693"
+       x="768.00049"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_Diarrhea"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="230.54028"
+       x="767.29974"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_LossOfTasteSmell"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="252.26292"
+       x="768.00049"
+       height="19.620451"
+       width="19.620451"
+       id="qg_PatientHistory_cb_Confusion"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="273.28485"
+       x="415.53311"
+       height="65.167923"
+       width="376.29221"
+       id="qg_PatientHistory_ocr_HistoryOther"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="361.57687"
+       x="463.88351"
+       height="18.21899"
+       width="30.832136"
+       id="qg_Vitals_ocr_TempC"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_ocr_TempF"
+       width="30.832136"
+       height="18.21899"
+       x="515.03687"
+       y="361.57687" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_ocr_Pulse"
+       width="75.468399"
+       height="18.218994"
+       x="463.18277"
+       y="382.59879" />
+    <rect
+       y="404.49268"
+       x="463.5025"
+       height="18.218994"
+       width="75.468399"
+       id="qg_Vitals_ocr_RR"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_ocr_BPSystolic"
+       width="29.603617"
+       height="14.53343"
+       x="463.91202"
+       y="425.78708" />
+    <rect
+       y="425.58231"
+       x="500.35812"
+       height="14.53343"
+       width="29.603617"
+       id="qg_Vitals_ocr_BPDiastolic"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_ocr_O2Saturation"
+       width="45.983891"
+       height="15.761938"
+       x="440.16061"
+       y="443.60062" />
+    <rect
+       y="443.39587"
+       x="519.60498"
+       height="15.761938"
+       width="45.983891"
+       id="qg_Vitals_ocr_O2LMin"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="362.0043"
+       x="670.36316"
+       height="15.970778"
+       width="17.199299"
+       id="qg_Vitals_rb_CapRefillTime_LessThan3Sec"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_rb_CapRefillTime_Other"
+       width="17.199299"
+       height="15.970778"
+       x="669.95367"
+       y="380.63684" />
+    <rect
+       y="406.84531"
+       x="619.58429"
+       height="13.104215"
+       width="12.694701"
+       id="qg_Vitals_rb_Pain_None"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_rb_Pain_Moderate"
+       width="12.694701"
+       height="13.104215"
+       x="619.37958"
+       y="420.97333" />
+    <rect
+       y="406.23108"
+       x="698.00488"
+       height="13.104215"
+       width="12.694701"
+       id="qg_Vitals_rb_Pain_Mild"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_Vitals_rb_Pain_Severe"
+       width="12.694701"
+       height="13.104215"
+       x="698.00488"
+       y="420.97333" />
+    <rect
+       y="445.95325"
+       x="652.14008"
+       height="15.151753"
+       width="15.970759"
+       id="qg_Vitals_cb_O2RoomAir"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="380.63684"
+       x="689.60999"
+       height="12.080482"
+       width="33.170059"
+       id="qg_Vitals_ocr_CapRefillTimeSec"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="507.62448"
+       x="505.97723"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_HEENT_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_rb_HEENT_no"
+       width="17.57056"
+       height="15.648781"
+       x="558.96344"
+       y="507.48721" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_rb_Neck_yes"
+       width="17.57056"
+       height="15.648781"
+       x="505.83994"
+       y="526.22455" />
+    <rect
+       y="526.08728"
+       x="558.82617"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Neck_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_rb_Pulmonary_no"
+       width="17.57056"
+       height="15.648781"
+       x="558.96344"
+       y="547.57007" />
+    <rect
+       y="547.29547"
+       x="506.25177"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Pulmonary_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="568.70966"
+       x="506.52631"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Cardiovascular_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="568.98419"
+       x="559.23798"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Cardiovascular_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="589.84924"
+       x="506.52631"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Abdominal_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="590.12378"
+       x="558.6889"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Abdominal_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="611.53784"
+       x="505.7027"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Urogenital_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="611.26331"
+       x="558.6889"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Urogenital_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="633.22656"
+       x="506.25177"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Rectal_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="633.5011"
+       x="558.96344"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Rectal_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="655.18976"
+       x="506.2518"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Musculoskeletal_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="654.91516"
+       x="559.23798"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Musculoskeletal_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="676.05481"
+       x="506.52628"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_LymphNode_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="676.32928"
+       x="558.41437"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_LymphNode_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="697.19434"
+       x="506.52631"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_SkinAndMucosa_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="697.74341"
+       x="558.96344"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_SkinAndMucosa_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="718.05939"
+       x="506.25177"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Neurological_yes"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="717.51031"
+       x="559.23798"
+       height="15.648781"
+       width="17.57056"
+       id="qg_PhysicalExam_rb_Neurological_no"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="743.00079"
+       x="527.57452"
+       height="11.254924"
+       width="11.60664"
+       id="qg_PhysicalExam_rb_AVPU_Alert"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="742.82495"
+       x="584.72845"
+       height="11.430781"
+       width="12.310073"
+       id="qg_PhysicalExam_rb_AVPU_Verbal"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_rb_AVPU_Pain"
+       width="12.310073"
+       height="11.430781"
+       x="642.76166"
+       y="743.26459" />
+    <rect
+       y="743.26459"
+       x="700.44312"
+       height="11.430781"
+       width="12.310073"
+       id="qg_PhysicalExam_rb_AVPU_Unresponsive"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="507.52094"
+       x="594.63043"
+       height="16.989441"
+       width="196.45972"
+       id="qg_PhysicalExam_ocr_HEENTFindings"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_ocr_NeckFindings"
+       width="196.8244"
+       height="22.610413"
+       x="594.67078"
+       y="525.03882" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_ocr_PulmonaryFindings"
+       width="196.09509"
+       height="21.881104"
+       x="595.03546"
+       y="547.64923" />
+    <rect
+       y="569.53033"
+       x="594.67084"
+       height="21.881104"
+       width="196.45966"
+       id="qg_PhysicalExam_ocr_CardiovascularFindings"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_ocr_AbdominalFindings"
+       width="196.09503"
+       height="20.786987"
+       x="594.67078"
+       y="591.41144" />
+    <rect
+       y="612.19843"
+       x="594.30609"
+       height="20.786987"
+       width="197.18909"
+       id="qg_PhysicalExam_ocr_UrogenitalFindings"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_ocr_RectalFindings"
+       width="196.45972"
+       height="21.000971"
+       x="595.03546"
+       y="632.98541" />
+    <rect
+       y="653.95483"
+       x="595.03552"
+       height="21.000971"
+       width="196.45972"
+       id="qg_PhysicalExam_ocr_MusculoskeletalFindings"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_ocr_LymphNodeFindings"
+       width="196.45972"
+       height="21.000971"
+       x="595.03552"
+       y="675.47119" />
+    <rect
+       y="696.25818"
+       x="595.03546"
+       height="21.000971"
+       width="196.45972"
+       id="qg_PhysicalExam_ocr_SkinAndMucosaFindings"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_PhysicalExam_ocr_NeurologicalFindings"
+       width="196.45972"
+       height="21.000971"
+       x="594.67078"
+       y="717.40991" />
+    <rect
+       y="762.18378"
+       x="416.05771"
+       height="38.850887"
+       width="373.6749"
+       id="qg_PhysicalExam_ocr_PhysicalExamOther"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="822.1709"
+       x="430.46252"
+       height="16.668442"
+       width="16.668442"
+       id="qg_SupportiveCare_cb_Oxygen"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_cb_Analgesic"
+       width="16.668442"
+       height="16.668442"
+       x="574.22784"
+       y="822.58759" />
+    <rect
+       y="843.42316"
+       x="430.46252"
+       height="16.668442"
+       width="16.668442"
+       id="qg_SupportiveCare_cb_MechanicalVentilation"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_cb_Mask"
+       width="16.668442"
+       height="16.668442"
+       x="574.64453"
+       y="843.42316" />
+    <rect
+       y="843.83984"
+       x="627.98352"
+       height="16.668442"
+       width="16.668442"
+       id="qg_SupportiveCare_cb_MaskWithNonRebreather"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_cb_NasalCannula"
+       width="16.668442"
+       height="16.668442"
+       x="430.87921"
+       y="865.0921" />
+    <rect
+       y="864.67542"
+       x="529.63971"
+       height="16.668442"
+       width="16.668442"
+       id="qg_SupportiveCare_cb_CPAP"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_cb_BiBAP"
+       width="16.668442"
+       height="16.668442"
+       x="577.14478"
+       y="865.0921" />
+    <rect
+       y="865.0921"
+       x="629.2337"
+       height="16.668442"
+       width="16.668442"
+       id="qg_SupportiveCare_cb_FiO2"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_cb_IVFluids1"
+       width="16.668442"
+       height="16.668442"
+       x="431.29593"
+       y="886.34436" />
+    <rect
+       y="919.26459"
+       x="431.29593"
+       height="16.668442"
+       width="16.668442"
+       id="qg_SupportiveCare_cb_IVFluids2"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_cb_IVFluids3"
+       width="16.668442"
+       height="16.668442"
+       x="430.87921"
+       y="949.68445" />
+    <rect
+       y="903.01282"
+       x="449.63123"
+       height="12.084636"
+       width="12.501316"
+       id="qg_SupportiveCare_rb_IVFluids1Line_Central"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_rb_IVFluids1Line_Peripheral"
+       width="12.501316"
+       height="12.084636"
+       x="495.88614"
+       y="902.8045" />
+    <rect
+       y="935.72461"
+       x="449.21451"
+       height="12.084636"
+       width="12.501316"
+       id="qg_SupportiveCare_rb_IVFluids2Line_Central"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_rb_IVFluids2Line_Peripheral"
+       width="12.501316"
+       height="12.084636"
+       x="495.88614"
+       y="935.72461" />
+    <rect
+       y="966.14453"
+       x="449.63123"
+       height="12.084636"
+       width="12.501316"
+       id="qg_SupportiveCare_rb_IVFluids3Line_Central"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_rb_IVFluids3Line_Peripheral"
+       width="12.501316"
+       height="12.084636"
+       x="495.46945"
+       y="965.72784" />
+    <rect
+       y="818.83722"
+       x="490.4689"
+       height="15.418308"
+       width="51.672169"
+       id="qg_SupportiveCare_ocr_OxygenLMin"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_ocr_AnalgesicSpecify"
+       width="126.68017"
+       height="15.418335"
+       x="644.23529"
+       y="817.79541" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_ocr_IVFluids1mlHours"
+       width="97.927109"
+       height="15.418335"
+       x="494.2193"
+       y="882.80237" />
+    <rect
+       y="915.72247"
+       x="494.84436"
+       height="15.418335"
+       width="97.927109"
+       id="qg_SupportiveCare_ocr_IVFluids2mlHours"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_ocr_IVFluids3mlHours"
+       width="97.927109"
+       height="15.418335"
+       x="493.59421"
+       y="946.97583" />
+    <rect
+       y="883.63574"
+       x="665.27917"
+       height="15.418335"
+       width="91.67646"
+       id="qg_SupportiveCare_ocr_IVFluids1Specify"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       style="opacity:0.75;fill:#ff7f2a"
+       id="qg_SupportiveCare_ocr_IVFluids2Specify"
+       width="91.67646"
+       height="15.418335"
+       x="665.0708"
+       y="915.72253" />
+    <rect
+       y="947.8092"
+       x="665.48755"
+       height="15.418335"
+       width="91.67646"
+       id="qg_SupportiveCare_ocr_IVFluids3Specify"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="998.44147"
+       x="416.99945"
+       height="41.531574"
+       width="374.3454"
+       id="qg_OtherMedications_ocr_OtherMedications"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="987.21667"
+       x="411.9483"
+       height="58.368698"
+       width="383.88641"
+       id="OtherMedications"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="805.37573"
+       x="411.9483"
+       height="181.84091"
+       width="383.88641"
+       id="SupportiveCare"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="470.7424"
+       x="403.05966"
+       height="324.48602"
+       width="383.9516"
+       id="PhysicalExam"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="355.81525"
+       x="411.88312"
+       height="112.13572"
+       width="383.84918"
+       id="Vitals"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="101.35344"
+       x="410.8049"
+       height="237.09932"
+       width="381.02042"
+       id="PatientHistory"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="7.5475965"
+       x="405.41376"
+       height="93.80584"
+       width="386.41156"
+       id="Patient"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="58.224319"
+       x="21.564562"
+       height="44.207352"
+       width="361.20639"
+       id="DateTime"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="61.459003"
+       x="17.25165"
+       height="346.01239"
+       width="385.81982"
        id="Demographics"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="448.95862"
+       x="20.855427"
+       height="275.75543"
+       width="381.3768"
+       id="Comorbidities"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="723.12128"
+       x="15.095193"
+       height="117.89661"
+       width="384.92743"
+       id="Onset"
+       style="opacity:0.75;fill:#ff7f2a" />
+    <rect
+       y="841.01788"
+       x="15.095193"
+       height="207.01979"
+       width="386.00565"
+       id="Medications"
        style="opacity:0.75;fill:#ff7f2a" />
   </g>
 </svg>
