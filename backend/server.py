@@ -6,6 +6,7 @@ import os
 from scripts import *
 import time
 import cv2
+import webbrowser
 import platform
 from math import inf
 
