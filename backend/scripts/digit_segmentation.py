@@ -1,7 +1,5 @@
 import cv2
 import numpy as np
-import sys
-import scipy.misc
 
 def get_minima_maxima(apprx):
     assert len(apprx) == 4
@@ -71,36 +69,22 @@ def sort_contours(apprx_contours):
     apprx_contours.sort(key=x_min)
     return apprx_contours
 
-debug = False
-cntr_num = 0
-
-def save_img(img):
-    from PIL import Image
-    im = Image.fromarray(img)
-    global cntr
-    im.save("./digit_box_" + str(cntr_num) + ".png")
-    cntr_num += 1
-
 def extract_images(img, approx_contours):
     res = []
-    if debug:
-        save_img(img)
     for approx in approx_contours:
         min_x, max_x, min_y, max_y = get_minima_maxima(approx)
         out = img[min_y: max_y, min_x:max_x]
         res.append(out)
-        if debug:
-            save_img(out)
     return res
 
 def extract_digit_boxes(image):
     # adapted from https://www.quora.com/How-I-detect-rectangle-using-OpenCV
     _, thresh = cv2.threshold(image, 127, 255, 1)
-    contours,h = cv2.findContours(thresh, 1, 2)
+    contours, h = cv2.findContours(thresh, 1, 2)
 
     rectangles = []
     for cnt in contours:
-        approx = cv2.approxPolyDP(cnt, 0.01*cv2.arcLength(cnt, True), True)
+        approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
         if len(approx) == 4:
             rectangles.append(approx)
 

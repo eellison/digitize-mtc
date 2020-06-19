@@ -1,16 +1,12 @@
 from .form import *
 from .util import *
-from .digit_segmentation import extract_digit_boxes
-# from .mnist import predict_digit
-import cv2
-
 
 # tuned for 300 dpi grayscale text
-BLACK_LEVEL  = 0.5 * 255 # 255 is pure white
-CHECK_THR    = 0.01 # threshold for checked box
-EMPTY_THR    = 0.009 # threshold for empty box
+BLACK_LEVEL = 0.5 * 255 # 255 is pure white
+CHECK_THR = 0.01 # threshold for checked box
+EMPTY_THR = 0.009 # threshold for empty box
 
-RADIO_THR    = 0.01 # threhold for picking radio button
+RADIO_THR = 0.01 # threhold for picking radio button
 
 
 def calc_checkbox_score(image, response_region):
@@ -22,9 +18,9 @@ def calc_checkbox_score(image, response_region):
         scr (float): score for checkbox
     """
     w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
-    roi = image[y : y+h, x : x+w] < BLACK_LEVEL
+    roi = image[y : y + h, x : x + w] < BLACK_LEVEL
     # For now, stick with simple image masking. Later refine "remove_checkbox_outline" in util.py
-    masked = roi[1:-1,1:-1] & roi[:-2,1:-1] & roi[2:,1:-1] & roi[1:-1,:-2] & roi[1:-1,2:]
+    masked = roi[1:-1, 1:-1] & roi[:-2, 1:-1] & roi[2:, 1:-1] & roi[1:-1, :-2] & roi[1:-1, 2:]
     scr = (masked).sum() / (w * h)
     return scr
 
@@ -41,11 +37,11 @@ def checkbox_state(input_image, template_image, response_region):
     template_score = calc_checkbox_score(template_image, response_region)
     scr = input_score - template_score
     if scr > CHECK_THR:
-        checkbox_state =  CheckboxState.checked
+        checkbox_state = CheckboxState.checked
     elif scr < EMPTY_THR:
-        checkbox_state =  CheckboxState.empty
+        checkbox_state = CheckboxState.empty
     else:
-        checkbox_state =  CheckboxState.unknown
+        checkbox_state = CheckboxState.unknown
         print("Ambiguous checkbox state for %s\nScore: %.4f" % (response_region.name, scr))
     response_region.value = checkbox_state
     return checkbox_state
@@ -74,7 +70,7 @@ def radio_answer(question, input_image, template_image):
     """
     for rr in question.response_regions:
         rr.value = calc_checkbox_score(input_image, rr)
-    sorted_regions = sorted(question.response_regions, reverse=True, key=lambda rr: rr.value) #sort by score
+    sorted_regions = sorted(question.response_regions, reverse=True, key=lambda rr: rr.value) # sort by score
     highest_score = sorted_regions[0].value
     second_highest_score = sorted_regions[1].value
     if (highest_score - second_highest_score) > RADIO_THR:
@@ -159,8 +155,7 @@ def answer(question, input_image, template_image):
         return radio_answer(question, input_image, template_image)
     elif question.question_type == QuestionType.text.name:
         return text_answer(question, input_image, template_image)
-    elif question.question_type ==  QuestionType.digits.name:
-        #return digits_answer(question, input_image, template_image)
+    elif question.question_type == QuestionType.digits.name:
         return text_answer(question, input_image, template_image)
     else:
         # No logic for other question types, yet...
