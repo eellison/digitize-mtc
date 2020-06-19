@@ -21,7 +21,8 @@ class Form():
         self.question_groups = question_groups # list of QuestionGroup
 
 class QuestionGroup():
-    def __init__(self, name = "Default", x = 0, y = 0, width = 0, height = 0, questions = []):
+    def __init__(self, name="Default", x=0, y=0, width=0, height=0, questions=None):
+        questions = questions if questions is not None else []
         self.name = name
         self.w = width
         self.h = height
@@ -38,7 +39,7 @@ class Question():
         self.expected_number_digits = expected_number_digits
 
 class ResponseRegion():
-    def __init__(self, name, width, height, x, y,  value):
+    def __init__(self, name, width, height, x, y, value):
         self.name = name # meaning of region
         self.w = width # width of bounding rectangle
         self.h = height # height of bounding rectangle

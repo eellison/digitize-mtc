@@ -1,7 +1,3 @@
-import cv2
-import os
-from pathlib import Path
-from PIL import Image, ImageDraw
 from . import *
 
 
@@ -40,7 +36,7 @@ def process(input_image_path, template_json_path, output_dir_path, debug_mode=Fa
     if debug_mode:
         input_image_name, output_abs_path, json_output_path, csv_output_path = \
             util.generate_paths(input_image_path, template, output_dir_path)
-        util.write_diag_images(input_image_name, output_abs_path, aligned_image, \
+        util.write_diag_images(input_image_name, output_abs_path, aligned_image,
                                aligned_diag_image, clean_input, answered_questions)
         util.write_form_to_json(processed_form, json_output_path)
 

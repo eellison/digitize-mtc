@@ -7,7 +7,7 @@ except:
     from .encoder import *
     from .form import *
 import os
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw
 import csv
 import cv2
 from copy import deepcopy
@@ -18,7 +18,7 @@ from skimage.filters import threshold_local
 from app import get_output_folder, get_debug_write_id, save_debug
 
 # CONSTANTS
-BLACK_LEVEL  = 0.6 * 255
+BLACK_LEVEL = 0.6 * 255
 
 def read_image(image_path):
     """
@@ -142,7 +142,7 @@ def omr_visual_output(image, clean_image, answered_questions, output_path):
                     c = (255, 0, 0, 127) # red
                 else:
                     c = (255, 127, 0, 127) # orange
-                draw.rectangle((rr.x, rr.y, rr.x+rr.w, rr.y+rr.h), c)
+                draw.rectangle((rr.x, rr.y, rr.x + rr.w, rr.y + rr.h), c)
     bw = clean_image.copy()
     thr = bw < BLACK_LEVEL
     bw[thr] = 255
@@ -178,15 +178,15 @@ def write_form_to_csv(form, form_name):
     answers = [extract_answer(q) for q in all_questions]
 
     # save aligned images as one pdf file
-    aligned_images = [Image.open(aligned_static_path(form.image)) for form in forms]
+    aligned_images = [Image.open(aligned_static_path(f.image)) for f in forms]
     if save_debug():
         pdf_path = str(get_output_folder() + "/" + form_name + "_" + str(get_debug_write_id()) + "/aligned_images.pdf")
     else:
         pdf_path = aligned_static_path("aligned_images_" + str(time.time()) + ".pdf")
-    aligned_images[0].save(pdf_path, save_all=True, append_images = aligned_images[1:])
+    aligned_images[0].save(pdf_path, save_all=True, append_images=aligned_images[1:])
 
     path_to_csv = str(get_output_folder() + "/" + form_name + ".csv")
-    with open(path_to_csv,"a+") as csv_file:
+    with open(path_to_csv, "a+") as csv_file:
         writer = csv.writer(csv_file)
         # Write header if file did not already exist
         if not os.path.isfile(path_to_csv):
@@ -295,9 +295,8 @@ def remove_checkbox_outline(input_arr, region_name, debug=False):
         fin (numpy.ndarray): arr, with any vertical or horizontal lines removed
     '''
     arr = deepcopy(input_arr)
-    thresh = cv2.adaptiveThreshold(
-                        arr, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
-                        cv2.THRESH_BINARY_INV, 25, 15)
+    thresh = cv2.adaptiveThreshold(arr, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+                                   cv2.THRESH_BINARY_INV, 25, 15)
     # Create the images that will use to extract the horizontal and vertical lines
     horizontal = np.copy(thresh)
     vertical = np.copy(thresh)
@@ -328,7 +327,7 @@ def remove_checkbox_outline(input_arr, region_name, debug=False):
     horizontal_plus_vertical = horizontal + vertical
 
     # Create final image after removal of boundary box
-    boundary_box_idx = horizontal_plus_vertical!=0
+    boundary_box_idx = horizontal_plus_vertical != 0
     fin = deepcopy(input_arr)
     fin[boundary_box_idx] = horizontal_plus_vertical[boundary_box_idx]
 
@@ -380,5 +379,5 @@ def clean_image(image):
     """
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     T = threshold_local(image, 11, offset=10, method="gaussian")
-    clean = (image > T).astype("uint8")*255
+    clean = (image > T).astype("uint8") * 255
     return clean

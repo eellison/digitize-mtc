@@ -1,85 +1,13 @@
 from app import *
-from flask import Flask, flash, request, redirect, render_template
+from flask import request, render_template, jsonify
 import argparse
-import webbrowser
 import json
-from flask import jsonify, Response
 import os
-import sys
 from scripts import *
 import time
 import cv2
 import platform
 from math import inf
-
-###############################
-###### FOR MANUAL UPLOAD ######
-###############################
-
-# ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-# @app.route('/uploads/<filename>')
-# def uploaded_file(filename):
-#     return send_from_directory(app.config['UPLOAD_FOLDER'],
-#                                filename)
-
-# @app.route('/processed/<filename>')
-# def processed_file(filename):
-#     return send_from_directory(app.config['OUTPUT_FOLDER'],
-#                                filename)
-
-# # AJAX request with uploaded file
-# ## IDEA: create a version of this that is also checking the global variable
-# # "success_from_live_stream", which indicates that the camera caught a
-# # successfully aligned live stream frame
-# @app.route('/upload_and_process_file/<template_json>', methods=['POST'])
-# def get_anc_response(template_json):
-#     # import pdb; pdb.set_trace()
-#     try:
-#         # import pdb; pdb.set_trace()
-#         return get_processed_file_json('upload_ANC_form.html', template_json)
-#     except AlignmentError as err:
-#         return jsonify(
-#             error_msg = err.msg,
-#             status = 'error'
-#         )
-
-# ## IDEA: create a version of this that works w/o file.filename
-# # but jumps to the part where the file is already written (ie in live stream case)
-# def get_processed_file_json(html_page, template_json):
-#     if request.method == 'GET':
-#         # check if the post request has the file part
-#         if 'file' not in request.files:
-#             flash('No file part')
-#             return redirect(request.url)
-#         file = request.files['file']
-#         # if user does not select file, browser also
-#         # submit an empty part without filename
-#         if file.filename == '':
-#             flash('No selected file')
-#             return redirect(request.url)
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             upload_location = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-#             file.save(upload_location) # save uploaded file
-#             json_template_location = str(Path.cwd() / "backend" / "forms" / "json_annotations" / template_json)
-#             output_location = str(Path.cwd() / "backend" / "output")
-#             # Below: process, encode, and return the uploaded file
-#             start = time.time()
-#             processed_form = process(upload_location, json_template_location, app.config['OUTPUT_FOLDER'])
-#             encoder = FormTemplateEncoder()
-#             encoded_form = encoder.default(processed_form)
-#             encoded_form['status'] = "success"
-#             end = time.time()
-#             print("\n\n\n It took %.2f to run the process script." % (end-start))
-#             return jsonify(encoded_form)
-#     return render_template(html_page)
-
-###############################
-
 
 @app.route('/')
 def home():
@@ -115,12 +43,12 @@ def new_form():
             file.save(upload_location)
             # 3) Create an Form object to send back to the frontend
             # TODO (sud): parametrize the form_name
-            form_name  = "new-form" + "_page_" + str(page_num)
+            form_name = "new-form" + "_page_" + str(page_num)
             (x, y) = util.get_image_dimensions(upload_location)
             processed_form = Form(form_name, page_name, y, x, [QuestionGroup()])
             encoded_form = encoder.default(processed_form)
             pages_to_send_back.append(encoded_form)
-    return json_status("success", pages = pages_to_send_back)
+    return json_status("success", pages=pages_to_send_back)
 
 # To Do: Remove file_path from the upload.  That way new form is just needing
 # name and num_pages.  We will do standard function from name => file_path (i.e. lower-case
@@ -177,7 +105,8 @@ def write_prediction(image, align_score, blurry_score):
     _input += 1
 
 
-def json_status(status_str, remaining_frames = "", pages = []):
+def json_status(status_str, remaining_frames="", pages=None):
+    pages = pages if pages is not None else []
     resp = {}
     resp["status"] = status_str
     resp["remaining_frames"] = remaining_frames
@@ -194,7 +123,7 @@ def reset_globals():
     return None
 
 
-def get_image_from_request(request, page_number = 0):
+def get_image_from_request(request, page_number=0):
     file = request.files.getlist("file")[page_number]
     # 1) Construct a name/path for the file
     timestamp = "_" + str(time.time())
@@ -216,7 +145,7 @@ def write_debug_stream_image(form_name, page_number, image):
             debug_id += 1
         app.config["DEBUG_WRITE_ID"] = debug_id
 
-    directory_name = out_folder + "/" + form_name + "_"  + str(app.config["DEBUG_WRITE_ID"])
+    directory_name = out_folder + "/" + form_name + "_" + str(app.config["DEBUG_WRITE_ID"])
     if not os.path.isdir(directory_name):
         os.mkdir(directory_name)
 
@@ -283,7 +212,7 @@ def video_feed(form_name, page_number):
             if (request.method == "GET") and (good_frames_captured < good_frames_to_capture_before_processing):
                 num_remaining_frames = good_frames_to_capture_before_processing - good_frames_captured
                 remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
-                return json_status("aligned", remaining_frames = remaining_frames_str)
+                return json_status("aligned", remaining_frames=remaining_frames_str)
             else:
                 # Run mark recognition on aligned image
                 answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
@@ -295,12 +224,12 @@ def video_feed(form_name, page_number):
                 encoded_form = encoder.default(processed_form)
                 encoded_form['status'] = "success"
                 end = time.time()
-                print("\n\n\n It took %.2f to run the process script." % (end-start))
+                print("\n\n\n It took %.2f to run the process script." % (end - start))
                 # Reset the global counters
                 reset_globals()
                 return jsonify(encoded_form)
 
-    except AlignmentError as err:
+    except AlignmentError:
         reset_globals()
         # Uncomment the line below for live alignment debug in console
         print("Alignment Error!")
@@ -325,10 +254,11 @@ best_aligned_image = None
 best_align_score = inf # lower alignment score is better
 templates = {}
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
-    parser.add_argument('--upload_folder', nargs='?', const=1,  default=None)
+    parser.add_argument('--upload_folder', nargs='?', const=1, default=None)
     parser.add_argument('--save-debug', dest='save_debug', action='store_true')
     parser.set_defaults(save_debug=False)
     args = parser.parse_args()
@@ -337,5 +267,6 @@ if __name__ == "__main__":
     app.config["SAVE_DEBUG"] = args.save_debug
 
     upload_all_templates()
+
     webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)
