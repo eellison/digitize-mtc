@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-MAX_FEATURES = 1111
+MAX_FEATURES = 4444
 GOOD_MATCH_PERCENT = 0.11
 AVG_MATCH_DIST_CUTOFF = 47 # lower cutoff is more strict
 
@@ -48,7 +48,7 @@ def align_images(im1, im2):
 
     # Validate the matches for quality
     match_distances = [m.distance for m in matches]
-    avg_match_dist = np.mean(match_distances)
+    avg_match_dist = np.median(match_distances)
     # if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
     #     # Uncomment the lines below for console debug
     #     print(avg_match_dist)
@@ -88,14 +88,14 @@ def align_images(im1, im2):
     matches_warp = matches_warp[:num_good_matches]
     # Validate the matches for quality
     match_distances_warp = [m.distance for m in matches_warp]
-    avg_match_dist_warp = np.mean(match_distances_warp)
+    avg_match_dist_warp = np.median(match_distances_warp)
 
     print("Average match dist:")
     print(avg_match_dist)
     print("Average match dist warp:")
     print(avg_match_dist_warp)
 
-    if (avg_match_dist > AVG_MATCH_DIST_CUTOFF) or (avg_match_dist_warp > avg_match_dist):
+    if (avg_match_dist_warp > avg_match_dist): #avg_match_dist > AVG_MATCH_DIST_CUTOFF) or
         # The perspective warp reduced the average match quality OR "the original image was shit" -Dan
         cv2.imwrite("original_bad.jpg", im1)
         cv2.imwrite("warped_bad.jpg", im1_warp)

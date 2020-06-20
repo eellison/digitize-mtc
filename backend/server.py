@@ -91,12 +91,18 @@ class Camera(object):
 
         # with capture_stdout() as output:
         #camera_index()
-        cap = cv2.VideoCapture(1)
+        # CAP_DSHOW is ** VERY IMPORTANT ** for ensuring that the frames from
+        # the camera are pulled in at maximum resolution
+        # DO NOT remove without testing extensively first
+        cap = cv2.VideoCapture(1) # , cv2.CAP_DSHOW
+        time.sleep(2) # Wait a couple seconds for the campera to connect
         assert cap.isOpened(), "Failed to connect to OpenCV. Could not connect to Camera"
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1111111)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1111111)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 2000)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2000)
         test, frame = cap.read()
-        print("Cam Connection Test Passed: " + str(test))
+        cv2.imwrite("test_frame.jpg", frame)
+        # print("Cam Connection Test Passed: " + str(test))
+        print('Resolution: ' + str(frame.shape[0]) + ' x ' + str(frame.shape[1]))
         self.stream = cap
 
 _input = 0
@@ -182,6 +188,7 @@ def video_feed(form_name, page_number):
     if request.method == "GET":
         # Grab a frame from the live camera feed
         _, frame = cam.stream.read()
+        cv2.imwrite("frame.jpg", frame)
     else:
         # Parse the request for an uploaded file
         _, frame = get_image_from_request(request, int(page_number))
@@ -250,7 +257,7 @@ def upload_all_templates():
 cam = Camera()
 sec_btw_captures = 1
 good_frames_captured = 0
-good_frames_to_capture_before_processing = 5
+good_frames_to_capture_before_processing = 3
 best_aligned_image = None
 best_align_score = inf # lower alignment score is better
 templates = {}
