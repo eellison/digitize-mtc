@@ -7,6 +7,7 @@ from scripts import *
 import time
 import cv2
 import platform
+import webbrowser
 from math import inf
 
 @app.route('/')
@@ -90,10 +91,10 @@ class Camera(object):
 
         # with capture_stdout() as output:
         #camera_index()
-        cap = cv2.VideoCapture(camera_index())
+        cap = cv2.VideoCapture(1)
         assert cap.isOpened(), "Failed to connect to OpenCV. Could not connect to Camera"
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1111111)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1111111)
         test, frame = cap.read()
         print("Cam Connection Test Passed: " + str(test))
         self.stream = cap
