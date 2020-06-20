@@ -1,0 +1,8 @@
+Pillow
+lxml
+numpy
+scipy
+scikit-image
+opencv-contrib-python
+pathlib
+flask

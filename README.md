@@ -15,11 +15,11 @@ Dependencies
 - pathlib (``pathlib``)
 - flask (``flask``)
 
-All of these can be installed used `pip` or `conda`. If you are planning to plug in
+All of these can be installed using `pip` or `conda`. Run `pip install -r requirements.txt`
+to install all requirements. If you are planning to plug in
 an external UVC-enabled USB camera to use the live alignment feature, make sure
 to download ``opencv-contrib-python``, since the package hosted under
 ``opencv-contrib`` does not provide video device support via OpenCV.
-
 
 Getting Started
 ===============
