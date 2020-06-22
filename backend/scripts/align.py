@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-MAX_FEATURES = 4444
-GOOD_MATCH_PERCENT = 0.11
+MAX_FEATURES = 5000
+GOOD_MATCH_PERCENT = 0.22
 AVG_MATCH_DIST_CUTOFF = 47 # lower cutoff is more strict
 
 
