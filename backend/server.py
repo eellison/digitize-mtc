@@ -12,6 +12,7 @@ from math import inf
 
 @app.route('/')
 def home():
+	reset_globals()
 	return render_template('home.html')
 
 @app.route('/settings/')
@@ -124,9 +125,11 @@ def reset_globals():
 	global good_frames_captured
 	global best_aligned_image
 	global best_align_score
+	global vs
 	good_frames_captured = 0
 	best_aligned_image = None
 	best_align_score = inf
+	vs.stop()
 	return None
 
 
@@ -177,6 +180,9 @@ def check_alignment(form_name, page_number):
 	global best_align_score
 
 	time.sleep(sec_btw_captures) # wait before processing frame
+
+	if (vs.stopped):
+		vs.start()
 
 	template = templates[form_name]["pages"][int(page_number)]
 	template_image = template.image
@@ -235,6 +241,7 @@ def check_alignment(form_name, page_number):
 				print("\n\n\n It took %.2f to run the process script." % (end - start))
 				# Reset the global counters
 				reset_globals()
+				vs.stop()
 				return jsonify(encoded_form)
 
 	except AlignmentError:
@@ -264,7 +271,7 @@ templates = {}
 
 ##### Video Streaming Code ###
 
-vs = Camera(src=1).start()
+vs = Camera(src=0)
 time.sleep(2.0)
 
 def generate():
@@ -298,7 +305,6 @@ def shutdown_server():
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
 	global vs
-	vs.stop()
 	vs.close_hardware_connection()
 	shutdown_server()
 	return 'Session Ended...Goodbye :)'

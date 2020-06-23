@@ -15,18 +15,17 @@ class Camera:
 		self.stream = cap
 
 		# Test and Display Initial camera image quality.
-		(_, self.frame) = self.stream.read()
-		self.width_quality, self.height_quality, _  = self.frame.shape
+		(_, test_frame) = self.stream.read()
+		self.width_quality, self.height_quality, _  = test_frame.shape
 		print("Camera Image Quality: %i x %i" % (self.width_quality, self.height_quality))
 
-		# initialize the thread name
-		self.name = name
-
-		# Initialize the variable used to indicate if the thread should
-		# be stopped
-		self.stopped = False
+		# Initialize local variables
+		self.name = name # Camera object name
+		self.frame = np.zeros((1,1,1)) # Current frame
+		self.stopped = True # Manages camera state
 
 	def start(self):
+		self.stopped = False
 		# start the thread to read frames from the video stream
 		t = Thread(target=self.update, name=self.name, args=())
 		t.daemon = True
@@ -36,7 +35,7 @@ class Camera:
 	def update(self):
 		# keep looping infinitely until the thread is stopped
 		while True:
-			time.sleep(.01)
+			#time.sleep(.01)
 
 			# if the thread indicator variable is set, stop the thread
 			if self.stopped:
@@ -51,10 +50,12 @@ class Camera:
 
 	def stop(self):
 		# indicate that the thread should be stopped
+		self.frame = np.zeros((1,1,1)) # Current frame
 		self.stopped = True
 
 	def close_hardware_connection(self):
 		# Close the connection to the camera hardware
+		self.stop()
 		self.stream.release()
 
 	def stream_quality_preserved(self):
