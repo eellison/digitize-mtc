@@ -170,7 +170,6 @@ def write_debug_stream_image(form_name, page_number, image):
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def check_alignment(form_name, page_number):
 	global vs
-	global cam
 	global sec_btw_captures
 	global good_frames_captured
 	global good_frames_to_capture_before_processing
@@ -188,9 +187,8 @@ def check_alignment(form_name, page_number):
 
 	if request.method == "GET":
 		# Grab a frame from the live camera feed
-		#_, frame = cam.stream.read()
+		assert vs.stream_quality_preserved(), "Failed to connect to OpenCV. Could not connect to Camera"
 		frame = vs.read()
-		cv2.imwrite("frame.jpg", frame)
 	else:
 		# Parse the request for an uploaded file
 		_, frame = get_image_from_request(request, int(page_number))
@@ -265,63 +263,8 @@ best_align_score = inf # lower alignment score is better
 templates = {}
 
 ##### Video Streaming Code ###
-# import the necessary packages
-from threading import Thread
-import threading
-import numpy as np
 
-class WebcamVideoStream:
-	def __init__(self, src=0, name="WebcamVideoStream"):
-		# initialize the video camera stream and read the first frame
-		# from the stream
-		cap = cv2.VideoCapture(src)
-		# TODO: here we up the resolution of frames that are taken in.
-		# A high resolution is necessary for the alignment to work, but
-		# this slows down the streaming process. We should find a way to
-		# stream lower quality pictures to the front-end, but also pull in
-		# high quality versions for alignment/processing on the backend.
-		cap.set(cv2.CAP_PROP_FRAME_WIDTH, 11111)
-		cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 11111)
-		self.stream = cap
-		(self.grabbed, self.frame) = self.stream.read()
-
-		# initialize the thread name
-		self.name = name
-
-		# initialize the variable used to indicate if the thread should
-		# be stopped
-		self.stopped = False
-
-	def start(self):
-		# start the thread to read frames from the video stream
-		t = Thread(target=self.update, name=self.name, args=())
-		t.daemon = True
-		t.start()
-		return self
-
-	def update(self):
-		# keep looping infinitely until the thread is stopped
-		while True:
-			time.sleep(.01)
-
-			# if the thread indicator variable is set, stop the thread
-			if self.stopped:
-				return
-
-			# otherwise, read the next frame from the stream
-			(self.grabbed, self.frame) = self.stream.read()
-
-	def read(self):
-		# return the frame most recently read
-		return self.frame
-
-	def stop(self):
-		# indicate that the thread should be stopped
-		self.stopped = True
-
-
-
-vs = WebcamVideoStream(src=1).start()
+vs = Camera(src=1).start()
 time.sleep(2.0)
 
 def generate():
@@ -330,27 +273,13 @@ def generate():
 	# loop over frames from the output stream
 	while True:
 		frame = np.rot90(vs.read())
-		resized = cv2.resize(frame, (720, 1280), interpolation = cv2.INTER_AREA)
+		# resized = cv2.resize(frame, (720, 1280), interpolation = cv2.INTER_AREA)
 		# frame = vs.read()
 		# frame = imutils.resize(frame, width=400)
-		(flag, encodedImage) = cv2.imencode(".jpg", resized)
-
-		# frame = imutils.resize(frame, width=400)
-		# # wait until the lock is acquired
-		# with lock:
-		# 	# check if the output frame is available, otherwise skip
-		# 	# the iteration of the loop
-		# 	if outputFrame is None:
-		# 		continue
-		# 	# encode the frame in JPEG format
-		# 	(flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
-		# 	# ensure the frame was successfully encoded
-		# 	if not flag:
-		# 		continue
+		(flag, encodedImage) = cv2.imencode(".jpg", frame)
 		# yield the output frame in the byte format
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
 			bytearray(encodedImage) + b'\r\n')
-
 
 @app.route("/video_feed")
 def video_feed():
@@ -358,6 +287,21 @@ def video_feed():
 	# type (mime type)
 	return Response(generate(),
 		mimetype = "multipart/x-mixed-replace; boundary=frame")
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+	global vs
+	vs.stop()
+	vs.close_hardware_connection()
+	shutdown_server()
+	return 'Session Ended...Goodbye :)'
 ##### End Video Streaming Code ###
 
 if __name__ == "__main__":

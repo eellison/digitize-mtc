@@ -97,12 +97,12 @@ def align_images(im1, im2):
 
     if (avg_match_dist_warp > avg_match_dist): #avg_match_dist > AVG_MATCH_DIST_CUTOFF) or
         # The perspective warp reduced the average match quality OR "the original image was shit" -Dan
-        cv2.imwrite("original_bad.jpg", im1)
-        cv2.imwrite("warped_bad.jpg", im1_warp)
+        # cv2.imwrite("original_bad.jpg", im1)
+        # cv2.imwrite("warped_bad.jpg", im1_warp)
         raise AlignmentError("Poor image alignment! Please confirm you are using\n \
         the right form, and upload a new image.")
 
-    cv2.imwrite("original_good.jpg", im1)
-    cv2.imwrite("warped_good.jpg", im1_warp)
+    # cv2.imwrite("original_good.jpg", im1)
+    # cv2.imwrite("warped_good.jpg", im1_warp)
 
     return im1_warp, im_matches, h, avg_match_dist
