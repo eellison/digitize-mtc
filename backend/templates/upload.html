@@ -110,6 +110,7 @@
   <!-- </div> -->
   <div class="upload-button">
     <button id="turn-on-align-btn" type="button" class="highlighted">Turn on Align Feature</button>
+    <img src="{{ url_for('video_feed') }}"  height="100%">
   </div>
   <!-- NOTE: The two lines below reprent to separate ways for the frontend
   for the frontend to pull the live camera feed. The first streams frames
@@ -117,7 +118,7 @@
   For some reason letting the frontend access the camera independently doesn't
   work on Windows. The backend streaming technique also keeps things more
   streamlined as there's only one point of interface with the hardware. -->
-  <img src="{{ url_for('video_feed') }}"  width="100%">
+
   <!-- <video width="540" height="620" muted autoplay></video> -->
 </div>
 

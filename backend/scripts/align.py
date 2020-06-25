@@ -95,7 +95,7 @@ def align_images(im1, im2):
     print("Average match dist warp:")
     print(avg_match_dist_warp)
 
-    if (avg_match_dist_warp > avg_match_dist): #avg_match_dist > AVG_MATCH_DIST_CUTOFF) or
+    if (avg_match_dist > AVG_MATCH_DIST_CUTOFF) or (avg_match_dist_warp > avg_match_dist): # or
         # The perspective warp reduced the average match quality OR "the original image was shit" -Dan
         # cv2.imwrite("original_bad.jpg", im1)
         # cv2.imwrite("warped_bad.jpg", im1_warp)

@@ -12,45 +12,8 @@ from math import inf
 
 @app.route('/')
 def home():
-	reset_globals()
+	vs.stop()
 	return render_template('home.html')
-
-@app.route('/settings/')
-def settings():
-	return render_template('settings.html')
-
-@app.route('/create/', methods=['GET', 'POST'])
-def create():
-	if request.method == "GET":
-		return render_template('create.html')
-	if request.method == "POST":
-		name = request.form['name']
-		num_pages = int(request.form['number'])
-		# To Do: construct name.json of length number and update global templates
-		return render_template('annotate.html', name=name, num_pages=num_pages)
-
-
-@app.route('/new_form/', methods=['POST', 'GET'])
-def new_form():
-	if request.method == 'POST':
-		files = request.files.getlist("file")
-		pages_to_send_back = []
-		encoder = FormTemplateEncoder()
-		for page_num, file in enumerate(files, start=1):
-			# 1) Construct a name/path for the file
-			timestamp = "_" + str(time.time())
-			page_name = "page_" + str(page_num) + timestamp + ".jpeg"
-			upload_location = str(Path.cwd() / "backend" / "static" / page_name)
-			# 2) Save the file to that path
-			file.save(upload_location)
-			# 3) Create an Form object to send back to the frontend
-			# TODO (sud): parametrize the form_name
-			form_name = "new-form" + "_page_" + str(page_num)
-			(x, y) = util.get_image_dimensions(upload_location)
-			processed_form = Form(form_name, page_name, y, x, [QuestionGroup()])
-			encoded_form = encoder.default(processed_form)
-			pages_to_send_back.append(encoded_form)
-	return json_status("success", pages=pages_to_send_back)
 
 # To Do: Remove file_path from the upload.  That way new form is just needing
 # name and num_pages.  We will do standard function from name => file_path (i.e. lower-case
@@ -79,7 +42,6 @@ def save_response(file):
 		return jsonify(status='success')
 	except AlignmentError as err:
 		return jsonify(error_msg=err.msg, status='error')
-
 
 def camera_index():
 	# camera indexing is 0 on Macs 1 otherwise
@@ -129,7 +91,6 @@ def reset_globals():
 	good_frames_captured = 0
 	best_aligned_image = None
 	best_align_score = inf
-	vs.stop()
 	return None
 
 
@@ -193,7 +154,7 @@ def check_alignment(form_name, page_number):
 
 	if request.method == "GET":
 		# Grab a frame from the live camera feed
-		assert vs.stream_quality_preserved(), "Failed to connect to OpenCV. Could not connect to Camera"
+		assert vs.stream_quality_preserved(), "Video input quality dropped. Please check camera and restart the server."
 		frame = vs.read()
 	else:
 		# Parse the request for an uploaded file
@@ -270,7 +231,6 @@ best_align_score = inf # lower alignment score is better
 templates = {}
 
 ##### Video Streaming Code ###
-
 vs = Camera(src=0)
 time.sleep(2.0)
 
@@ -280,10 +240,10 @@ def generate():
 	# loop over frames from the output stream
 	while True:
 		frame = np.rot90(vs.read())
-		# resized = cv2.resize(frame, (720, 1280), interpolation = cv2.INTER_AREA)
+		resized = cv2.resize(frame, (360, 640), interpolation = cv2.INTER_AREA)
 		# frame = vs.read()
 		# frame = imutils.resize(frame, width=400)
-		(flag, encodedImage) = cv2.imencode(".jpg", frame)
+		(flag, encodedImage) = cv2.imencode(".jpg", resized)
 		# yield the output frame in the byte format
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
 			bytearray(encodedImage) + b'\r\n')
@@ -296,6 +256,7 @@ def video_feed():
 		mimetype = "multipart/x-mixed-replace; boundary=frame")
 
 
+### Shutdown Server Code  ###
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
@@ -308,8 +269,9 @@ def shutdown():
 	vs.close_hardware_connection()
 	shutdown_server()
 	return 'Session Ended...Goodbye :)'
-##### End Video Streaming Code ###
 
+
+### Main Method ###
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
