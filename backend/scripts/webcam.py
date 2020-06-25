@@ -21,7 +21,7 @@ class Camera:
 
 		# Initialize local variables
 		self.name = name # Camera object name
-		self.frame = np.zeros((1,1,1)) # Current frame
+		self.frame = np.zeros((self.width_quality,self.height_quality,3)) # Current frame
 		self.stopped = True # Manages camera state
 
 	def start(self):
@@ -32,9 +32,12 @@ class Camera:
 		t.start()
 		return self
 
+
+
 	def update(self):
 		# keep looping infinitely until the thread is stopped
 		while True:
+			# Manually control the frame rate
 			time.sleep(.1)
 
 			# if the thread indicator variable is set, stop the thread
@@ -50,7 +53,7 @@ class Camera:
 
 	def stop(self):
 		# indicate that the thread should be stopped
-		self.frame = np.zeros((1,1,1)) # Current frame
+		self.frame = np.zeros((self.width_quality,self.height_quality,3)) # Current frame
 		self.stopped = True
 
 	def close_hardware_connection(self):

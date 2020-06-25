@@ -231,6 +231,10 @@ best_align_score = inf # lower alignment score is better
 templates = {}
 
 ##### Video Streaming Code ###
+# [TODO] consolidate frame rate btw generator function and webcam class
+# [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
+# the user has navigated away from the page (i.e. gone back to the home page)
+
 vs = Camera(src=0)
 time.sleep(2.0)
 
@@ -239,11 +243,16 @@ def generate():
 	global vs
 	# loop over frames from the output stream
 	while True:
+		# Note: this funtion is a big processing bottleneck. If this
+		# loop is asked to encode images at a rate greater than the frame
+		# rate then there will be needless CPU usage without visual benefit
+		# to the user.
+		time.sleep(0.1)
 		frame = np.rot90(vs.read())
 		resized = cv2.resize(frame, (360, 640), interpolation = cv2.INTER_AREA)
+		(flag, encodedImage) = cv2.imencode(".jpg", resized)
 		# frame = vs.read()
 		# frame = imutils.resize(frame, width=400)
-		(flag, encodedImage) = cv2.imencode(".jpg", resized)
 		# yield the output frame in the byte format
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
 			bytearray(encodedImage) + b'\r\n')
