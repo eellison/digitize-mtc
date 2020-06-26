@@ -150,6 +150,16 @@ display: inline-block;
 	padding:0px 20px;
 }
 
+.text-block {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: black;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 form{
    text-align: left;
    vertical-align: middle;

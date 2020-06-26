@@ -38,6 +38,17 @@ function requestLiveFeedResponse(form_name, page_number) {
   });
 }
 
+$('#align-switch').click(function(){
+    if($(this).is(':checked')){
+        requestLiveFeedResponse(file_path, current_page);
+        d3.select("#scanning-status").text("Scanning for page " + (current_page + 1));
+        console.log("ON");
+    } else {
+        d3.select("#scanning-status").text("Scanning feature off...");
+        console.log("OFF");
+    }
+});
+
 $(function() {
 	$('#turn-on-align-btn').click(function() {
      d3.select("#turn-on-align-btn").text("Scanning for page " + (current_page + 1));
