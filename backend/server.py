@@ -234,6 +234,15 @@ templates = {}
 # [TODO] consolidate frame rate btw generator function and webcam class
 # [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
 # the user has navigated away from the page (i.e. gone back to the home page)
+# [TODO] set up frontend toggle alignment feature (so toggling off changes a
+# JS variable, which leads the request_live_feed_response function to stop requesting
+# and instead send one last AJAX request to a server-side function that turns off
+# the camera feed and resets globals)
+# [TODO] figure out how to have user click on page icons to switch which page
+# is being aligned
+# [TODO] take the incoming frames and crop them to the desired aspect ratio
+# before encoding (ex. have the webcam serve the generator frames that will
+# look good on the frontend)
 
 vs = Camera(src=0)
 time.sleep(2.0)
