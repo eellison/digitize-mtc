@@ -22,12 +22,15 @@ function requestLiveFeedResponse(form_name, page_number) {
         d3.select("#turn-on-align-btn").text(data.remaining_frames);
         d3.select("#videoFeed").classed("camera-feed", false);
         d3.select("#videoFeed").classed("camera-feed-green", true);
+        d3.select("#scanning-status-box").classed("text-block", false);
+        d3.select("#scanning-status-box").classed("text-block-green", true);
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
         d3.select("#turn-on-align-btn").text("Scanning for page " + (page_number + 1));
         d3.select("#videoFeed").classed("camera-feed-green", false);
         d3.select("#videoFeed").classed("camera-feed", true);
+
         requestLiveFeedResponse(form_name, page_number);
       }
     },
@@ -41,10 +44,10 @@ function requestLiveFeedResponse(form_name, page_number) {
 $('#align-switch').click(function(){
     if($(this).is(':checked')){
         requestLiveFeedResponse(file_path, current_page);
-        d3.select("#scanning-status").text("Scanning for page " + (current_page + 1));
+        d3.select("#scanning-status-text").text("Scanning for page " + (current_page + 1));
         console.log("ON");
     } else {
-        d3.select("#scanning-status").text("Scanning feature off...");
+        d3.select("#scanning-status-text").text("Scanning feature off...");
         console.log("OFF");
     }
 });

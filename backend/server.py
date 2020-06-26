@@ -228,7 +228,9 @@ best_align_score = inf # lower alignment score is better
 templates = {}
 
 ##### Video Streaming Code ###
-# [TODO] consolidate frame rate btw generator function and webcam class
+# [DONE] consolidate frame rate btw generator function and webcam class
+
+
 # [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
 # the user has navigated away from the page (i.e. gone back to the home page)
 # [TODO] set up frontend toggle alignment feature (so toggling off changes a

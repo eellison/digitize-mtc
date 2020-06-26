@@ -160,6 +160,18 @@ display: inline-block;
   padding-right: 20px;
 }
 
+.text-block-green {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: green;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+
 form{
    text-align: left;
    vertical-align: middle;
