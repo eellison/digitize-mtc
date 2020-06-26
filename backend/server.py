@@ -134,14 +134,13 @@ def write_debug_stream_image(form_name, page_number, image):
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def check_alignment(form_name, page_number):
 	global vs
-	global sec_btw_captures
 	global good_frames_captured
 	global good_frames_to_capture_before_processing
 	global best_aligned_image
 	global best_align_score
 
-	time.sleep(sec_btw_captures) # wait before processing frame
-
+	# Wait before processing frame, based on camera's frame rate
+	time.sleep(vs.frame_delay)
 	if (vs.stopped):
 		vs.start()
 
@@ -222,8 +221,6 @@ def upload_all_templates():
 		templates[file] = read_multipage_json_to_form(path_to_json_file)
 
 # Set up global variables
-#cam = Camera()
-sec_btw_captures = 1
 good_frames_captured = 0
 good_frames_to_capture_before_processing = 3
 best_aligned_image = None
@@ -256,12 +253,10 @@ def generate():
 		# loop is asked to encode images at a rate greater than the frame
 		# rate then there will be needless CPU usage without visual benefit
 		# to the user.
-		time.sleep(0.1)
+		time.sleep(vs.frame_delay)
 		frame = np.rot90(vs.read())
 		resized = cv2.resize(frame, (360, 640), interpolation = cv2.INTER_AREA)
 		(flag, encodedImage) = cv2.imencode(".jpg", resized)
-		# frame = vs.read()
-		# frame = imutils.resize(frame, width=400)
 		# yield the output frame in the byte format
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
 			bytearray(encodedImage) + b'\r\n')

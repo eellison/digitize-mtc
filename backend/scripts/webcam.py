@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 import time
 
+FRAME_RATE = 100 # frames per second
 
 class Camera:
 	def __init__(self, src=0, name="Camera"):
@@ -19,10 +20,15 @@ class Camera:
 		self.width_quality, self.height_quality, _  = test_frame.shape
 		print("Camera Image Quality: %i x %i" % (self.width_quality, self.height_quality))
 
+		# Define a "NULL FRAME", which is the frame that the camera defaults
+		# to when it is stopped
+		self.NULL_FRAME = np.zeros((self.width_quality,self.height_quality,3)).astype(np.uint8)
+
 		# Initialize local variables
 		self.name = name # Camera object name
-		self.frame = np.zeros((self.width_quality,self.height_quality,3)) # Current frame
+		self.frame = self.NULL_FRAME # Reset frame
 		self.stopped = True # Manages camera state
+		self.frame_delay = 1 / FRAME_RATE
 
 	def start(self):
 		self.stopped = False
@@ -32,19 +38,15 @@ class Camera:
 		t.start()
 		return self
 
-
-
 	def update(self):
 		# keep looping infinitely until the thread is stopped
 		while True:
-			# Manually control the frame rate
-			time.sleep(.1)
-
-			# if the thread indicator variable is set, stop the thread
+			# If the thread indicator variable is set, stop the thread
 			if self.stopped:
 				return
-
-			# otherwise, read the next frame from the stream
+			# Delay based on frame rate
+			time.sleep(self.frame_delay)
+			# Read the next frame from the stream
 			(_, self.frame) = self.stream.read()
 
 	def read(self):
@@ -53,7 +55,7 @@ class Camera:
 
 	def stop(self):
 		# indicate that the thread should be stopped
-		self.frame = np.zeros((self.width_quality,self.height_quality,3)) # Current frame
+		self.frame = self.NULL_FRAME
 		self.stopped = True
 
 	def close_hardware_connection(self):
