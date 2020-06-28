@@ -83,7 +83,14 @@ def json_status(status_str, remaining_frames="", pages=None):
 	resp["pages"] = pages
 	return jsonify(resp)
 
-@app.route('/reset_globals/', methods=['GET', 'POST'])
+@app.route('/stop_camera_feed/', methods=['GET', 'POST'])
+def stop_camera_feed():
+	global vs
+	vs.stop()
+	reset_globals()
+	return json_status("Stopped Camera on server.")
+
+
 def reset_globals():
 	global good_frames_captured
 	global best_aligned_image
@@ -92,7 +99,6 @@ def reset_globals():
 	good_frames_captured = 0
 	best_aligned_image = None
 	best_align_score = inf
-	return json_status("Reset server alignment globals")
 
 def get_image_from_request(request, page_number=0):
 	file = request.files.getlist("file")[page_number]
@@ -242,12 +248,13 @@ templates = {}
 # downsample if that takes more time, or downsample more if the byte conversion
 # is the bottleneck)
 
+# [TODO] put the generate function in webcam.py
 # [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
 # the user has navigated away from the page (i.e. gone back to the home page)
 # [TODO] figure out how to have user click on page icons to switch which page
 # is being aligned
 
-vs = Camera(src=1)
+vs = Camera(src=0)
 time.sleep(2.0)
 
 def generate():

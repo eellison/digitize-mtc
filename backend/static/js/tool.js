@@ -46,10 +46,10 @@ function stop_alignment() {
   d3.select("#scanning-status-box").text("Scanning feature off...");
   d3.select("#scanning-status-box").style('background-color', 'black');
 
-  // Tell the server to reset it's alignment variables (ie. "reset globals")
+  // Tell the server to stop capturing frames form camera
   $.ajax({
     type: 'GET',
-    url: '/reset_globals/',
+    url: '/stop_camera_feed/',
     contentType: false,
     cache: false,
     processData:false,
