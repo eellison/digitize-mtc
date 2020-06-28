@@ -9,28 +9,27 @@ function requestLiveFeedResponse(form_name, page_number) {
     cache: false,
     processData:false,
     success: function(data) {
-      if (data.status == 'success') {
+      if (stop_align) {
+        return // stop checking for an alignment
+      } else if (data.status == 'success') {
         form[page_number] = data;
         d3.select("#turn-on-align-btn").text("Turn on Align Feature");
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
+        // d3.select("#videoFeed").classed("camera-feed-green", false);
+        // d3.select("#videoFeed").classed("camera-feed", true);
+        d3.select("#scanning-status-box").style('background-color', 'green');
         $('#page-box' + page_number).attr("class", "page-box-green");
         $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
+        d3.select("#scanning-status-box").text("Form Captured!");
         current_page = current_page + 1;
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
-        d3.select("#turn-on-align-btn").text(data.remaining_frames);
-        d3.select("#videoFeed").classed("camera-feed", false);
-        d3.select("#videoFeed").classed("camera-feed-green", true);
-        d3.select("#scanning-status-box").classed("text-block", false);
-        d3.select("#scanning-status-box").classed("text-block-green", true);
+        d3.select("#scanning-status-box").text("Form Detected! Hold still: " + data.remaining_frames);
+        d3.select("#scanning-status-box").style('background-color', 'green');
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning for page " + (page_number + 1));
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
-
+        d3.select("#scanning-status-box").style('background-color', 'black');
+        d3.select("#scanning-status-box").text("Scanning for page " + (current_page + 1));
         requestLiveFeedResponse(form_name, page_number);
       }
     },
@@ -41,14 +40,37 @@ function requestLiveFeedResponse(form_name, page_number) {
   });
 }
 
+var stop_align = false;
+function stop_alignment() {
+  stop_align = true;
+  d3.select("#scanning-status-box").text("Scanning feature off...");
+  d3.select("#scanning-status-box").style('background-color', 'black');
+
+  // Tell the server to reset it's alignment variables (ie. "reset globals")
+  $.ajax({
+    type: 'GET',
+    url: '/reset_globals/',
+    contentType: false,
+    cache: false,
+    processData:false,
+    success: function(data) {
+      console.log(data);
+    },
+    error: function(xhr) {
+      //Do Something to handle error
+      console.log("AJAX error...?");
+    }
+  });
+}
+
 $('#align-switch').click(function(){
     if($(this).is(':checked')){
-        requestLiveFeedResponse(file_path, current_page);
+        stop_align = false;
         d3.select("#scanning-status-text").text("Scanning for page " + (current_page + 1));
+        requestLiveFeedResponse(file_path, current_page);
         console.log("ON");
     } else {
-        d3.select("#scanning-status-text").text("Scanning feature off...");
-        console.log("OFF");
+        stop_alignment();
     }
 });
 

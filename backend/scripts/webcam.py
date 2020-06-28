@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 import time
 
-FRAME_RATE = 100 # frames per second
+FRAME_RATE = 10 # frames per second
 
 class Camera:
 	def __init__(self, src=0, name="Camera"):

@@ -83,6 +83,7 @@ def json_status(status_str, remaining_frames="", pages=None):
 	resp["pages"] = pages
 	return jsonify(resp)
 
+@app.route('/reset_globals/', methods=['GET', 'POST'])
 def reset_globals():
 	global good_frames_captured
 	global best_aligned_image
@@ -91,8 +92,7 @@ def reset_globals():
 	good_frames_captured = 0
 	best_aligned_image = None
 	best_align_score = inf
-	return None
-
+	return json_status("Reset server alignment globals")
 
 def get_image_from_request(request, page_number=0):
 	file = request.files.getlist("file")[page_number]
@@ -140,7 +140,8 @@ def check_alignment(form_name, page_number):
 	global best_align_score
 
 	# Wait before processing frame, based on camera's frame rate
-	time.sleep(vs.frame_delay)
+	# Ex. wait for 100 frames to go by before sampling one
+	time.sleep(vs.frame_delay * 10)
 	if (vs.stopped):
 		vs.start()
 
@@ -184,8 +185,7 @@ def check_alignment(form_name, page_number):
 				best_aligned_image = aligned_image
 
 			if (request.method == "GET") and (good_frames_captured < good_frames_to_capture_before_processing):
-				num_remaining_frames = good_frames_to_capture_before_processing - good_frames_captured
-				remaining_frames_str = str(num_remaining_frames - 1) if num_remaining_frames != 1 else "Processing..."
+				remaining_frames_str = str(good_frames_to_capture_before_processing - good_frames_captured)
 				return json_status("aligned", remaining_frames=remaining_frames_str)
 			else:
 				# Run mark recognition on aligned image
@@ -222,14 +222,13 @@ def upload_all_templates():
 
 # Set up global variables
 good_frames_captured = 0
-good_frames_to_capture_before_processing = 3
+good_frames_to_capture_before_processing = 4
 best_aligned_image = None
 best_align_score = inf # lower alignment score is better
 templates = {}
 
 ##### Video Streaming Code ###
 # [DONE] consolidate frame rate btw generator function and webcam class
-
 
 # [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
 # the user has navigated away from the page (i.e. gone back to the home page)
@@ -241,9 +240,14 @@ templates = {}
 # is being aligned
 # [TODO] take the incoming frames and crop them to the desired aspect ratio
 # before encoding (ex. have the webcam serve the generator frames that will
-# look good on the frontend)
+# look good on the frontend); or have the generator do this on the fly if
+# that saves CPU usage (as suggested by on SO post)
+# [TODO] figure out whether downsizing the frame size OR converting to
+# byte array takes more time, and then optimize accordingly (ex. don't
+# downsample if that takes more time, or downsample more if the byte conversion
+# is the bottleneck)
 
-vs = Camera(src=0)
+vs = Camera(src=1)
 time.sleep(2.0)
 
 def generate():
@@ -259,9 +263,12 @@ def generate():
 		frame = np.rot90(vs.read())
 		resized = cv2.resize(frame, (360, 640), interpolation = cv2.INTER_AREA)
 		(flag, encodedImage) = cv2.imencode(".jpg", resized)
+
 		# yield the output frame in the byte format
+		# yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
+		# 	bytearray(encodedImage) + b'\r\n')
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
-			bytearray(encodedImage) + b'\r\n')
+			bytearray(cv2.imencode(".jpg", np.rot90(vs.read()))[1]) + b'\r\n')
 
 @app.route("/video_feed")
 def video_feed():
