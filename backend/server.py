@@ -229,23 +229,23 @@ templates = {}
 
 ##### Video Streaming Code ###
 # [DONE] consolidate frame rate btw generator function and webcam class
-
-# [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
-# the user has navigated away from the page (i.e. gone back to the home page)
-# [TODO] set up frontend toggle alignment feature (so toggling off changes a
+# [DONE] set up frontend toggle alignment feature (so toggling off changes a
 # JS variable, which leads the request_live_feed_response function to stop requesting
 # and instead send one last AJAX request to a server-side function that turns off
 # the camera feed and resets globals)
-# [TODO] figure out how to have user click on page icons to switch which page
-# is being aligned
-# [TODO] take the incoming frames and crop them to the desired aspect ratio
+# [DONE] take the incoming frames and crop them to the desired aspect ratio
 # before encoding (ex. have the webcam serve the generator frames that will
 # look good on the frontend); or have the generator do this on the fly if
 # that saves CPU usage (as suggested by on SO post)
-# [TODO] figure out whether downsizing the frame size OR converting to
+# [DONE] figure out whether downsizing the frame size OR converting to
 # byte array takes more time, and then optimize accordingly (ex. don't
 # downsample if that takes more time, or downsample more if the byte conversion
 # is the bottleneck)
+
+# [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
+# the user has navigated away from the page (i.e. gone back to the home page)
+# [TODO] figure out how to have user click on page icons to switch which page
+# is being aligned
 
 vs = Camera(src=1)
 time.sleep(2.0)
@@ -255,18 +255,24 @@ def generate():
 	global vs
 	# loop over frames from the output stream
 	while True:
-		# Note: this funtion is a big processing bottleneck. If this
+		# Note: This funtion is a big processing bottleneck. If this
 		# loop is asked to encode images at a rate greater than the frame
 		# rate then there will be needless CPU usage without visual benefit
-		# to the user.
-		time.sleep(vs.frame_delay)
-		frame = np.rot90(vs.read())
-		resized = cv2.resize(frame, (360, 640), interpolation = cv2.INTER_AREA)
-		(flag, encodedImage) = cv2.imencode(".jpg", resized)
+		# to the user. Below is an alternative streaming process where the
+		# incoming frame from the camera is downscaled to a lower resolution
+		# before encoding and sending to frontend. Basic testing shows that
+		# this seems to take more time (both to run the resizing computation
+		# and then to save down the result for encoding) than simply
+		# encoding the full image on the fly.
 
+		# frame = np.rot90(vs.read())
+		# resized = cv2.resize(frame, (360, 640), interpolation = cv2.INTER_AREA)
+		# (flag, encodedImage) = cv2.imencode(".jpg", resized)
 		# yield the output frame in the byte format
 		# yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
 		# 	bytearray(encodedImage) + b'\r\n')
+
+		time.sleep(vs.frame_delay)
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
 			bytearray(cv2.imencode(".jpg", np.rot90(vs.read()))[1]) + b'\r\n')
 
