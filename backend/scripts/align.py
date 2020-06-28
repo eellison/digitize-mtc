@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-MAX_FEATURES = 4444
-GOOD_MATCH_PERCENT = 0.11
+MAX_FEATURES = 5000
+GOOD_MATCH_PERCENT = 0.22
 AVG_MATCH_DIST_CUTOFF = 47 # lower cutoff is more strict
 
 
@@ -48,14 +48,14 @@ def align_images(im1, im2):
 
     # Validate the matches for quality
     match_distances = [m.distance for m in matches]
-    avg_match_dist = np.mean(match_distances)
-    if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
-        # Uncomment the lines below for console debug
-        print(avg_match_dist)
-        print(AVG_MATCH_DIST_CUTOFF)
-        # print(avg_match_dist > AVG_MATCH_DIST_CUTOFF)
-        raise AlignmentError("Poor image alignment! Please confirm you are using\n \
-        the right form, and upload a new image.")
+    avg_match_dist = np.median(match_distances)
+    # if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
+    #     # Uncomment the lines below for console debug
+    #     print(avg_match_dist)
+    #     print(AVG_MATCH_DIST_CUTOFF)
+    #     # print(avg_match_dist > AVG_MATCH_DIST_CUTOFF)
+    #     raise AlignmentError("Poor image alignment! Please confirm you are using\n \
+    #     the right form, and upload a new image.")
 
     # Draw top matches
     im_matches = cv2.drawMatches(im1, key_points_1, im2, key_points_2, matches, None)
@@ -77,6 +77,32 @@ def align_images(im1, im2):
 
     # Use homography
     height, width, channels = im2.shape
-    im1Reg = cv2.warpPerspective(im1, h, (width, height))
+    im1_warp = cv2.warpPerspective(im1, h, (width, height))
 
-    return im1Reg, im_matches, h, avg_match_dist
+    ###  Check homography for improvement ###
+    im1_warp_gray = cv2.cvtColor(im1_warp, cv2.COLOR_BGR2GRAY)
+    key_points_warp, descriptors_warp = orb.detectAndCompute(im1_warp_gray, None)
+    matches_warp = matcher.match(descriptors_warp, descriptors_2, None)
+    # Sort matches by score
+    matches_warp.sort(key=lambda x: x.distance, reverse=False)
+    matches_warp = matches_warp[:num_good_matches]
+    # Validate the matches for quality
+    match_distances_warp = [m.distance for m in matches_warp]
+    avg_match_dist_warp = np.median(match_distances_warp)
+
+    print("Average match dist:")
+    print(avg_match_dist)
+    print("Average match dist warp:")
+    print(avg_match_dist_warp)
+
+    if (avg_match_dist > AVG_MATCH_DIST_CUTOFF) or (avg_match_dist_warp > avg_match_dist): # or
+        # The perspective warp reduced the average match quality OR "the original image was shit" -Dan
+        # cv2.imwrite("original_bad.jpg", im1)
+        # cv2.imwrite("warped_bad.jpg", im1_warp)
+        raise AlignmentError("Poor image alignment! Please confirm you are using\n \
+        the right form, and upload a new image.")
+
+    # cv2.imwrite("original_good.jpg", im1)
+    # cv2.imwrite("warped_good.jpg", im1_warp)
+
+    return im1_warp, im_matches, h, avg_match_dist

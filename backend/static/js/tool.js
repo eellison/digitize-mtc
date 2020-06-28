@@ -9,25 +9,27 @@ function requestLiveFeedResponse(form_name, page_number) {
     cache: false,
     processData:false,
     success: function(data) {
-      if (data.status == 'success') {
+      if (stop_align) {
+        return // stop checking for an alignment
+      } else if (data.status == 'success') {
         form[page_number] = data;
         d3.select("#turn-on-align-btn").text("Turn on Align Feature");
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
+        // d3.select("#videoFeed").classed("camera-feed-green", false);
+        // d3.select("#videoFeed").classed("camera-feed", true);
+        d3.select("#scanning-status-box").style('background-color', 'green');
         $('#page-box' + page_number).attr("class", "page-box-green");
         $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
+        d3.select("#scanning-status-box").text("Form Captured!");
         current_page = current_page + 1;
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
-        d3.select("#turn-on-align-btn").text(data.remaining_frames);
-        d3.select("#videoFeed").classed("camera-feed", false);
-        d3.select("#videoFeed").classed("camera-feed-green", true);
+        d3.select("#scanning-status-box").text("Form Detected! Hold still: " + data.remaining_frames);
+        d3.select("#scanning-status-box").style('background-color', 'green');
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning for page " + (page_number + 1));
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
+        d3.select("#scanning-status-box").style('background-color', 'black');
+        d3.select("#scanning-status-box").text("Scanning for page " + (current_page + 1));
         requestLiveFeedResponse(form_name, page_number);
       }
     },
@@ -37,6 +39,40 @@ function requestLiveFeedResponse(form_name, page_number) {
     }
   });
 }
+
+var stop_align = false;
+function stop_alignment() {
+  stop_align = true;
+  d3.select("#scanning-status-box").text("Scanning feature off...");
+  d3.select("#scanning-status-box").style('background-color', 'black');
+
+  // Tell the server to stop capturing frames form camera
+  $.ajax({
+    type: 'GET',
+    url: '/stop_camera_feed/',
+    contentType: false,
+    cache: false,
+    processData:false,
+    success: function(data) {
+      console.log(data);
+    },
+    error: function(xhr) {
+      //Do Something to handle error
+      console.log("AJAX error...?");
+    }
+  });
+}
+
+$('#align-switch').click(function(){
+    if($(this).is(':checked')){
+        stop_align = false;
+        d3.select("#scanning-status-text").text("Scanning for page " + (current_page + 1));
+        requestLiveFeedResponse(file_path, current_page);
+        console.log("ON");
+    } else {
+        stop_alignment();
+    }
+});
 
 $(function() {
 	$('#turn-on-align-btn').click(function() {
@@ -113,42 +149,6 @@ function populate_pages_dropdown() {
     pages_dropdown.appendChild(option);
   }
 }
-
-/////////////////////////////////////////////////////////////////////
-// Functionality for sending / receiving the form and editing results
-/////////////////////////////////////////////////////////////////////
-// $(function() {
-// 	$('#upload-file-btn').click(function() {
-// 		var form_data = new FormData($('#upload-file')[0]);
-
-// 		// file_path is passed in by the template
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: '/upload_and_process_file/' + file_path,
-		// 	data: form_data,
-		// 	contentType: false,
-		// 	cache: false,
-		// 	processData: false,
-		// 	success: function(data) {
-		// 		if (data.status == 'success') {
-		// 			$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
-		// 			form = data;
-		// 			display(form);
-		// 			visualize(form);
-		// 			displaySvgFrame();
-		// 			$(".question_group_title").click();
-		// 			hideUpload();
-		// 		} else if (data.status == 'error') {
-		// 			$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
-		// 		}
-		// 	},
-		// 	error: function(error) {
-		// 		$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
-		// 	}
-		// });
-// 	});
-// });
-
 
 var width = (document.getElementById("main-content").offsetWidth),
 	height = (document.getElementById("main-content").offsetWidth),
