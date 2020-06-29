@@ -350,7 +350,7 @@ def project_mark_locations(image, form):
         form (Form): same input form, but with coordinates translated relative to input image size
     """
     # TODO: Clean this up; Sud: I think the form model needs a nested "Location"
-    image_height, image_width = image.shape
+    image_height, image_width, _ = image.shape
     dw = image_width / form.w
     dh = image_height / form.h
     # re-assign dimensions to input image dimensions

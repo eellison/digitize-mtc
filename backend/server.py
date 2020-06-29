@@ -255,7 +255,7 @@ templates = {}
 # [TODO] figure out how to have user click on page icons to switch which page
 # is being aligned
 
-vs = Camera(src=0)
+vs = Camera(src=1)
 time.sleep(2.0)
 
 def generate():
