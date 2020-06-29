@@ -3,11 +3,30 @@ from .util import *
 
 # tuned for 300 dpi grayscale text
 BLACK_LEVEL = 0.5 * 255 # 255 is pure white
-CHECK_THR = 0.1 # threshold for checked box
-EMPTY_THR = 0.05 # threshold for empty box
-
+CHECK_THR = 0.05 # threshold for checked box
+EMPTY_THR = 0.02 # threshold for empty box
 RADIO_THR = 0.01 # threhold for picking radio button
 
+
+def translate(input_image, template_image, response_region):
+	"""
+    Args:
+        input_image (numpy.ndarray): target image
+        template_image (numpy.ndarray): template image
+        response_region (ResponseRegion): describes location of checkbox
+    Returns:
+        mutates response region x and y attritibute to account for translation
+    """
+	alpha = 0.5
+	w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
+	x_offset, y_offset = int(alpha * w), int(alpha * h)
+	crop = template_image[y:y+h, x:x+w]
+	ref = input_image[max(0,y-y_offset) : y+h+y_offset, max(0,x-x_offset) : x+w+x_offset]
+	
+	res = cv2.matchTemplate(crop, ref, cv2.TM_CCOEFF)
+	_, _, min_loc, max_loc = cv2.minMaxLoc(res)
+	response_region.x += max_loc[0] - x_offset
+	response_region.y += max_loc[1] - y_offset
 
 def calc_checkbox_score(image, response_region):
     """
@@ -18,12 +37,10 @@ def calc_checkbox_score(image, response_region):
         scr (float): score for checkbox
     """
     w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
-    roi = image[y : y + h, x : x + w]
-    # roi = image[y : y + h, x : x + w] < BLACK_LEVEL
+    roi = image[y : y + h, x : x + w] < BLACK_LEVEL
     # For now, stick with simple image masking. Later refine "remove_checkbox_outline" in util.py
     # masked = roi[1:-1, 1:-1] & roi[:-2, 1:-1] & roi[2:, 1:-1] & roi[1:-1, :-2] & roi[1:-1, 2:]
-    # scr = (masked).sum() / (w * h)
-    scr = cv2.countNonZero(roi) / (w * h)
+    scr = (roi).sum() / (w * h)
     return scr
 
 def checkbox_state(input_image, template_image, response_region):
@@ -35,16 +52,14 @@ def checkbox_state(input_image, template_image, response_region):
     Returns:
         checkbox_state (CheckboxState): inferred state of this checkbox
     """
+    translate(input_image, template_image, response_region)
+
     input_score = calc_checkbox_score(input_image, response_region)
     template_score = calc_checkbox_score(template_image, response_region)
     scr = input_score - template_score
-    print(input_score)
-    print(template_score)
-    print(scr)
-    print("")
-    if input_score > CHECK_THR:
+    if scr > CHECK_THR:
         checkbox_state = CheckboxState.checked
-    elif input_score < EMPTY_THR:
+    elif scr < EMPTY_THR:
         checkbox_state = CheckboxState.empty
     else:
         checkbox_state = CheckboxState.unknown
@@ -75,6 +90,7 @@ def radio_answer(question, input_image, template_image):
         question (Question): same input question, with "answers" filled in
     """
     for rr in question.response_regions:
+        translate(input_image, template_image, rr) # translate response region to align
         rr.value = calc_checkbox_score(input_image, rr)
     sorted_regions = sorted(question.response_regions, reverse=True, key=lambda rr: rr.value) # sort by score
     highest_score = sorted_regions[0].value
@@ -146,17 +162,6 @@ def text_answer(question, input_image, template_image):
 #     question.answer_status = AnswerStatus.resolved
 #     return question
 
-def binarize(image):
-    """
-    Args:
-        image (numpy.ndarray): image of form, full RGB
-    Returns:
-        _ (numpy.ndarray): binarized version of image (all pixels = 0 or 255)
-    """
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-    return cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-
 
 def answer(question, input_image, template_image):
     """
@@ -167,17 +172,14 @@ def answer(question, input_image, template_image):
     Returns:
         question (Question): same input question, with responses
     """
-    input_thresh = binarize(input_image)
-    template_thresh = binarize(template_image)
-
     if question.question_type == QuestionType.checkbox.name:
-        return checkbox_answer(question, input_thresh, template_thresh)
+        return checkbox_answer(question, input_image, template_image)
     elif question.question_type == QuestionType.radio.name:
-        return radio_answer(question, input_thresh, template_thresh)
+        return radio_answer(question, input_image, template_image)
     elif question.question_type == QuestionType.text.name:
-        return text_answer(question, input_thresh, template_thresh)
+        return text_answer(question, input_image, template_image)
     elif question.question_type == QuestionType.digits.name:
-        return text_answer(question, input_thresh, template_thresh)
+        return text_answer(question, input_image, template_thresh)
     else:
         # No logic for other question types, yet...
         print("Warning: could not process question type %s, skipping for now, " % str(question.question_type))
@@ -205,8 +207,8 @@ def recognize_answers(input_image, template_image, form):
         answered_questions (List[Question]): questions with answers filled in
         cleaned_input (numpy.ndarray): cleaned input, useful for diagnostics
     """
-    clean_input = input_image #clean_image(input_image)
-    clean_template = template_image #clean_image(template_image)
+    clean_input = clean_image(input_image)
+    clean_template = clean_image(template_image)
     form = project_mark_locations(clean_input, form)
     answered_questions = [answer_group(group, clean_input, clean_template) for group in form.question_groups]
     return answered_questions, clean_input
