@@ -105,12 +105,10 @@ def align_images(im1, im2):
     # cv2.imwrite("original_good.jpg", im1)
     # cv2.imwrite("warped_good.jpg", im1_warp)
 
-    im1_warp = local_align_images(im1_warp, im2)
-
     return im1_warp, im_matches, h, avg_match_dist
 
 
-def local_align_images(im1, im2):
+def local_align_images(im1, im2, template):
     """
     Args:
         im1 (numpy.ndarray): image to align
@@ -128,17 +126,26 @@ def local_align_images(im1, im2):
     for k in range(2):
         for l in range(2):
             if (k == 0) and (l == 0):
-                im = im1[0:height//2,0:width//2,]
+                slice_w = (0,width//2)
+                slice_h = (0,height//2)
             elif (k == 0) and (l == 1):
-                im = im1[height//2:,0:width//2,]
+                slice_w = (0,width//2)
+                slice_h = (height//2, None)
             elif (k == 1) and (l == 0):
-                im = im1[0:height//2,width//2:,]
+                slice_w = (width//2, None)
+                slice_h = (0,height//2)
             else:
-                im = im1[height//2:,width//2:,]
+                slice_w = (width//2, None)
+                slice_h = (height//2, None)
+
+            im1_quad = im1[slice_h[0]:slice_h[1], slice_w[0]:slice_w[1],]
+            im2_quad = im2[slice_h[0]:slice_h[1], slice_w[0]:slice_w[1],]
+
+            height_quad, width_quad, _ = im2_quad.shape
 
             # Convert images to grayscale
-            im_1_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-            im_2_gray = cv2.cvtColor(im2, cv2.COLOR_BGR2GRAY)
+            im_1_gray = cv2.cvtColor(im1_quad, cv2.COLOR_BGR2GRAY)
+            im_2_gray = cv2.cvtColor(im2_quad, cv2.COLOR_BGR2GRAY)
 
             # Detect ORB features and compute descriptors.
             orb = cv2.ORB_create(MAX_FEATURES)
@@ -172,7 +179,7 @@ def local_align_images(im1, im2):
                 the right form, and upload a new image.")
 
             # Use homography
-            im_warp = cv2.warpPerspective(im, h, (width, height))
-            im_aligned += im_warp
+            im_warp = cv2.warpPerspective(im1_quad, h, (width_quad, height_quad))
+            im_aligned[slice_h[0]:slice_h[1], slice_w[0]:slice_w[1],] = im_warp
 
     return im_aligned

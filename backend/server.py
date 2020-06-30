@@ -195,10 +195,12 @@ def check_alignment(form_name, page_number):
 				remaining_frames_str = str(good_frames_to_capture_before_processing - good_frames_captured)
 				return json_status("aligned", remaining_frames=remaining_frames_str)
 			else:
+				# Put in local alignment of best_aligned_image...
+				locally_aligned_image = local_align_images(best_aligned_image, template_image, template)
 				# Run mark recognition on aligned image
-				answered_questions, clean_input = omr.recognize_answers(best_aligned_image, template_image, template)
+				answered_questions, clean_input = omr.recognize_answers(locally_aligned_image, template_image, template)
 				# Write output
-				aligned_filename = util.write_aligned_image("original_frame.jpg", aligned_image)
+				aligned_filename = util.write_aligned_image("original_frame.jpg", locally_aligned_image)
 				# Create Form object with result, and JSONify to be sent to front end
 				processed_form = Form(template.name, aligned_filename, template.w, template.h, answered_questions)
 				encoder = FormTemplateEncoder()
@@ -255,7 +257,7 @@ templates = {}
 # [TODO] figure out how to have user click on page icons to switch which page
 # is being aligned
 
-vs = Camera(src=0)
+vs = Camera(src=1)
 time.sleep(2.0)
 
 def generate():
