@@ -9,27 +9,7 @@ EMPTY_THR = 0.02 # threshold for empty box
 RADIO_THR = 0.01 # threhold for picking radio button
 
 
-def translate(input_image, template_image, response_region):
-	"""
-    Args:
-        input_image (numpy.ndarray): target image
-        template_image (numpy.ndarray): template image
-        response_region (ResponseRegion): describes location of checkbox
-    Returns:
-        mutates response region x and y attritibute to account for translation
-    """
-	alpha = 0.5
-	w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
-	x_offset, y_offset = int(alpha * w), int(alpha * h)
-	crop = template_image[max(0,y-y_offset//2) : y+h+y_offset//2, max(0,x-x_offset//2) : x+w+x_offset//2]#[y:y+h, x:x+w]
-	ref = input_image[max(0,y-y_offset) : y+h+y_offset, max(0,x-x_offset) : x+w+x_offset]
-	
-	res = cv2.matchTemplate(crop, ref, cv2.TM_CCOEFF_NORMED)
-	_, _, min_loc, max_loc = cv2.minMaxLoc(res)
-    # TODO: add a min/max range to translation (this is for finetuning only)
-	response_region.x += max_loc[0] - x_offset//2
-	response_region.y += max_loc[1] - y_offset//2
-	print(max_loc[0] - x_offset//2, max_loc[1] - y_offset//2)
+
 
 def calc_checkbox_score(image, response_region):
     """
@@ -55,7 +35,7 @@ def checkbox_state(input_image, template_image, response_region):
     Returns:
         checkbox_state (CheckboxState): inferred state of this checkbox
     """
-    translate(input_image, template_image, response_region)
+    finetune(input_image, template_image, response_region)
 
     input_score = calc_checkbox_score(input_image, response_region)
     template_score = calc_checkbox_score(template_image, response_region)
@@ -93,7 +73,7 @@ def radio_answer(question, input_image, template_image):
         question (Question): same input question, with "answers" filled in
     """
     for rr in question.response_regions:
-        translate(input_image, template_image, rr) # translate response region to align
+        finetune(input_image, template_image, rr) # finetune response region to align
         rr.value = calc_checkbox_score(input_image, rr)
     sorted_regions = sorted(question.response_regions, reverse=True, key=lambda rr: rr.value) # sort by score
     highest_score = sorted_regions[0].value
@@ -123,7 +103,7 @@ def text_answer(question, input_image, template_image):
     """
     # TODO: have this run pytesseract on the input region (see "/scratch/ocr_test.py")
     for region in question.response_regions:
-        # translate(input_image, template_image, region) # translate response region to align
+        finetune(input_image, template_image, region) # finetune response region to align
         region.value = ""
     question.answer_status = AnswerStatus.unresolved
     return question
@@ -216,4 +196,3 @@ def recognize_answers(input_image, template_image, form):
     form = project_mark_locations(clean_input, form)
     answered_questions = [answer_group(group, clean_input, clean_template) for group in form.question_groups]
     return answered_questions, clean_input
-
