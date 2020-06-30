@@ -105,4 +105,74 @@ def align_images(im1, im2):
     # cv2.imwrite("original_good.jpg", im1)
     # cv2.imwrite("warped_good.jpg", im1_warp)
 
+    im1_warp = local_align_images(im1_warp, im2)
+
     return im1_warp, im_matches, h, avg_match_dist
+
+
+def local_align_images(im1, im2):
+    """
+    Args:
+        im1 (numpy.ndarray): image to align
+        im2 (numpy.ndarray): template image
+    Returns:
+        im1reg (numpy.ndarray): aligned version of im1
+        im_matches (numpy.ndarray): debug image showing the common features used for alignment
+        h (numpy.ndarray): matrix describing homography
+        align_score (float): average max distance, lower is better
+    """
+    height, width, channels = im1.shape
+    im_aligned = np.zeros((height, width, channels), dtype=np.uint8)
+
+    # TODO: Make this smarter
+    for k in range(2):
+        for l in range(2):
+            if (k == 0) and (l == 0):
+                im = im1[0:height//2,0:width//2,]
+            elif (k == 0) and (l == 1):
+                im = im1[height//2:,0:width//2,]
+            elif (k == 1) and (l == 0):
+                im = im1[0:height//2,width//2:,]
+            else:
+                im = im1[height//2:,width//2:,]
+
+            # Convert images to grayscale
+            im_1_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+            im_2_gray = cv2.cvtColor(im2, cv2.COLOR_BGR2GRAY)
+
+            # Detect ORB features and compute descriptors.
+            orb = cv2.ORB_create(MAX_FEATURES)
+            key_points_1, descriptors_1 = orb.detectAndCompute(im_1_gray, None)
+            key_points_2, descriptors_2 = orb.detectAndCompute(im_2_gray, None)
+
+            # Match features.
+            matcher = cv2.DescriptorMatcher_create(cv2.DESCRIPTOR_MATCHER_BRUTEFORCE_HAMMING)
+            matches = matcher.match(descriptors_1, descriptors_2, None)
+
+            # Sort matches by score
+            matches.sort(key=lambda x: x.distance, reverse=False)
+
+            # Remove not so good matches
+            num_good_matches = int(len(matches) * GOOD_MATCH_PERCENT)
+            matches = matches[:num_good_matches]
+
+            # Extract location of good matches
+            points_1 = np.zeros((len(matches), 2), dtype=np.float32)
+            points_2 = np.zeros((len(matches), 2), dtype=np.float32)
+
+            for i, match in enumerate(matches):
+                points_1[i, :] = key_points_1[match.queryIdx].pt
+                points_2[i, :] = key_points_2[match.trainIdx].pt
+
+            # Find homography
+            try:
+                h, mask = cv2.findHomography(points_1, points_2, cv2.RANSAC)
+            except:
+                raise AlignmentError("Inproper Homography in Alignment! Please confirm you are using\n \
+                the right form, and upload a new image.")
+
+            # Use homography
+            im_warp = cv2.warpPerspective(im, h, (width, height))
+            im_aligned += im_warp
+
+    return im_aligned

@@ -1,10 +1,11 @@
 from .form import *
 from .util import *
+from .align import *
 
 # tuned for 300 dpi grayscale text
 BLACK_LEVEL = 0.5 * 255 # 255 is pure white
-CHECK_THR = 0.05 # threshold for checked box
-EMPTY_THR = 0.02 # threshold for empty box
+CHECK_THR = 0.04 # threshold for checked box
+EMPTY_THR = 0.03 # threshold for empty box
 RADIO_THR = 0.01 # threhold for picking radio button
 
 
@@ -20,13 +21,14 @@ def translate(input_image, template_image, response_region):
 	alpha = 0.5
 	w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
 	x_offset, y_offset = int(alpha * w), int(alpha * h)
-	crop = template_image[y:y+h, x:x+w]
+	crop = template_image[max(0,y-y_offset//2) : y+h+y_offset//2, max(0,x-x_offset//2) : x+w+x_offset//2]#[y:y+h, x:x+w]
 	ref = input_image[max(0,y-y_offset) : y+h+y_offset, max(0,x-x_offset) : x+w+x_offset]
 	
-	res = cv2.matchTemplate(crop, ref, cv2.TM_CCOEFF)
+	res = cv2.matchTemplate(crop, ref, cv2.TM_CCOEFF_NORMED)
 	_, _, min_loc, max_loc = cv2.minMaxLoc(res)
-	response_region.x += max_loc[0] - x_offset
-	response_region.y += max_loc[1] - y_offset
+    # TODO: add a min/max range to translation (this is for finetuning only)
+	response_region.x += max_loc[0] - x_offset//2
+	response_region.y += max_loc[1] - y_offset//2
 
 def calc_checkbox_score(image, response_region):
     """
@@ -212,3 +214,4 @@ def recognize_answers(input_image, template_image, form):
     form = project_mark_locations(clean_input, form)
     answered_questions = [answer_group(group, clean_input, clean_template) for group in form.question_groups]
     return answered_questions, clean_input
+
