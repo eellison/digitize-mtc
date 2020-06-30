@@ -173,7 +173,7 @@ def check_alignment(form_name, page_number):
 
 	try:
 		start = time.time()
-		aligned_image, aligned_diag_image, h, align_score = align.align_images(frame, template_image)
+		aligned_image, aligned_diag_image, h, align_score = align.global_align(frame, template_image)
 
 		is_blurry, blurry_score = compute_blurriness(aligned_image)
 		# Uncomment to write out image with align_score & blurry_score
@@ -196,7 +196,7 @@ def check_alignment(form_name, page_number):
 				return json_status("aligned", remaining_frames=remaining_frames_str)
 			else:
 				# Put in local alignment of best_aligned_image...
-				locally_aligned_image = local_align_images(best_aligned_image, template_image, template)
+				locally_aligned_image = align.local_align(best_aligned_image, template_image, template)
 				# Run mark recognition on aligned image
 				answered_questions, clean_input = omr.recognize_answers(locally_aligned_image, template_image, template)
 				# Write output
@@ -257,7 +257,7 @@ templates = {}
 # [TODO] figure out how to have user click on page icons to switch which page
 # is being aligned
 
-vs = Camera(src=1)
+vs = Camera(src=0)
 time.sleep(2.0)
 
 def generate():
