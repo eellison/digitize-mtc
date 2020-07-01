@@ -13,14 +13,13 @@ function requestLiveFeedResponse(form_name, page_number) {
         return // stop checking for an alignment
       } else if (data.status == 'success') {
         form[page_number] = data;
-        d3.select("#turn-on-align-btn").text("Turn on Align Feature");
-        // d3.select("#videoFeed").classed("camera-feed-green", false);
-        // d3.select("#videoFeed").classed("camera-feed", true);
         d3.select("#scanning-status-box").style('background-color', 'green');
-        $('#page-box' + page_number).attr("class", "page-box-green");
+        // $('#page-box' + page_number).attr("class", "page-box page-box-green");
         $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
         d3.select("#scanning-status-box").text("Form Captured!");
+        $('#align-switch').prop('checked', false);
         current_page = current_page + 1;
+        $('#page-box' + current_page).click()
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
         d3.select("#scanning-status-box").text("Form Detected! Hold still: " + data.remaining_frames);
@@ -43,6 +42,7 @@ function requestLiveFeedResponse(form_name, page_number) {
 var stop_align = false;
 function stop_alignment() {
   stop_align = true;
+  $('#align-switch').prop('checked', false);
   d3.select("#scanning-status-box").text("Scanning feature off...");
   d3.select("#scanning-status-box").style('background-color', 'black');
 
@@ -63,6 +63,8 @@ function stop_alignment() {
   });
 }
 
+
+
 $('#align-switch').click(function(){
     if($(this).is(':checked')){
         stop_align = false;
@@ -74,12 +76,6 @@ $('#align-switch').click(function(){
     }
 });
 
-$(function() {
-	$('#turn-on-align-btn').click(function() {
-     d3.select("#turn-on-align-btn").text("Scanning for page " + (current_page + 1));
-	   requestLiveFeedResponse(file_path, current_page);
-   })
- });
 
 $(function() {
 	$('#process-live-feed-btn').click(function() {
@@ -91,11 +87,20 @@ $(function() {
 
 $(function() {
 	$('.page-box').click(function() {
+    // Stop any ongoing alignment, since the user is switching pages
+    stop_alignment()
+
+     // Update the current page variable
      current_page = $('.page-box').index(this);
-     // TODO: also highlight this page box and un-highlight the others
-     // Basic outline to change the CSS class of the clicked box is below
-     // $('.page-box').removeClass(".page-box-active");
-     // $('#page-box' + current_page).addClass("page-box-active");
+
+     // Make all page boxes new again
+     $('.page-box').addClass("page-box-new");
+     $('.page-box-active').removeClass("page-box-active");
+
+     // Specifically make the clicked box "active"
+     $('#page-box' + current_page).removeClass("page-box-new");
+     // $('#page-box' + current_page).removeClass("page-box-green");
+     $('#page-box' + current_page).addClass("page-box-active");
    })
  });
 

@@ -237,25 +237,9 @@ best_align_score = inf # lower alignment score is better
 templates = {}
 
 ##### Video Streaming Code ###
-# [DONE] consolidate frame rate btw generator function and webcam class
-# [DONE] set up frontend toggle alignment feature (so toggling off changes a
-# JS variable, which leads the request_live_feed_response function to stop requesting
-# and instead send one last AJAX request to a server-side function that turns off
-# the camera feed and resets globals)
-# [DONE] take the incoming frames and crop them to the desired aspect ratio
-# before encoding (ex. have the webcam serve the generator frames that will
-# look good on the frontend); or have the generator do this on the fly if
-# that saves CPU usage (as suggested by on SO post)
-# [DONE] figure out whether downsizing the frame size OR converting to
-# byte array takes more time, and then optimize accordingly (ex. don't
-# downsample if that takes more time, or downsample more if the byte conversion
-# is the bottleneck)
-
-# [TODO] put the generate function in webcam.py
 # [TODO] figure out how to get frontend "request life feed response" to stop looping for alignment if
 # the user has navigated away from the page (i.e. gone back to the home page)
-# [TODO] figure out how to have user click on page icons to switch which page
-# is being aligned
+
 
 vs = Camera(src=1)
 time.sleep(2.0)
