@@ -2,6 +2,9 @@
 // Functionality for pulling image from live stream
 /////////////////////////////////////////////////////////////////////
 function requestLiveFeedResponse(form_name, page_number) {
+  if (stop_align) {
+    return;
+  }
   $.ajax({
     type: 'GET',
     url: '/check_alignment/' + form_name + '/' + page_number,
@@ -14,7 +17,6 @@ function requestLiveFeedResponse(form_name, page_number) {
       } else if (data.status == 'success') {
         form[page_number] = data;
         d3.select("#scanning-status-box").style('background-color', 'green');
-        // $('#page-box' + page_number).attr("class", "page-box page-box-green");
         $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
         d3.select("#scanning-status-box").text("Form Captured!");
         $('#align-switch').prop('checked', false);
@@ -38,6 +40,7 @@ function requestLiveFeedResponse(form_name, page_number) {
     }
   });
 }
+
 
 var stop_align = false;
 function stop_alignment() {
@@ -69,6 +72,7 @@ $('#align-switch').click(function(){
     if($(this).is(':checked')){
         stop_align = false;
         d3.select("#scanning-status-text").text("Scanning for page " + (current_page + 1));
+        activate_page_box(current_page);
         requestLiveFeedResponse(file_path, current_page);
         console.log("ON");
     } else {
@@ -85,6 +89,17 @@ $(function() {
    })
  });
 
+function activate_page_box(box_index) {
+  // Make all page boxes new again
+  $('.page-box').addClass("page-box-new");
+  $('.page-box-active').removeClass("page-box-active");
+
+  // Specifically make the clicked box "active"
+  $('#page-box' + box_index).removeClass("page-box-new");
+  // $('#page-box' + current_page).removeClass("page-box-green");
+  $('#page-box' + box_index).addClass("page-box-active");
+}
+
 $(function() {
 	$('.page-box').click(function() {
     // Stop any ongoing alignment, since the user is switching pages
@@ -92,15 +107,8 @@ $(function() {
 
      // Update the current page variable
      current_page = $('.page-box').index(this);
+     activate_page_box(current_page);
 
-     // Make all page boxes new again
-     $('.page-box').addClass("page-box-new");
-     $('.page-box-active').removeClass("page-box-active");
-
-     // Specifically make the clicked box "active"
-     $('#page-box' + current_page).removeClass("page-box-new");
-     // $('#page-box' + current_page).removeClass("page-box-green");
-     $('#page-box' + current_page).addClass("page-box-active");
    })
  });
 

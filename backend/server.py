@@ -241,8 +241,7 @@ templates = {}
 # the user has navigated away from the page (i.e. gone back to the home page)
 
 
-vs = Camera(src=1)
-time.sleep(2.0)
+
 
 def generate():
 	# grab global references to the output frame and lock variables
@@ -297,6 +296,7 @@ def shutdown():
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--port', nargs='?', const=1, type=int, default=8000)
+	parser.add_argument('--camera_index', nargs='?', const=1, type=int, default=0)
 	parser.add_argument('--upload_folder', nargs='?', const=1, default=None)
 	parser.add_argument('--save-debug', dest='save_debug', action='store_true')
 	parser.set_defaults(save_debug=False)
@@ -305,6 +305,8 @@ if __name__ == "__main__":
 		app.config['UPLOAD_FOLDER'] = str(args.upload_folder)
 	app.config["SAVE_DEBUG"] = args.save_debug
 
+	vs = Camera(src=args.camera_index)
+	time.sleep(2.0)
 	upload_all_templates()
 
 	webbrowser.open('http://localhost:' + str(args.port))

@@ -47,16 +47,22 @@ class Camera:
 			# Delay based on frame rate
 			time.sleep(self.frame_delay)
 			# Read the next frame from the stream
-			(_, self.frame) = self.stream.read()
+			(ret, frame) = self.stream.read()
+			if ret:
+				self.frame = frame
 
 	def read(self):
 		# return the frame most recently read
 		return self.frame
 
-	def stop(self):
+	def stop(self, fade_to_black = True):
 		# indicate that the thread should be stopped
-		self.frame = self.NULL_FRAME
 		self.stopped = True
+		# Fade to black, or stop on this frame
+		if fade_to_black:
+			time.sleep(self.frame_delay)
+			self.frame = self.NULL_FRAME
+
 
 	def close_hardware_connection(self):
 		# Close the connection to the camera hardware
