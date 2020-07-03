@@ -637,6 +637,7 @@ input:checked + .slider:before {
 .basic-form{
 
 	width: 860px;
+	height: 900px;
 
 	background-color: white;
 
