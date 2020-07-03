@@ -5,22 +5,22 @@
     "h": 1056.0,
     "question_groups": [
         {
-            "name": "OtherMedications",
-            "w": 411.9483,
-            "h": 987.21667,
-            "x": 383.88641,
-            "y": 58.368698,
+            "name": "PhysicalExam",
+            "w": 403.05966,
+            "h": 470.7424,
+            "x": 411.64496,
+            "y": 586.93433,
             "questions": [
                 {
-                    "name": "OtherMedications",
+                    "name": "HEENTFindings",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 374.3454,
-                            "h": 41.531574,
-                            "x": 416.99945,
-                            "y": 998.44147,
+                            "w": 196.45972,
+                            "h": 16.989441,
+                            "x": 594.63043,
+                            "y": 507.52094,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -28,17 +28,205 @@
                     "answer_status": "unresolved",
                     "expected_number_digits": 0,
                     "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "SupportiveCare",
-            "w": 411.9483,
-            "h": 805.37573,
-            "x": 383.88641,
-            "y": 181.84091,
-            "questions": [
+                },
+                {
+                    "name": "NeckFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.8244,
+                            "h": 22.610413,
+                            "x": 594.67078,
+                            "y": 525.03882,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "PulmonaryFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.09509,
+                            "h": 21.881104,
+                            "x": 595.03546,
+                            "y": 547.64923,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "CardiovascularFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.45966,
+                            "h": 21.881104,
+                            "x": 594.67084,
+                            "y": 569.53033,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "AbdominalFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.09503,
+                            "h": 20.786987,
+                            "x": 594.67078,
+                            "y": 591.41144,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "UrogenitalFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 197.18909,
+                            "h": 20.786987,
+                            "x": 594.30609,
+                            "y": 612.19843,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "RectalFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.45972,
+                            "h": 21.000971,
+                            "x": 595.03546,
+                            "y": 632.98541,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "MusculoskeletalFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.45972,
+                            "h": 21.000971,
+                            "x": 595.03552,
+                            "y": 653.95483,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "LymphNodeFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.45972,
+                            "h": 21.000971,
+                            "x": 595.03552,
+                            "y": 675.47119,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "SkinAndMucosaFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.45972,
+                            "h": 21.000971,
+                            "x": 595.03546,
+                            "y": 696.25818,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "NeurologicalFindings",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 196.45972,
+                            "h": 21.000971,
+                            "x": 594.67078,
+                            "y": 717.40991,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "PhysicalExamOther",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 373.6749,
+                            "h": 38.850887,
+                            "x": 416.05771,
+                            "y": 762.18378,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
                 {
                     "name": "Oxygen",
                     "question_type": "checkbox",
@@ -400,6 +588,78 @@
                     "__type__": "Question"
                 },
                 {
+                    "name": "OtherMedications",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 374.3454,
+                            "h": 41.531574,
+                            "x": 416.99945,
+                            "y": 998.44147,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Neck",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "no",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 558.82617,
+                            "y": 526.08728,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "yes",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 505.83994,
+                            "y": 526.22455,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Abdominal",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "no",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 558.6889,
+                            "y": 590.12378,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "yes",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 506.52631,
+                            "y": 589.84924,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
                     "name": "IVFluids2Line",
                     "question_type": "radio",
                     "response_regions": [
@@ -427,24 +687,24 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "IVFluids3Line",
+                    "name": "Musculoskeletal",
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "Central",
-                            "w": 12.501316,
-                            "h": 12.084636,
-                            "x": 449.63123,
-                            "y": 966.14453,
+                            "name": "no",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 559.23798,
+                            "y": 654.91516,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "Peripheral",
-                            "w": 12.501316,
-                            "h": 12.084636,
-                            "x": 495.46945,
-                            "y": 965.72784,
+                            "name": "yes",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 506.2518,
+                            "y": 655.18976,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -454,260 +714,7 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "IVFluids1Line",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "Central",
-                            "w": 12.501316,
-                            "h": 12.084636,
-                            "x": 449.63123,
-                            "y": 903.01282,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Peripheral",
-                            "w": 12.501316,
-                            "h": 12.084636,
-                            "x": 495.88614,
-                            "y": 902.8045,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "PhysicalExam",
-            "w": 403.05966,
-            "h": 470.7424,
-            "x": 383.9516,
-            "y": 324.48602,
-            "questions": [
-                {
-                    "name": "HEENTFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45972,
-                            "h": 16.989441,
-                            "x": 594.63043,
-                            "y": 507.52094,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "NeckFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.8244,
-                            "h": 22.610413,
-                            "x": 594.67078,
-                            "y": 525.03882,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "PulmonaryFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.09509,
-                            "h": 21.881104,
-                            "x": 595.03546,
-                            "y": 547.64923,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "CardiovascularFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45966,
-                            "h": 21.881104,
-                            "x": 594.67084,
-                            "y": 569.53033,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "AbdominalFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.09503,
-                            "h": 20.786987,
-                            "x": 594.67078,
-                            "y": 591.41144,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "UrogenitalFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 197.18909,
-                            "h": 20.786987,
-                            "x": 594.30609,
-                            "y": 612.19843,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "RectalFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45972,
-                            "h": 21.000971,
-                            "x": 595.03546,
-                            "y": 632.98541,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "MusculoskeletalFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45972,
-                            "h": 21.000971,
-                            "x": 595.03552,
-                            "y": 653.95483,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "LymphNodeFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45972,
-                            "h": 21.000971,
-                            "x": 595.03552,
-                            "y": 675.47119,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "SkinAndMucosaFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45972,
-                            "h": 21.000971,
-                            "x": 595.03546,
-                            "y": 696.25818,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "NeurologicalFindings",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 196.45972,
-                            "h": 21.000971,
-                            "x": 594.67078,
-                            "y": 717.40991,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "PhysicalExamOther",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 373.6749,
-                            "h": 38.850887,
-                            "x": 416.05771,
-                            "y": 762.18378,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Rectal",
+                    "name": "HEENT",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -715,7 +722,7 @@
                             "w": 17.57056,
                             "h": 15.648781,
                             "x": 558.96344,
-                            "y": 633.5011,
+                            "y": 507.48721,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -723,80 +730,8 @@
                             "name": "yes",
                             "w": 17.57056,
                             "h": 15.648781,
-                            "x": 506.25177,
-                            "y": 633.22656,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "LymphNode",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "no",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 558.41437,
-                            "y": 676.32928,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "yes",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 506.52628,
-                            "y": 676.05481,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "AVPU",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "Alert",
-                            "w": 11.60664,
-                            "h": 11.254924,
-                            "x": 527.57452,
-                            "y": 743.00079,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Pain",
-                            "w": 12.310073,
-                            "h": 11.430781,
-                            "x": 642.76166,
-                            "y": 743.26459,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Unresponsive",
-                            "w": 12.310073,
-                            "h": 11.430781,
-                            "x": 700.44312,
-                            "y": 743.26459,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Verbal",
-                            "w": 12.310073,
-                            "h": 11.430781,
-                            "x": 584.72845,
-                            "y": 742.82495,
+                            "x": 505.97723,
+                            "y": 507.62448,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -824,33 +759,6 @@
                             "h": 15.648781,
                             "x": 506.52631,
                             "y": 568.70966,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Pulmonary",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "no",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 558.96344,
-                            "y": 547.57007,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "yes",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 506.25177,
-                            "y": 547.29547,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -941,7 +849,79 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "HEENT",
+                    "name": "LymphNode",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "no",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 558.41437,
+                            "y": 676.32928,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "yes",
+                            "w": 17.57056,
+                            "h": 15.648781,
+                            "x": 506.52628,
+                            "y": 676.05481,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "AVPU",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "Alert",
+                            "w": 11.60664,
+                            "h": 11.254924,
+                            "x": 527.57452,
+                            "y": 743.00079,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Pain",
+                            "w": 12.310073,
+                            "h": 11.430781,
+                            "x": 642.76166,
+                            "y": 743.26459,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Unresponsive",
+                            "w": 12.310073,
+                            "h": 11.430781,
+                            "x": 700.44312,
+                            "y": 743.26459,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Verbal",
+                            "w": 12.310073,
+                            "h": 11.430781,
+                            "x": 584.72845,
+                            "y": 742.82495,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Pulmonary",
                     "question_type": "radio",
                     "response_regions": [
                         {
@@ -949,7 +929,7 @@
                             "w": 17.57056,
                             "h": 15.648781,
                             "x": 558.96344,
-                            "y": 507.48721,
+                            "y": 547.57007,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -957,8 +937,8 @@
                             "name": "yes",
                             "w": 17.57056,
                             "h": 15.648781,
-                            "x": 505.97723,
-                            "y": 507.62448,
+                            "x": 506.25177,
+                            "y": 547.29547,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -968,15 +948,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "Abdominal",
+                    "name": "Rectal",
                     "question_type": "radio",
                     "response_regions": [
                         {
                             "name": "no",
                             "w": 17.57056,
                             "h": 15.648781,
-                            "x": 558.6889,
-                            "y": 590.12378,
+                            "x": 558.96344,
+                            "y": 633.5011,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -984,8 +964,8 @@
                             "name": "yes",
                             "w": 17.57056,
                             "h": 15.648781,
-                            "x": 506.52631,
-                            "y": 589.84924,
+                            "x": 506.25177,
+                            "y": 633.22656,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -995,24 +975,24 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "Neck",
+                    "name": "IVFluids1Line",
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "no",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 558.82617,
-                            "y": 526.08728,
+                            "name": "Central",
+                            "w": 12.501316,
+                            "h": 12.084636,
+                            "x": 449.63123,
+                            "y": 903.01282,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "yes",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 505.83994,
-                            "y": 526.22455,
+                            "name": "Peripheral",
+                            "w": 12.501316,
+                            "h": 12.084636,
+                            "x": 495.88614,
+                            "y": 902.8045,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1022,24 +1002,24 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "Musculoskeletal",
+                    "name": "IVFluids3Line",
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "no",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 559.23798,
-                            "y": 654.91516,
+                            "name": "Central",
+                            "w": 12.501316,
+                            "h": 12.084636,
+                            "x": 449.63123,
+                            "y": 966.14453,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "yes",
-                            "w": 17.57056,
-                            "h": 15.648781,
-                            "x": 506.2518,
-                            "y": 655.18976,
+                            "name": "Peripheral",
+                            "w": 12.501316,
+                            "h": 12.084636,
+                            "x": 495.46945,
+                            "y": 965.72784,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1052,22 +1032,22 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "Vitals",
-            "w": 411.88312,
-            "h": 355.81525,
-            "x": 383.84918,
-            "y": 112.13572,
+            "name": "Patient",
+            "w": 403.05966,
+            "h": 7.5475965,
+            "x": 411.6449,
+            "y": 463.19479,
             "questions": [
                 {
-                    "name": "TempC",
+                    "name": "PatientName",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 30.832136,
-                            "h": 18.21899,
-                            "x": 463.88351,
-                            "y": 361.57687,
+                            "w": 168.17529,
+                            "h": 33.635059,
+                            "x": 499.62076,
+                            "y": 16.116798,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1077,15 +1057,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "TempF",
+                    "name": "PatientID",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 30.832136,
-                            "h": 18.21899,
-                            "x": 515.03687,
-                            "y": 361.57687,
+                            "w": 61.664272,
+                            "h": 26.627754,
+                            "x": 725.95667,
+                            "y": 22.423372,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1095,15 +1075,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "Pulse",
+                    "name": "Age",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 75.468399,
-                            "h": 18.218994,
-                            "x": 463.18277,
-                            "y": 382.59879,
+                            "w": 62.365002,
+                            "h": 22.423372,
+                            "x": 452.67181,
+                            "y": 53.255508,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1113,15 +1093,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "RR",
+                    "name": "Sex",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 75.468399,
-                            "h": 18.218994,
-                            "x": 463.5025,
-                            "y": 404.49268,
+                            "w": 63.065735,
+                            "h": 21.021912,
+                            "x": 452.67181,
+                            "y": 75.678879,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1131,15 +1111,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BPSystolic",
+                    "name": "EMRID",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 29.603617,
-                            "h": 14.53343,
-                            "x": 463.91202,
-                            "y": 425.78708,
+                            "w": 46.948936,
+                            "h": 21.021912,
+                            "x": 709.83984,
+                            "y": 53.255508,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1149,15 +1129,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "BPDiastolic",
+                    "name": "HospitalDayNumber",
                     "question_type": "text",
                     "response_regions": [
                         {
                             "name": "",
-                            "w": 29.603617,
-                            "h": 14.53343,
-                            "x": 500.35812,
-                            "y": 425.58231,
+                            "w": 35.737247,
+                            "h": 18.91972,
+                            "x": 751.88367,
+                            "y": 76.379608,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1166,160 +1146,6 @@
                     "expected_number_digits": 0,
                     "__type__": "Question"
                 },
-                {
-                    "name": "O2Saturation",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 45.983891,
-                            "h": 15.761938,
-                            "x": 440.16061,
-                            "y": 443.60062,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "O2LMin",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 45.983891,
-                            "h": 15.761938,
-                            "x": 519.60498,
-                            "y": 443.39587,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "O2RoomAir",
-                    "question_type": "checkbox",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 15.970759,
-                            "h": 15.151753,
-                            "x": 652.14008,
-                            "y": 445.95325,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "CapRefillTimeSec",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 33.170059,
-                            "h": 12.080482,
-                            "x": 689.60999,
-                            "y": 380.63684,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "CapRefillTime",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "LessThan3Sec",
-                            "w": 17.199299,
-                            "h": 15.970778,
-                            "x": 670.36316,
-                            "y": 362.0043,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Other",
-                            "w": 17.199299,
-                            "h": 15.970778,
-                            "x": 669.95367,
-                            "y": 380.63684,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Pain",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "Mild",
-                            "w": 12.694701,
-                            "h": 13.104215,
-                            "x": 698.00488,
-                            "y": 406.23108,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Moderate",
-                            "w": 12.694701,
-                            "h": 13.104215,
-                            "x": 619.37958,
-                            "y": 420.97333,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "None",
-                            "w": 12.694701,
-                            "h": 13.104215,
-                            "x": 619.58429,
-                            "y": 406.84531,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Severe",
-                            "w": 12.694701,
-                            "h": 13.104215,
-                            "x": 698.00488,
-                            "y": 420.97333,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "PatientHistory",
-            "w": 410.8049,
-            "h": 101.35344,
-            "x": 381.02042,
-            "y": 237.09932,
-            "questions": [
                 {
                     "name": "SymptomStartDate",
                     "question_type": "text",
@@ -1607,152 +1433,268 @@
                     "answer_status": "unresolved",
                     "expected_number_digits": 0,
                     "__type__": "Question"
+                },
+                {
+                    "name": "TempC",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 30.832136,
+                            "h": 18.21899,
+                            "x": 463.88351,
+                            "y": 361.57687,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "TempF",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 30.832136,
+                            "h": 18.21899,
+                            "x": 515.03687,
+                            "y": 361.57687,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Pulse",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 75.468399,
+                            "h": 18.218994,
+                            "x": 463.18277,
+                            "y": 382.59879,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "RR",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 75.468399,
+                            "h": 18.218994,
+                            "x": 463.5025,
+                            "y": 404.49268,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "BPSystolic",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 29.603617,
+                            "h": 14.53343,
+                            "x": 463.91202,
+                            "y": 425.78708,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "BPDiastolic",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 29.603617,
+                            "h": 14.53343,
+                            "x": 500.35812,
+                            "y": 425.58231,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "O2Saturation",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 45.983891,
+                            "h": 15.761938,
+                            "x": 440.16061,
+                            "y": 443.60062,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "O2LMin",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 45.983891,
+                            "h": 15.761938,
+                            "x": 519.60498,
+                            "y": 443.39587,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "O2RoomAir",
+                    "question_type": "checkbox",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 15.970759,
+                            "h": 15.151753,
+                            "x": 652.14008,
+                            "y": 445.95325,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "CapRefillTimeSec",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 33.170059,
+                            "h": 12.080482,
+                            "x": 689.60999,
+                            "y": 380.63684,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Pain",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "Mild",
+                            "w": 12.694701,
+                            "h": 13.104215,
+                            "x": 698.00488,
+                            "y": 406.23108,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Moderate",
+                            "w": 12.694701,
+                            "h": 13.104215,
+                            "x": 619.37958,
+                            "y": 420.97333,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "None",
+                            "w": 12.694701,
+                            "h": 13.104215,
+                            "x": 619.58429,
+                            "y": 406.84531,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Severe",
+                            "w": 12.694701,
+                            "h": 13.104215,
+                            "x": 698.00488,
+                            "y": 420.97333,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "CapRefillTime",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "LessThan3Sec",
+                            "w": 17.199299,
+                            "h": 15.970778,
+                            "x": 670.36316,
+                            "y": 362.0043,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Other",
+                            "w": 17.199299,
+                            "h": 15.970778,
+                            "x": 669.95367,
+                            "y": 380.63684,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
                 }
             ],
             "__type__": "QuestionGroup"
         },
         {
-            "name": "Patient",
-            "w": 405.41376,
+            "name": "Demographics",
+            "w": 17.239838,
             "h": 7.5475965,
-            "x": 386.41156,
-            "y": 93.80584,
-            "questions": [
-                {
-                    "name": "Time",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 138.79953,
-                            "h": 30.967224,
-                            "x": 224.51242,
-                            "y": 68.017303,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "PatientName",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 168.17529,
-                            "h": 33.635059,
-                            "x": 499.62076,
-                            "y": 16.116798,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "PatientID",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 61.664272,
-                            "h": 26.627754,
-                            "x": 725.95667,
-                            "y": 22.423372,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Age",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 62.365002,
-                            "h": 22.423372,
-                            "x": 452.67181,
-                            "y": 53.255508,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Sex",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 63.065735,
-                            "h": 21.021912,
-                            "x": 452.67181,
-                            "y": 75.678879,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "EMRID",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 46.948936,
-                            "h": 21.021912,
-                            "x": 709.83984,
-                            "y": 53.255508,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "HospitalDayNumber",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 35.737247,
-                            "h": 18.91972,
-                            "x": 751.88367,
-                            "y": 76.379608,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "DateTime",
-            "w": 21.564562,
-            "h": 58.224319,
-            "x": 361.20639,
-            "y": 44.207352,
+            "x": 385.81982,
+            "y": 434.95947,
             "questions": [
                 {
                     "name": "Date",
@@ -1771,17 +1713,25 @@
                     "answer_status": "unresolved",
                     "expected_number_digits": 0,
                     "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "Demographics",
-            "w": 17.25165,
-            "h": 61.459003,
-            "x": 385.81982,
-            "y": 346.01239,
-            "questions": [
+                },
+                {
+                    "name": "Time",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 138.79953,
+                            "h": 30.967224,
+                            "x": 224.51242,
+                            "y": 68.017303,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
                 {
                     "name": "GestationalAge",
                     "question_type": "text",
@@ -1873,51 +1823,24 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "GestationalOutcome",
+                    "name": "Infant",
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "PretermBirth",
-                            "w": 14.930628,
-                            "h": 14.377642,
-                            "x": 271.51624,
-                            "y": 282.02298,
+                            "name": "no",
+                            "w": 18.248545,
+                            "h": 17.142572,
+                            "x": 313.54318,
+                            "y": 259.90353,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "TermBirth",
-                            "w": 15.483614,
-                            "h": 15.483614,
-                            "x": 160.366,
-                            "y": 281.47,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Outcome",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "LiveBirth",
-                            "w": 15.084278,
-                            "h": 14.170079,
-                            "x": 88.220169,
-                            "y": 235.40616,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "StillBirth",
-                            "w": 15.084278,
-                            "h": 12.798781,
-                            "x": 144.44339,
-                            "y": 236.32036,
+                            "name": "yes",
+                            "w": 21.566463,
+                            "h": 19.907503,
+                            "x": 261.00949,
+                            "y": 258.79755,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1954,6 +1877,33 @@
                     "__type__": "Question"
                 },
                 {
+                    "name": "Outcome",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "LiveBirth",
+                            "w": 15.084278,
+                            "h": 14.170079,
+                            "x": 88.220169,
+                            "y": 235.40616,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "StillBirth",
+                            "w": 15.084278,
+                            "h": 12.798781,
+                            "x": 144.44339,
+                            "y": 236.32036,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
                     "name": "HealthCareWorker",
                     "question_type": "radio",
                     "response_regions": [
@@ -1972,33 +1922,6 @@
                             "h": 17.477154,
                             "x": 262.98953,
                             "y": 120.25947,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Infant",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "no",
-                            "w": 18.248545,
-                            "h": 17.142572,
-                            "x": 313.54318,
-                            "y": 259.90353,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "yes",
-                            "w": 21.566463,
-                            "h": 19.907503,
-                            "x": 261.00949,
-                            "y": 258.79755,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -2035,6 +1958,33 @@
                     "__type__": "Question"
                 },
                 {
+                    "name": "Pregnant",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "no",
+                            "w": 17.794931,
+                            "h": 17.021238,
+                            "x": 313.60342,
+                            "y": 143.64894,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "yes",
+                            "w": 20.116009,
+                            "h": 17.279137,
+                            "x": 261.50812,
+                            "y": 144.16472,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
                     "name": "BreastFeed",
                     "question_type": "radio",
                     "response_regions": [
@@ -2062,24 +2012,24 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "Pregnant",
+                    "name": "GestationalOutcome",
                     "question_type": "radio",
                     "response_regions": [
                         {
-                            "name": "no",
-                            "w": 17.794931,
-                            "h": 17.021238,
-                            "x": 313.60342,
-                            "y": 143.64894,
+                            "name": "PretermBirth",
+                            "w": 14.930628,
+                            "h": 14.377642,
+                            "x": 271.51624,
+                            "y": 282.02298,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
                         {
-                            "name": "yes",
-                            "w": 20.116009,
-                            "h": 17.279137,
-                            "x": 261.50812,
-                            "y": 144.16472,
+                            "name": "TermBirth",
+                            "w": 15.483614,
+                            "h": 15.483614,
+                            "x": 160.366,
+                            "y": 281.47,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -2465,8 +2415,8 @@
             "name": "Onset",
             "w": 15.095193,
             "h": 723.12128,
-            "x": 384.92743,
-            "y": 117.89661,
+            "x": 381.3768,
+            "y": 333.54221,
             "questions": [
                 {
                     "name": "TransferFacility",
@@ -2504,106 +2454,6 @@
                     "expected_number_digits": 0,
                     "__type__": "Question"
                 },
-                {
-                    "name": "Contact14Days",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "no",
-                            "w": 19.428949,
-                            "h": 19.428949,
-                            "x": 310.25604,
-                            "y": 783.22955,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "yes",
-                            "w": 18.21464,
-                            "h": 18.821795,
-                            "x": 259.86221,
-                            "y": 783.83667,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "AdmissionConditionStatus",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "Critical",
-                            "w": 18.821795,
-                            "h": 17.000332,
-                            "x": 309.6489,
-                            "y": 815.40875,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Mild",
-                            "w": 18.821795,
-                            "h": 18.21464,
-                            "x": 190.03941,
-                            "y": 814.80157,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Moderate",
-                            "w": 20.036104,
-                            "h": 18.21464,
-                            "x": 235.57602,
-                            "y": 814.19446,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "Transfer",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "no",
-                            "w": 18.821795,
-                            "h": 19.428949,
-                            "x": 310.86319,
-                            "y": 740.12158,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "yes",
-                            "w": 18.21464,
-                            "h": 17.607487,
-                            "x": 261.07651,
-                            "y": 741.94299,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "Medications",
-            "w": 15.095193,
-            "h": 841.01788,
-            "x": 386.00565,
-            "y": 207.01979,
-            "questions": [
                 {
                     "name": "Chloroquine",
                     "question_type": "checkbox",
@@ -2830,6 +2680,96 @@
                             "h": 10.601057,
                             "x": 328.95404,
                             "y": 1002.603,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Transfer",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "no",
+                            "w": 18.821795,
+                            "h": 19.428949,
+                            "x": 310.86319,
+                            "y": 740.12158,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "yes",
+                            "w": 18.21464,
+                            "h": 17.607487,
+                            "x": 261.07651,
+                            "y": 741.94299,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "AdmissionConditionStatus",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "Critical",
+                            "w": 18.821795,
+                            "h": 17.000332,
+                            "x": 309.6489,
+                            "y": 815.40875,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Mild",
+                            "w": 18.821795,
+                            "h": 18.21464,
+                            "x": 190.03941,
+                            "y": 814.80157,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Moderate",
+                            "w": 20.036104,
+                            "h": 18.21464,
+                            "x": 235.57602,
+                            "y": 814.19446,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "Contact14Days",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "no",
+                            "w": 19.428949,
+                            "h": 19.428949,
+                            "x": 310.25604,
+                            "y": 783.22955,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "yes",
+                            "w": 18.21464,
+                            "h": 18.821795,
+                            "x": 259.86221,
+                            "y": 783.83667,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }

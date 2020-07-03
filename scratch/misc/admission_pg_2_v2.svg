@@ -13,7 +13,7 @@
    width="816"
    height="1056"
    viewBox="0 0 816 1056"
-   sodipodi:docname="admission_pg_2.svg"
+   sodipodi:docname="admission_pg_2_v2.svg"
    inkscape:version="1.0 (4035a4f, 2020-05-01)">
   <metadata
      id="metadata272">
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,9 +43,9 @@
      inkscape:window-height="755"
      id="namedview268"
      showgrid="false"
-     inkscape:zoom="0.68692978"
-     inkscape:cx="284.93228"
-     inkscape:cy="381.1769"
+     inkscape:zoom="0.90315921"
+     inkscape:cx="190.74123"
+     inkscape:cy="283.21492"
      inkscape:window-x="0"
      inkscape:window-y="23"
      inkscape:window-maximized="1"
@@ -460,27 +460,27 @@
        id="qg_Specimen3_rb_RTPCRTestResult3_Negative"
        style="opacity:0.75;fill:#ff7f2a" />
     <rect
-       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.56926"
+       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.62582"
        id="Specimen1"
-       width="752.27063"
+       width="807.48126"
        height="138.79204"
-       x="64.062073"
+       x="8.8514624"
        y="8.9229221" />
     <rect
        y="146.79512"
-       x="64.438843"
+       x="6.8631687"
        height="65.586494"
-       width="751.53613"
+       width="809.11182"
        id="Specimen2"
-       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.06072"
+       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.1006"
        ry="0" />
     <rect
        y="212.41815"
-       x="63.996979"
+       x="5.9881787"
        height="62.121304"
-       width="755.95142"
+       width="813.96021"
        id="Specimen3"
-       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.07335" />
+       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.11377" />
     <rect
        style="opacity:0.75;fill:#ff7f2a"
        id="qg_OtherTesting_ocr_Haemoglobin"
@@ -706,11 +706,11 @@
        x="141.10802"
        y="655.0708" />
     <rect
-       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.0596"
+       style="opacity:0.75;fill:#ff7f2a;stroke-width:1.10197"
        id="OtherTesting"
-       width="751.4187"
+       width="812.71344"
        height="357.94141"
-       x="68.04763"
+       x="6.752861"
        y="274.99817" />
     <rect
        y="656.17401"
@@ -790,25 +790,25 @@
        x="73.994125"
        y="686.38361" />
     <rect
-       style="opacity:0.75;fill:#ff7f2a;stroke-width:3.21222"
+       style="opacity:0.75;fill:#ff7f2a;stroke-width:3.34125"
        id="Diagnosis"
-       width="747.95233"
+       width="809.24713"
        height="423.06055"
-       x="68.04763"
+       x="6.752861"
        y="632.93958" />
     <rect
        style="opacity:0.75;fill:#ff7f2a"
-       id="qg_ProviderClinicalPlan_ocr_ProviderClinicalPlan"
+       id="qg_Diagnosis_ocr_ProviderClinicalPlan"
        width="663.8421"
        height="84.488998"
        x="73.347588"
        y="748.33112" />
     <rect
-       style="opacity:0.75;fill:#ff7f2a"
+       style="opacity:0.75;fill:#ff7f2a;stroke-width:0.999513"
        id="qg_Diagnosis_ocr_NursingAdmissionNote"
-       width="664.77057"
+       width="664.12384"
        height="167.12109"
-       x="72.419144"
+       x="73.065849"
        y="848.60376" />
   </g>
 </svg>
