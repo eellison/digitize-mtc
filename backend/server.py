@@ -102,6 +102,16 @@ def reset_globals():
 	best_align_score = inf
 
 def get_image_from_request(request, page_number=0):
+	""" Takes request from server, and returns the embedded image file
+	Args:
+		request ([Request object]): request from server
+		page_number (int, optional): which image to extract, if there are multiple. \
+			Defaults to 0.
+
+	Returns:
+		[(String, numpy.ndarray)]: the location of the saved file on disk and a \
+			numpy array containing the image 
+	"""
 	file = request.files.getlist("file")[page_number]
 	# 1) Construct a name/path for the file
 	timestamp = "_" + str(time.time())
