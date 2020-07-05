@@ -6,10 +6,10 @@
     "question_groups": [
         {
             "name": "Specimen1",
-            "w": 64.062073,
-            "h": 84.086014,
-            "x": 666.33649,
-            "y": 63.628952,
+            "w": 8.8514624,
+            "h": 8.9229221,
+            "x": 807.48126,
+            "y": 138.79204,
             "questions": [
                 {
                     "name": "Date",
@@ -286,9 +286,9 @@
         },
         {
             "name": "Specimen2",
-            "w": 64.438843,
+            "w": 6.8631687,
             "h": 146.79512,
-            "x": 667.95636,
+            "x": 809.11182,
             "y": 65.586494,
             "questions": [
                 {
@@ -436,42 +436,6 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "RTPCRTestResult2",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "Invalid",
-                            "w": 9.9750147,
-                            "h": 9.7952089,
-                            "x": 679.52502,
-                            "y": 197.93803,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Negative",
-                            "w": 9.9750147,
-                            "h": 9.7952089,
-                            "x": 551.30884,
-                            "y": 198.16905,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Positive",
-                            "w": 9.9750147,
-                            "h": 9.7952089,
-                            "x": 617.84265,
-                            "y": 197.70702,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
                     "name": "AntibodyTestResult2",
                     "question_type": "radio",
                     "response_regions": [
@@ -526,6 +490,42 @@
                     "__type__": "Question"
                 },
                 {
+                    "name": "RTPCRTestResult2",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "Invalid",
+                            "w": 9.9750147,
+                            "h": 9.7952089,
+                            "x": 679.52502,
+                            "y": 197.93803,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Negative",
+                            "w": 9.9750147,
+                            "h": 9.7952089,
+                            "x": 551.30884,
+                            "y": 198.16905,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Positive",
+                            "w": 9.9750147,
+                            "h": 9.7952089,
+                            "x": 617.84265,
+                            "y": 197.70702,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
                     "name": "AntigenTestResult2",
                     "question_type": "radio",
                     "response_regions": [
@@ -566,10 +566,10 @@
         },
         {
             "name": "Specimen3",
-            "w": 63.996979,
-            "h": 213.59534,
-            "x": 668.84009,
-            "y": 60.944122,
+            "w": 5.9881787,
+            "h": 212.41815,
+            "x": 813.96021,
+            "y": 62.121304,
             "questions": [
                 {
                     "name": "Date",
@@ -716,15 +716,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "AntigenTestResult3",
+                    "name": "RTPCRTestResult3",
                     "question_type": "radio",
                     "response_regions": [
                         {
                             "name": "Invalid",
                             "w": 9.9750147,
                             "h": 9.7952089,
-                            "x": 679.75604,
-                            "y": 245.29715,
+                            "x": 679.52502,
+                            "y": 262.85468,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -732,8 +732,8 @@
                             "name": "Negative",
                             "w": 9.9750147,
                             "h": 9.7952089,
-                            "x": 551.30884,
-                            "y": 245.06613,
+                            "x": 551.07782,
+                            "y": 263.08569,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -741,8 +741,8 @@
                             "name": "Positive",
                             "w": 9.9750147,
                             "h": 9.7952089,
-                            "x": 618.30469,
-                            "y": 245.52817,
+                            "x": 618.07367,
+                            "y": 262.85468,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -806,15 +806,15 @@
                     "__type__": "Question"
                 },
                 {
-                    "name": "RTPCRTestResult3",
+                    "name": "AntigenTestResult3",
                     "question_type": "radio",
                     "response_regions": [
                         {
                             "name": "Invalid",
                             "w": 9.9750147,
                             "h": 9.7952089,
-                            "x": 679.52502,
-                            "y": 262.85468,
+                            "x": 679.75604,
+                            "y": 245.29715,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -822,8 +822,8 @@
                             "name": "Negative",
                             "w": 9.9750147,
                             "h": 9.7952089,
-                            "x": 551.07782,
-                            "y": 263.08569,
+                            "x": 551.30884,
+                            "y": 245.06613,
                             "value": null,
                             "__type__": "ResponseRegion"
                         },
@@ -831,8 +831,8 @@
                             "name": "Positive",
                             "w": 9.9750147,
                             "h": 9.7952089,
-                            "x": 618.07367,
-                            "y": 262.85468,
+                            "x": 618.30469,
+                            "y": 245.52817,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -846,9 +846,9 @@
         },
         {
             "name": "OtherTesting",
-            "w": 68.04763,
+            "w": 6.752861,
             "h": 274.99817,
-            "x": 669.26849,
+            "x": 812.71344,
             "y": 357.94141,
             "questions": [
                 {
@@ -1413,11 +1413,11 @@
             "__type__": "QuestionGroup"
         },
         {
-            "name": "Disposition",
-            "w": 442.25735,
-            "h": 646.84491,
-            "x": 295.56372,
-            "y": 87.493828,
+            "name": "Diagnosis",
+            "w": 6.752861,
+            "h": 632.93958,
+            "x": 809.24713,
+            "y": 423.06055,
             "questions": [
                 {
                     "name": "DischargeDestination",
@@ -1447,6 +1447,96 @@
                             "h": 12.623535,
                             "x": 529.09821,
                             "y": 710.6153,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "SecondaryDiagnoses",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 348.12476,
+                            "h": 47.920006,
+                            "x": 73.994125,
+                            "y": 686.38361,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "ProviderClinicalPlan",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 663.8421,
+                            "h": 84.488998,
+                            "x": 73.347588,
+                            "y": 748.33112,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "NursingAdmissionNote",
+                    "question_type": "text",
+                    "response_regions": [
+                        {
+                            "name": "",
+                            "w": 664.12384,
+                            "h": 167.12109,
+                            "x": 73.065849,
+                            "y": 848.60376,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        }
+                    ],
+                    "answer_status": "unresolved",
+                    "expected_number_digits": 0,
+                    "__type__": "Question"
+                },
+                {
+                    "name": "COVID19",
+                    "question_type": "radio",
+                    "response_regions": [
+                        {
+                            "name": "Confirmed",
+                            "w": 17.509754,
+                            "h": 15.964776,
+                            "x": 141.10802,
+                            "y": 655.0708,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "No",
+                            "w": 17.509754,
+                            "h": 15.964776,
+                            "x": 307.78995,
+                            "y": 656.17401,
+                            "value": null,
+                            "__type__": "ResponseRegion"
+                        },
+                        {
+                            "name": "Suspected",
+                            "w": 17.509754,
+                            "h": 15.964776,
+                            "x": 223.82581,
+                            "y": 656.17401,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }
@@ -1510,126 +1600,6 @@
                             "h": 15.964776,
                             "x": 457.24612,
                             "y": 712.42999,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "Diagnosis",
-            "w": 71.175301,
-            "h": 646.9201,
-            "x": 350.9436,
-            "y": 87.383507,
-            "questions": [
-                {
-                    "name": "SecondaryDiagnoses",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 348.12476,
-                            "h": 47.920006,
-                            "x": 73.994125,
-                            "y": 686.38361,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                },
-                {
-                    "name": "COVID19",
-                    "question_type": "radio",
-                    "response_regions": [
-                        {
-                            "name": "Confirmed",
-                            "w": 17.509754,
-                            "h": 15.964776,
-                            "x": 141.10802,
-                            "y": 655.0708,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "No",
-                            "w": 17.509754,
-                            "h": 15.964776,
-                            "x": 307.78995,
-                            "y": 656.17401,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        },
-                        {
-                            "name": "Suspected",
-                            "w": 17.509754,
-                            "h": 15.964776,
-                            "x": 223.82581,
-                            "y": 656.17401,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "ProviderClinicalPlan",
-            "w": 71.175301,
-            "h": 734.30359,
-            "x": 666.0144,
-            "y": 98.516541,
-            "questions": [
-                {
-                    "name": "ProviderClinicalPlan",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 663.8421,
-                            "h": 84.488998,
-                            "x": 73.347588,
-                            "y": 748.33112,
-                            "value": null,
-                            "__type__": "ResponseRegion"
-                        }
-                    ],
-                    "answer_status": "unresolved",
-                    "expected_number_digits": 0,
-                    "__type__": "Question"
-                }
-            ],
-            "__type__": "QuestionGroup"
-        },
-        {
-            "name": "NursingAdmissionNote",
-            "w": 71.175301,
-            "h": 832.82013,
-            "x": 666.0144,
-            "y": 182.90472,
-            "questions": [
-                {
-                    "name": "NursingAdmissionNote",
-                    "question_type": "text",
-                    "response_regions": [
-                        {
-                            "name": "",
-                            "w": 664.77057,
-                            "h": 167.12109,
-                            "x": 72.419144,
-                            "y": 848.60376,
                             "value": null,
                             "__type__": "ResponseRegion"
                         }

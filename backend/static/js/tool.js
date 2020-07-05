@@ -2,6 +2,9 @@
 // Functionality for pulling image from live stream
 /////////////////////////////////////////////////////////////////////
 function requestLiveFeedResponse(form_name, page_number) {
+  if (stop_align) {
+    return;
+  }
   $.ajax({
     type: 'GET',
     url: '/check_alignment/' + form_name + '/' + page_number,
@@ -9,25 +12,25 @@ function requestLiveFeedResponse(form_name, page_number) {
     cache: false,
     processData:false,
     success: function(data) {
-      if (data.status == 'success') {
+      if (stop_align) {
+        return // stop checking for an alignment
+      } else if (data.status == 'success') {
         form[page_number] = data;
-        d3.select("#turn-on-align-btn").text("Turn on Align Feature");
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
-        $('#page-box' + page_number).attr("class", "page-box-green");
+        d3.select("#scanning-status-box").style('background-color', 'green');
         $('#file-thumbnail' + page_number).attr('src', "/static/image/checkmark.png");
+        d3.select("#scanning-status-box").text("Form Captured!");
+        $('#align-switch').prop('checked', false);
         current_page = current_page + 1;
+        $('#page-box' + current_page).click()
       } else if (data.status == 'aligned') {
         console.log("got alignment!!");
-        d3.select("#turn-on-align-btn").text(data.remaining_frames);
-        d3.select("#videoFeed").classed("camera-feed", false);
-        d3.select("#videoFeed").classed("camera-feed-green", true);
+        d3.select("#scanning-status-box").text("Form Detected! Hold still: " + data.remaining_frames);
+        d3.select("#scanning-status-box").style('background-color', 'green');
         requestLiveFeedResponse(form_name, page_number);
       } else if (data.status == 'unaligned') {
         console.log("bad alignment...");
-        d3.select("#turn-on-align-btn").text("Scanning for page " + (page_number + 1));
-        d3.select("#videoFeed").classed("camera-feed-green", false);
-        d3.select("#videoFeed").classed("camera-feed", true);
+        d3.select("#scanning-status-box").style('background-color', 'black');
+        d3.select("#scanning-status-box").text("Scanning for page " + (current_page + 1));
         requestLiveFeedResponse(form_name, page_number);
       }
     },
@@ -38,12 +41,45 @@ function requestLiveFeedResponse(form_name, page_number) {
   });
 }
 
-$(function() {
-	$('#turn-on-align-btn').click(function() {
-     d3.select("#turn-on-align-btn").text("Scanning for page " + (current_page + 1));
-	   requestLiveFeedResponse(file_path, current_page);
-   })
- });
+
+var stop_align = false;
+function stop_alignment() {
+  stop_align = true;
+  $('#align-switch').prop('checked', false);
+  d3.select("#scanning-status-box").text("Scanning feature off...");
+  d3.select("#scanning-status-box").style('background-color', 'black');
+
+  // Tell the server to stop capturing frames form camera
+  $.ajax({
+    type: 'GET',
+    url: '/stop_camera_feed/',
+    contentType: false,
+    cache: false,
+    processData:false,
+    success: function(data) {
+      console.log(data);
+    },
+    error: function(xhr) {
+      //Do Something to handle error
+      console.log("AJAX error...?");
+    }
+  });
+}
+
+
+
+$('#align-switch').click(function(){
+    if($(this).is(':checked')){
+        stop_align = false;
+        d3.select("#scanning-status-text").text("Scanning for page " + (current_page + 1));
+        activate_page_box(current_page);
+        requestLiveFeedResponse(file_path, current_page);
+        console.log("ON");
+    } else {
+        stop_alignment();
+    }
+});
+
 
 $(function() {
 	$('#process-live-feed-btn').click(function() {
@@ -53,13 +89,26 @@ $(function() {
    })
  });
 
+function activate_page_box(box_index) {
+  // Make all page boxes new again
+  $('.page-box').addClass("page-box-new");
+  $('.page-box-active').removeClass("page-box-active");
+
+  // Specifically make the clicked box "active"
+  $('#page-box' + box_index).removeClass("page-box-new");
+  // $('#page-box' + current_page).removeClass("page-box-green");
+  $('#page-box' + box_index).addClass("page-box-active");
+}
+
 $(function() {
 	$('.page-box').click(function() {
+    // Stop any ongoing alignment, since the user is switching pages
+    stop_alignment()
+
+     // Update the current page variable
      current_page = $('.page-box').index(this);
-     // TODO: also highlight this page box and un-highlight the others
-     // Basic outline to change the CSS class of the clicked box is below
-     // $('.page-box').removeClass(".page-box-active");
-     // $('#page-box' + current_page).addClass("page-box-active");
+     activate_page_box(current_page);
+
    })
  });
 
@@ -113,42 +162,6 @@ function populate_pages_dropdown() {
     pages_dropdown.appendChild(option);
   }
 }
-
-/////////////////////////////////////////////////////////////////////
-// Functionality for sending / receiving the form and editing results
-/////////////////////////////////////////////////////////////////////
-// $(function() {
-// 	$('#upload-file-btn').click(function() {
-// 		var form_data = new FormData($('#upload-file')[0]);
-
-// 		// file_path is passed in by the template
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: '/upload_and_process_file/' + file_path,
-		// 	data: form_data,
-		// 	contentType: false,
-		// 	cache: false,
-		// 	processData: false,
-		// 	success: function(data) {
-		// 		if (data.status == 'success') {
-		// 			$('#upload-response').append("<h3>" + "Upload success!" + "</h3>");
-		// 			form = data;
-		// 			display(form);
-		// 			visualize(form);
-		// 			displaySvgFrame();
-		// 			$(".question_group_title").click();
-		// 			hideUpload();
-		// 		} else if (data.status == 'error') {
-		// 			$('#upload-response').append("<h3>" + data.error_msg + "</h3>")
-		// 		}
-		// 	},
-		// 	error: function(error) {
-		// 		$('#upload-response').append("<h3>" + "No response from server" + "</h3>")
-		// 	}
-		// });
-// 	});
-// });
-
 
 var width = (document.getElementById("main-content").offsetWidth),
 	height = (document.getElementById("main-content").offsetWidth),

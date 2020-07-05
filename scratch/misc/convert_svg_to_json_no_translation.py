@@ -134,7 +134,7 @@ def create_radio_questions(tag_list, dw, dh):
 # Create Paths / names
 form_name = "Admission Page 2"
 template_file_name = "admission_pg_2.json"
-abs_path_to_svg = str((Path.cwd() / "admission_pg_2.svg").resolve())
+abs_path_to_svg = str((Path.cwd() / "admission_pg_2_v2.svg").resolve())
 relative_path_to_template_image = str(Path("") / "backend" / "forms" / "template_images_v2" / "admission_pg_2.jpeg")
 
 # Generate questions from SVG

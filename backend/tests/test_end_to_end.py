@@ -29,7 +29,7 @@ def rank_stream(stream, template_image):
     try:
         frame = util.read_image(str(stream))
         assert frame is not None
-        aligned_image, aligned_diag_image, h, align_score = align.align_images(frame, template_image)
+        aligned_image, aligned_diag_image, h, align_score = align.global_align(frame, template_image)
 
         is_blurry, blurry_score = compute_blurriness(aligned_image)
         if is_blurry:

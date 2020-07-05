@@ -1,12 +1,14 @@
 from .form import *
 from .util import *
+from .align import *
 
 # tuned for 300 dpi grayscale text
 BLACK_LEVEL = 0.5 * 255 # 255 is pure white
-CHECK_THR = 0.01 # threshold for checked box
-EMPTY_THR = 0.009 # threshold for empty box
-
+CHECK_THR = 0.05 # threshold for checked box
+EMPTY_THR = 0.02 # threshold for empty box
 RADIO_THR = 0.01 # threhold for picking radio button
+
+
 
 
 def calc_checkbox_score(image, response_region):
@@ -20,8 +22,8 @@ def calc_checkbox_score(image, response_region):
     w, h, x, y = (response_region.w, response_region.h, response_region.x, response_region.y)
     roi = image[y : y + h, x : x + w] < BLACK_LEVEL
     # For now, stick with simple image masking. Later refine "remove_checkbox_outline" in util.py
-    masked = roi[1:-1, 1:-1] & roi[:-2, 1:-1] & roi[2:, 1:-1] & roi[1:-1, :-2] & roi[1:-1, 2:]
-    scr = (masked).sum() / (w * h)
+    # masked = roi[1:-1, 1:-1] & roi[:-2, 1:-1] & roi[2:, 1:-1] & roi[1:-1, :-2] & roi[1:-1, 2:]
+    scr = (roi).sum() / (w * h)
     return scr
 
 def checkbox_state(input_image, template_image, response_region):
@@ -33,6 +35,8 @@ def checkbox_state(input_image, template_image, response_region):
     Returns:
         checkbox_state (CheckboxState): inferred state of this checkbox
     """
+    finetune(input_image, template_image, response_region)
+
     input_score = calc_checkbox_score(input_image, response_region)
     template_score = calc_checkbox_score(template_image, response_region)
     scr = input_score - template_score
@@ -69,6 +73,7 @@ def radio_answer(question, input_image, template_image):
         question (Question): same input question, with "answers" filled in
     """
     for rr in question.response_regions:
+        finetune(input_image, template_image, rr) # finetune response region to align
         rr.value = calc_checkbox_score(input_image, rr)
     sorted_regions = sorted(question.response_regions, reverse=True, key=lambda rr: rr.value) # sort by score
     highest_score = sorted_regions[0].value
@@ -98,6 +103,7 @@ def text_answer(question, input_image, template_image):
     """
     # TODO: have this run pytesseract on the input region (see "/scratch/ocr_test.py")
     for region in question.response_regions:
+        finetune(input_image, template_image, region) # finetune response region to align
         region.value = ""
     question.answer_status = AnswerStatus.unresolved
     return question
@@ -139,6 +145,7 @@ def text_answer(question, input_image, template_image):
 #     rr.value = answer
 #     question.answer_status = AnswerStatus.resolved
 #     return question
+
 
 def answer(question, input_image, template_image):
     """
