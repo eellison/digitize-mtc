@@ -27,60 +27,53 @@ def global_align(im1, im2):
 
 	assert isinstance(im1, np.ndarray) and isinstance(im2, np.ndarray)
 
+	# 1) Compute feature matches between template and input image
 	# Convert images to grayscale
 	im_1_gray = cv2.cvtColor(im1, cv2.COLOR_BGR2GRAY)
 	im_2_gray = cv2.cvtColor(im2, cv2.COLOR_BGR2GRAY)
-
 	# Detect ORB features and compute descriptors.
 	orb = cv2.ORB_create(MAX_FEATURES)
 	key_points_1, descriptors_1 = orb.detectAndCompute(im_1_gray, None)
 	key_points_2, descriptors_2 = orb.detectAndCompute(im_2_gray, None)
-
 	# Match features.
 	matcher = cv2.DescriptorMatcher_create(cv2.DESCRIPTOR_MATCHER_BRUTEFORCE_HAMMING)
 	matches = matcher.match(descriptors_1, descriptors_2, None)
-
 	# Sort matches by score
 	matches.sort(key=lambda x: x.distance, reverse=False)
-
 	# Remove not so good matches
 	num_good_matches = int(len(matches) * GOOD_MATCH_PERCENT)
 	matches = matches[:num_good_matches]
 
-	# Validate the matches for quality
+	# 2) Validate the matches for quality
 	match_distances = [m.distance for m in matches]
 	avg_match_dist = np.median(match_distances)
-	# if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
-	#     # Uncomment the lines below for console debug
-	#     print(avg_match_dist)
-	#     print(AVG_MATCH_DIST_CUTOFF)
-	#     # print(avg_match_dist > AVG_MATCH_DIST_CUTOFF)
-	#     raise AlignmentError("Poor image alignment! Please confirm you are using\n \
-	#     the right form, and upload a new image.")
+	if avg_match_dist > AVG_MATCH_DIST_CUTOFF:
+	    # Write the alignment score to console:
+	    print("Average match distance of %d exceeds match distance cutoff of %d." \
+			% (avg_match_dist, AVG_MATCH_DIST_CUTOFF))
+	    raise AlignmentError("Poor image alignment! Please confirm you are using\n \
+	    the right form, and upload a new image.")
 
+	# 3) Use the matches to compute + apply the homography
 	# Draw top matches
 	im_matches = cv2.drawMatches(im1, key_points_1, im2, key_points_2, matches, None)
-
 	# Extract location of good matches
 	points_1 = np.zeros((len(matches), 2), dtype=np.float32)
 	points_2 = np.zeros((len(matches), 2), dtype=np.float32)
-
 	for i, match in enumerate(matches):
 		points_1[i, :] = key_points_1[match.queryIdx].pt
 		points_2[i, :] = key_points_2[match.trainIdx].pt
-
 	# Find homography
 	try:
 		h, mask = cv2.findHomography(points_1, points_2, cv2.RANSAC)
 	except:
 		raise AlignmentError("Inproper Homography in Alignment! Please confirm you are using\n \
 		the right form, and upload a new image.")
-
 	# Use homography
 	height, width, channels = im2.shape
 	im1_warp = cv2.warpPerspective(im1, h, (width, height))
 
-	###  Check homography for improvement ###
+	# 4) Check homography for improvement
 	im1_warp_gray = cv2.cvtColor(im1_warp, cv2.COLOR_BGR2GRAY)
 	key_points_warp, descriptors_warp = orb.detectAndCompute(im1_warp_gray, None)
 	matches_warp = matcher.match(descriptors_warp, descriptors_2, None)
@@ -90,21 +83,10 @@ def global_align(im1, im2):
 	# Validate the matches for quality
 	match_distances_warp = [m.distance for m in matches_warp]
 	avg_match_dist_warp = np.median(match_distances_warp)
-
-	print("Average match dist:")
-	print(avg_match_dist)
-	print("Average match dist warp:")
-	print(avg_match_dist_warp)
-
-	if (avg_match_dist > AVG_MATCH_DIST_CUTOFF) or (avg_match_dist_warp > avg_match_dist): # or
+	if avg_match_dist_warp > avg_match_dist: 
 		# The perspective warp reduced the average match quality OR "the original image was shit" -Dan
-		# cv2.imwrite("original_bad.jpg", im1)
-		# cv2.imwrite("warped_bad.jpg", im1_warp)
-		raise AlignmentError("Poor image alignment! Please confirm you are using\n \
-		the right form, and upload a new image.")
-
-	# cv2.imwrite("original_good.jpg", im1)
-	# cv2.imwrite("warped_good.jpg", im1_warp)
+		raise AlignmentError("Poor image alignment! Applying homography reduced \n \
+		the alignment score. Please confirm camera image quality.")
 
 	return im1_warp, im_matches, h, avg_match_dist
 
@@ -120,6 +102,9 @@ def local_align(im1, im2, form):
 		h (numpy.ndarray): matrix describing homography
 		align_score (float): average max distance, lower is better
 	"""
+
+	# TODO (sud): Refactor this code so that it calls global_align above
+
 	project_mark_locations(im2[:,:,0], form)
 	im_aligned = np.zeros_like(im2, dtype=np.uint8)
 
@@ -130,6 +115,7 @@ def local_align(im1, im2, form):
 		im1_quad = im1[y:y+h, x:x+w,:]
 		im2_quad = im2[y:y+h, x:x+w,:]
 
+		# From this point on, can probably call global_align
 		# Convert images to grayscale
 		im_1_gray = cv2.cvtColor(im1_quad, cv2.COLOR_BGR2GRAY)
 		im_2_gray = cv2.cvtColor(im2_quad, cv2.COLOR_BGR2GRAY)
