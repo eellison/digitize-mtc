@@ -27,7 +27,6 @@ def create():
         # To Do: construct name.json of length number and update global templates
         return render_template('annotate.html', name=name, num_pages=num_pages)
 
-
 @app.route('/new_form/', methods=['POST', 'GET'])
 def new_form():
     if request.method == 'POST':
@@ -159,6 +158,14 @@ def write_debug_stream_image(form_name, page_number, image):
 
     cv2.imwrite(file_name, image)
 
+def get_template_and_template_image(form_name, page_number):
+    template = templates[form_name]["pages"][int(page_number)]
+    template_image = template.image
+    if isinstance(template_image, str):
+        template_image = util.read_image(str(get_homedir() / template_image))
+
+    assert template_image is not None
+    return template, template_image
 
 @app.route('/check_alignment/<form_name>/<page_number>', methods=['GET', 'POST'])
 def video_feed(form_name, page_number):
@@ -170,13 +177,7 @@ def video_feed(form_name, page_number):
     global best_align_score
 
     time.sleep(sec_btw_captures) # wait before processing frame
-
-    template = templates[form_name]["pages"][int(page_number)]
-    template_image = template.image
-    if isinstance(template_image, str):
-        template_image = util.read_image(template_image)
-
-    assert template_image is not None
+    template, template_image = get_template_and_template_image(form_name, page_number)
 
     if request.method == "GET":
         # Grab a frame from the live camera feed
@@ -235,24 +236,38 @@ def video_feed(form_name, page_number):
         print("Alignment Error!")
         return json_status("unaligned")
 
+def get_homedir():
+    path = Path.cwd()
+    last_dir = None
+    while last_dir != "digitize-mtc" and last_dir != '/':
+        path, last_dir = os.path.split(path)
+    assert last_dir == 'digitize-mtc'
+    return Path(path + "/digitize-mtc/")
+
 def upload_all_templates():
     # Populate the "templates" and "template_images" Python dictionaries with
     # modeled Python "Form" objects
     global templates
 
+    get_homedir()
     # TODO: loop through all files *.json from forms/json_annotations
     for file in ["delivery", "antenatal", "covid", "admission"]:
-        path_to_json_file = str(Path.cwd() / "backend" / "forms" / "json_annotations" / (file + ".json"))
+        path_to_json_file = str(get_homedir() / "backend" / "forms" / "json_annotations" / (file + ".json"))
         templates[file] = read_multipage_json_to_form(path_to_json_file)
 
 # Set up global variables
-cam = Camera()
+cam = None
 sec_btw_captures = 1
 good_frames_captured = 0
 good_frames_to_capture_before_processing = 5
 best_aligned_image = None
 best_align_score = inf # lower alignment score is better
 templates = {}
+
+def initialize():
+    global cam
+    cam = Camera()
+    upload_all_templates()
 
 
 if __name__ == "__main__":
@@ -266,7 +281,7 @@ if __name__ == "__main__":
         app.config['UPLOAD_FOLDER'] = str(args.upload_folder)
     app.config["SAVE_DEBUG"] = args.save_debug
 
-    upload_all_templates()
+    initialize()
 
     webbrowser.open('http://localhost:' + str(args.port))
     app.run(host='0.0.0.0', port=args.port)

@@ -245,7 +245,8 @@ def extract_radio_answer(q):
     Returns:
         answer (str): the answer embedded in the response region value
     '''
-    out = list(filter(lambda rr: rr.value == CheckboxState.checked.name, q.response_regions))
+    # TODO: remove rr.value == CheckboxState.checked.name
+    out = list(filter(lambda rr: rr.value == CheckboxState.checked or rr.value == CheckboxState.checked.name, q.response_regions))
     # if the checkbox is not filled in return an empty string
     return out[0].name if out else ""
 
