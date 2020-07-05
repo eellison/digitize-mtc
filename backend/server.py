@@ -240,14 +240,6 @@ def get_homedir():
     assert last_dir == 'digitize-mtc'
     return Path(path + "/digitize-mtc/")
 
-def get_homedir():
-    path = Path.cwd()
-    last_dir = None
-    while last_dir != "digitize-mtc" and last_dir != '/':
-        path, last_dir = os.path.split(path)
-    assert last_dir == 'digitize-mtc'
-    return Path(path + "/digitize-mtc/")
-
 def upload_all_templates():
 	# Populate the "templates" and "template_images" Python dictionaries with
 	# modeled Python "Form" objects

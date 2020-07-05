@@ -131,11 +131,17 @@ def run_end_to_end(results_file):
 
 def main():
     """
+    Takes in a csv file of correctly saved results generated through running digitize with
+    debug saving enabled.
+
     Example usage:
+        python backend/server.py --upload_folder /digitize-mtc/backend/output/ --save-debug
+        ...
+        run digitiz with the delivery form a number of times
+        ...
+        python test_end_to_end.py --INPUT_FILE /digitize-mtc/backend/output/delivery.csv
     """
-    #########################################################
-    ### Parse args for OMR/alignment parameter ranges #######
-    #########################################################
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--INPUT_FILE", type=str)
     args = parser.parse_args()
